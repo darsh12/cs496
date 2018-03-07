@@ -15,6 +15,7 @@
         "symfony/maker-bundle": "^1.1",
         "symfony/monolog-bundle": "^3.1",
         "symfony/orm-pack": "^1.0",
+        "symfony/translation": "^4.0",
         "symfony/twig-bundle": "^4.0",
         "symfony/yaml": "^4.0"
     },
