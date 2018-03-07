@@ -10,18 +10,22 @@
         "symfony/console": "^4.0",
         "symfony/dotenv": "^4.0",
         "symfony/flex": "^1.0",
+        "symfony/form": "^4.0",
         "symfony/framework-bundle": "^4.0",
         "symfony/lts": "^4@dev",
         "symfony/maker-bundle": "^1.1",
         "symfony/monolog-bundle": "^3.1",
         "symfony/orm-pack": "^1.0",
+        "symfony/translation": "^4.0",
         "symfony/twig-bundle": "^4.0",
         "symfony/yaml": "^4.0"
     },
     "require-dev": {
         "easycorp/easy-log-handler": "^1.0.2",
+        "symfony/browser-kit": "^4.0",
+        "symfony/css-selector": "^4.0",
         "symfony/debug-bundle": "^3.3|^4.0",
-        "symfony/phpunit-bridge": "^3.3|^4.0",
+        "symfony/phpunit-bridge": "^4.0",
         "symfony/profiler-pack": "^1.0",
         "symfony/var-dumper": "^3.3|^4.0",
         "symfony/web-server-bundle": "^4.0"
