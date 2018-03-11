@@ -3,7 +3,7 @@ security:
     encoders:
          FOS\UserBundle\Model\UserInterface:
             algorithm: bcrypt
-            cost: 23
+            cost: 12
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username
