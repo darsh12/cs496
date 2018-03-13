@@ -13,13 +13,21 @@ security:
             security: false
         main:
             anonymous: true
+            logout: ~
+            form_login:
+                csrf_token_generator: security.csrf.token_manager
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800
+                secure: true
+
 
             # activate different ways to authenticate
 
             # http_basic: true
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
 
-            # form_login: true
+
             # https://symfony.com/doc/current/security/form_login_setup.html
 
     # Easy way to control access for large sections of your site
