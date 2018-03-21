@@ -8,14 +8,14 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20180225232619 extends AbstractMigration
+class Version20180309011634 extends AbstractMigration
 {
     public function up(Schema $schema)
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE players CHANGE price total NUMERIC(10, 2) DEFAULT NULL');
+        $this->addSql('ALTER TABLE test_table CHANGE card_name name VARCHAR(255) NOT NULL');
     }
 
     public function down(Schema $schema)
@@ -23,6 +23,6 @@ class Version20180225232619 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE players CHANGE total price NUMERIC(10, 2) DEFAULT NULL');
+        $this->addSql('ALTER TABLE test_table CHANGE name card_name VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci');
     }
 }
