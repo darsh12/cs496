@@ -1,0 +1,12 @@
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: App\Entity\User
+    service:                               # this lines
+        mailer: fos_user.mailer.twig_swift # this lines
+    from_email:
+        address: admin@fightsim.fun
+        sender_name: Celebrity Fight Simulator
+    registration:
+        confirmation:
+            enabled: true
