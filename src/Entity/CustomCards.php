@@ -19,7 +19,7 @@ class CustomCards
 
     /**
      * @ORM\Column(type="integer")
-     * @ORM\OneToMany(targetEntity="App\Entity\UserLogin", mappedBy="id")
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="id")
      */
     private $user_id;
 
