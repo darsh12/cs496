@@ -16,6 +16,8 @@ class User extends BaseUser implements TwoFactorInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharDecks", inversedBy="user_id")
+     * @ORM\JoinColumn(nullable=true)
      */
     protected $id;
 
