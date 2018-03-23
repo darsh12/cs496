@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="CharDeckRepository")
  * @ORM\Entity
- * @ORM\Table(name="char_decks")
+ * @ORM\Table(name="char_deck")
  */
 class CharDeck
 {
