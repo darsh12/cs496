@@ -14,54 +14,47 @@ class BattleRequest
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="Battle", inversedBy="request_id")
-     * @ORM\JoinColumn(nullable=true)
      */
-    private $id;
+    protected $id;
 
     /**
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Battle", mappedBy="request_id")
      */
-    private $attacker_id;
+    protected $battle_requests;
+
+    public function __construct()
+    {
+        $this->battle_requests = new ArrayCollection();
+    }
 
     /**
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="attacker_id", referencedColumnName="id")
      */
-    private $defender_id;
+    protected $attacker_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="defender_id", referencedColumnName="id")
+     */
+    protected $defender_id;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $datetime;
+    protected $datetime;
 
     /**
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\CharDeck", mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharDeck")
+     * @ORM\JoinColumn(name="attack_char_deck_id", referencedColumnName="id")
      */
-    private $attack_char_deck_id;
+    protected $attack_char_deck_id;
 
     /**
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\UtilDeck", mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\UtilDeck")
+     * @ORM\JoinColumn(name="attack_util_deck_id", referencedColumnName="id")
      */
-    private $attack_util_deck_id;
-
-    /**
-     * BattleRequest constructor.
-     * @param $attacker_id
-     * @param $defender_id
-     * @param $attack_char_deck_id
-     * @param $attack_util_deck_id
-     */
-    public function __construct($attacker_id, $defender_id, $attack_char_deck_id, $attack_util_deck_id)
-    {
-        $this->attacker_id = new ArrayCollection();
-        $this->defender_id = new ArrayCollection();
-        $this->attack_char_deck_id = new ArrayCollection();
-        $this->attack_util_deck_id = new ArrayCollection();
-    }
+    protected $attack_util_deck_id;
 
     /**
      * @return mixed

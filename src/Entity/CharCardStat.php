@@ -13,40 +13,48 @@ class CharCardStat
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="CharCard", inversedBy="char_stat_id")
-     * @ORM\JoinColumn(nullable=true)
      */
-    private $id;
+    protected $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CharCard", mappedBy="char_stat_id")
+     */
+    protected $char_card_stats;
+
+    public function __construct()
+    {
+        $this->char_card_stats = new ArrayCollection();
+    }
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $hit_points;
+    protected $hit_points;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $attack;
+    protected $attack;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $defense;
+    protected $defense;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $agility;
+    protected $agility;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $luck;
+    protected $luck;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $speed;
+    protected $speed;
 
     /**
      * @return mixed

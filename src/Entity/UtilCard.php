@@ -14,60 +14,55 @@ class UtilCard
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="UtilDeck", inversedBy="card1_id")
-     * @ORM\ManyToOne(targetEntity="UtilDeck", inversedBy="card2_id")
-     * @ORM\ManyToOne(targetEntity="UtilDeck", inversedBy="card3_id")
-     * @ORM\ManyToOne(targetEntity="UserUtilCard", inversedBy="util_card_id")
-     * @ORM\JoinColumn(nullable=true)
      *
      */
-    private $id;
+    protected $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\OneToMany(targetEntity="App\Entity\UtilDeck", mappedBy="card1_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\UtilDeck", mappedBy="card2_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\UtilDeck", mappedBy="card3_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserUtilCard", mappedBy="util_card_id")
      */
-    private $util_name;
+    protected $util_cards;
 
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $util_type;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $util_tier;
-
-    /**
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\Avatar", mappedBy="id")
-     */
-    private $avatar_id;
-
-    /**
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\AtkUtilEffect", mappedBy="id")
-     */
-    private $attack_effect_id;
-
-    /**
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\DefUtilEffect", mappedBy="id")
-     */
-    private $defense_effect_id;
-
-    /**
-     * UtilCard constructor.
-     * @param $avatar_id
-     * @param $attack_effect_id
-     * @param $defense_effect_id
-     */
-    public function __construct($avatar_id, $attack_effect_id, $defense_effect_id)
+    public function __construct()
     {
-        $this->avatar_id = new ArrayCollection();
-        $this->attack_effect_id = new ArrayCollection();
-        $this->defense_effect_id = new ArrayCollection();
+        $this->util_cards = new ArrayCollection();
     }
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $util_name;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $util_type;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $util_tier;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Avatar")
+     * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
+     */
+    protected $avatar_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\AtkUtilEffect")
+     * @ORM\JoinColumn(name="attack_effect_id", referencedColumnName="id")
+     */
+    protected $attack_effect_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\DefUtilEffect")
+     * @ORM\JoinColumn(name="defense_effect_id", referencedColumnName="id")
+     */
+    protected $defense_effect_id;
 
     /**
      * @return mixed

@@ -14,40 +14,39 @@ class Achievement
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="UserAchievement", inversedBy="achievement_id")
-     * @ORM\JoinColumn(nullable=true)
      */
-    private $id;
+    protected $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserAchievement", mappedBy="achievement_id")
      */
-    private $description;
+    protected $achievements;
 
-    /**
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\Reward", mappedBy="id")
-     */
-    private $reward_id;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $type;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $count_value;
-
-    /**
-     * Achievement constructor.
-     * @param $reward_id
-     */
-    public function __construct($reward_id)
+    public function __construct()
     {
-        $this->reward_id = new ArrayCollection();
+        $this->achievements = new ArrayCollection();
     }
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $description;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Reward")
+     * @ORM\JoinColumn(name="reward_id", referencedColumnName="id")
+     */
+    protected $reward_id;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $type;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $count_value;
 
     /**
      * @return mixed

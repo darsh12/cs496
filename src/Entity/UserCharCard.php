@@ -12,51 +12,48 @@ class UserCharCard
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $user_id;
+    protected $user_id;
 
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\OneToMany(targetEntity="CharCard", mappedBy="id")
-     * @ORM\ManyToOne(targetEntity="UserStat", inversedBy="favorite_card")
-     * @ORM\ManyToOne(targetEntity="UserStat", inversedBy="most_defeated_card")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard")
+     * @ORM\JoinColumn(name="char_card_id", referencedColumnName="id")
      */
-    private $char_card_id;
+    protected $char_card_id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserStat", mappedBy="favorite_card")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserStat", mappedBy="most_defeated_card")
      */
-    private $card_kills;
+    protected $user_char_cards;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $card_deaths;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $card_count;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $card_uses;
-
-    /**
-     * UserCharCard constructor.
-     * @param $user_id
-     * @param $char_card_id
-     */
-    public function __construct($user_id, $char_card_id)
+    public function __construct()
     {
-        $this->user_id = new ArrayCollection();
-        $this->char_card_id = new ArrayCollection();
+        $this->user_char_cards = new ArrayCollection();
     }
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $card_kills;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $card_deaths;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $card_count;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $card_uses;
 
     /**
      * @return mixed

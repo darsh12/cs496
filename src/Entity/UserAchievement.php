@@ -12,28 +12,17 @@ class UserAchievement
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $user_id;
+    protected $user_id;
 
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\Achievement", mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Achievement")
+     * @ORM\JoinColumn(name="achievement_id", referencedColumnName="id")
      */
-    private $achievement_id;
-
-    /**
-     * UserAchievement constructor.
-     * @param $user_id
-     * @param $achievement_id
-     */
-    public function __construct($user_id, $achievement_id)
-    {
-        $this->user_id = new ArrayCollection();
-        $this->achievement_id = new ArrayCollection();
-    }
+    protected $achievement_id;
 
     /**
      * @return mixed

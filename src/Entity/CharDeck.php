@@ -2,14 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\DBAL\Migrations\Configuration\ArrayConfiguration;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="CharDeckRepository")
- * @ORM\Entity
- * @ORM\Table(name="char_deck")
  */
 class CharDeck
 {
@@ -17,66 +13,55 @@ class CharDeck
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="Battle", inversedBy="defend_char_deck_id")
-     * @ORM\ManyToOne(targetEntity="BattleRequest", inversedBy="attack_char_deck_id")
-     * @ORM\JoinColumn(nullable=true)
      */
-    private $id;
+    protected $id;
 
     /**
-     * @ORM\Column(type="integer")
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Battle", mappedBy="defend_char_deck_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\BattleRequest", mappedBy="attack_char_deck_id")
      */
-    private $user_id;
+    protected $char_decks;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\OneToMany(targetEntity="CharCard", mappedBy="id")
-     */
-    private $card1_id;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\OneToMany(targetEntity="CharCard", mappedBy="id")
-     */
-    private $card2_id;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\OneToMany(targetEntity="CharCard", mappedBy="id")
-     */
-    private $card3_id;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\OneToMany(targetEntity="CharCard", mappedBy="id")
-     */
-    private $card4_id;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\OneToMany(targetEntity="CharCard", mappedBy="id")
-     */
-    private $card5_id;
-
-    /**
-     * CharDeck constructor.
-     * @param $user_id
-     * @param $card1_id
-     * @param $card2_id
-     * @param $card3_id
-     * @param $card4_id
-     * @param $card5_id
-     */
-    public function __construct($user_id, $card1_id, $card2_id, $card3_id, $card4_id, $card5_id)
+    public function __construct()
     {
-        $this->user_id = new ArrayCollection();
-        $this->card1_id = new ArrayCollection();
-        $this->card2_id = new ArrayCollection();
-        $this->card3_id = new ArrayCollection();
-        $this->card4_id = new ArrayCollection();
-        $this->card5_id = new ArrayCollection();
+        $this->char_decks = new ArrayCollection();
     }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard")
+     * @ORM\JoinColumn(name="card1_id", referencedColumnName="id")
+     */
+    protected $card1_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard")
+     * @ORM\JoinColumn(name="card2_id", referencedColumnName="id")
+     */
+    protected $card2_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard")
+     * @ORM\JoinColumn(name="card3_id", referencedColumnName="id")
+     */
+    protected $card3_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard")
+     * @ORM\JoinColumn(name="card4_id", referencedColumnName="id")
+     */
+    protected $card4_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard")
+     * @ORM\JoinColumn(name="card5_id", referencedColumnName="id")
+     */
+    protected $card5_id;
 
     /**
      * @return mixed

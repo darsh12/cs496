@@ -13,45 +13,53 @@ class DefUtilEffect
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="UtilCard", inversedBy="defense_effect_id")
-     * @ORM\JoinColumn(nullable=true)
      */
-    private $id;
+    protected $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UtilCard", mappedBy="defense_effect_id")
+     */
+    protected $def_util_effects;
+
+    public function __construct()
+    {
+        $this->def_util_effects = new ArrayCollection();
+    }
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $attribute_mod;
+    protected $attribute_mod;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $card_swap;
+    protected $card_swap;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $peek_char;
+    protected $peek_char;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $peek_util;
+    protected $peek_util;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $peek_type;
+    protected $peek_type;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $peek_class;
+    protected $peek_class;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $peek_order;
+    protected $peek_order;
 
     /**
      * @return mixed

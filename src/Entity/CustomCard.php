@@ -15,40 +15,29 @@ class CustomCard
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    protected $id;
 
     /**
-     * @ORM\Column(type="integer")
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $user_id;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $type;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\OneToMany(targetEntity="CustomCardStat", mappedBy="id")
-     */
-    private $card_stat_id;
+    protected $user_id;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $votes;
+    protected $type;
 
     /**
-     * CustomCard constructor.
-     * @param $user_id
-     * @param $card_stat_id
+     * @ORM\ManyToOne(targetEntity="App\Entity\CustomCardStat")
+     * @ORM\JoinColumn(name="card_stat_id", referencedColumnName="id")
      */
-    public function __construct($user_id, $card_stat_id)
-    {
-        $this->user_id = new ArrayCollection();
-        $this->card_stat_id = new ArrayCollection();
-    }
+    protected $card_stat_id;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $votes;
 
     /**
      * @return mixed

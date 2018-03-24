@@ -13,15 +13,24 @@ class Avatar
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="CharCard", inversedBy="avatar_id")
-     * @ORM\JoinColumn(nullable=true)
      */
-    private $id;
+    protected $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CharCard", mappedBy="avatar_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\UtilCard", mappedBy="avatar_id")
+     */
+    protected $avatars;
+
+    public function __construct()
+    {
+        $this->avatars = new ArrayCollection();
+    }
 
     /**
      * @ORM\Column(type="string")
      */
-    private $image_path;
+    protected $image_path;
 
     /**
      * @return mixed

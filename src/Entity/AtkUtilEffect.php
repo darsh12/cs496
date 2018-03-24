@@ -13,45 +13,53 @@ class AtkUtilEffect
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="UtilCard", inversedBy="attack_effect_id")
-     * @ORM\JoinColumn(nullable=true)
      */
-    private $id;
+    protected $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UtilCard", mappedBy="attack_effect_id")
+     */
+    protected $atk_util_effects;
+
+    public function __construct()
+    {
+        $this->atk_util_effects = new ArrayCollection();
+    }
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $attribute_mod;
+    protected $attribute_mod;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $card_swap;
+    protected $card_swap;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $hide_char;
+    protected $hide_char;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $hide_util;
+    protected $hide_util;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $hide_type;
+    protected $hide_type;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $hide_class;
+    protected $hide_class;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $hide_order;
+    protected $hide_order;
 
     /**
      * @return mixed

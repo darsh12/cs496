@@ -14,50 +14,43 @@ class UtilDeck
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="Battle", inversedBy="defend_util_deck_id")
-     * @ORM\ManyToOne(targetEntity="BattleRequest", inversedBy="attack_util_deck_id")
-     * @ORM\JoinColumn(nullable=true)
      */
-    private $id;
+    protected $id;
 
     /**
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Battle", mappedBy="defend_util_deck_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\BattleRequest", mappedBy="attack_util_deck_id")
      */
-    private $user_id;
+    protected $util_decks;
 
-    /**
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\UtilCard", mappedBy="id")
-     */
-    private $card1_id;
-
-    /**
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\UtilCard", mappedBy="id")
-     */
-    private $card2_id;
-
-    /**
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\UtilCard", mappedBy="id")
-     */
-    private $card3_id;
-
-    /**
-     * UtilDeck constructor.
-     * @param $user_id
-     * @param $card1_id
-     * @param $card2_id
-     * @param $card3_id
-     */
-    public function __construct($user_id, $card1_id, $card2_id, $card3_id)
+    public function __construct()
     {
-        $this->user_id = new ArrayCollection();
-        $this->card1_id = new ArrayCollection();
-        $this->card2_id = new ArrayCollection();
-        $this->card3_id = new ArrayCollection();
+        $this->util_decks = new ArrayCollection();
     }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\UtilCard")
+     * @ORM\JoinColumn(name="card1_id", referencedColumnName="id")
+     */
+    protected $card1_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\UtilCard")
+     * @ORM\JoinColumn(name="card2_id", referencedColumnName="id")
+     */
+    protected $card2_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\UtilCard")
+     * @ORM\JoinColumn(name="card3_id", referencedColumnName="id")
+     */
+    protected $card3_id;
 
     /**
      * @return mixed

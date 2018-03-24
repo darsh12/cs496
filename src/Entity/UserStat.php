@@ -12,91 +12,74 @@ class UserStat
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $user_id;
+    protected $user_id;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $user_rank;
+    protected $user_rank;
 
     /**
      * @ORM\Column(type="time")
      */
-    private $user_level;
+    protected $user_level;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $play_time;
+    protected $play_time;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $matches_won;
+    protected $matches_won;
 
     /**
      * @ORM\Column(type="decimal")
      */
-    private $matches_lost;
+    protected $matches_lost;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $win_loss_ratio;
+    protected $win_loss_ratio;
 
     /**
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\UserCharCard", mappedBy="char_card_id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserCharCard")
+     * @ORM\JoinColumn(name="favorite_card", referencedColumnName="char_card_id")
      */
-    private $favorite_card;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $times_attacked;
+    protected $favorite_card;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $times_defended;
+    protected $times_attacked;
 
     /**
      * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\Battle", mappedBy="id")
      */
-    private $best_win_battle;
+    protected $times_defended;
 
     /**
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\Battle", mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Battle")
+     * @ORM\JoinColumn(name="best_win_battle", referencedColumnName="id")
      */
-    private $worst_lost_battle;
+    protected $best_win_battle;
 
     /**
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\UserCharCard", mappedBy="char_card_id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Battle")
+     * @ORM\JoinColumn(name="worst_lost_battle", referencedColumnName="id")
      */
-    private $most_defeated_card;
+    protected $worst_lost_battle;
 
     /**
-     * UserStat constructor.
-     * @param $user_id
-     * @param $favorite_card
-     * @param $best_win_battle
-     * @param $worst_lost_battle
-     * @param $most_defeated_card
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserCharCard")
+     * @ORM\JoinColumn(name="most_defeated_card", referencedColumnName="char_card_id")
      */
-    public function __construct($user_id, $favorite_card, $best_win_battle, $worst_lost_battle, $most_defeated_card)
-    {
-        $this->user_id = new ArrayCollection();
-        $this->favorite_card = new ArrayCollection();
-        $this->best_win_battle = new ArrayCollection();
-        $this->worst_lost_battle = new ArrayCollection();
-        $this->most_defeated_card = new ArrayCollection();
-    }
+    protected $most_defeated_card;
 
     /**
      * @return mixed

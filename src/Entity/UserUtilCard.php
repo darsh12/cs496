@@ -12,38 +12,27 @@ class UserUtilCard
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $user_id;
+    protected $user_id;
 
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\UtilCard", mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\UtilCard")
+     * @ORM\JoinColumn(name="util_card_id", referencedColumnName="id")
      */
-    private $util_card_id;
+    protected $util_card_id;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $card_count;
+    protected $card_count;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $card_uses;
-
-    /**
-     * UserUtilCard constructor.
-     * @param $user_id
-     * @param $util_card_id
-     */
-    public function __construct($user_id, $util_card_id)
-    {
-        $this->user_id = new ArrayCollection();
-        $this->util_card_id = new ArrayCollection();
-    }
+    protected $card_uses;
 
     /**
      * @return mixed

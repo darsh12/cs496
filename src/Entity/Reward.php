@@ -13,20 +13,28 @@ class Reward
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="Achievement", inversedBy="reward_id")
-     * @ORM\JoinColumn(nullable=true)
      */
-    private $id;
+    protected $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Achievement", mappedBy="reward_id")
+     */
+    protected $rewards;
+
+    public function __construct()
+    {
+        $this->rewards = new ArrayCollection();
+    }
 
     /**
      * @ORM\Column(type="string")
      */
-    private $type;
+    protected $type;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $value;
+    protected $value;
 
     /**
      * @return mixed

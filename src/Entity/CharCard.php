@@ -14,58 +14,55 @@ class CharCard
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="CharDeck", inversedBy="card1_id")
-     * @ORM\ManyToOne(targetEntity="CharDeck", inversedBy="card2_id")
-     * @ORM\ManyToOne(targetEntity="CharDeck", inversedBy="card3_id")
-     * @ORM\ManyToOne(targetEntity="CharDeck", inversedBy="card4_id")
-     * @ORM\ManyToOne(targetEntity="CharDeck", inversedBy="card5_id")
-     * @ORM\ManyToOne(targetEntity="UserCharCard", inversedBy="char_card_id")
-     * @ORM\JoinColumn(nullable=true)
      */
-    private $id;
+    protected $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\OneToMany(targetEntity="App\Entity\CharDeck", mappedBy="card1_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\CharDeck", mappedBy="card2_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\CharDeck", mappedBy="card3_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\CharDeck", mappedBy="card4_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\CharDeck", mappedBy="card5_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserCharCard", mappedBy="char_card_id")
      */
-    private $char_name;
+    protected $char_cards;
 
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $char_type;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $char_class;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    private $char_tier;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\OneToMany(targetEntity="CharCardStat", mappedBy="id")
-     */
-    private $char_stat_id;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @ORM\OneToMany(targetEntity="Avatar", mappedBy="id")
-     */
-    private $avatar_id;
-
-    /**
-     * CharCard constructor.
-     * @param $char_stat_id
-     * @param $avatar_id
-     */
-    public function __construct($char_stat_id, $avatar_id)
+    public function __construct()
     {
-        $this->char_stat_id = new ArrayCollection();
-        $this->avatar_id = new ArrayCollection();
+        $this->char_cards = new ArrayCollection();
     }
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $char_name;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $char_type;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $char_class;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $char_tier;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharCardStat")
+     * @ORM\JoinColumn(name="char_stat_id", referencedColumnName="id")
+     */
+    protected $char_stat_id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Avatar")
+     * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
+     */
+    protected $avatar_id;
 
     /**
      * @return mixed

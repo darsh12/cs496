@@ -14,60 +14,53 @@ class Battle
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @ORM\ManyToOne(targetEntity="UserStat", inversedBy="best_win_battle")
-     * @ORM\ManyToOne(targetEntity="UserStat", inversedBy="worst_lost_battle")
-     * @ORM\JoinColumn(nullable=true)
      */
-    private $id;
+    protected $id;
 
     /**
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="id")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserStat", mappedBy="best_win_battle")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserStat", mappedBy="worst_lost_battle")
      */
-    private $winner_id;
+    protected $battles;
+
+    public function __construct()
+    {
+        $this->battles = new ArrayCollection();
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="winner_id", referencedColumnName="id")
+     */
+    protected $winner_id;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $battle_datetime;
+    protected $battle_datetime;
 
     /**
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\CharDeck", mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharDeck")
+     * @ORM\JoinColumn(name="defend_char_deck_id", referencedColumnName="id")
      */
-    private $defend_char_deck_id;
+    protected $defend_char_deck_id;
 
     /**
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\UtilDeck", mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\UtilDeck")
+     * @ORM\JoinColumn(name="defend_util_deck_id", referencedColumnName="id")
      */
-    private $defend_util_deck_id;
+    protected $defend_util_deck_id;
 
     /**
      * @ORM\Column(type="string")
      */
-    private $battle_report;
+    protected $battle_report;
 
     /**
-     * @ORM\Column(type="integer")
-     * ORM\OneToMany(targetEntity="App\Entity\BattleRequest", mappedBy="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\BattleRequest")
+     * @ORM\JoinColumn(name="request_id", referencedColumnName="id")
      */
-    private $request_id;
-
-    /**
-     * Battle constructor.
-     * @param $winner_id
-     * @param $defend_char_deck_id
-     * @param $defend_util_deck_id
-     * @param $request_id
-     */
-    public function __construct($winner_id, $defend_char_deck_id, $defend_util_deck_id, $request_id)
-    {
-        $this->winner_id = new ArrayCollection();
-        $this->defend_char_deck_id = new ArrayCollection();
-        $this->defend_util_deck_id = new ArrayCollection();
-        $this->request_id = new ArrayCollection();
-    }
+    protected $request_id;
 
     /**
      * @return mixed
