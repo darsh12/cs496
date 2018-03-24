@@ -1,3 +1,1 @@
-{#{{ secret }}#}
-
-<img src="{{ qr_code_data_uri(qrContent, { writer: 'png' }) }}" />
+<img src="{{ qr_code_data_uri(qrContent, { writer: 'png', label: secret }) }}" />
