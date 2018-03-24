@@ -45,7 +45,7 @@ class UserUtilCard
     /**
      * @param mixed $user_id
      */
-    public function setUserId($user_id): void
+    public function setUserId(User $user_id): void
     {
         $this->user_id = $user_id;
     }
@@ -61,7 +61,7 @@ class UserUtilCard
     /**
      * @param mixed $util_card_id
      */
-    public function setUtilCardId($util_card_id): void
+    public function setUtilCardId(UtilCard $util_card_id): void
     {
         $this->util_card_id = $util_card_id;
     }

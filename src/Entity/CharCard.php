@@ -155,7 +155,7 @@ class CharCard
     /**
      * @param mixed $char_stat_id
      */
-    public function setCharStatId($char_stat_id): void
+    public function setCharStatId(CharCardStat $char_stat_id): void
     {
         $this->char_stat_id = $char_stat_id;
     }
@@ -171,7 +171,7 @@ class CharCard
     /**
      * @param mixed $avatar_id
      */
-    public function setAvatarId($avatar_id): void
+    public function setAvatarId(Avatar $avatar_id): void
     {
         $this->avatar_id = $avatar_id;
     }

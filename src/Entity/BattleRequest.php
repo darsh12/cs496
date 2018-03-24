@@ -83,7 +83,7 @@ class BattleRequest
     /**
      * @param mixed $attacker_id
      */
-    public function setAttackerId($attacker_id): void
+    public function setAttackerId(User $attacker_id): void
     {
         $this->attacker_id = $attacker_id;
     }
@@ -99,7 +99,7 @@ class BattleRequest
     /**
      * @param mixed $defender_id
      */
-    public function setDefenderId($defender_id): void
+    public function setDefenderId(User $defender_id): void
     {
         $this->defender_id = $defender_id;
     }
@@ -131,7 +131,7 @@ class BattleRequest
     /**
      * @param mixed $attack_char_deck_id
      */
-    public function setAttackCharDeckId($attack_char_deck_id): void
+    public function setAttackCharDeckId(CharDeck $attack_char_deck_id): void
     {
         $this->attack_char_deck_id = $attack_char_deck_id;
     }
@@ -147,7 +147,7 @@ class BattleRequest
     /**
      * @param mixed $attack_util_deck_id
      */
-    public function setAttackUtilDeckId($attack_util_deck_id): void
+    public function setAttackUtilDeckId(UtilDeck $attack_util_deck_id): void
     {
         $this->attack_util_deck_id = $attack_util_deck_id;
     }

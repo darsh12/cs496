@@ -89,7 +89,7 @@ class Battle
     /**
      * @param mixed $winner_id
      */
-    public function setWinnerId($winner_id): void
+    public function setWinnerId(User $winner_id): void
     {
         $this->winner_id = $winner_id;
     }
@@ -121,7 +121,7 @@ class Battle
     /**
      * @param mixed $defend_char_deck_id
      */
-    public function setDefendCharDeckId($defend_char_deck_id): void
+    public function setDefendCharDeckId(CharDeck $defend_char_deck_id): void
     {
         $this->defend_char_deck_id = $defend_char_deck_id;
     }
@@ -137,7 +137,7 @@ class Battle
     /**
      * @param mixed $defend_util_deck_id
      */
-    public function setDefendUtilDeckId($defend_util_deck_id): void
+    public function setDefendUtilDeckId(UtilDeck $defend_util_deck_id): void
     {
         $this->defend_util_deck_id = $defend_util_deck_id;
     }
@@ -169,7 +169,7 @@ class Battle
     /**
      * @param mixed $request_id
      */
-    public function setRequestId($request_id): void
+    public function setRequestId(BattleRequest $request_id): void
     {
         $this->request_id = $request_id;
     }

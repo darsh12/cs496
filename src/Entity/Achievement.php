@@ -91,7 +91,7 @@ class Achievement
     /**
      * @param mixed $reward_id
      */
-    public function setRewardId($reward_id): void
+    public function setRewardId(Reward $reward_id): void
     {
         $this->reward_id = $reward_id;
     }

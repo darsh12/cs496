@@ -90,7 +90,7 @@ class CharDeck
     /**
      * @param mixed $user_id
      */
-    public function setUserId($user_id): void
+    public function setUserId(User $user_id): void
     {
         $this->user_id = $user_id;
     }
@@ -106,7 +106,7 @@ class CharDeck
     /**
      * @param mixed $card1_id
      */
-    public function setCard1Id($card1_id): void
+    public function setCard1Id(CharCard $card1_id): void
     {
         $this->card1_id = $card1_id;
     }
@@ -122,7 +122,7 @@ class CharDeck
     /**
      * @param mixed $card2_id
      */
-    public function setCard2Id($card2_id): void
+    public function setCard2Id(CharCard $card2_id): void
     {
         $this->card2_id = $card2_id;
     }
@@ -138,7 +138,7 @@ class CharDeck
     /**
      * @param mixed $card3_id
      */
-    public function setCard3Id($card3_id): void
+    public function setCard3Id(CharCard $card3_id): void
     {
         $this->card3_id = $card3_id;
     }
@@ -154,7 +154,7 @@ class CharDeck
     /**
      * @param mixed $card4_id
      */
-    public function setCard4Id($card4_id): void
+    public function setCard4Id(CharCard $card4_id): void
     {
         $this->card4_id = $card4_id;
     }
@@ -170,7 +170,7 @@ class CharDeck
     /**
      * @param mixed $card5_id
      */
-    public function setCard5Id($card5_id): void
+    public function setCard5Id(CharCard $card5_id): void
     {
         $this->card5_id = $card5_id;
     }

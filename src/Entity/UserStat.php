@@ -204,7 +204,7 @@ class UserStat
     /**
      * @param mixed $favorite_card
      */
-    public function setFavoriteCard($favorite_card): void
+    public function setFavoriteCard(UserCharCard $favorite_card): void
     {
         $this->favorite_card = $favorite_card;
     }
@@ -252,7 +252,7 @@ class UserStat
     /**
      * @param mixed $best_win_battle
      */
-    public function setBestWinBattle($best_win_battle): void
+    public function setBestWinBattle(Battle $best_win_battle): void
     {
         $this->best_win_battle = $best_win_battle;
     }
@@ -268,7 +268,7 @@ class UserStat
     /**
      * @param mixed $worst_lost_battle
      */
-    public function setWorstLostBattle($worst_lost_battle): void
+    public function setWorstLostBattle(Battle $worst_lost_battle): void
     {
         $this->worst_lost_battle = $worst_lost_battle;
     }
@@ -284,7 +284,7 @@ class UserStat
     /**
      * @param mixed $most_defeated_card
      */
-    public function setMostDefeatedCard($most_defeated_card): void
+    public function setMostDefeatedCard(UserCharCard $most_defeated_card): void
     {
         $this->most_defeated_card = $most_defeated_card;
     }

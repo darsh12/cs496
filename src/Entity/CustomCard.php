@@ -66,7 +66,7 @@ class CustomCard
     /**
      * @param mixed $user_id
      */
-    public function setUserId($user_id): void
+    public function setUserId(User $user_id): void
     {
         $this->user_id = $user_id;
     }
@@ -98,7 +98,7 @@ class CustomCard
     /**
      * @param mixed $card_stat_id
      */
-    public function setCardStatId($card_stat_id): void
+    public function setCardStatId(CustomCardStat $card_stat_id): void
     {
         $this->card_stat_id = $card_stat_id;
     }

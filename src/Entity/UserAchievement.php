@@ -35,7 +35,7 @@ class UserAchievement
     /**
      * @param mixed $user_id
      */
-    public function setUserId($user_id): void
+    public function setUserId(User $user_id): void
     {
         $this->user_id = $user_id;
     }
@@ -51,7 +51,7 @@ class UserAchievement
     /**
      * @param mixed $achievement_id
      */
-    public function setAchievementId($achievement_id): void
+    public function setAchievementId(Achievement $achievement_id): void
     {
         $this->achievement_id = $achievement_id;
     }

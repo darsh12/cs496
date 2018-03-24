@@ -79,7 +79,7 @@ class UtilDeck
     /**
      * @param mixed $user_id
      */
-    public function setUserId($user_id): void
+    public function setUserId(User $user_id): void
     {
         $this->user_id = $user_id;
     }
@@ -95,7 +95,7 @@ class UtilDeck
     /**
      * @param mixed $card1_id
      */
-    public function setCard1Id($card1_id): void
+    public function setCard1Id(UtilCard $card1_id): void
     {
         $this->card1_id = $card1_id;
     }
@@ -111,7 +111,7 @@ class UtilDeck
     /**
      * @param mixed $card2_id
      */
-    public function setCard2Id($card2_id): void
+    public function setCard2Id(UtilCard $card2_id): void
     {
         $this->card2_id = $card2_id;
     }
@@ -127,7 +127,7 @@ class UtilDeck
     /**
      * @param mixed $card3_id
      */
-    public function setCard3Id($card3_id): void
+    public function setCard3Id(UtilCard $card3_id): void
     {
         $this->card3_id = $card3_id;
     }

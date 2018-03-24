@@ -139,7 +139,7 @@ class UtilCard
     /**
      * @param mixed $avatar_id
      */
-    public function setAvatarId($avatar_id): void
+    public function setAvatarId(Avatar $avatar_id): void
     {
         $this->avatar_id = $avatar_id;
     }
@@ -155,7 +155,7 @@ class UtilCard
     /**
      * @param mixed $attack_effect_id
      */
-    public function setAttackEffectId($attack_effect_id): void
+    public function setAttackEffectId(AtkUtilEffect $attack_effect_id): void
     {
         $this->attack_effect_id = $attack_effect_id;
     }
@@ -171,7 +171,7 @@ class UtilCard
     /**
      * @param mixed $defense_effect_id
      */
-    public function setDefenseEffectId($defense_effect_id): void
+    public function setDefenseEffectId(DefUtilEffect $defense_effect_id): void
     {
         $this->defense_effect_id = $defense_effect_id;
     }

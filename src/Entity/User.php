@@ -19,24 +19,24 @@ class User extends BaseUser implements TwoFactorInterface
      */
     protected $id;
 
-        /**
-         * @ORM\OneToMany(targetEntity="App\Entity\CharDeck", mappedBy="user_id")
-         * @ORM\OneToMany(targetEntity="App\Entity\UserCharCard", mappedBy="user_id")
-         * @ORM\OneToMany(targetEntity="App\Entity\CustomCard", mappedBy="user_id")
-         * @ORM\OneToMany(targetEntity="App\Entity\UserStat", mappedBy="user_id")
-         * @ORM\OneToMany(targetEntity="App\Entity\Battle", mappedBy="winner_id")
-         * @ORM\OneToMany(targetEntity="App\Entity\UtilDeck", mappedBy="user_id")
-         * @ORM\OneToMany(targetEntity="App\Entity\UserUtilCard", mappedBy="user_id")
-         * @ORM\OneToMany(targetEntity="App\Entity\UserAchievement", mappedBy="user_id")
-         * @ORM\OneToMany(targetEntity="App\Entity\BattleRequest", mappedBy="attacker_id")
-         * @ORM\OneToMany(targetEntity="App\Entity\BattleRequest", mappedBy="defender_id")
-         */
-        protected $users;
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CharDeck", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserCharCard", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\CustomCard", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserStat", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Battle", mappedBy="winner_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\UtilDeck", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserUtilCard", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserAchievement", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\BattleRequest", mappedBy="attacker_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\BattleRequest", mappedBy="defender_id")
+     */
+    protected $users;
 
-        public function __construct()
-        {
-            $this->users = new ArrayCollection();
-        }
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
 
     /**
      * @ORM\Column(name="googleAuthenticatorSecret", type="string", nullable=true)

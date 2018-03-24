@@ -12,13 +12,6 @@ class UserCharCard
 {
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    protected $user_id;
-
-    /**
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="App\Entity\CharCard")
      * @ORM\JoinColumn(name="char_card_id", referencedColumnName="id")
      */
@@ -34,6 +27,13 @@ class UserCharCard
     {
         $this->user_char_cards = new ArrayCollection();
     }
+
+    /**
+     * @ORM\Id
+     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user_id;
 
     /**
      * @ORM\Column(type="integer")
@@ -58,22 +58,6 @@ class UserCharCard
     /**
      * @return mixed
      */
-    public function getUserId()
-    {
-        return $this->user_id;
-    }
-
-    /**
-     * @param mixed $user_id
-     */
-    public function setUserId($user_id): void
-    {
-        $this->user_id = $user_id;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getCharCardId()
     {
         return $this->char_card_id;
@@ -82,9 +66,25 @@ class UserCharCard
     /**
      * @param mixed $char_card_id
      */
-    public function setCharCardId($char_card_id): void
+    public function setCharCardId(CharCard $char_card_id): void
     {
         $this->char_card_id = $char_card_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * @param mixed $user_id
+     */
+    public function setUserId(User $user_id): void
+    {
+        $this->user_id = $user_id;
     }
 
     /**
