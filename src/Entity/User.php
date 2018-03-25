@@ -24,6 +24,24 @@ class User extends BaseUser implements TwoFactorInterface
      */
     private $googleAuthenticatorSecret;
 
+    private $checkCode;
+
+    /**
+     * @return mixed
+     */
+    public function getCheckCode()
+    {
+        return $this->checkCode;
+    }
+
+    /**
+     * @param mixed $checkCode
+     */
+    public function setCheckCode($checkCode): void
+    {
+        $this->checkCode = $checkCode;
+    }
+
 
 
     public function isGoogleAuthenticatorEnabled(): bool

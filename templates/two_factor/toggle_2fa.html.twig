@@ -1,1 +1,13 @@
-<img src="{{ qr_code_data_uri(qrContent, { writer: 'png', label: secret }) }}" />
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <img src="{{ qr_code_data_uri(qrContent, { writer: 'png', label: secret }) }}"/>
+    {{ form_start(twoFactorForm) }}
+    {{ form_widget(twoFactorForm) }}
+    <button class="btn btn-primary" type="submit">Enable</button>
+    <a href="{{ path('app_homepage') }}">
+        <button class="btn btn-danger" type="button">Cancel</button>
+    </a>
+
+    {{ form_end(twoFactorForm) }}
+{% endblock %}

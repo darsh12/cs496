@@ -4,75 +4,87 @@
 namespace App\Controller;
 
 
+use App\Form\TwoFactorType;
 use Doctrine\ORM\EntityManagerInterface;
 use Endroid\QrCode\Factory\QrCodeFactoryInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticatorInterface;
 use App\Entity\User;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 
 class TwoFactor extends Controller
 {
 
     /** TODO
-     * Make sure that the user is logged in before using 2fa
-     *
-     * Configure form to add a new secret to the database for a user
+     * Redirect to route is 2fa is enabled, instead of rendering
+     * Add feature to disable 2fa
      */
-
 
     /**
-     * @Route("/enable")
+     * @Route("/enable", name="enable_2fa")
      */
-    public function showForm(EntityManagerInterface $entityManager, GoogleAuthenticatorInterface $twoFactor, QrCodeFactoryInterface  $qrCodeFactory)
+    public function r(EntityManagerInterface $entityManager, Request $request, GoogleAuthenticatorInterface $twoFactor, QrCodeFactoryInterface $qrCodeFactory)
     {
-
         $this->denyAccessUnlessGranted('ROLE_USER', null, 'Unable to access this page! Please log in');
+        $session = $this->get('session');
 
-        $user=$this->getUser();
-        $userId=$this->getUser()->getId();
+        // Get user object
+        $user = $this->getUser();
+        $userId = $this->getUser()->getId();
 
+        //Get doctrine managers for setting and retrieving
         $this->getDoctrine()->getManager();
         $userSecret = $entityManager->getRepository(User::class)->find($userId);
 
+        $form = $this->createForm(TwoFactorType::class);
 
-        if(($user->isGoogleAuthenticatorEnabled())===true) {
+        //If authenticator is enabled redired to enabled
+
+        if (($user->isGoogleAuthenticatorEnabled()) === true) {
             return $this->render('two_factor/enabled.html.twig');
-        }
-        else {
-            $secret=$twoFactor->generateSecret();
-            $userSecret->setGoogleAuthenticatorSecret($secret);
+        } else {
+            //If not enabled show code and validate
+            $secret = $twoFactor->generateSecret();
+
+            //Store secret in session
+            if (!$request->isMethod("POST")) {
+                $session->set('secret', $secret);
+            }
+//        dump($session->get('secret'));
+
+            $userSecret->setGoogleAuthenticatorSecret($session->get('secret'));
             $qrContent = $twoFactor->getQRContent($user);
 
-            dump($user);
+            //Handles only POST request
+            $form->handleRequest($request);
 
-            return $this->render('two_factor/enable.html.twig',['qrContent'=>$qrContent, 'secret'=>$secret]);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $code = (string)$form['checkCode']->getData();
+
+                $isValid = $twoFactor->checkCode($user, $code);
+
+//            dump($session->get('secret'), $code, $isValid, $user);die;
+
+                if ($isValid) {
+                    $this->addFlash('success', '2FA is now enabled');
+                    $entityManager->flush();
+                    return $this->redirectToRoute('enable_2fa');
+                } else {
+                    $this->addFlash('error', 'An error occured please try again');
+                    return $this->redirectToRoute('enable_2fa');
+                }
+
+            }
+
+            return $this->render('two_factor/toggle_2fa.html.twig', ['secret' => $secret, 'qrContent' => $qrContent, 'twoFactorForm' => $form->createView()]);
+
         }
 
 
-//        return $this->render('two_factor/enable.html.twig');
-
     }
-
-
-//    /**
-//     * @Route("/google")
-//     */
-//
-//    public function showSecret(GoogleAuthenticatorInterface $twoFactor, QrCodeFactoryInterface  $qrCodeFactory)
-//    {
-//        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Unable to access this page! Please log in');
-//
-////        $secret=$twoFactor->generateSecret();
-//
-//        $user = $this->getUser();
-//
-//        dump($user);
-//        $qrContent=$this->get("scheb_two_factor.security.google_authenticator")->getQRContent($user);
-//        return $this->render('two_factor/toggle_2fa.html.twig',['secret'=>($user->getGoogleAuthenticatorSecret()), 'qrContent'=>$qrContent, ]);
-//
-//    }
 
 
 }
