@@ -58,7 +58,7 @@ class TwoFactor extends Controller
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $code = $form['2fa_code']->getData();
+                $code = $form['twoFA_code']->getData();
 
                 $isValid = $twoFactor->checkCode($user, $code);
 
@@ -75,7 +75,7 @@ class TwoFactor extends Controller
 
             }
 
-            return $this->render('two_factor/toggle_2fa.html.twig', ['secret' => $secret, 'qrContent' => $qrContent, 'twoFactorForm' => $form->createView()]);
+            return $this->render('two_factor/enable.html.twig', ['secret' => $secret, 'qrContent' => $qrContent, 'twoFactorForm' => $form->createView()]);
 
         }
 
@@ -107,14 +107,13 @@ class TwoFactor extends Controller
         } else {
 
             $userSecret->getGoogleAuthenticatorSecret();
-            $qrContent = $twoFactor->getQRContent($user);
 
 //            dump($userSecret);die;
             //Handles only POST request
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $code = $form['2fa_code']->getData();
+                $code = $form['twoFA_code']->getData();
 
                 $isValid = $twoFactor->checkCode($user, $code);
 

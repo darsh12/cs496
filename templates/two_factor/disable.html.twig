@@ -1,12 +1,22 @@
 {% extends 'base.html.twig' %}
+{% block title %} Disable 2FA {% endblock %}
 
 {% block body %}
-    {{ form_start(twoFactorForm) }}
-    {{ form_widget(twoFactorForm) }}
-    <button class="btn btn-primary" type="submit">Disable</button>
-    <a href="{{ path('app_homepage') }}">
-        <button class="btn btn-danger" type="button">Cancel</button>
-    </a>
 
-    {{ form_end(twoFactorForm) }}
+    <div class="container">
+        <div class="row">
+            <div class="col" style="padding: 70px 0; text-align: center;">
+                <h1 align="center">Disable 2FA</h1>
+                {{ form_start(twoFactorForm) }}
+                {{ form_row(twoFactorForm.twoFA_code, {'attr': {'class':'center-div'}}) }}
+                <button class="btn btn-primary" type="submit">Disable</button>
+                <a href="{{ path('app_homepage') }}">
+                    <button class="btn btn-danger" type="button">Cancel</button>
+                </a>
+
+                {{ form_end(twoFactorForm) }}
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

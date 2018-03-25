@@ -12,10 +12,10 @@ class TwoFactorType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('2fa_code', TextType::class, array(
+            ->add('twoFA_code', TextType::class, array(
                 'required'=> true,
                 'label'=>"2FA Code",
-                'attr' => array('maxlength' => 6, 'minlength'=>6, 'style'=>'width: 160px')
+                'attr' => array('maxlength' => 6, 'minlength'=>6, 'style'=>'width: 160px;')
                 ))
         ;
     }
