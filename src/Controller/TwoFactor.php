@@ -4,15 +4,15 @@
 namespace App\Controller;
 
 
+use App\Entity\User;
 use App\Form\TwoFactorType;
 use Doctrine\ORM\EntityManagerInterface;
-use Endroid\QrCode\Factory\QrCodeFactoryInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google\GoogleAuthenticatorInterface;
-use App\Entity\User;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 class TwoFactor extends Controller
@@ -25,11 +25,12 @@ class TwoFactor extends Controller
 
     /**
      * @Route("/enable", name="enable_2fa")
+     * @Security("has_role('ROLE_USER')")
      */
-    public function r(EntityManagerInterface $entityManager, Request $request, GoogleAuthenticatorInterface $twoFactor, QrCodeFactoryInterface $qrCodeFactory)
+    public function enable_2fa(EntityManagerInterface $entityManager, Request $request, SessionInterface $session, GoogleAuthenticatorInterface $twoFactor)
     {
-        $this->denyAccessUnlessGranted('ROLE_USER', null, 'Unable to access this page! Please log in');
-        $session = $this->get('session');
+        // $this->denyAccessUnlessGranted('ROLE_USER', null, 'Unable to access this page! Please log in');
+        // $session = $this->get('session');
 
         // Get user object
         $user = $this->getUser();
@@ -53,7 +54,7 @@ class TwoFactor extends Controller
             if (!$request->isMethod("POST")) {
                 $session->set('secret', $secret);
             }
-//        dump($session->get('secret'));
+        dump($session->get('secret'));
 
             $userSecret->setGoogleAuthenticatorSecret($session->get('secret'));
             $qrContent = $twoFactor->getQRContent($user);
