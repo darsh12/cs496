@@ -1,0 +1,16 @@
+scheb_two_factor:
+#    email:
+#        enabled: true
+#        sender_email: admin@fightsim.fun
+#        sender_name: CBS
+#        digits: 4
+#        template: two_factor/index.html.twig
+
+    google:
+        enabled: true
+        server_name: app.fightsim.fun  # Server name used in QR code
+        issuer: celebrity fight simulator       # Issuer name used in QR code
+        template: two_factor/authentication.html.twig
+
+    security_tokens:
+        - Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken

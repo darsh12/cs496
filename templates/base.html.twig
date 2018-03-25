@@ -6,24 +6,41 @@
 
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/master.css') }}">
     {% endblock %}
 
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand center" href="#">Navbar</a>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">CBS</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="{{ path('app_homepage') }}">Home <span class="sr-only">(current)</span></a>
-            </li>
+            <li class="nav-item active"><a class="nav-link" href="{{ path('app_homepage') }}">Home <span class="sr-only">(current)</span></a></li>
+            {% if is_granted('ROLE_USER') %}
+            <li class="nav-item"><a class="nav-link" href="{{ path('fos_user_security_logout') }}">Logout</a></li>
+            {% else %}
+            <li class="nav-item"><a class="nav-link" href="{{ path('fos_user_security_login') }}">Login</a></li>
+            {% endif %}
+
         </ul>
     </div>
 </nav>
 
-{% block body %} {% endblock %}
+<div class="main-content">
+    {% for msg in app.session.flashBag.get('success') %}
+        <div class="alert alert-success">{{ msg }}</div>
+    {% endfor %}
+    {% for msg in app.session.flashBag.get('error') %}
+        <div class="alert alert-warning">{{ msg }}</div>
+    {% endfor %}
+    {% block body %} {% endblock %}
+</div>
+
 
 {% block javascripts %}
     <script src="{{ asset('js/jquery.slim.min.js') }}"></script>

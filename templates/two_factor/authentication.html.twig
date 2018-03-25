@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block title %} 2FA Check {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row center-div" style="margin-top: 5%">
+            <div class="col">
+                {#Authentication errors#}
+                {% if authenticationError %}
+                    <div class="alert alert-warning">
+                        <p style="text-align: center">{{ "scheb_two_factor.code_invalid"|trans(authenticationErrorData) }}</p>
+                    </div>
+                {% endif %}
+                <h1 align="center">2FA Code</h1>
+                <form action="{{ path("2fa_login_check") }}" method="post">
+
+                    <div class="form-group">
+                        <input type="text" style="text-align: center" class="form-control" id="_auth_code"
+                               autocomplete="off"
+                               name="{{ authCodeParameterName }}">
+                    </div>
+
+                    {#{% if displayTrustedOption %}#}
+                    {#<div class="form-check">#}
+                    {#<input type="checkbox" id="_trusted" name="{{ trustedParameterName }}">#}
+                    {#<label for="_trusted">{{ "scheb_two_factor.trusted"|trans }}</label>#}
+                    {#</div>#}
+                    {#{% endif %}#}
+
+                    <div class="row">
+                        <div class="col">
+                            <input class="btn btn-primary" type="submit" id="_submit" name="_submit"
+                                   value="{{ 'scheb_two_factor.login'|trans }}"/>
+                        </div>
+                        <div class="col">
+                            <a href="{{ path('fos_user_security_logout') }}">
+                                <button class="btn btn-danger"
+                                        type="button">{{ "scheb_two_factor.cancel"|trans }}</button>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
