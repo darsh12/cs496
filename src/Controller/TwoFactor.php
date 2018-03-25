@@ -17,14 +17,8 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class TwoFactor extends Controller
 {
-
-    /** TODO
-     * Redirect to route is 2fa is enabled, instead of rendering
-     * Add feature to disable 2fa
-     */
-
     /**
-     * @Route("/enable", name="enable_2fa")
+     * @Route("/enable_2fa", name="enable_2fa")
      * @Security("has_role('ROLE_USER')")
      */
     public function enable_2fa(EntityManagerInterface $entityManager, Request $request, SessionInterface $session, GoogleAuthenticatorInterface $twoFactor)
@@ -40,12 +34,13 @@ class TwoFactor extends Controller
         $this->getDoctrine()->getManager();
         $userSecret = $entityManager->getRepository(User::class)->find($userId);
 
+        //Get the form
         $form = $this->createForm(TwoFactorType::class);
 
-        //If authenticator is enabled redired to enabled
+        //If authenticator is enabled redirect to enabled
 
         if (($user->isGoogleAuthenticatorEnabled()) === true) {
-            return $this->render('two_factor/enabled.html.twig');
+            return $this->redirectToRoute('disable_2fa');
         } else {
             //If not enabled show code and validate
             $secret = $twoFactor->generateSecret();
@@ -54,7 +49,7 @@ class TwoFactor extends Controller
             if (!$request->isMethod("POST")) {
                 $session->set('secret', $secret);
             }
-        dump($session->get('secret'));
+//            dump($session->get('secret'));
 
             $userSecret->setGoogleAuthenticatorSecret($session->get('secret'));
             $qrContent = $twoFactor->getQRContent($user);
@@ -63,7 +58,7 @@ class TwoFactor extends Controller
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $code = (string)$form['checkCode']->getData();
+                $code = $form['2fa_code']->getData();
 
                 $isValid = $twoFactor->checkCode($user, $code);
 
@@ -72,7 +67,7 @@ class TwoFactor extends Controller
                 if ($isValid) {
                     $this->addFlash('success', '2FA is now enabled');
                     $entityManager->flush();
-                    return $this->redirectToRoute('enable_2fa');
+                    return $this->redirectToRoute('app_homepage');
                 } else {
                     $this->addFlash('error', 'An error occured please try again');
                     return $this->redirectToRoute('enable_2fa');
@@ -86,6 +81,64 @@ class TwoFactor extends Controller
 
 
     }
+
+    /**
+     * @Route("/disable_2fa", name="disable_2fa")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function disable_2fa(EntityManagerInterface $entityManager, Request $request, SessionInterface $session, GoogleAuthenticatorInterface $twoFactor)
+    {
+
+        // Get user object
+        $user = $this->getUser();
+        $userId = $this->getUser()->getId();
+
+        //Get doctrine managers for setting and retrieving
+        $this->getDoctrine()->getManager();
+        $userSecret = $entityManager->getRepository(User::class)->find($userId);
+
+        //Get the form
+        $form = $this->createForm(TwoFactorType::class);
+
+        //If authenticator is enabled redirect to enabled
+
+        if (($user->isGoogleAuthenticatorEnabled()) === false) {
+            return $this->redirectToRoute('enable_2fa');
+        } else {
+
+            $userSecret->getGoogleAuthenticatorSecret();
+            $qrContent = $twoFactor->getQRContent($user);
+
+//            dump($userSecret);die;
+            //Handles only POST request
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $code = $form['2fa_code']->getData();
+
+                $isValid = $twoFactor->checkCode($user, $code);
+
+//            dump($session->get('secret'), $code, $isValid, $user);die;
+
+                if ($isValid) {
+                    $userSecret->setGoogleAuthenticatorSecret(null);
+                    $this->addFlash('success', '2FA is now disabled');
+                    $entityManager->flush();
+                    return $this->redirectToRoute('app_homepage');
+                } else {
+                    $this->addFlash('error', 'An error occured please try again');
+                    return $this->redirectToRoute('disable_2fa');
+                }
+
+            }
+
+            return $this->render('two_factor/disable.html.twig', ['twoFactorForm' => $form->createView()]);
+
+        }
+
+
+    }
+
 
 
 }

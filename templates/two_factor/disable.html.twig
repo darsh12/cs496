@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ form_start(twoFactorForm) }}
+    {{ form_widget(twoFactorForm) }}
+    <button class="btn btn-primary" type="submit">Disable</button>
+    <a href="{{ path('app_homepage') }}">
+        <button class="btn btn-danger" type="button">Cancel</button>
+    </a>
+
+    {{ form_end(twoFactorForm) }}
+{% endblock %}

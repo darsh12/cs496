@@ -35,25 +35,6 @@ class User extends BaseUser implements TwoFactorInterface
     protected $users;
 
 
-    private $checkCode;
-
-    /**
-     * @return mixed
-     */
-    public function getCheckCode()
-    {
-        return $this->checkCode;
-    }
-
-    /**
-     * @param mixed $checkCode
-     */
-    public function setCheckCode($checkCode): void
-    {
-        $this->checkCode = $checkCode;
-    }
-
-
     public function __construct()
     {
         $this->users = new ArrayCollection();
