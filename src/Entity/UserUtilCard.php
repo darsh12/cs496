@@ -12,14 +12,14 @@ class UserUtilCard
 {
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="users")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user_id;
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\UtilCard")
+     * @ORM\ManyToOne(targetEntity="App\Entity\UtilCard", inversedBy="util_cards")
      * @ORM\JoinColumn(name="util_card_id", referencedColumnName="id")
      */
     protected $util_card_id;

@@ -18,7 +18,7 @@ class CustomCard
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="users")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user_id;
@@ -29,7 +29,7 @@ class CustomCard
     protected $type;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CustomCardStat")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CustomCardStat", inversedBy="custom_card_stats")
      * @ORM\JoinColumn(name="card_stat_id", referencedColumnName="id")
      */
     protected $card_stat_id;

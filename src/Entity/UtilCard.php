@@ -47,19 +47,19 @@ class UtilCard
     protected $util_tier;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Avatar")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Avatar", inversedBy="avatars")
      * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
      */
     protected $avatar_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\AtkUtilEffect")
+     * @ORM\ManyToOne(targetEntity="App\Entity\AtkUtilEffect", inversedBy="atk_util_effects")
      * @ORM\JoinColumn(name="attack_effect_id", referencedColumnName="id")
      */
     protected $attack_effect_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\DefUtilEffect")
+     * @ORM\ManyToOne(targetEntity="App\Entity\DefUtilEffect", inversedBy="def_util_effects")
      * @ORM\JoinColumn(name="defense_effect_id", referencedColumnName="id")
      */
     protected $defense_effect_id;

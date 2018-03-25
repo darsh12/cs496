@@ -33,7 +33,7 @@ class Achievement
     protected $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Reward")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Reward", inversedBy="rewards")
      * @ORM\JoinColumn(name="reward_id", referencedColumnName="id")
      */
     protected $reward_id;

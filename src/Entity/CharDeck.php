@@ -28,37 +28,37 @@ class CharDeck
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="users")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard", inversedBy="char_cards")
      * @ORM\JoinColumn(name="card1_id", referencedColumnName="id")
      */
     protected $card1_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard", inversedBy="char_cards")
      * @ORM\JoinColumn(name="card2_id", referencedColumnName="id")
      */
     protected $card2_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard", inversedBy="char_cards")
      * @ORM\JoinColumn(name="card3_id", referencedColumnName="id")
      */
     protected $card3_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard", inversedBy="char_cards")
      * @ORM\JoinColumn(name="card4_id", referencedColumnName="id")
      */
     protected $card4_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard", inversedBy="char_cards")
      * @ORM\JoinColumn(name="card5_id", referencedColumnName="id")
      */
     protected $card5_id;

@@ -53,13 +53,13 @@ class CharCard
     protected $char_tier;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CharCardStat")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharCardStat", inversedBy="char_card_stats")
      * @ORM\JoinColumn(name="char_stat_id", referencedColumnName="id")
      */
     protected $char_stat_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Avatar")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Avatar", inversedBy="avatars")
      * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
      */
     protected $avatar_id;
