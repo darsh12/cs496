@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
 use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
@@ -32,6 +33,7 @@ class User extends BaseUser implements TwoFactorInterface
      * @ORM\OneToMany(targetEntity="App\Entity\BattleRequest", mappedBy="defender_id")
      */
     protected $users;
+
 
     public function __construct()
     {

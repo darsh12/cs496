@@ -40,7 +40,7 @@ class Battle
     protected $battle_datetime;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CharDeck")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharDeck", inversedBy="char_decks")
      * @ORM\JoinColumn(name="defend_char_deck_id", referencedColumnName="id")
      */
     protected $defend_char_deck_id;

@@ -1,27 +1,47 @@
-{# This is a demo template for the authentication form. Please consider overwriting this with your own implementation #}
+{% extends 'base.html.twig' %}
+{% block title %} 2FA Check {% endblock %}
 
-{# Authentication errors #}
-{% if authenticationError %}
-    <p>{{ "scheb_two_factor.auth_code"|trans(authenticationErrorData) }}</p>
-{% endif %}
+{% block body %}
+    <div class="container">
+        <div class="row center-div" style="margin-top: 5%">
+            <div class="col">
+                {#Authentication errors#}
+                {% if authenticationError %}
+                    <div class="alert alert-warning">
+                        <p style="text-align: center">{{ "scheb_two_factor.code_invalid"|trans(authenticationErrorData) }}</p>
+                    </div>
+                {% endif %}
+                <h1 align="center">2FA Code</h1>
+                <form action="{{ path("2fa_login_check") }}" method="post">
 
-{# Let the user select the authentication method #}
-<p>{{ "scheb_two_factor.choose_provider"|trans }}:
-    {% for provider in availableTwoFactorProviders %}
-        <a href="{{ path("2fa_login", {"preferProvider": provider}) }}">{{ provider }}</a>
-    {% endfor %}
-</p>
+                    <div class="form-group">
+                        <input type="text" style="text-align: center" class="form-control" id="_auth_code"
+                               autocomplete="off"
+                               name="{{ authCodeParameterName }}">
+                    </div>
 
-{# Display current two-factor provider #}
-<p class="label"><label for="_auth_code">{{ "scheb_two_factor.auth_code"|trans }} {{ twoFactorProvider }}:</label></p>
+                    {#{% if displayTrustedOption %}#}
+                    {#<div class="form-check">#}
+                    {#<input type="checkbox" id="_trusted" name="{{ trustedParameterName }}">#}
+                    {#<label for="_trusted">{{ "scheb_two_factor.trusted"|trans }}</label>#}
+                    {#</div>#}
+                    {#{% endif %}#}
 
-<form class="form" action="{{ path("2fa_login_check") }}" method="post">
-    <p class="widget"><input id="_auth_code" type="text" autocomplete="off" name="{{ authCodeParameterName }}" /></p>
-    {% if displayTrustedOption %}
-        <p class="widget"><label for="_trusted"><input id="_trusted" type="checkbox" name="{{ trustedParameterName }}" /> {{ "scheb_two_factor.trusted"|trans }}</label></p>
-    {% endif %}
-    <p class="submit"><input type="submit" value="{{ "scheb_two_factor.login"|trans }}" /></p>
-</form>
+                    <div class="row">
+                        <div class="col">
+                            <input class="btn btn-primary" type="submit" id="_submit" name="_submit"
+                                   value="{{ 'scheb_two_factor.login'|trans }}"/>
+                        </div>
+                        <div class="col">
+                            <a href="{{ path('fos_user_security_logout') }}">
+                                <button class="btn btn-danger"
+                                        type="button">{{ "scheb_two_factor.cancel"|trans }}</button>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-{# The logout link gives the user a way out if they can't complete two-factor authentication #}
-<p class="cancel"><a href="{{ path("fos_user_security_logout") }}">{{ "scheb_two_factor.cancel"|trans }}</a></p>
+{% endblock %}
