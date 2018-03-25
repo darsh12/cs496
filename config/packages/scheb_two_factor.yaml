@@ -8,8 +8,8 @@ scheb_two_factor:
 
     google:
         enabled: true
-        server_name: 'Server Name'    # Server name used in QR code
-        issuer: 'Issuer Name'       # Issuer name used in QR code
+        server_name: app.fightsim.fun  # Server name used in QR code
+        issuer: celebrity fight simulator       # Issuer name used in QR code
         template: two_factor/authentication.html.twig
 
     security_tokens:
