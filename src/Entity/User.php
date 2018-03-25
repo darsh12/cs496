@@ -20,9 +20,19 @@ class User extends BaseUser implements TwoFactorInterface
     protected $id;
 
     /**
-     * @ORM\Column(name="googleAuthenticatorSecret", type="string", nullable=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\CharDeck", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserCharCard", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\CustomCard", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserStat", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Battle", mappedBy="winner_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\UtilDeck", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserUtilCard", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserAchievement", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\BattleRequest", mappedBy="attacker_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\BattleRequest", mappedBy="defender_id")
      */
-    private $googleAuthenticatorSecret;
+    protected $users;
+
 
     private $checkCode;
 
@@ -43,6 +53,15 @@ class User extends BaseUser implements TwoFactorInterface
     }
 
 
+    public function __construct()
+    {
+        $this->users = new ArrayCollection();
+    }
+
+    /**
+     * @ORM\Column(name="googleAuthenticatorSecret", type="string", nullable=true)
+     */
+    protected $googleAuthenticatorSecret;
 
     public function isGoogleAuthenticatorEnabled(): bool
     {
@@ -64,7 +83,6 @@ class User extends BaseUser implements TwoFactorInterface
         $this->googleAuthenticatorSecret = $googleAuthenticatorSecret;
     }
 
-
     /**
      * @return mixed
      */
@@ -72,7 +90,5 @@ class User extends BaseUser implements TwoFactorInterface
     {
         return $this->id;
     }
-
-
-    }
+}
 
