@@ -28,13 +28,13 @@ class BattleRequest
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="users")
      * @ORM\JoinColumn(name="attacker_id", referencedColumnName="id")
      */
     protected $attacker_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="users")
      * @ORM\JoinColumn(name="defender_id", referencedColumnName="id")
      */
     protected $defender_id;
@@ -45,13 +45,13 @@ class BattleRequest
     protected $datetime;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CharDeck")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharDeck", inversedBy="char_decks")
      * @ORM\JoinColumn(name="attack_char_deck_id", referencedColumnName="id")
      */
     protected $attack_char_deck_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UtilDeck")
+     * @ORM\ManyToOne(targetEntity="App\Entity\UtilDeck", inversedBy="util_decks")
      * @ORM\JoinColumn(name="attack_util_deck_id", referencedColumnName="id")
      */
     protected $attack_util_deck_id;

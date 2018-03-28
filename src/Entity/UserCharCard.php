@@ -12,7 +12,7 @@ class UserCharCard
 {
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard", inversedBy="char_cards")
      * @ORM\JoinColumn(name="char_card_id", referencedColumnName="id")
      */
     protected $char_card_id;
@@ -30,7 +30,7 @@ class UserCharCard
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="users")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user_id;

@@ -29,7 +29,7 @@ class Battle
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="users")
      * @ORM\JoinColumn(name="winner_id", referencedColumnName="id")
      */
     protected $winner_id;
