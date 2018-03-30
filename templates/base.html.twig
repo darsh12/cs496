@@ -2,34 +2,32 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>{% block title %}Celebrity Battle Simulator{% endblock %}</title>
 
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/master.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     {% endblock %}
+
 
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">CBS</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active"><a class="nav-link" href="{{ path('app_homepage') }}">Home <span class="sr-only">(current)</span></a></li>
-            {% if is_granted('ROLE_USER') %}
-            <li class="nav-item"><a class="nav-link" href="{{ path('fos_user_security_logout') }}">Logout</a></li>
-            {% else %}
-            <li class="nav-item"><a class="nav-link" href="{{ path('fos_user_security_login') }}">Login</a></li>
-            {% endif %}
-
-        </ul>
+<div class="header">
+    <a></a>
+    <div class="login_logout">
+    {% if is_granted('ROLE_USER') %}
+        <button class="btn btn-outline-danger"><a  class="" href="{{ path('fos_user_security_logout') }}">Logout</a></button>
+    {% else %}
+        <button class="btn btn-outline-danger"><a  class="" href="{{ path('fos_user_security_login') }}">Login</a></button>
+    {% endif %}
     </div>
-</nav>
+</div>
+
+{#<li class="nav-item active"><a class="nav-link" href="{{ path('app_homepage') }}">Home <span class="sr-only">(current)</span></a></li>#}
+
 
 <div class="main-content">
     {% for msg in app.session.flashBag.get('success') %}
@@ -48,6 +46,9 @@
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/homepage.js') }}" ></script>
 {% endblock %}
 
 </body>
