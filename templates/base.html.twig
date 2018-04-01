@@ -6,22 +6,22 @@
 
     {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/main.css') }}">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     {% endblock %}
 
 
 </head>
-<body>
+<body class="global-background">
 
 
 <div class="header">
     <a></a>
     <div class="login_logout">
     {% if is_granted('ROLE_USER') %}
-        <button class="btn btn-outline-danger"><a  class="" href="{{ path('fos_user_security_logout') }}">Logout</a></button>
+        <a class="btn btn-normal btn-banner" style="font-size: 2em" href="{{ path('fos_user_security_logout') }}">Logout &#10151;</a>
     {% else %}
-        <button class="btn btn-outline-danger"><a  class="" href="{{ path('fos_user_security_login') }}">Login</a></button>
+        <a class="btn btn-normal btn-banner" style="font-size: 2em" href="{{ path('fos_user_security_login') }}">Login &#10151;</a>
     {% endif %}
     </div>
 </div>
