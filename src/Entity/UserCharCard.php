@@ -2,38 +2,80 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
- * @ORM\Entity(repositoryClass="UserCharCardRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\UserCharCardRepository")
  */
 class UserCharCard
 {
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard", inversedBy="char_cards")
-     * @ORM\JoinColumn(name="char_card_id", referencedColumnName="id")
+     * @ORM\GeneratedValue
+     * @ORM\Column(type="integer")
      */
-    protected $char_card_id;
+    protected $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="user_char_card_users")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    protected $user_id;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\CharCard", inversedBy="user_char_cards")
+     * @ORM\JoinTable(name="char_cards")
+     */
+    protected $char_cards;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserStat", mappedBy="favorite_card")
+     */
+    protected $fav_cards;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserStat", mappedBy="most_defeated_card")
      */
-    protected $user_char_cards;
+    protected $most_defeated_cards;
 
     public function __construct()
     {
         $this->user_char_cards = new ArrayCollection();
+        $this->fav_cards = new ArrayCollection();
+        $this->most_defeated_cards = new ArrayCollection();
     }
 
     /**
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="users")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @return Collection
      */
-    protected $user_id;
+    public function getUserCharCards()
+    {
+        return $this->user_char_cards;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getFavCards()
+    {
+        return $this->fav_cards;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getMostDefeatedCards()
+    {
+        return $this->most_defeated_cards;
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard", inversedBy="char_cards")
+     * @ORM\JoinColumn(name="char_card_id", referencedColumnName="id")
+     */
+    protected $char_card_id;
 
     /**
      * @ORM\Column(type="integer")

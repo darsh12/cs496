@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
- * @ORM\Entity(repositoryClass="BattleRequestRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\BattleRequestRepository")
  */
 class BattleRequest
 {
@@ -28,13 +29,21 @@ class BattleRequest
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="users")
+     * @return Collection
+     */
+    public function getBattleRequests()
+    {
+        return $this->battle_requests;
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="attacker_users")
      * @ORM\JoinColumn(name="attacker_id", referencedColumnName="id")
      */
     protected $attacker_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="defender_users")
      * @ORM\JoinColumn(name="defender_id", referencedColumnName="id")
      */
     protected $defender_id;
@@ -45,13 +54,13 @@ class BattleRequest
     protected $datetime;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CharDeck", inversedBy="char_decks")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharDeck", inversedBy="attack_char_decks")
      * @ORM\JoinColumn(name="attack_char_deck_id", referencedColumnName="id")
      */
     protected $attack_char_deck_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UtilDeck", inversedBy="util_decks")
+     * @ORM\ManyToOne(targetEntity="App\Entity\UtilDeck", inversedBy="attack_util_decks")
      * @ORM\JoinColumn(name="attack_util_deck_id", referencedColumnName="id")
      */
     protected $attack_util_deck_id;

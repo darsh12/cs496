@@ -2,24 +2,23 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="UserUtilCardRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\UserUtilCardRepository")
  */
 class UserUtilCard
 {
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="user_util_card_users")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user_id;
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\UtilCard", inversedBy="util_cards")
+     * @ORM\ManyToOne(targetEntity="App\Entity\UtilCard", inversedBy="user_util_cards")
      * @ORM\JoinColumn(name="util_card_id", referencedColumnName="id")
      */
     protected $util_card_id;

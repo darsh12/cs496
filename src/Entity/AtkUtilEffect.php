@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
- * @ORM\Entity(repositoryClass="AtkUtilEffectRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\AtkUtilEffectRepository")
  */
 class AtkUtilEffect
 {
@@ -24,6 +26,14 @@ class AtkUtilEffect
     public function __construct()
     {
         $this->atk_util_effects = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAtkUtilEffects()
+    {
+        return $this->atk_util_effects;
     }
 
     /**

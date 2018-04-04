@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
-
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -22,22 +22,146 @@ class User extends BaseUser implements TwoFactorInterface
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\CharDeck", mappedBy="user_id")
+     */
+    protected $char_deck_users;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserCharCard", mappedBy="user_id")
-     * @ORM\OneToMany(targetEntity="App\Entity\CustomCard", mappedBy="user_id")
-     * @ORM\OneToMany(targetEntity="App\Entity\UserStat", mappedBy="user_id")
-     * @ORM\OneToMany(targetEntity="App\Entity\Battle", mappedBy="winner_id")
+     */
+    protected $user_char_card_users;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\UtilDeck", mappedBy="user_id")
+     */
+    protected $util_deck_users;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserUtilCard", mappedBy="user_id")
-     * @ORM\OneToMany(targetEntity="App\Entity\UserAchievement", mappedBy="user_id")
+     */
+    protected $user_util_card_users;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Battle", mappedBy="winner_id")
+     */
+    protected $battle_winner_users;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\BattleRequest", mappedBy="attacker_id")
+     */
+    protected $attacker_users;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\BattleRequest", mappedBy="defender_id")
      */
-    protected $users;
+    protected $defender_users;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserStat", mappedBy="user_id")
+     */
+    protected $user_stat_users;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserAchievement", mappedBy="user_id")
+     */
+    protected $user_achievement_users;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CustomCard", mappedBy="user_id")
+     */
+    protected $custom_card_users;
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
+        $this->char_deck_users = new ArrayCollection();
+        $this->user_char_card_users = new ArrayCollection();
+        $this->util_deck_users = new ArrayCollection();
+        $this->user_util_card_users = new ArrayCollection();
+        $this->battle_winner_users = new ArrayCollection();
+        $this->attacker_users = new ArrayCollection();
+        $this->defender_users = new ArrayCollection();
+        $this->user_stat_users = new ArrayCollection();
+        $this->user_achievement_users = new ArrayCollection();
+        $this->custom_card_users = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCharDeckUsers()
+    {
+        return $this->char_deck_users;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getBattleUsers()
+    {
+        return $this->battle_users;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAttackerUsers()
+    {
+        return $this->attacker_users;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getUtilDeckUsers()
+    {
+        return $this->util_deck_users;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getDefenderUsers()
+    {
+        return $this->defender_users;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCustomCardUsers()
+    {
+        return $this->custom_card_users;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getUserCharCardUsers()
+    {
+        return $this->user_char_card_users;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getUserUtilCardUsers()
+    {
+        return $this->user_util_card_users;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getUserStatUsers()
+    {
+        return $this->user_stat_users;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getUserAchievementUsers()
+    {
+        return $this->user_achievement_users;
     }
 
     /**
