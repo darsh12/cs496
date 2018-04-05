@@ -3,8 +3,77 @@
 
 {% block body %}
 
-<div class="alert-danger">
-    <h1>Welcome to the index page</h1>
-</div>
+
+    {% if is_granted('ROLE_USER') %}
+
+    {% else %}
+            <h1 class="intro_title">
+                Celebrity Battle Simulator
+            </h1>
+    {% endif %}
+
+    <div class="footer">
+        <p>Contact, FAQ</p>
+        <p>Travis, Darshan, Devin, John</p>
+    </div>
+
+    {% if is_granted('ROLE_USER') %}
+
+
+        <nav class="container tab_pages">
+            <a class="navbar-brand" href="#"></a>
+            <button class="navbar-toggler" type="button" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div id="navbarSupportedContent">
+                <ul class="nav nav-tabs tab_style">
+                    {#<li class="active"><a data-toggle="tab" href="{{ path('app_homepage') }}">Home <span class="sr-only">(current)</span></a></li>#}
+                    <li onclick="toggleCurrentTab(this)"><a href="{{ path('fos_user_profile_show') }}">Profile<span class="sr-only"></span></a></li>
+                    {% block inventory_tab %}
+                        <li><a  href="{{ path('app_inventory') }}">Inventory<span class="sr-only"></span></a></li>
+                    {% endblock %}
+                    <li><a  href="{{ path('app_battle') }}">Battle<span class="sr-only"></span></a></li>
+                    <li><a href="{{ path('app_market') }}">Market<span class="sr-only"></span></a></li>
+
+
+                    {#<li class="active"><a data-toggle="tab" href="#profile">Profile</a></li>#}
+                    {#<li><a data-toggle="tab" href="#inventory">Inventory</a></li>#}
+                    {#<li><a data-toggle="tab" href="#battle">Battle</a></li>#}
+                    {#<li><a data-toggle="tab" href="#market">Market</a></li>#}
+                </ul>
+            </div>
+
+            <div>
+                {#<div id="home" class="tab-pane fade in active">#}
+                    {#<p>Home</p>#}
+                {#</div>#}
+                <div id="profile" >
+                    {% block profile %}
+
+                    {% endblock %}
+                </div>
+                <div id="inventory" >
+                    {% block inventory %}
+
+                    {% endblock %}
+                </div>
+                <div id="battle">
+                    {% block battle %}
+
+                    {% endblock %}
+                </div>
+                <div id="market" >
+                    {% block market %}
+
+                    {% endblock %}
+                </div>
+            </div>
+
+        </nav>
+
+
+
+    {% endif %}
 
 {% endblock %}

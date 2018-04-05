@@ -1,0 +1,72 @@
+@import "webfonts.css";
+
+.intro_title{
+    color: #0b132b;
+    position: absolute;
+    top: 25%;
+    text-align: center;
+    width: 100%;
+    font-size: 5em;
+    font-family: "Ostrich-Sans Bold";
+}
+
+.tab_pages{
+    margin-top: 50px;
+}
+
+.tab_style{
+}
+
+.header{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    color: white;
+}
+
+.login_logout{
+    list-style-type: none;
+    float: right;
+    position: relative;
+    text-align: center;
+    left: 0;
+    bottom: 0;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #1c2541;
+    color: white;
+    text-align: center;
+}
+
+.global-background {
+    background-color: lightgrey;
+}
+
+.btn-normal {
+    font-family: "Ostrich-Sans Black";
+    background-color: #FFFFFF;
+    color: #1c2541;
+}
+
+.btn.btn-normal:hover {
+    background-color: #ffeb00;
+    color: #FFFFFF;
+}
+
+/*Slighly longer button for top right of containers*/
+.btn.btn-banner {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 22px;
+    padding-left: 2vw;
+}
+
+/*Temporary class for current tab selected*/
+.current {
+    background-color: lightblue;
+}
