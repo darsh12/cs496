@@ -32,18 +32,26 @@
                    value="{{ 'security.login.submit'|trans }}"/>
 
         </div>
-        <div class="col">
-            <a href="{{ path('app_homepage') }}">
-                <button class="btn btn-danger" type="button">Cancel</button>
+
+
+        <div>
+            <a href="{{ path('fos_user_registration_register') }}">
+                <button class="btn btn-primary" type="button">Register here</button>
             </a>
         </div>
+
+        {#<div class="col">#}
+            {#<a href="{{ path('app_homepage') }}">#}
+                {#<button class="btn btn-danger" type="button">Cancel</button>#}
+            {#</a>#}
+        {#</div>#}
     </div>
 
     <hr>
 
     <div class="col" align="center">
-        <a href="{{ path('fos_user_registration_register') }}">
-            <button class="btn btn-dark" type="button">Register here</button>
+        <a href="{{ path('fos_user_resetting_request') }}">
+            <button class="btn btn-dark" type="button">Reset Password</button>
         </a>
     </div>
 </form>

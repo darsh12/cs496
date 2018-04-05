@@ -34,6 +34,11 @@
     bottom: 0;
 }
 
+.login_width
+{
+    max-width: 300px
+}
+
 .main_content {
     margin-top: 5%;
 }
