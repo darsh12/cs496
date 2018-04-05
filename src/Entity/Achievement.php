@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
- * @ORM\Entity(repositoryClass="AchievementRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\AchievementRepository")
  */
 class Achievement
 {
@@ -25,6 +26,14 @@ class Achievement
     public function __construct()
     {
         $this->achievements = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAchievements()
+    {
+        return $this->achievements;
     }
 
     /**

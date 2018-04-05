@@ -2,17 +2,16 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="UserStatRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\UserStatRepository")
  */
 class UserStat
 {
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="user_stat_users")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user_id;
@@ -48,8 +47,8 @@ class UserStat
     protected $win_loss_ratio;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserCharCard", inversedBy="user_char_cards")
-     * @ORM\JoinColumn(name="favorite_card", referencedColumnName="char_card_id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserCharCard", inversedBy="fav_cards")
+     * @ORM\JoinColumn(name="favorite_card", referencedColumnName="id")
      */
     protected $favorite_card;
 
@@ -64,20 +63,20 @@ class UserStat
     protected $times_defended;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Battle", inversedBy="battles")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Battle", inversedBy="best_win_battles")
      * @ORM\JoinColumn(name="best_win_battle", referencedColumnName="id")
      */
     protected $best_win_battle;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Battle", inversedBy="battles")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Battle", inversedBy="worst_lost_battles")
      * @ORM\JoinColumn(name="worst_lost_battle", referencedColumnName="id")
      */
     protected $worst_lost_battle;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserCharCard", inversedBy="user_char_cards")
-     * @ORM\JoinColumn(name="most_defeated_card", referencedColumnName="char_card_id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserCharCard", inversedBy="most_defeated_cards")
+     * @ORM\JoinColumn(name="most_defeated_card", referencedColumnName="id")
      */
     protected $most_defeated_card;
 

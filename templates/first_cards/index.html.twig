@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello!{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <ul>
+                {% for card in cards|shuffle|slice(0,5) %}
+
+                    <li>{{ card.char_name}} {{ card.id }} </li>
+
+                {% endfor %}
+
+            </ul>
+
+        </div>
+    </div>
+
+{% endblock %}
+
+
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script type="text/babel" src="{{ asset('js/cards.react.js') }}"></script>
+
+    {#<script type="text/babel">#}
+        {#ReactDOM.render(#}
+            {#element,#}
+            {#document.getElementById('root')#}
+        {#);#}
+    {#</script>#}
+
+{% endblock %}

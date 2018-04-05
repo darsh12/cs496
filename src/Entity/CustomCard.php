@@ -2,11 +2,10 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="CustomCardRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CustomCardRepository")
  */
 class CustomCard
 {
@@ -18,7 +17,7 @@ class CustomCard
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="custom_card_users")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user_id;

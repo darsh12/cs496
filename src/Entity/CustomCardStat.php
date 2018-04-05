@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
- * @ORM\Entity(repositoryClass="CustomCardStatRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CustomCardStatRepository")
  */
 class CustomCardStat
 {
@@ -24,6 +26,14 @@ class CustomCardStat
     public function __construct()
     {
         $this->custom_card_stats = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getCustomCardStats()
+    {
+        return $this->custom_card_stats;
     }
 
     /**

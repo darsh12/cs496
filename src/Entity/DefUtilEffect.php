@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
- * @ORM\Entity(repositoryClass="DefUtilEffectRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\DefUtilEffectRepository")
  */
 class DefUtilEffect
 {
@@ -24,6 +26,14 @@ class DefUtilEffect
     public function __construct()
     {
         $this->def_util_effects = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getDefUtilEffects()
+    {
+        return $this->def_util_effects;
     }
 
     /**
