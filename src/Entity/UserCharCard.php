@@ -80,22 +80,22 @@ class UserCharCard
     /**
      * @ORM\Column(type="integer")
      */
-    protected $card_kills;
+    protected $card_kills=0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $card_deaths;
+    protected $card_deaths=0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $card_count;
+    protected $card_count=0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $card_uses;
+    protected $card_uses=0;
 
     /**
      * @return mixed

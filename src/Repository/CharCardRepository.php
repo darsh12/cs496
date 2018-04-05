@@ -23,7 +23,7 @@ class CharCardRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('cc')
             ->innerJoin('cc.avatar_id', 'av')
             ->innerJoin('cc.char_stat_id', 'st')
-            ->select('cc.char_name', 'cc.char_class', 'cc.char_type', 'cc.char_tier', 'av.image_path', 'st.hit_points',
+            ->select('cc.id','cc.char_name', 'cc.char_class', 'cc.char_type', 'cc.char_tier', 'av.image_path', 'st.hit_points',
             'st.attack', 'st.defense', 'st.luck', 'st.agility', 'st.speed')
             ->orderBy('cc.char_type')
             ->orderBy('cc.char_name')
