@@ -43,4 +43,25 @@ class TestController extends AbstractController
         ]);
 
     }
+
+    // Route to showcase dynamic content retrieval with simple button
+    /**
+     * @Route("/test/dynamic/")
+     */
+    public function getDynamicTestButton()
+    {
+        return $this->render("test.html.twig");
+
+    }
+
+    // Route of dynamic content needed
+    /**
+     * @Route("/test/dynamic/content/{slug_var}")
+     */
+    public function getDynamicContent($slug_var)
+    {
+        return $this->render("test_content.html.twig", ["slug_var" => $slug_var]);
+
+    }
+
 }

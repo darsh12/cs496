@@ -19,6 +19,10 @@
 
     {% if is_granted('ROLE_USER') %}
 
+        {# Testing dynamic content retrieval #}
+        {% block dynamic %}
+        {% endblock %}
+
 
         <nav class="container tab_pages">
             <a class="navbar-brand" href="#"></a>

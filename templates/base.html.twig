@@ -29,7 +29,7 @@
 {#<li class="nav-item active"><a class="nav-link" href="{{ path('app_homepage') }}">Home <span class="sr-only">(current)</span></a></li>#}
 
 
-<div class="main-content">
+<div class="main_content">
     {% for msg in app.session.flashBag.get('success') %}
         <div class="alert alert-success">{{ msg }}</div>
     {% endfor %}
