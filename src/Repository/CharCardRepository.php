@@ -19,16 +19,14 @@ class CharCardRepository extends ServiceEntityRepository
         parent::__construct($registry, CharCard::class);
     }
 
-    /*
-    public function findBySomething($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->where('c.something = :value')->setParameter('value', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+    public function findAllCards() {
+        return $this->createQueryBuilder('cc')
+            ->innerJoin('cc.avatar_id', 'av')
+            ->select('cc.id','cc.char_name', 'cc.char_class', 'cc.char_type', 'cc.char_tier', 'cc.hit_points',
+            'cc.attack', 'cc.defense', 'cc.luck', 'cc.agility', 'cc.speed', 'av.image_path')
+            ->orderBy('cc.char_type')
+            ->orderBy('cc.char_name')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
-    */
 }

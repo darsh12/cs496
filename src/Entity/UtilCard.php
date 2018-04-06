@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
- * @ORM\Entity(repositoryClass="UtilCardRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\UtilCardRepository")
  */
 class UtilCard
 {
@@ -19,16 +20,63 @@ class UtilCard
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UtilDeck", mappedBy="card1_id")
-     * @ORM\OneToMany(targetEntity="App\Entity\UtilDeck", mappedBy="card2_id")
-     * @ORM\OneToMany(targetEntity="App\Entity\UtilDeck", mappedBy="card3_id")
      * @ORM\OneToMany(targetEntity="App\Entity\UserUtilCard", mappedBy="util_card_id")
      */
-    protected $util_cards;
+    protected $user_util_cards;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UtilDeck", mappedBy="util_card1_id")
+     */
+    protected $utilDeck_card1;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UtilDeck", mappedBy="util_card2_id")
+     */
+    protected $utilDeck_card2;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UtilDeck", mappedBy="util_card3_id")
+     */
+    protected $utilDeck_card3;
 
     public function __construct()
     {
-        $this->util_cards = new ArrayCollection();
+        $this->user_util_cards = new ArrayCollection();
+        $this->utilDeck_card1 = new ArrayCollection();
+        $this->utilDeck_card2 = new ArrayCollection();
+        $this->utilDeck_card3 = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getUserUtilCards()
+    {
+        return $this->user_util_cards;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getUtilDeckCard1()
+    {
+        return $this->utilDeck_card1;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getUtilDeckCard2()
+    {
+        return $this->utilDeck_card2;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getUtilDeckCard3()
+    {
+        return $this->utilDeck_card3;
     }
 
     /**
@@ -47,19 +95,19 @@ class UtilCard
     protected $util_tier;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Avatar")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Avatar", inversedBy="util_card_avatars")
      * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
      */
     protected $avatar_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\AtkUtilEffect")
+     * @ORM\ManyToOne(targetEntity="App\Entity\AtkUtilEffect", inversedBy="atk_util_effects")
      * @ORM\JoinColumn(name="attack_effect_id", referencedColumnName="id")
      */
     protected $attack_effect_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\DefUtilEffect")
+     * @ORM\ManyToOne(targetEntity="App\Entity\DefUtilEffect", inversedBy="def_util_effects")
      * @ORM\JoinColumn(name="defense_effect_id", referencedColumnName="id")
      */
     protected $defense_effect_id;

@@ -1,20 +1,18 @@
 {% extends 'base.html.twig' %}
 
 {% if app.request.get('_route') == 'fos_user_registration_register' %}
-    {% set titleName='Registration Page' %}
+    {% set titleName='Register - Celebrity Battle Simulator' %}
 {% else %}
-    {% set titleName='Login Page' %}
+    {% set titleName='Login - Celebrity Battle Simulator' %}
 {% endif %}
 
 
 {% block title %} {{ titleName }} {% endblock %}
 
 {% block body %}
-    <div class="container">
+    <div class="container login_width">
         <div class="row center-div">
             <div class="col-xs-12">
-                {% block fos_user_content %}{% endblock %}
-            </div>
-        </div>
-    </div>
+                {% block fos_user_content %}
+                {% endblock %}
 {% endblock %}

@@ -2,24 +2,23 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="UserAchievementRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\UserAchievementRepository")
  */
 class UserAchievement
 {
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="user_achievement_users")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user_id;
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\Achievement")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Achievement", inversedBy="achievements")
      * @ORM\JoinColumn(name="achievement_id", referencedColumnName="id")
      */
     protected $achievement_id;

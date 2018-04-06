@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
- * @ORM\Entity(repositoryClass="CharDeckRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CharDeckRepository")
  */
 class CharDeck
 {
@@ -18,50 +20,71 @@ class CharDeck
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Battle", mappedBy="defend_char_deck_id")
+     */
+    protected $defend_char_decks;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\BattleRequest", mappedBy="attack_char_deck_id")
      */
-    protected $char_decks;
+    protected $attack_char_decks;
 
     public function __construct()
     {
-        $this->char_decks = new ArrayCollection();
+        $this->defend_char_decks = new ArrayCollection();
+        $this->attack_char_decks = new ArrayCollection();
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="users")
+     * @return Collection
+     */
+    public function getDefendCharDecks()
+    {
+        return $this->defend_char_decks;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAttackCharDecks()
+    {
+        return $this->attack_char_decks;
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="char_deck_users")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard")
-     * @ORM\JoinColumn(name="card1_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard", inversedBy="charDeck_card1")
+     * @ORM\JoinColumn(name="char_card1_id", referencedColumnName="id")
      */
-    protected $card1_id;
+    protected $char_card1_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard")
-     * @ORM\JoinColumn(name="card2_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard", inversedBy="charDeck_card2")
+     * @ORM\JoinColumn(name="char_card2_id", referencedColumnName="id")
      */
-    protected $card2_id;
+    protected $char_card2_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard")
-     * @ORM\JoinColumn(name="card3_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard", inversedBy="charDeck_card3")
+     * @ORM\JoinColumn(name="char_card3_id", referencedColumnName="id")
      */
-    protected $card3_id;
+    protected $char_card3_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard")
-     * @ORM\JoinColumn(name="card4_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard", inversedBy="charDeck_card4")
+     * @ORM\JoinColumn(name="char_card4_id", referencedColumnName="id")
      */
-    protected $card4_id;
+    protected $char_card4_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard")
-     * @ORM\JoinColumn(name="card5_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard", inversedBy="charDeck_card5")
+     * @ORM\JoinColumn(name="char_card5_id", referencedColumnName="id")
      */
-    protected $card5_id;
+    protected $char_card5_id;
 
     /**
      * @return mixed
@@ -98,80 +121,80 @@ class CharDeck
     /**
      * @return mixed
      */
-    public function getCard1Id()
+    public function getCharCard1Id()
     {
-        return $this->card1_id;
+        return $this->char_card1_id;
     }
 
     /**
-     * @param mixed $card1_id
+     * @param mixed $char_card1_id
      */
-    public function setCard1Id(CharCard $card1_id): void
+    public function setCharCard1Id($char_card1_id): void
     {
-        $this->card1_id = $card1_id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCard2Id()
-    {
-        return $this->card2_id;
-    }
-
-    /**
-     * @param mixed $card2_id
-     */
-    public function setCard2Id(CharCard $card2_id): void
-    {
-        $this->card2_id = $card2_id;
+        $this->char_card1_id = $char_card1_id;
     }
 
     /**
      * @return mixed
      */
-    public function getCard3Id()
+    public function getCharCard2Id()
     {
-        return $this->card3_id;
+        return $this->char_card2_id;
     }
 
     /**
-     * @param mixed $card3_id
+     * @param mixed $char_card2_id
      */
-    public function setCard3Id(CharCard $card3_id): void
+    public function setCharCard2Id($char_card2_id): void
     {
-        $this->card3_id = $card3_id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCard4Id()
-    {
-        return $this->card4_id;
-    }
-
-    /**
-     * @param mixed $card4_id
-     */
-    public function setCard4Id(CharCard $card4_id): void
-    {
-        $this->card4_id = $card4_id;
+        $this->char_card2_id = $char_card2_id;
     }
 
     /**
      * @return mixed
      */
-    public function getCard5Id()
+    public function getCharCard3Id()
     {
-        return $this->card5_id;
+        return $this->char_card3_id;
     }
 
     /**
-     * @param mixed $card5_id
+     * @param mixed $char_card3_id
      */
-    public function setCard5Id(CharCard $card5_id): void
+    public function setCharCard3Id($char_card3_id): void
     {
-        $this->card5_id = $card5_id;
+        $this->char_card3_id = $char_card3_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCharCard4Id()
+    {
+        return $this->char_card4_id;
+    }
+
+    /**
+     * @param mixed $char_card4_id
+     */
+    public function setCharCard4Id($char_card4_id): void
+    {
+        $this->char_card4_id = $char_card4_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCharCard5Id()
+    {
+        return $this->char_card5_id;
+    }
+
+    /**
+     * @param mixed $char_card5_id
+     */
+    public function setCharCard5Id($char_card5_id): void
+    {
+        $this->char_card5_id = $char_card5_id;
     }
 }

@@ -1,0 +1,63 @@
+@font-face {
+    font-family: 'Ostrich-Sans Black';
+    src: url('fonts/ostrich-sans/ostrich-sans-black.eot'); /* IE9 Compat Modes */
+    src: url('fonts/ostrich-sans/ostrich-sans-black.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/ostrich-sans/ostrich-sans-black.woff') format('woff'), /* Modern Browsers */
+    url('fonts/ostrich-sans/ostrich-sans-black.ttf') format('truetype'); /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'Ostrich-Sans Bold';
+    src: url('fonts/ostrich-sans/ostrich-sans-bold.eot'); /* IE9 Compat Modes */
+    src: url('fonts/ostrich-sans/ostrich-sans-bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/ostrich-sans/ostrich-sans-bold.woff') format('woff'), /* Modern Browsers */
+    url('fonts/ostrich-sans/ostrich-sans-bold.ttf') format('truetype'); /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'Ostrich-Sans Dashed';
+    src: url('fonts/ostrich-sans/ostrich-sans-dashed.eot'); /* IE9 Compat Modes */
+    src: url('fonts/ostrich-sans/ostrich-sans-dashed.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/ostrich-sans/ostrich-sans-dashed.woff') format('woff'), /* Modern Browsers */
+    url('fonts/ostrich-sans/ostrich-sans-dashed.ttf') format('truetype'); /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'Ostrich-Sans Inline-Italic';
+    src: url('fonts/ostrich-sans/ostrich-sans-inline-italic.eot'); /* IE9 Compat Modes */
+    src: url('fonts/ostrich-sans/ostrich-sans-inline-italic.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/ostrich-sans/ostrich-sans-inline-italic.woff') format('woff'), /* Modern Browsers */
+    url('fonts/ostrich-sans/ostrich-sans-inline-italic.ttf') format('truetype'); /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'Ostrich-Sans inline-regular';
+    src: url('fonts/ostrich-sans/ostrich-sans-inline-regular.eot'); /* IE9 Compat Modes */
+    src: url('fonts/ostrich-sans/ostrich-sans-inline-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/ostrich-sans/ostrich-sans-inline-regular.woff') format('woff'), /* Modern Browsers */
+    url('fonts/ostrich-sans/ostrich-sans-inline-regular.ttf') format('truetype'); /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'Ostrich-Sans Light';
+    src: url('fonts/ostrich-sans/ostrich-sans-light.eot'); /* IE9 Compat Modes */
+    src: url('fonts/ostrich-sans/ostrich-sans-light.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/ostrich-sans/ostrich-sans-light.woff') format('woff'), /* Modern Browsers */
+    url('fonts/ostrich-sans/ostrich-sans-light.ttf') format('truetype'); /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'Ostrich-Sans Regular';
+    src: url('fonts/ostrich-sans/ostrich-sans-regular.eot'); /* IE9 Compat Modes */
+    src: url('fonts/ostrich-sans/ostrich-sans-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/ostrich-sans/ostrich-sans-regular.woff') format('woff'), /* Modern Browsers */
+    url('fonts/ostrich-sans/ostrich-sans-regular.ttf') format('truetype'); /* Safari, Android, iOS */
+}
+
+@font-face {
+    font-family: 'Ostrich-Sans Rounded';
+    src: url('fonts/ostrich-sans/ostrich-sans-rounded.eot'); /* IE9 Compat Modes */
+    src: url('fonts/ostrich-sans/ostrich-sans-rounded.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('fonts/ostrich-sans/ostrich-sans-rounded.woff') format('woff'), /* Modern Browsers */
+    url('fonts/ostrich-sans/ostrich-sans-rounded.ttf') format('truetype'); /* Safari, Android, iOS */
+}

@@ -329,6 +329,18 @@
             "ref": "f8a63faa0d9521526499c0a8f403c9964ecb0527"
         }
     },
+    "symfony/security-core": {
+        "version": "v4.0.6"
+    },
+    "symfony/security-csrf": {
+        "version": "v4.0.6"
+    },
+    "symfony/security-guard": {
+        "version": "v4.0.6"
+    },
+    "symfony/security-http": {
+        "version": "v4.0.6"
+    },
     "symfony/stopwatch": {
         "version": "v4.0.4"
     },
@@ -394,6 +406,15 @@
     },
     "twbs/bootstrap": {
         "version": "v4.0.0"
+    },
+    "twig/extensions": {
+        "version": "1.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "1.0",
+            "ref": "4851df0afc426b8f07204379d21fca25b6df5d68"
+        }
     },
     "twig/twig": {
         "version": "v2.4.4"

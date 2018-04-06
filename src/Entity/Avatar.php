@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
- * @ORM\Entity(repositoryClass="AvatarRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\AvatarRepository")
  */
 class Avatar
 {
@@ -18,15 +20,35 @@ class Avatar
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\CharCard", mappedBy="avatar_id")
+     */
+    protected $char_card_avatars;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\UtilCard", mappedBy="avatar_id")
      */
-    protected $avatars;
+    protected $util_card_avatars;
 
     public function __construct()
     {
-        $this->avatars = new ArrayCollection();
+        $this->char_card_avatars = new ArrayCollection();
+        $this->util_card_avatars = new ArrayCollection();
     }
 
+    /**
+     * @return Collection
+     */
+    public function getCharCardAvatars()
+    {
+        return $this->char_card_avatars;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getUtilCardAvatars()
+    {
+        return $this->util_card_avatars;
+    }
     /**
      * @ORM\Column(type="string")
      */

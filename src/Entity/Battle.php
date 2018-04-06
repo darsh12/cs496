@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
- * @ORM\Entity(repositoryClass="BattleRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\BattleRepository")
  */
 class Battle
 {
@@ -19,17 +20,38 @@ class Battle
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserStat", mappedBy="best_win_battle")
+     */
+    protected $best_win_battles;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserStat", mappedBy="worst_lost_battle")
      */
-    protected $battles;
+    protected $worst_lost_battles;
 
     public function __construct()
     {
-        $this->battles = new ArrayCollection();
+        $this->best_win_battles = new ArrayCollection();
+        $this->worst_lost_battles = new ArrayCollection();
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @return Collection
+     */
+    public function getBestWinBattles()
+    {
+        return $this->best_win_battles;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getWorstLostBattles()
+    {
+        return $this->worst_lost_battles;
+    }
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="battle_winner_users")
      * @ORM\JoinColumn(name="winner_id", referencedColumnName="id")
      */
     protected $winner_id;
@@ -40,13 +62,13 @@ class Battle
     protected $battle_datetime;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CharDeck", inversedBy="char_decks")
+     * @ORM\ManyToOne(targetEntity="App\Entity\CharDeck", inversedBy="defend_char_decks")
      * @ORM\JoinColumn(name="defend_char_deck_id", referencedColumnName="id")
      */
     protected $defend_char_deck_id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UtilDeck")
+     * @ORM\ManyToOne(targetEntity="App\Entity\UtilDeck", inversedBy="defend_util_decks")
      * @ORM\JoinColumn(name="defend_util_deck_id", referencedColumnName="id")
      */
     protected $defend_util_deck_id;
@@ -57,7 +79,7 @@ class Battle
     protected $battle_report;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\BattleRequest")
+     * @ORM\ManyToOne(targetEntity="App\Entity\BattleRequest", inversedBy="battle_requests")
      * @ORM\JoinColumn(name="request_id", referencedColumnName="id")
      */
     protected $request_id;

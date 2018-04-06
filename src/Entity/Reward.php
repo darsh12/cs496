@@ -3,9 +3,11 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
- * @ORM\Entity(repositoryClass="RewardRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\RewardRepository")
  */
 class Reward
 {
@@ -24,6 +26,14 @@ class Reward
     public function __construct()
     {
         $this->rewards = new ArrayCollection();
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getRewards()
+    {
+        return $this->rewards;
     }
 
     /**

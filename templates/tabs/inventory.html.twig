@@ -1,0 +1,11 @@
+{% extends 'homepage.html.twig' %}
+
+{% block inventory_tab %}
+    <li class="tab current" onclick="toggleCurrentTab(this)"><a class="current" href="{{ path('app_inventory') }}">Inventory<span class="sr-only"></span></a></li>
+{% endblock %}
+
+{% block inventory %}
+    <p style="color: red;">
+        Youre now in the Inventory page
+    </p>
+{% endblock %}

@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 /**
- * @ORM\Entity(repositoryClass="AchievementRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\AchievementRepository")
  */
 class Achievement
 {
@@ -28,12 +29,20 @@ class Achievement
     }
 
     /**
+     * @return Collection
+     */
+    public function getAchievements()
+    {
+        return $this->achievements;
+    }
+
+    /**
      * @ORM\Column(type="string")
      */
     protected $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Reward")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Reward", inversedBy="rewards")
      * @ORM\JoinColumn(name="reward_id", referencedColumnName="id")
      */
     protected $reward_id;
