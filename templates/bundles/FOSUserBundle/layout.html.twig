@@ -1,20 +1,21 @@
 {% extends 'base.html.twig' %}
 
 {% if app.request.get('_route') == 'fos_user_registration_register' %}
-    {% set titleName='Registration Page' %}
+    {% set titleName='Register - Celebrity Battle Simulator' %}
 {% else %}
-    {% set titleName='Login Page' %}
+    {% set titleName='Login - Celebrity Battle Simulator' %}
 {% endif %}
 
 
 {% block title %} {{ titleName }} {% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="row center-div">
-            <div class="col-xs-12">
+    {# this wrapper stuff was messing with the format of the page when switching tabs#}
+    {#<div class="container">#}
+        {#<div class="row center-div">#}
+            {#<div class="col-xs-12">#}
                 {% block fos_user_content %}{% endblock %}
-            </div>
-        </div>
-    </div>
+            {#</div>#}
+        {#</div>#}
+    {#</div>#}
 {% endblock %}

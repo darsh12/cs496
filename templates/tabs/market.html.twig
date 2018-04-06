@@ -1,8 +1,11 @@
 {% extends 'homepage.html.twig' %}
 
+{% block market_tab %}
+    <li class="tab current" onclick="toggleCurrentTab(this)"><a class="current" href="{{ path('app_market') }}">Market<span class="sr-only"></span></a></li>
+{% endblock %}
 
 {% block market %}
-    <p style="color: red; margin-top: 100px">
+    <p style="color: red;">
         Youre now in the Market page
     </p>
 {% endblock %}
