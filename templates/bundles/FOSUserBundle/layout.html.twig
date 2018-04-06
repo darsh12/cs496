@@ -10,12 +10,9 @@
 {% block title %} {{ titleName }} {% endblock %}
 
 {% block body %}
-    {# this wrapper stuff was messing with the format of the page when switching tabs#}
-    {#<div class="container">#}
-        {#<div class="row center-div">#}
-            {#<div class="col-xs-12">#}
-                {% block fos_user_content %}{% endblock %}
-            {#</div>#}
-        {#</div>#}
-    {#</div>#}
+    <div class="container login_width">
+        <div class="row center-div">
+            <div class="col-xs-12">
+                {% block fos_user_content %}
+                {% endblock %}
 {% endblock %}
