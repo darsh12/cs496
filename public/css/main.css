@@ -10,13 +10,6 @@
     font-family: "Ostrich-Sans Bold";
 }
 
-.tab_pages{
-    margin-top: 50px;
-}
-
-.tab_style{
-}
-
 .header{
     position: fixed;
     left: 0;
@@ -32,6 +25,10 @@
     text-align: center;
     left: 0;
     bottom: 0;
+}
+
+.login_width {
+    max-width: 300px
 }
 
 .main_content {
@@ -70,7 +67,26 @@
     padding-left: 2vw;
 }
 
+.tab {
+    text-align: center;
+    width: 25%;
+}
+
 /*Temporary class for current tab selected*/
 .current {
-    background-color: lightblue;
+    background-color: #ffeb00;
+}
+
+#dynamic_container {
+    border-bottom-radius: 10px;
+    border: 5px solid #ffeb00;
+    padding: 2%;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.custom_container {
+    margin-top: 7%;
+    margin-left: 20%;
+    margin-right: 20%;
 }

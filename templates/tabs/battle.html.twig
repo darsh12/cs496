@@ -1,8 +1,11 @@
 {% extends 'homepage.html.twig' %}
 
+{% block battle_tab %}
+    <li class="tab current" onclick="toggleCurrentTab(this)"><a class="current" href="{{ path('app_battle') }}">Battle<span class="sr-only"></span></a></li>
+{% endblock %}
 
 {% block battle %}
-    <p style="color: red; margin-top: 100px">
+    <p style="color: red;">
         Youre now in the Battle page
     </p>
 {% endblock %}
