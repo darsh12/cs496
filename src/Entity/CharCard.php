@@ -250,22 +250,6 @@ class CharCard
     /**
      * @return mixed
      */
-    public function getCharStatId()
-    {
-        return $this->char_stat_id;
-    }
-
-    /**
-     * @param mixed $char_stat_id
-     */
-    public function setCharStatId(CharCardStat $char_stat_id): void
-    {
-        $this->char_stat_id = $char_stat_id;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getHitPoints()
     {
         return $this->hit_points;
