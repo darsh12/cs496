@@ -22,9 +22,8 @@ class CharCardRepository extends ServiceEntityRepository
     public function findAllCards() {
         return $this->createQueryBuilder('cc')
             ->innerJoin('cc.avatar_id', 'av')
-            ->innerJoin('cc.char_stat_id', 'st')
-            ->select('cc.id','cc.char_name', 'cc.char_class', 'cc.char_type', 'cc.char_tier', 'av.image_path', 'st.hit_points',
-            'st.attack', 'st.defense', 'st.luck', 'st.agility', 'st.speed')
+            ->select('cc.id','cc.char_name', 'cc.char_class', 'cc.char_type', 'cc.char_tier', 'cc.hit_points',
+            'cc.attack', 'cc.defense', 'cc.luck', 'cc.agility', 'cc.speed', 'av.image_path')
             ->orderBy('cc.char_type')
             ->orderBy('cc.char_name')
             ->getQuery()
