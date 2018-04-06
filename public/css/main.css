@@ -65,15 +65,17 @@
 }
 
 #dynamic_container {
+    height: 450px;
     border-bottom-radius: 10px;
     border: 5px solid #ffeb00;
     padding: 2%;
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 15%;
+    margin-right: 15%;
+
 }
 
 .custom_container {
-    margin-top: 7%;
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-top: 6%;
+    margin-left: 15%;
+    margin-right: 15%;
 }

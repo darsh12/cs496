@@ -22,7 +22,7 @@ class IndexController extends AbstractController
     {
         $user = $this->getUser();
         if($user)
-            return $this->redirect('/profile');
+            return $this->redirect('/my_profile');
         else
             return $this->render('homepage.html.twig');
     }

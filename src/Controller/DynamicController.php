@@ -16,6 +16,15 @@ use Symfony\Component\HttpFoundation\Response;
 class DynamicController extends AbstractController
 {
 
+    /**
+     * @Route("/my_profile",name="app_my-profile")
+     */
+    public function myProfile()
+    {
+        $userName = $this->getUser()->getUserName();
+        return $this->render('tabs/my_profile.html.twig', ["username" => $userName]);
+    }
+
 
     /**
      * @Route("/inventory",name="app_inventory")

@@ -1,0 +1,11 @@
+{% extends 'homepage.html.twig' %}
+
+{% block profile_tab %}
+    <li class="tab" ><a class="current" href="{{ path('app_my-profile') }}">Profile<span class="sr-only"></span></a></li>
+{% endblock %}
+
+{% block profile %}
+    <div>
+        <p>Hello, {{ username }}.</p>
+    </div>
+{% endblock %}
