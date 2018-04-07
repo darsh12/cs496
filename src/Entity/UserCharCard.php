@@ -42,17 +42,8 @@ class UserCharCard
 
     public function __construct()
     {
-        $this->user_char_cards = new ArrayCollection();
         $this->fav_cards = new ArrayCollection();
         $this->most_defeated_cards = new ArrayCollection();
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getUserCharCards()
-    {
-        return $this->user_char_cards;
     }
 
     /**
