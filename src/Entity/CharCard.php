@@ -24,11 +24,6 @@ class CharCard
     protected $user_char_cards;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserCharCard", mappedBy="char_card_id")
-     */
-    protected $char_cards;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\CharDeck", mappedBy="char_card1_id")
      */
     protected $charDeck_card1;
@@ -55,20 +50,11 @@ class CharCard
 
     public function __construct()
     {
-        $this->char_cards = new ArrayCollection();
         $this->charDeck_card1 = new ArrayCollection();
         $this->charDeck_card2 = new ArrayCollection();
         $this->charDeck_card3 = new ArrayCollection();
         $this->charDeck_card4 = new ArrayCollection();
         $this->charDeck_card5 = new ArrayCollection();
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getCharCards()
-    {
-        return $this->char_cards;
     }
 
     /**
@@ -130,6 +116,11 @@ class CharCard
      * @ORM\Column(type="string")
      */
     protected $char_tier;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    protected $rating;
 
     /**
      * @ORM\Column(type="integer")
@@ -245,6 +236,22 @@ class CharCard
     public function setCharTier($char_tier): void
     {
         $this->char_tier = $char_tier;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * @param mixed $rating
+     */
+    public function setRating($rating): void
+    {
+        $this->rating = $rating;
     }
 
     /**

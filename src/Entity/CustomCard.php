@@ -25,12 +25,32 @@ class CustomCard
     /**
      * @ORM\Column(type="integer")
      */
-    protected $type;
+    protected $votes;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $char_name;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $char_type;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $char_class;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    protected $char_tier;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $votes;
+    protected $rating;
 
     /**
      * @ORM\Column(type="integer")
@@ -97,22 +117,6 @@ class CustomCard
     /**
      * @return mixed
      */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param mixed $type
-     */
-    public function setType($type): void
-    {
-        $this->type = $type;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getVotes()
     {
         return $this->votes;
@@ -124,6 +128,86 @@ class CustomCard
     public function setVotes($votes): void
     {
         $this->votes = $votes;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCharName()
+    {
+        return $this->char_name;
+    }
+
+    /**
+     * @param mixed $char_name
+     */
+    public function setCharName($char_name): void
+    {
+        $this->char_name = $char_name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCharType()
+    {
+        return $this->char_type;
+    }
+
+    /**
+     * @param mixed $char_type
+     */
+    public function setCharType($char_type): void
+    {
+        $this->char_type = $char_type;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCharClass()
+    {
+        return $this->char_class;
+    }
+
+    /**
+     * @param mixed $char_class
+     */
+    public function setCharClass($char_class): void
+    {
+        $this->char_class = $char_class;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCharTier()
+    {
+        return $this->char_tier;
+    }
+
+    /**
+     * @param mixed $char_tier
+     */
+    public function setCharTier($char_tier): void
+    {
+        $this->char_tier = $char_tier;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * @param mixed $rating
+     */
+    public function setRating($rating): void
+    {
+        $this->rating = $rating;
     }
 
     /**

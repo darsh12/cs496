@@ -63,12 +63,6 @@ class UserCharCard
     }
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CharCard", inversedBy="char_cards")
-     * @ORM\JoinColumn(name="char_card_id", referencedColumnName="id")
-     */
-    protected $char_card_id;
-
-    /**
      * @ORM\Column(type="integer")
      */
     protected $card_kills=0;
@@ -87,22 +81,6 @@ class UserCharCard
      * @ORM\Column(type="integer")
      */
     protected $card_uses=0;
-
-    /**
-     * @return mixed
-     */
-    public function getCharCardId()
-    {
-        return $this->char_card_id;
-    }
-
-    /**
-     * @param mixed $char_card_id
-     */
-    public function setCharCardId(CharCard $char_card_id): void
-    {
-        $this->char_card_id = $char_card_id;
-    }
 
     /**
      * @return mixed
