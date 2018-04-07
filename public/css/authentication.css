@@ -1,0 +1,15 @@
+.login_logout{
+    list-style-type: none;
+    float: right;
+    position: relative;
+    text-align: center;
+    left: 0;
+    bottom: 0;
+}
+
+/* Login/Register Container*/
+h1 + form {
+    padding: 2%;
+    max-width: 350px;
+    margin: 0 auto;
+}

@@ -1,9 +1,7 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 <h1 align="center">Login Page</h1>
-{% if error %}
-    <div class="alert alert-warning">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
+
 
 <form action="{{ path("fos_user_security_check") }}" method="post">
     {% if csrf_token %}
@@ -33,12 +31,15 @@
 
         </div>
 
-
         <div>
             <a href="{{ path('fos_user_registration_register') }}">
                 <button class="btn btn-primary" type="button">Register here</button>
             </a>
         </div>
+
+        {% if error %}
+            <div style="width: 100%; margin-top: 10%" class="alert alert-warning">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
 
         {#<div class="col">#}
             {#<a href="{{ path('app_homepage') }}">#}
