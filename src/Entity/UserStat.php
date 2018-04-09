@@ -22,12 +22,12 @@ class UserStat
     protected $user_rank;
 
     /**
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="integer")
      */
     protected $user_level;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="time")
      */
     protected $play_time;
 
@@ -37,12 +37,12 @@ class UserStat
     protected $matches_won;
 
     /**
-     * @ORM\Column(type="decimal")
+     * @ORM\Column(type="integer")
      */
     protected $matches_lost;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal")
      */
     protected $win_loss_ratio;
 
