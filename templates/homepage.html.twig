@@ -22,7 +22,7 @@
             <div id="navbarSupportedContent">
                 <ul class="nav nav-tabs">
                     {% block profile_tab %}
-                        <li class="tab" onclick="toggleCurrentTab(this)"><a href="{{ path('fos_user_profile_show') }}">Profile<span class="sr-only"></span></a></li>
+                        <li class="tab" onclick="toggleCurrentTab(this)"><a href="{{ path('app_my-profile') }}">Profile<span class="sr-only"></span></a></li>
                     {% endblock %}
 
                     {% block inventory_tab %}
@@ -41,6 +41,11 @@
             </div>
 
         </nav>
+
+        <div id="dynamic_sub_tabs_container">
+            {% block sub_tabs %}
+            {% endblock %}
+        </div>
 
         {#Dynamic content for each tab#}
         <div id="dynamic_container">

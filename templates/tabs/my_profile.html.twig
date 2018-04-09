@@ -4,8 +4,16 @@
     <li class="tab" ><a class="current" href="{{ path('app_my-profile') }}">Profile<span class="sr-only"></span></a></li>
 {% endblock %}
 
-{% block profile %}
-    <div>
-        <p>Hello, {{ username }}.</p>
-    </div>
+{% block sub_tabs %}
+    <ul class="sub_tabs">
+        <li class="sub_tab current" data-url="my_profile/stats" onclick="getDynamicTabContent(this)">Stats</li> {# stats is default current sub-tab #}
+        <li class="sub_tab" data-url="my_profile/edit" onclick="getDynamicTabContent(this)">Edit Profile</li>
+        <li class="sub_tab" data-url="my_profile/achieve" onclick="getDynamicTabContent(this)">Achievements</li>
+    </ul>
 {% endblock %}
+
+{#{% block profile %}#}
+    {#<div>#}
+        {#<p>Hello, {{ user.name }}.</p>#}
+    {#</div>#}
+{#{% endblock %}#}

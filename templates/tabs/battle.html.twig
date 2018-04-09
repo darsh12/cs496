@@ -4,6 +4,12 @@
     <li class="tab" ><a class="current" href="{{ path('app_battle') }}">Battle<span class="sr-only"></span></a></li>
 {% endblock %}
 
+{% block sub_tabs %}
+    <ul class="sub_tabs">
+        <li class="sub_tab current" data-name="battle/sub_tab_content_goes_here" onclick="getDynamicTabContent(this)">Sub-Tab</li>
+    </ul>
+{% endblock %}
+
 {% block battle %}
     {#<p style="color: red;">#}
         {#Youre now in the Battle page#}

@@ -16,3 +16,24 @@ function getDynamicTwigContent(button, containerId, url) {
         }
     });
 }
+
+// AJAX function for tabs
+function getDynamicTabContent(button) {
+
+    var tabName = $(button).attr("data-url");
+
+    $.ajax({
+        // Using dynamic urls for now, may change if not secure enough
+        url: "/"+tabName,
+        // Successful Retrieval
+        success:function(data)
+        {
+            $("#dynamic_container").html(data);
+            $(button).addClass("current");
+        },
+        // Failed Retrieval
+        error: function(data)
+        {
+        }
+    });
+}

@@ -55,13 +55,53 @@
 }
 
 .tab {
+    font-size: 1.5em;
     text-align: center;
     width: 25%;
+}
+
+.sub_tabs {
+    padding-left: 0;
+    margin: auto;
+    width: 100%;
+    text-align: right;
+    float: right;
+    list-style: none;
+}
+
+.sub_tab {
+    cursor: pointer;
+    font-size: 1.5em;
+    padding: 1%;
+    padding-right: 2%;
+}
+
+.sub_tab:hover {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    background-color: #ffeb00;
+}
+
+.sub_tab.current {
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    background-color: #ffeb00;
 }
 
 /*Temporary class for current tab selected*/
 .current {
     background-color: #ffeb00;
+}
+
+#dynamic_sub_tabs_container {
+    padding-top: .25%;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    background-color: #FFFFFF;
+    padding: 1%;
+    padding-right: 0;
+    width: 15%;
+    float: left;
 }
 
 #dynamic_container {

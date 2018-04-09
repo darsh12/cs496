@@ -21,8 +21,9 @@ class DynamicController extends AbstractController
      */
     public function myProfile()
     {
-        $userName = $this->getUser()->getUserName();
-        return $this->render('tabs/my_profile.html.twig', ["username" => $userName]);
+        $user = [];
+        $user['name'] = $this->getUser()->getUserName();
+        return $this->render('tabs/my_profile.html.twig', ["user" => $user]);
     }
 
 
