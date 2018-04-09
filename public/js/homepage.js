@@ -1,3 +1,9 @@
+// Automatically click current sub-tab of current tab to retrieve content
+window.onload = function() {
+    console.log("loaded");
+    $(".sub_tab.current").click();
+};
+
 // TODO: I think we should keep this dynamic if we're doing a lot of ajax retrievals (ex. dynamic URL, containerId)
 // Appends rendered twig to container with given ID
 function getDynamicTwigContent(button, containerId, url) {
