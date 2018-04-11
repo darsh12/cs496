@@ -1,7 +1,7 @@
 // Automatically click current sub-tab of current tab to retrieve content
 window.onload = function() {
     console.log("loaded");
-    $(".sub_tab.current").click();
+    $(".sub_tab.default").click();
 };
 
 // TODO: I think we should keep this dynamic if we're doing a lot of ajax retrievals (ex. dynamic URL, containerId)
@@ -35,6 +35,7 @@ function getDynamicTabContent(button) {
         success:function(data)
         {
             $("#dynamic_container").html(data);
+            $(".sub_tab.current").removeClass("current");
             $(button).addClass("current");
         },
         // Failed Retrieval

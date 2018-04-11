@@ -5,27 +5,9 @@
 {% endblock %}
 
 {% block sub_tabs %}
+
     <ul class="sub_tabs">
-        <li class="sub_tab current" data-name="battle/sub_tab_content_goes_here" onclick="getDynamicTabContent(this)">Sub-Tab</li>
+        <li class="sub_tab default" data-url="my_battle/findgame" onclick="getDynamicTabContent(this)">Find Game</li> {# Find Game is default current sub-tab #}
+        <li class="sub_tab" data-url="my_battle/leaderboard" onclick="getDynamicTabContent(this)">Leaderboard</li>
     </ul>
-{% endblock %}
-
-{% block battle %}
-    {#<p style="color: red;">#}
-        {#Youre now in the Battle page#}
-    {#</p>#}
-
-    <div class="search_player">
-        <p>
-            Search Players
-        </p>
-    </div>
-
-    <div class="requests">
-        <p>
-            Requests
-        </p>
-    </div>
-
-
 {% endblock %}
