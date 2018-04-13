@@ -23,6 +23,9 @@ class DynamicController extends AbstractController
      */
     public function myProfile()
     {
+        if(!$this->getUser())
+            return $this->render('homepage.html.twig');
+
         // Create record for user's empty stats upon registration
         $this->initializeProfile();
 
@@ -56,14 +59,17 @@ class DynamicController extends AbstractController
         return $this->render('tabs/market.html.twig');
     }
 
+
     // Create empty stats record for user if it doesn't exist already
     protected function initializeProfile() {
         $user = $this->getUser();
+        if(!$user)
+            return;
         $userID = $user->getId();
 
         $userStatObj = $this->getDoctrine()
             ->getRepository(UserStat::class)
-            ->find($userID);
+            ->findBy(["user" => $userID]);
 
         // If Stats record exists, return
         if ($userStatObj) {
@@ -74,15 +80,7 @@ class DynamicController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             $userStatObj = new UserStat();
-            $userStatObj->setUserId($user);
-            $userStatObj->setUserRank(0);
-            $userStatObj->setUserLevel(0);
-            $userStatObj->setPlayTime(new \DateTime("00:00:00"));
-            $userStatObj->setMatchesWon(0);
-            $userStatObj->setMatchesLost(0);
-            $userStatObj->setWinLossRatio(0);
-            $userStatObj->setTimesAttacked(0);
-            $userStatObj->setTimesDefended(0);
+            $userStatObj->setUser($user);
 
             $entityManager->persist($userStatObj);
             $entityManager->flush();
