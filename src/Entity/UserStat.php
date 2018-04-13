@@ -62,11 +62,6 @@ class UserStat
     private $user_level=0;
 
     /**
-     * @ORM\Column(type="time")
-     */
-    private $play_time;
-
-    /**
      * @ORM\Column(type="integer")
      */
     private $matches_won=0;
@@ -91,10 +86,7 @@ class UserStat
      */
     private $experience=0;
 
-    public function __construct()
-    {
-        $this->play_time = new \DateTime();
-    }
+
 
     public function getId()
     {
@@ -205,18 +197,6 @@ class UserStat
     public function setUserLevel(int $user_level): self
     {
         $this->user_level = $user_level;
-
-        return $this;
-    }
-
-    public function getPlayTime(): ?\DateTimeInterface
-    {
-        return $this->play_time;
-    }
-
-    public function setPlayTime(\DateTimeInterface $play_time): self
-    {
-        $this->play_time = $play_time;
 
         return $this;
     }
