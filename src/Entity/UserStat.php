@@ -62,7 +62,7 @@ class UserStat
     private $user_level=0;
 
     /**
-     * @ORM\Column(type="time")
+     * @ORM\Column(type="time", options={"default"="CURRENT_TIMESTAMP"})
      */
     private $play_time=;
 
