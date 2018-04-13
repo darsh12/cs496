@@ -1,3 +1,66 @@
-<div>
-    User Stats go here
-</div>
+    {# Profile Stats #}
+    <div class="profile_column">
+        {# Profile Image, Level, Progression #}
+        <div class="profile_info">
+            <div class="profile_name"> Username </div>
+            <img class="profile_img">
+            <div>
+                100
+                <span>LVL</span>
+            </div>
+            <div class="profile_progress"></div>
+        </div>
+        {# Rank #}
+        <div>
+            2
+            <span>RANK</span>
+        </div>
+        {# Play-time #}
+        <div>
+            00:00:00
+            <span>PLAY-TIME</span>
+        </div>
+    </div>
+
+    {# Card Stats #}
+    <div class="profile_column">
+
+        <h4>FAVORITE CHARACTER</h4>
+        <div class="character"></div>
+
+        <h4>FAVORITE UTILITY</h4>
+        <div class="utility"></div>
+
+    </div>
+
+    {# Battle Stats #}
+    <div class="profile_column">
+        <h4>BATTLE STATISTICS</h4>
+        <ul>
+            <li>W/L</li>
+            <li>WINS</li>
+            <li>LOSSES</li>
+            <li>TOTAL</li>
+            <li>ATTACKS</li>
+            <li>DEFENSES</li>
+        </ul>
+    </div>
+    {#{{ user.name }}#}
+    {#{{ user.rank }}#}
+    {#{{ user.level }}#}
+    {#{{ user.playtime }}#}
+
+    {#{{ user.fave_char_card }}#}
+    {#{{ user.fave_util_card }} #}{# derived from user_util_card with highest number of uses #}
+    {#{{ user.worst_card }}#}
+
+    {#{{ user.total_matches }}#}
+    {#{{ user.matches_won }}#}
+    {#{{ user.matches_lost }}#}
+    {#{{ user.win_loss_ratio }}#}
+
+    {#{{ user.times_attacked }}#}
+    {#{{ user.times_defended }}#}
+
+    {#{{ user.best_battle }}#}
+    {#{{ user.worst_battle }}#}

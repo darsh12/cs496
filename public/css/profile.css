@@ -1,0 +1,10 @@
+.profile_column {
+    float: left;
+    height: 100%;
+    display: block;
+    margin-right: 1%;
+    margin-left: 1%;
+    /* Temp stuff*/
+    background-color: #FFFFFF;
+    border: 1px solid black;
+}
