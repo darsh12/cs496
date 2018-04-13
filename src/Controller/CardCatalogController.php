@@ -51,7 +51,7 @@ class CardCatalogController extends Controller
 //    }
 
     /**
-     * @Route("/card-catalog", name="card_show")
+     * @Route("inventory/card-catalog", name="card_show")
      */
     public function showAction()
     {

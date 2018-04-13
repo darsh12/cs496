@@ -6,7 +6,10 @@
 
 {% block sub_tabs %}
     <ul class="sub_tabs">
-        <li class="sub_tab current" data-name="inventory/sub_tab_content_goes_here" onclick="getDynamicTabContent(this)">Sub-Tab</li>
+        <li class="sub_tab default" data-url="inventory/sub_tab_content_goes_here" onclick="getDynamicTabContent(this)">Sub-Tab</li>
+    </ul>
+    <ul class="sub_tabs">
+        <li class="sub_tab" data-url="inventory/card-catalog" onclick="getDynamicTabContent(this)">Card Catalog</li>
     </ul>
 {% endblock %}
 
