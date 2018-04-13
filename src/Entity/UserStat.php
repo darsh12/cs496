@@ -64,7 +64,7 @@ class UserStat
     /**
      * @ORM\Column(type="time", options={"default"="CURRENT_TIMESTAMP"})
      */
-    private $play_time=;
+    private $play_time;
 
     /**
      * @ORM\Column(type="integer")
