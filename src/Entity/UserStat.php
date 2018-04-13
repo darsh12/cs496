@@ -54,42 +54,42 @@ class UserStat
     /**
      * @ORM\Column(type="integer")
      */
-    private $user_rank;
+    private $user_rank=0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $user_level;
+    private $user_level=0;
 
     /**
      * @ORM\Column(type="time")
      */
-    private $play_time;
+    private $play_time=;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $matches_won;
+    private $matches_won=0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $matches_lost;
+    private $matches_lost=0;
 
     /**
      * @ORM\Column(type="decimal", precision=5)
      */
-    private $win_loss_ratio;
+    private $win_loss_ratio=0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $times_attacked;
+    private $times_attacked=0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $experience;
+    private $experience=0;
 
     public function getId()
     {
