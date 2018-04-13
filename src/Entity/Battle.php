@@ -39,7 +39,7 @@ class Battle
     private $request;
 
     /**
-     * @ORM\Column(type="datetime", options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(type="datetime")
      */
     private $time;
 
@@ -60,6 +60,7 @@ class Battle
 
     public function __construct()
     {
+        $this->time = new \DateTime();
         $this->userStats_bestWin = new ArrayCollection();
         $this->userStats_worstLost = new ArrayCollection();
     }

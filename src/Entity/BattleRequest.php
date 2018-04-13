@@ -39,7 +39,7 @@ class BattleRequest
     private $attacker_util_deck;
 
     /**
-     * @ORM\Column(type="datetime", options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(type="datetime")
      */
     private $time;
 
@@ -50,6 +50,7 @@ class BattleRequest
 
     public function __construct()
     {
+        $this->time = new \DateTime();
         $this->battles = new ArrayCollection();
     }
 

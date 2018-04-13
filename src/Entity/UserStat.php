@@ -62,7 +62,7 @@ class UserStat
     private $user_level=0;
 
     /**
-     * @ORM\Column(type="time", options={"default"="CURRENT_TIMESTAMP"})
+     * @ORM\Column(type="time")
      */
     private $play_time;
 
@@ -90,6 +90,11 @@ class UserStat
      * @ORM\Column(type="integer")
      */
     private $experience=0;
+
+    public function __construct()
+    {
+        $this->play_time = new \DateTime();
+    }
 
     public function getId()
     {
