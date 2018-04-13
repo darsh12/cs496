@@ -59,8 +59,6 @@ class CardCatalogController extends Controller
 
         $cards = $repository->findAllCardsSortByRatingDesc();
 
-        dump($cards);
-
         return $this->render('card_catalog/index.html.twig', array('cards' => $cards));
     }
 }
