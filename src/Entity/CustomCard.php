@@ -25,7 +25,7 @@ class CustomCard
     /**
      * @ORM\Column(type="integer")
      */
-    private $votes;
+    private $votes=0;
 
     /**
      * @ORM\Column(type="string", length=255)

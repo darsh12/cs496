@@ -46,7 +46,7 @@ class Battle
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $report;
+    private $report="No reports right now";
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserStat", mappedBy="best_win_battle")
@@ -60,6 +60,7 @@ class Battle
 
     public function __construct()
     {
+        $this->time = new \DateTime();
         $this->userStats_bestWin = new ArrayCollection();
         $this->userStats_worstLost = new ArrayCollection();
     }

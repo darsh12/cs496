@@ -54,42 +54,39 @@ class UserStat
     /**
      * @ORM\Column(type="integer")
      */
-    private $user_rank;
+    private $user_rank=0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $user_level;
-
-    /**
-     * @ORM\Column(type="time")
-     */
-    private $play_time;
+    private $user_level=0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $matches_won;
+    private $matches_won=0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $matches_lost;
+    private $matches_lost=0;
 
     /**
      * @ORM\Column(type="decimal", precision=5)
      */
-    private $win_loss_ratio;
+    private $win_loss_ratio=0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $times_attacked;
+    private $times_attacked=0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $experience;
+    private $experience=0;
+
+
 
     public function getId()
     {
@@ -200,18 +197,6 @@ class UserStat
     public function setUserLevel(int $user_level): self
     {
         $this->user_level = $user_level;
-
-        return $this;
-    }
-
-    public function getPlayTime(): ?\DateTimeInterface
-    {
-        return $this->play_time;
-    }
-
-    public function setPlayTime(\DateTimeInterface $play_time): self
-    {
-        $this->play_time = $play_time;
 
         return $this;
     }

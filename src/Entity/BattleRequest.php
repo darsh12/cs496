@@ -50,6 +50,7 @@ class BattleRequest
 
     public function __construct()
     {
+        $this->time = new \DateTime();
         $this->battles = new ArrayCollection();
     }
 
