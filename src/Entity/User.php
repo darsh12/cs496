@@ -82,6 +82,7 @@ class User extends BaseUser implements TwoFactorInterface
 
     public function __construct()
     {
+        parent::__construct();
         $this->userCharCards = new ArrayCollection();
         $this->userUtilCards = new ArrayCollection();
         $this->userCharDecks = new ArrayCollection();
