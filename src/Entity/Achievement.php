@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AchievementRepository")
@@ -12,128 +12,124 @@ use Doctrine\Common\Collections\Collection;
 class Achievement
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    protected $id;
+    private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserAchievement", mappedBy="achievement_id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Reward", inversedBy="achievements")
+     * @ORM\JoinColumn(nullable=false)
      */
-    protected $achievements;
+    private $reward;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $description;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $type;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $count_value;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserAchievement", mappedBy="achievement")
+     */
+    private $userAchievements;
 
     public function __construct()
     {
-        $this->achievements = new ArrayCollection();
+        $this->userAchievements = new ArrayCollection();
     }
 
-    /**
-     * @return Collection
-     */
-    public function getAchievements()
-    {
-        return $this->achievements;
-    }
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $description;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Reward", inversedBy="rewards")
-     * @ORM\JoinColumn(name="reward_id", referencedColumnName="id")
-     */
-    protected $reward_id;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $type;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    protected $count_value;
-
-    /**
-     * @return mixed
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
+    public function getReward(): ?Reward
     {
-        $this->id = $id;
+        return $this->reward;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDescription()
+    public function setReward(?Reward $reward): self
+    {
+        $this->reward = $reward;
+
+        return $this;
+    }
+
+    public function getDescription(): ?string
     {
         return $this->description;
     }
 
-    /**
-     * @param mixed $description
-     */
-    public function setDescription($description): void
+    public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getRewardId()
-    {
-        return $this->reward_id;
-    }
-
-    /**
-     * @param mixed $reward_id
-     */
-    public function setRewardId(Reward $reward_id): void
-    {
-        $this->reward_id = $reward_id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->type;
     }
 
-    /**
-     * @param mixed $type
-     */
-    public function setType($type): void
+    public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCountValue()
+    public function getCountValue(): ?int
     {
         return $this->count_value;
     }
 
-    /**
-     * @param mixed $count_value
-     */
-    public function setCountValue($count_value): void
+    public function setCountValue(int $count_value): self
     {
         $this->count_value = $count_value;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserAchievement[]
+     */
+    public function getUserAchievements(): Collection
+    {
+        return $this->userAchievements;
+    }
+
+    public function addUserAchievement(UserAchievement $userAchievement): self
+    {
+        if (!$this->userAchievements->contains($userAchievement)) {
+            $this->userAchievements[] = $userAchievement;
+            $userAchievement->setAchievement($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserAchievement(UserAchievement $userAchievement): self
+    {
+        if ($this->userAchievements->contains($userAchievement)) {
+            $this->userAchievements->removeElement($userAchievement);
+            // set the owning side to null (unless already changed)
+            if ($userAchievement->getAchievement() === $this) {
+                $userAchievement->setAchievement(null);
+            }
+        }
+
+        return $this;
     }
 }

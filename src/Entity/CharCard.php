@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CharCardRepository")
@@ -12,350 +12,269 @@ use Doctrine\Common\Collections\Collection;
 class CharCard
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    protected $id;
+    private $id;
+    
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\UserCharCard", mappedBy="char_cards")
+     * @ORM\Column(type="string", length=255)
      */
-    protected $user_char_cards;
+    private $char_name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserCharCard", mappedBy="char_card_id")
+     * @ORM\Column(type="string", length=255)
      */
-    protected $char_cards;
+    private $char_type;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\CharDeck", mappedBy="char_card1_id")
+     * @ORM\Column(type="string", length=255)
      */
-    protected $charDeck_card1;
+    private $char_class;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\CharDeck", mappedBy="char_card2_id")
+     * @ORM\Column(type="string", length=255)
      */
-    protected $charDeck_card2;
+    private $char_tier;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\CharDeck", mappedBy="char_card3_id")
+     * @ORM\Column(type="integer")
      */
-    protected $charDeck_card3;
+    private $hit_points;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\CharDeck", mappedBy="char_card4_id")
+     * @ORM\Column(type="integer")
      */
-    protected $charDeck_card4;
+    private $attack;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\CharDeck", mappedBy="char_card5_id")
+     * @ORM\Column(type="integer")
      */
-    protected $charDeck_card5;
+    private $defense;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $agility;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $luck;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $speed;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Avatar", inversedBy="charCards")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $avatar;
+
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $rating;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserCharCards", mappedBy="char_card", orphanRemoval=true)
+     */
+    private $userCharCards;
 
     public function __construct()
     {
-        $this->char_cards = new ArrayCollection();
-        $this->charDeck_card1 = new ArrayCollection();
-        $this->charDeck_card2 = new ArrayCollection();
-        $this->charDeck_card3 = new ArrayCollection();
-        $this->charDeck_card4 = new ArrayCollection();
-        $this->charDeck_card5 = new ArrayCollection();
+        $this->userCharCards = new ArrayCollection();
     }
 
-    /**
-     * @return Collection
-     */
-    public function getCharCards()
-    {
-        return $this->char_cards;
-    }
 
-    /**
-     * @return Collection
-     */
-    public function getCharDeckCard1()
-    {
-        return $this->charDeck_card1;
-    }
 
-    /**
-     * @return Collection
-     */
-    public function getCharDeckCard2()
-    {
-        return $this->charDeck_card2;
-    }
 
-    /**
-     * @return Collection
-     */
-    public function getCharDeckCard3()
-    {
-        return $this->charDeck_card3;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getCharDeckCard4()
-    {
-        return $this->charDeck_card4;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getCharDeckCard5()
-    {
-        return $this->charDeck_card5;
-    }
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $char_name;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $char_type;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $char_class;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $char_tier;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    protected $hit_points;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    protected $attack;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    protected $defense;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    protected $agility;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    protected $luck;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    protected $speed;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Avatar", inversedBy="char_card_avatars")
-     * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
-     */
-    protected $avatar_id;
-
-    /**
-     * @return mixed
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
-    {
-        $this->id = $id;
-    }
 
-    /**
-     * @return mixed
-     */
-    public function getCharName()
+    public function getCharName(): ?string
     {
         return $this->char_name;
     }
 
-    /**
-     * @param mixed $char_name
-     */
-    public function setCharName($char_name): void
+    public function setCharName(string $char_name): self
     {
         $this->char_name = $char_name;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCharType()
+    public function getCharType(): ?string
     {
         return $this->char_type;
     }
 
-    /**
-     * @param mixed $char_type
-     */
-    public function setCharType($char_type): void
+    public function setCharType(string $char_type): self
     {
         $this->char_type = $char_type;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCharClass()
+    public function getCharClass(): ?string
     {
         return $this->char_class;
     }
 
-    /**
-     * @param mixed $char_class
-     */
-    public function setCharClass($char_class): void
+    public function setCharClass(string $char_class): self
     {
         $this->char_class = $char_class;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCharTier()
+    public function getCharTier(): ?string
     {
         return $this->char_tier;
     }
 
-    /**
-     * @param mixed $char_tier
-     */
-    public function setCharTier($char_tier): void
+    public function setCharTier(string $char_tier): self
     {
         $this->char_tier = $char_tier;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getHitPoints()
+    public function getHitPoints(): ?int
     {
         return $this->hit_points;
     }
 
-    /**
-     * @param mixed $hit_points
-     */
-    public function setHitPoints($hit_points): void
+    public function setHitPoints(int $hit_points): self
     {
         $this->hit_points = $hit_points;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getAttack()
+    public function getAttack(): ?int
     {
         return $this->attack;
     }
 
-    /**
-     * @param mixed $attack
-     */
-    public function setAttack($attack): void
+    public function setAttack(int $attack): self
     {
         $this->attack = $attack;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDefense()
+    public function getDefense(): ?int
     {
         return $this->defense;
     }
 
-    /**
-     * @param mixed $defense
-     */
-    public function setDefense($defense): void
+    public function setDefense(int $defense): self
     {
         $this->defense = $defense;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getAgility()
+    public function getAgility(): ?int
     {
         return $this->agility;
     }
 
-    /**
-     * @param mixed $agility
-     */
-    public function setAgility($agility): void
+    public function setAgility(int $agility): self
     {
         $this->agility = $agility;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLuck()
+    public function getLuck(): ?int
     {
         return $this->luck;
     }
 
-    /**
-     * @param mixed $luck
-     */
-    public function setLuck($luck): void
+    public function setLuck(int $luck): self
     {
         $this->luck = $luck;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getSpeed()
+    public function getSpeed(): ?int
     {
         return $this->speed;
     }
 
-    /**
-     * @param mixed $speed
-     */
-    public function setSpeed($speed): void
+    public function setSpeed(int $speed): self
     {
         $this->speed = $speed;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?Avatar
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?Avatar $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+
+    public function getRating(): ?int
+    {
+        return $this->rating;
+    }
+
+    public function setRating(int $rating): self
+    {
+        $this->rating = $rating;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return Collection|UserCharCards[]
      */
-    public function getAvatarId()
+    public function getUserCharCards(): Collection
     {
-        return $this->avatar_id;
+        return $this->userCharCards;
     }
 
-    /**
-     * @param mixed $avatar_id
-     */
-    public function setAvatarId(Avatar $avatar_id): void
+    public function addUserCard(UserCharCards $userCharCard): self
     {
-        $this->avatar_id = $avatar_id;
+        if (!$this->userCharCards->contains($userCharCard)) {
+            $this->userCharCards[] = $userCharCard;
+            $userCharCard->setCharCard($this);
+        }
+
+        return $this;
     }
+
+    public function removeUserCard(UserCharCards $userCharCard): self
+    {
+        if ($this->userCharCards->contains($userCharCard)) {
+            $this->userCharCards->removeElement($userCharCard);
+            // set the owning side to null (unless already changed)
+            if ($userCharCard->getCharCard() === $this) {
+                $userCharCard->setCharCard(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }

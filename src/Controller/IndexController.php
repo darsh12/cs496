@@ -20,7 +20,11 @@ class IndexController extends AbstractController
      */
     public function homepage()
     {
-        return $this->render('homepage.html.twig');
+        $user = $this->getUser();
+        if($user)
+            return $this->redirect('/my_profile');
+        else
+            return $this->render('homepage.html.twig');
     }
 
 

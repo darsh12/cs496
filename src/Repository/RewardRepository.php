@@ -19,15 +19,31 @@ class RewardRepository extends ServiceEntityRepository
         parent::__construct($registry, Reward::class);
     }
 
+//    /**
+//     * @return Reward[] Returns an array of Reward objects
+//     */
     /*
-    public function findBySomething($value)
+    public function findByExampleField($value)
     {
         return $this->createQueryBuilder('r')
-            ->where('r.something = :value')->setParameter('value', $value)
+            ->andWhere('r.exampleField = :val')
+            ->setParameter('val', $value)
             ->orderBy('r.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
+        ;
+    }
+    */
+
+    /*
+    public function findOneBySomeField($value): ?Reward
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.exampleField = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
         ;
     }
     */

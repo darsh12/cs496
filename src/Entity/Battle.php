@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BattleRepository")
@@ -12,187 +12,194 @@ use Doctrine\Common\Collections\Collection;
 class Battle
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    protected $id;
+    private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserStat", mappedBy="best_win_battle")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="battle_winner")
      */
-    protected $best_win_battles;
+    private $winner;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserStat", mappedBy="worst_lost_battle")
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserCharDecks", inversedBy="battles_defender")
      */
-    protected $worst_lost_battles;
-
-    public function __construct()
-    {
-        $this->best_win_battles = new ArrayCollection();
-        $this->worst_lost_battles = new ArrayCollection();
-    }
+    private $defend_char_deck;
 
     /**
-     * @return Collection
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserUtilDecks", inversedBy="battles_defender")
      */
-    public function getBestWinBattles()
-    {
-        return $this->best_win_battles;
-    }
+    private $defend_util_deck;
 
     /**
-     * @return Collection
+     * @ORM\ManyToOne(targetEntity="App\Entity\BattleRequest", inversedBy="battles")
      */
-    public function getWorstLostBattles()
-    {
-        return $this->worst_lost_battles;
-    }
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="battle_winner_users")
-     * @ORM\JoinColumn(name="winner_id", referencedColumnName="id")
-     */
-    protected $winner_id;
+    private $request;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    protected $battle_datetime;
+    private $time;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CharDeck", inversedBy="defend_char_decks")
-     * @ORM\JoinColumn(name="defend_char_deck_id", referencedColumnName="id")
+     * @ORM\Column(type="string", length=255)
      */
-    protected $defend_char_deck_id;
+    private $report;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UtilDeck", inversedBy="defend_util_decks")
-     * @ORM\JoinColumn(name="defend_util_deck_id", referencedColumnName="id")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserStat", mappedBy="best_win_battle")
      */
-    protected $defend_util_deck_id;
+    private $userStats_bestWin;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserStat", mappedBy="worst_lost_battle")
      */
-    protected $battle_report;
+    private $userStats_worstLost;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\BattleRequest", inversedBy="battle_requests")
-     * @ORM\JoinColumn(name="request_id", referencedColumnName="id")
-     */
-    protected $request_id;
+    public function __construct()
+    {
+        $this->userStats_bestWin = new ArrayCollection();
+        $this->userStats_worstLost = new ArrayCollection();
+    }
 
-    /**
-     * @return mixed
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
+    public function getWinner(): ?User
     {
-        $this->id = $id;
+        return $this->winner;
+    }
+
+    public function setWinner(?User $winner): self
+    {
+        $this->winner = $winner;
+
+        return $this;
+    }
+
+    public function getDefendCharDeck(): ?UserCharDecks
+    {
+        return $this->defend_char_deck;
+    }
+
+    public function setDefendCharDeck(?UserCharDecks $defend_char_deck): self
+    {
+        $this->defend_char_deck = $defend_char_deck;
+
+        return $this;
+    }
+
+    public function getDefendUtilDeck(): ?UserUtilDecks
+    {
+        return $this->defend_util_deck;
+    }
+
+    public function setDefendUtilDeck(?UserUtilDecks $defend_util_deck): self
+    {
+        $this->defend_util_deck = $defend_util_deck;
+
+        return $this;
+    }
+
+    public function getRequest(): ?BattleRequest
+    {
+        return $this->request;
+    }
+
+    public function setRequest(?BattleRequest $request): self
+    {
+        $this->request = $request;
+
+        return $this;
+    }
+
+    public function getTime(): ?\DateTimeInterface
+    {
+        return $this->time;
+    }
+
+    public function setTime(\DateTimeInterface $time): self
+    {
+        $this->time = $time;
+
+        return $this;
+    }
+
+    public function getReport(): ?string
+    {
+        return $this->report;
+    }
+
+    public function setReport(string $report): self
+    {
+        $this->report = $report;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return Collection|UserStat[]
      */
-    public function getWinnerId()
+    public function getUserStatsBestWin(): Collection
     {
-        return $this->winner_id;
+        return $this->userStats_bestWin;
+    }
+
+    public function addUserStatsBestWin(UserStat $userStatsBestWin): self
+    {
+        if (!$this->userStats_bestWin->contains($userStatsBestWin)) {
+            $this->userStats_bestWin[] = $userStatsBestWin;
+            $userStatsBestWin->setBestWinBattle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserStatsBestWin(UserStat $userStatsBestWin): self
+    {
+        if ($this->userStats_bestWin->contains($userStatsBestWin)) {
+            $this->userStats_bestWin->removeElement($userStatsBestWin);
+            // set the owning side to null (unless already changed)
+            if ($userStatsBestWin->getBestWinBattle() === $this) {
+                $userStatsBestWin->setBestWinBattle(null);
+            }
+        }
+
+        return $this;
     }
 
     /**
-     * @param mixed $winner_id
+     * @return Collection|UserStat[]
      */
-    public function setWinnerId(User $winner_id): void
+    public function getUserStatsWorstLost(): Collection
     {
-        $this->winner_id = $winner_id;
+        return $this->userStats_worstLost;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getBattleDatetime()
+    public function addUserStatsWorstLost(UserStat $userStatsWorstLost): self
     {
-        return $this->battle_datetime;
+        if (!$this->userStats_worstLost->contains($userStatsWorstLost)) {
+            $this->userStats_worstLost[] = $userStatsWorstLost;
+            $userStatsWorstLost->setWorstLostBattle($this);
+        }
+
+        return $this;
     }
 
-    /**
-     * @param mixed $battle_datetime
-     */
-    public function setBattleDatetime($battle_datetime): void
+    public function removeUserStatsWorstLost(UserStat $userStatsWorstLost): self
     {
-        $this->battle_datetime = $battle_datetime;
-    }
+        if ($this->userStats_worstLost->contains($userStatsWorstLost)) {
+            $this->userStats_worstLost->removeElement($userStatsWorstLost);
+            // set the owning side to null (unless already changed)
+            if ($userStatsWorstLost->getWorstLostBattle() === $this) {
+                $userStatsWorstLost->setWorstLostBattle(null);
+            }
+        }
 
-    /**
-     * @return mixed
-     */
-    public function getDefendCharDeckId()
-    {
-        return $this->defend_char_deck_id;
-    }
-
-    /**
-     * @param mixed $defend_char_deck_id
-     */
-    public function setDefendCharDeckId(CharDeck $defend_char_deck_id): void
-    {
-        $this->defend_char_deck_id = $defend_char_deck_id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDefendUtilDeckId()
-    {
-        return $this->defend_util_deck_id;
-    }
-
-    /**
-     * @param mixed $defend_util_deck_id
-     */
-    public function setDefendUtilDeckId(UtilDeck $defend_util_deck_id): void
-    {
-        $this->defend_util_deck_id = $defend_util_deck_id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getBattleReport()
-    {
-        return $this->battle_report;
-    }
-
-    /**
-     * @param mixed $battle_report
-     */
-    public function setBattleReport($battle_report): void
-    {
-        $this->battle_report = $battle_report;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getRequestId()
-    {
-        return $this->request_id;
-    }
-
-    /**
-     * @param mixed $request_id
-     */
-    public function setRequestId(BattleRequest $request_id): void
-    {
-        $this->request_id = $request_id;
+        return $this;
     }
 }

@@ -10,281 +10,269 @@ use Doctrine\ORM\Mapping as ORM;
 class UserStat
 {
     /**
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="user_stat_users")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
-    protected $user_id;
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="userStats")
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserCharCards", inversedBy="userStats_favouriteCard")
+     */
+    private $favourite_char_card;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserUtilCards", inversedBy="userStats_favouriteCard")
+     */
+    private $favourite_util_card;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Battle", inversedBy="userStats_bestWin")
+     */
+    private $best_win_battle;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Battle", inversedBy="userStats_worstLost")
+     */
+    private $worst_lost_battle;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserCharCards", inversedBy="userStats_defeatedCards")
+     */
+    private $defeated_char_card;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserUtilCards", inversedBy="userStats_defeatedCards")
+     */
+    private $defeated_util_card;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $user_rank;
+    private $user_rank;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $user_level;
 
     /**
      * @ORM\Column(type="time")
      */
-    protected $user_level;
+    private $play_time;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $play_time;
+    private $matches_won;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $matches_won;
+    private $matches_lost;
 
     /**
-     * @ORM\Column(type="decimal")
+     * @ORM\Column(type="decimal", precision=5)
      */
-    protected $matches_lost;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    protected $win_loss_ratio;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserCharCard", inversedBy="fav_cards")
-     * @ORM\JoinColumn(name="favorite_card", referencedColumnName="id")
-     */
-    protected $favorite_card;
+    private $win_loss_ratio;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $times_attacked;
+    private $times_attacked;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $times_defended;
+    private $experience;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Battle", inversedBy="best_win_battles")
-     * @ORM\JoinColumn(name="best_win_battle", referencedColumnName="id")
-     */
-    protected $best_win_battle;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Battle", inversedBy="worst_lost_battles")
-     * @ORM\JoinColumn(name="worst_lost_battle", referencedColumnName="id")
-     */
-    protected $worst_lost_battle;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UserCharCard", inversedBy="most_defeated_cards")
-     * @ORM\JoinColumn(name="most_defeated_card", referencedColumnName="id")
-     */
-    protected $most_defeated_card;
-
-    /**
-     * @return mixed
-     */
-    public function getUserId()
+    public function getId()
     {
-        return $this->user_id;
+        return $this->id;
     }
 
-    /**
-     * @param mixed $user_id
-     */
-    public function setUserId($user_id): void
+    public function getUser(): ?User
     {
-        $this->user_id = $user_id;
+        return $this->user;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUserRank()
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getFavouriteCharCard(): ?UserCharCards
+    {
+        return $this->favourite_char_card;
+    }
+
+    public function setFavouriteCharCard(?UserCharCards $favourite_char_card): self
+    {
+        $this->favourite_char_card = $favourite_char_card;
+
+        return $this;
+    }
+
+    public function getFavouriteUtilCard(): ?UserUtilCards
+    {
+        return $this->favourite_util_card;
+    }
+
+    public function setFavouriteUtilCard(?UserUtilCards $favourite_util_card): self
+    {
+        $this->favourite_util_card = $favourite_util_card;
+
+        return $this;
+    }
+
+    public function getBestWinBattle(): ?Battle
+    {
+        return $this->best_win_battle;
+    }
+
+    public function setBestWinBattle(?Battle $best_win_battle): self
+    {
+        $this->best_win_battle = $best_win_battle;
+
+        return $this;
+    }
+
+    public function getWorstLostBattle(): ?Battle
+    {
+        return $this->worst_lost_battle;
+    }
+
+    public function setWorstLostBattle(?Battle $worst_lost_battle): self
+    {
+        $this->worst_lost_battle = $worst_lost_battle;
+
+        return $this;
+    }
+
+    public function getDefeatedCharCard(): ?UserCharCards
+    {
+        return $this->defeated_char_card;
+    }
+
+    public function setDefeatedCharCard(?UserCharCards $defeated_char_card): self
+    {
+        $this->defeated_char_card = $defeated_char_card;
+
+        return $this;
+    }
+
+    public function getDefeatedUtilCard(): ?UserUtilCards
+    {
+        return $this->defeated_util_card;
+    }
+
+    public function setDefeatedUtilCard(?UserUtilCards $defeated_util_card): self
+    {
+        $this->defeated_util_card = $defeated_util_card;
+
+        return $this;
+    }
+
+    public function getUserRank(): ?int
     {
         return $this->user_rank;
     }
 
-    /**
-     * @param mixed $user_rank
-     */
-    public function setUserRank($user_rank): void
+    public function setUserRank(int $user_rank): self
     {
         $this->user_rank = $user_rank;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUserLevel()
+    public function getUserLevel(): ?int
     {
         return $this->user_level;
     }
 
-    /**
-     * @param mixed $user_level
-     */
-    public function setUserLevel($user_level): void
+    public function setUserLevel(int $user_level): self
     {
         $this->user_level = $user_level;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPlayTime()
+    public function getPlayTime(): ?\DateTimeInterface
     {
         return $this->play_time;
     }
 
-    /**
-     * @param mixed $play_time
-     */
-    public function setPlayTime($play_time): void
+    public function setPlayTime(\DateTimeInterface $play_time): self
     {
         $this->play_time = $play_time;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getMatchesWon()
+    public function getMatchesWon(): ?int
     {
         return $this->matches_won;
     }
 
-    /**
-     * @param mixed $matches_won
-     */
-    public function setMatchesWon($matches_won): void
+    public function setMatchesWon(int $matches_won): self
     {
         $this->matches_won = $matches_won;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getMatchesLost()
+    public function getMatchesLost(): ?int
     {
         return $this->matches_lost;
     }
 
-    /**
-     * @param mixed $matches_lost
-     */
-    public function setMatchesLost($matches_lost): void
+    public function setMatchesLost(int $matches_lost): self
     {
         $this->matches_lost = $matches_lost;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
     public function getWinLossRatio()
     {
         return $this->win_loss_ratio;
     }
 
-    /**
-     * @param mixed $win_loss_ratio
-     */
-    public function setWinLossRatio($win_loss_ratio): void
+    public function setWinLossRatio($win_loss_ratio): self
     {
         $this->win_loss_ratio = $win_loss_ratio;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getFavoriteCard()
-    {
-        return $this->favorite_card;
-    }
-
-    /**
-     * @param mixed $favorite_card
-     */
-    public function setFavoriteCard(UserCharCard $favorite_card): void
-    {
-        $this->favorite_card = $favorite_card;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getTimesAttacked()
+    public function getTimesAttacked(): ?int
     {
         return $this->times_attacked;
     }
 
-    /**
-     * @param mixed $times_attacked
-     */
-    public function setTimesAttacked($times_attacked): void
+    public function setTimesAttacked(int $times_attacked): self
     {
         $this->times_attacked = $times_attacked;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getTimesDefended()
+    public function getExperience(): ?int
     {
-        return $this->times_defended;
+        return $this->experience;
     }
 
-    /**
-     * @param mixed $times_defended
-     */
-    public function setTimesDefended($times_defended): void
+    public function setExperience(int $experience): self
     {
-        $this->times_defended = $times_defended;
-    }
+        $this->experience = $experience;
 
-    /**
-     * @return mixed
-     */
-    public function getBestWinBattle()
-    {
-        return $this->best_win_battle;
-    }
-
-    /**
-     * @param mixed $best_win_battle
-     */
-    public function setBestWinBattle(Battle $best_win_battle): void
-    {
-        $this->best_win_battle = $best_win_battle;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getWorstLostBattle()
-    {
-        return $this->worst_lost_battle;
-    }
-
-    /**
-     * @param mixed $worst_lost_battle
-     */
-    public function setWorstLostBattle(Battle $worst_lost_battle): void
-    {
-        $this->worst_lost_battle = $worst_lost_battle;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMostDefeatedCard()
-    {
-        return $this->most_defeated_card;
-    }
-
-    /**
-     * @param mixed $most_defeated_card
-     */
-    public function setMostDefeatedCard(UserCharCard $most_defeated_card): void
-    {
-        $this->most_defeated_card = $most_defeated_card;
+        return $this;
     }
 }

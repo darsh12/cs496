@@ -10,48 +10,48 @@ use Doctrine\ORM\Mapping as ORM;
 class UserAchievement
 {
     /**
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="user_achievement_users")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
      */
-    protected $user_id;
+    private $id;
 
     /**
-     * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="App\Entity\Achievement", inversedBy="achievements")
-     * @ORM\JoinColumn(name="achievement_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="userAchievements")
      */
-    protected $achievement_id;
+    private $user;
 
     /**
-     * @return mixed
+     * @ORM\ManyToOne(targetEntity="App\Entity\Achievement", inversedBy="userAchievements")
      */
-    public function getUserId()
+    private $achievement;
+
+    public function getId()
     {
-        return $this->user_id;
+        return $this->id;
     }
 
-    /**
-     * @param mixed $user_id
-     */
-    public function setUserId(User $user_id): void
+    public function getUser(): ?User
     {
-        $this->user_id = $user_id;
+        return $this->user;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getAchievementId()
+    public function setUser(?User $user): self
     {
-        return $this->achievement_id;
+        $this->user = $user;
+
+        return $this;
     }
 
-    /**
-     * @param mixed $achievement_id
-     */
-    public function setAchievementId(Achievement $achievement_id): void
+    public function getAchievement(): ?Achievement
     {
-        $this->achievement_id = $achievement_id;
+        return $this->achievement;
+    }
+
+    public function setAchievement(?Achievement $achievement): self
+    {
+        $this->achievement = $achievement;
+
+        return $this;
     }
 }

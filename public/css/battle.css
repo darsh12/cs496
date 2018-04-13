@@ -1,0 +1,15 @@
+.search_player
+{
+border-style: solid;
+   float: left;
+   height: 28em;
+   width: 48%;
+}
+
+.requests
+{
+   border-style: solid;
+   float:  right;
+   height: 28em;
+   width: 48%;
+}

@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\RewardRepository")
@@ -12,85 +12,89 @@ use Doctrine\Common\Collections\Collection;
 class Reward
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    protected $id;
+    private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Achievement", mappedBy="reward_id")
+     * @ORM\Column(type="string", length=255)
      */
-    protected $rewards;
+    private $type;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $value;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Achievement", mappedBy="reward", orphanRemoval=true)
+     */
+    private $achievements;
 
     public function __construct()
     {
-        $this->rewards = new ArrayCollection();
+        $this->achievements = new ArrayCollection();
     }
 
-    /**
-     * @return Collection
-     */
-    public function getRewards()
-    {
-        return $this->rewards;
-    }
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $type;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    protected $value;
-
-    /**
-     * @return mixed
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getType()
+    public function getType(): ?string
     {
         return $this->type;
     }
 
-    /**
-     * @param mixed $type
-     */
-    public function setType($type): void
+    public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getValue()
+    public function getValue(): ?int
     {
         return $this->value;
     }
 
-    /**
-     * @param mixed $value
-     */
-    public function setValue($value): void
+    public function setValue(int $value): self
     {
         $this->value = $value;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Achievement[]
+     */
+    public function getAchievements(): Collection
+    {
+        return $this->achievements;
+    }
+
+    public function addAchievement(Achievement $achievement): self
+    {
+        if (!$this->achievements->contains($achievement)) {
+            $this->achievements[] = $achievement;
+            $achievement->setReward($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAchievement(Achievement $achievement): self
+    {
+        if ($this->achievements->contains($achievement)) {
+            $this->achievements->removeElement($achievement);
+            // set the owning side to null (unless already changed)
+            if ($achievement->getReward() === $this) {
+                $achievement->setReward(null);
+            }
+        }
+
+        return $this;
     }
 }

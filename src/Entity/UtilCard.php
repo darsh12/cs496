@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UtilCardRepository")
@@ -12,215 +12,246 @@ use Doctrine\Common\Collections\Collection;
 class UtilCard
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     *
      */
-    protected $id;
+    private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserUtilCard", mappedBy="util_card_id")
+     * @ORM\Column(type="integer")
      */
-    protected $user_util_cards;
+    private $card_swap;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UtilDeck", mappedBy="util_card1_id")
+     * @ORM\Column(type="integer")
      */
-    protected $utilDeck_card1;
+    private $effect_util;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UtilDeck", mappedBy="util_card2_id")
+     * @ORM\Column(type="integer")
      */
-    protected $utilDeck_card2;
+    private $effect_char;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UtilDeck", mappedBy="util_card3_id")
+     * @ORM\Column(type="integer")
      */
-    protected $utilDeck_card3;
+    private $effect_type;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $effect_order;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $effect_class;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $util_name;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $util_type;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $util_tier;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Avatar", inversedBy="utilCards")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $avatar;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\UserUtilCards", mappedBy="util_card", orphanRemoval=true)
+     */
+    private $userUtilCards;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $attribute_modifier;
 
     public function __construct()
     {
-        $this->user_util_cards = new ArrayCollection();
-        $this->utilDeck_card1 = new ArrayCollection();
-        $this->utilDeck_card2 = new ArrayCollection();
-        $this->utilDeck_card3 = new ArrayCollection();
+        $this->userUtilCards = new ArrayCollection();
     }
 
-    /**
-     * @return Collection
-     */
-    public function getUserUtilCards()
-    {
-        return $this->user_util_cards;
-    }
 
-    /**
-     * @return Collection
-     */
-    public function getUtilDeckCard1()
-    {
-        return $this->utilDeck_card1;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getUtilDeckCard2()
-    {
-        return $this->utilDeck_card2;
-    }
-
-    /**
-     * @return Collection
-     */
-    public function getUtilDeckCard3()
-    {
-        return $this->utilDeck_card3;
-    }
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $util_name;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $util_type;
-
-    /**
-     * @ORM\Column(type="string")
-     */
-    protected $util_tier;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Avatar", inversedBy="util_card_avatars")
-     * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
-     */
-    protected $avatar_id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\AtkUtilEffect", inversedBy="atk_util_effects")
-     * @ORM\JoinColumn(name="attack_effect_id", referencedColumnName="id")
-     */
-    protected $attack_effect_id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\DefUtilEffect", inversedBy="def_util_effects")
-     * @ORM\JoinColumn(name="defense_effect_id", referencedColumnName="id")
-     */
-    protected $defense_effect_id;
-
-    /**
-     * @return mixed
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
+    public function getCardSwap(): ?int
     {
-        $this->id = $id;
+        return $this->card_swap;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUtilName()
+    public function setCardSwap(int $card_swap): self
+    {
+        $this->card_swap = $card_swap;
+
+        return $this;
+    }
+
+    public function getEffectUtil(): ?int
+    {
+        return $this->effect_util;
+    }
+
+    public function setEffectUtil(int $effect_util): self
+    {
+        $this->effect_util = $effect_util;
+
+        return $this;
+    }
+
+    public function getEffectChar(): ?int
+    {
+        return $this->effect_char;
+    }
+
+    public function setEffectChar(int $effect_char): self
+    {
+        $this->effect_char = $effect_char;
+
+        return $this;
+    }
+
+    public function getEffectType(): ?int
+    {
+        return $this->effect_type;
+    }
+
+    public function setEffectType(int $effect_type): self
+    {
+        $this->effect_type = $effect_type;
+
+        return $this;
+    }
+
+    public function getEffectOrder(): ?int
+    {
+        return $this->effect_order;
+    }
+
+    public function setEffectOrder(int $effect_order): self
+    {
+        $this->effect_order = $effect_order;
+
+        return $this;
+    }
+
+    public function getEffectClass(): ?int
+    {
+        return $this->effect_class;
+    }
+
+    public function setEffectClass(int $effect_class): self
+    {
+        $this->effect_class = $effect_class;
+
+        return $this;
+    }
+
+    public function getUtilName(): ?string
     {
         return $this->util_name;
     }
 
-    /**
-     * @param mixed $util_name
-     */
-    public function setUtilName($util_name): void
+    public function setUtilName(string $util_name): self
     {
         $this->util_name = $util_name;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUtilType()
+    public function getUtilType(): ?string
     {
         return $this->util_type;
     }
 
-    /**
-     * @param mixed $util_type
-     */
-    public function setUtilType($util_type): void
+    public function setUtilType(string $util_type): self
     {
         $this->util_type = $util_type;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUtilTier()
+    public function getUtilTier(): ?string
     {
         return $this->util_tier;
     }
 
-    /**
-     * @param mixed $util_tier
-     */
-    public function setUtilTier($util_tier): void
+    public function setUtilTier(string $util_tier): self
     {
         $this->util_tier = $util_tier;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?Avatar
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?Avatar $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return Collection|UserUtilCards[]
      */
-    public function getAvatarId()
+    public function getUserUtilCards(): Collection
     {
-        return $this->avatar_id;
+        return $this->userUtilCards;
     }
 
-    /**
-     * @param mixed $avatar_id
-     */
-    public function setAvatarId(Avatar $avatar_id): void
+    public function addUserUtilCard(UserUtilCards $userUtilCard): self
     {
-        $this->avatar_id = $avatar_id;
+        if (!$this->userUtilCards->contains($userUtilCard)) {
+            $this->userUtilCards[] = $userUtilCard;
+            $userUtilCard->setUtilCard($this);
+        }
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getAttackEffectId()
+    public function removeUserUtilCard(UserUtilCards $userUtilCard): self
     {
-        return $this->attack_effect_id;
+        if ($this->userUtilCards->contains($userUtilCard)) {
+            $this->userUtilCards->removeElement($userUtilCard);
+            // set the owning side to null (unless already changed)
+            if ($userUtilCard->getUtilCard() === $this) {
+                $userUtilCard->setUtilCard(null);
+            }
+        }
+
+        return $this;
     }
 
-    /**
-     * @param mixed $attack_effect_id
-     */
-    public function setAttackEffectId(AtkUtilEffect $attack_effect_id): void
+    public function getAttributeModifier(): ?string
     {
-        $this->attack_effect_id = $attack_effect_id;
+        return $this->attribute_modifier;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDefenseEffectId()
+    public function setAttributeModifier(string $attribute_modifier): self
     {
-        return $this->defense_effect_id;
+        $this->attribute_modifier = $attribute_modifier;
+
+        return $this;
     }
 
-    /**
-     * @param mixed $defense_effect_id
-     */
-    public function setDefenseEffectId(DefUtilEffect $defense_effect_id): void
-    {
-        $this->defense_effect_id = $defense_effect_id;
-    }
+     
 }

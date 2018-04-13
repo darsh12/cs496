@@ -19,15 +19,31 @@ class CustomCardRepository extends ServiceEntityRepository
         parent::__construct($registry, CustomCard::class);
     }
 
+//    /**
+//     * @return CustomCard[] Returns an array of CustomCard objects
+//     */
     /*
-    public function findBySomething($value)
+    public function findByExampleField($value)
     {
         return $this->createQueryBuilder('c')
-            ->where('c.something = :value')->setParameter('value', $value)
+            ->andWhere('c.exampleField = :val')
+            ->setParameter('val', $value)
             ->orderBy('c.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
+        ;
+    }
+    */
+
+    /*
+    public function findOneBySomeField($value): ?CustomCard
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.exampleField = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
         ;
     }
     */

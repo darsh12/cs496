@@ -19,15 +19,31 @@ class BattleRequestRepository extends ServiceEntityRepository
         parent::__construct($registry, BattleRequest::class);
     }
 
+//    /**
+//     * @return BattleRequest[] Returns an array of BattleRequest objects
+//     */
     /*
-    public function findBySomething($value)
+    public function findByExampleField($value)
     {
         return $this->createQueryBuilder('b')
-            ->where('b.something = :value')->setParameter('value', $value)
+            ->andWhere('b.exampleField = :val')
+            ->setParameter('val', $value)
             ->orderBy('b.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
+        ;
+    }
+    */
+
+    /*
+    public function findOneBySomeField($value): ?BattleRequest
+    {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.exampleField = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
         ;
     }
     */

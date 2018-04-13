@@ -2,9 +2,9 @@
 
 namespace App\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BattleRequestRepository")
@@ -12,152 +12,140 @@ use Doctrine\Common\Collections\Collection;
 class BattleRequest
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    protected $id;
+    private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Battle", mappedBy="request_id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="battleRequests_attacker")
      */
-    protected $battle_requests;
-
-    public function __construct()
-    {
-        $this->battle_requests = new ArrayCollection();
-    }
+    private $attacker;
 
     /**
-     * @return Collection
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="battlerRequests_defender")
      */
-    public function getBattleRequests()
-    {
-        return $this->battle_requests;
-    }
+    private $defender;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="attacker_users")
-     * @ORM\JoinColumn(name="attacker_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserCharDecks", inversedBy="battleRequests_attacker")
      */
-    protected $attacker_id;
+    private $attacker_char_deck;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="defender_users")
-     * @ORM\JoinColumn(name="defender_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\UserUtilDecks", inversedBy="battlerRequests_attacker")
      */
-    protected $defender_id;
+    private $attacker_util_deck;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    protected $datetime;
+    private $time;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\CharDeck", inversedBy="attack_char_decks")
-     * @ORM\JoinColumn(name="attack_char_deck_id", referencedColumnName="id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Battle", mappedBy="request")
      */
-    protected $attack_char_deck_id;
+    private $battles;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\UtilDeck", inversedBy="attack_util_decks")
-     * @ORM\JoinColumn(name="attack_util_deck_id", referencedColumnName="id")
-     */
-    protected $attack_util_deck_id;
+    public function __construct()
+    {
+        $this->battles = new ArrayCollection();
+    }
 
-    /**
-     * @return mixed
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
+    public function getAttacker(): ?User
     {
-        $this->id = $id;
+        return $this->attacker;
+    }
+
+    public function setAttacker(?User $attacker): self
+    {
+        $this->attacker = $attacker;
+
+        return $this;
+    }
+
+    public function getDefender(): ?User
+    {
+        return $this->defender;
+    }
+
+    public function setDefender(?User $defender): self
+    {
+        $this->defender = $defender;
+
+        return $this;
+    }
+
+    public function getAttackerCharDeck(): ?UserCharDecks
+    {
+        return $this->attacker_char_deck;
+    }
+
+    public function setAttackerCharDeck(?UserCharDecks $attacker_char_deck): self
+    {
+        $this->attacker_char_deck = $attacker_char_deck;
+
+        return $this;
+    }
+
+    public function getAttackerUtilDeck(): ?UserUtilDecks
+    {
+        return $this->attacker_util_deck;
+    }
+
+    public function setAttackerUtilDeck(?UserUtilDecks $attacker_util_deck): self
+    {
+        $this->attacker_util_deck = $attacker_util_deck;
+
+        return $this;
+    }
+
+    public function getTime(): ?\DateTimeInterface
+    {
+        return $this->time;
+    }
+
+    public function setTime(\DateTimeInterface $time): self
+    {
+        $this->time = $time;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * @return Collection|Battle[]
      */
-    public function getAttackerId()
+    public function getBattles(): Collection
     {
-        return $this->attacker_id;
+        return $this->battles;
     }
 
-    /**
-     * @param mixed $attacker_id
-     */
-    public function setAttackerId(User $attacker_id): void
+    public function addBattle(Battle $battle): self
     {
-        $this->attacker_id = $attacker_id;
+        if (!$this->battles->contains($battle)) {
+            $this->battles[] = $battle;
+            $battle->setRequest($this);
+        }
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDefenderId()
+    public function removeBattle(Battle $battle): self
     {
-        return $this->defender_id;
-    }
+        if ($this->battles->contains($battle)) {
+            $this->battles->removeElement($battle);
+            // set the owning side to null (unless already changed)
+            if ($battle->getRequest() === $this) {
+                $battle->setRequest(null);
+            }
+        }
 
-    /**
-     * @param mixed $defender_id
-     */
-    public function setDefenderId(User $defender_id): void
-    {
-        $this->defender_id = $defender_id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDatetime()
-    {
-        return $this->datetime;
-    }
-
-    /**
-     * @param mixed $datetime
-     */
-    public function setDatetime($datetime): void
-    {
-        $this->datetime = $datetime;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAttackCharDeckId()
-    {
-        return $this->attack_char_deck_id;
-    }
-
-    /**
-     * @param mixed $attack_char_deck_id
-     */
-    public function setAttackCharDeckId(CharDeck $attack_char_deck_id): void
-    {
-        $this->attack_char_deck_id = $attack_char_deck_id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAttackUtilDeckId()
-    {
-        return $this->attack_util_deck_id;
-    }
-
-    /**
-     * @param mixed $attack_util_deck_id
-     */
-    public function setAttackUtilDeckId(UtilDeck $attack_util_deck_id): void
-    {
-        $this->attack_util_deck_id = $attack_util_deck_id;
+        return $this;
     }
 }

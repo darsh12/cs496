@@ -10,9 +10,6 @@
 {% block title %} {{ titleName }} {% endblock %}
 
 {% block body %}
-    <div class="container login_width">
-        <div class="row center-div">
-            <div class="col-xs-12">
-                {% block fos_user_content %}
-                {% endblock %}
+    {% block fos_user_content %}
+    {% endblock %}
 {% endblock %}

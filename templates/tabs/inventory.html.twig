@@ -1,7 +1,13 @@
 {% extends 'homepage.html.twig' %}
 
 {% block inventory_tab %}
-    <li class="tab current" onclick="toggleCurrentTab(this)"><a class="current" href="{{ path('app_inventory') }}">Inventory<span class="sr-only"></span></a></li>
+    <li class="tab" ><a class="current" href="{{ path('app_inventory') }}">Inventory<span class="sr-only"></span></a></li>
+{% endblock %}
+
+{% block sub_tabs %}
+    <ul class="sub_tabs">
+        <li class="sub_tab current" data-name="inventory/sub_tab_content_goes_here" onclick="getDynamicTabContent(this)">Sub-Tab</li>
+    </ul>
 {% endblock %}
 
 {% block inventory %}

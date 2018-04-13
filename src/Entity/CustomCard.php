@@ -10,215 +10,239 @@ use Doctrine\ORM\Mapping as ORM;
 class CustomCard
 {
     /**
-     * @ORM\Id
-     * @ORM\GeneratedValue
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    protected $id;
+    private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="custom_card_users")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="customCards")
+     * @ORM\JoinColumn(nullable=false)
      */
-    protected $user_id;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    protected $type;
+    private $user;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $votes;
+    private $votes;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $char_name;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $char_type;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $char_class;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $char_tier;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $hit_points;
+    private $rating;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $attack;
+    private $hit_points;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $defense;
+    private $attack;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $agility;
+    private $defense;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $luck;
+    private $agility;
 
     /**
      * @ORM\Column(type="integer")
      */
-    protected $speed;
+    private $luck;
 
     /**
-     * @return mixed
+     * @ORM\Column(type="integer")
      */
+    private $speed;
+
+
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id): void
+    public function getUser(): ?User
     {
-        $this->id = $id;
+        return $this->user;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getUserId()
+    public function setUser(?User $user): self
     {
-        return $this->user_id;
+        $this->user = $user;
+
+        return $this;
     }
 
-    /**
-     * @param mixed $user_id
-     */
-    public function setUserId(User $user_id): void
-    {
-        $this->user_id = $user_id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * @param mixed $type
-     */
-    public function setType($type): void
-    {
-        $this->type = $type;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getVotes()
+    public function getVotes(): ?int
     {
         return $this->votes;
     }
 
-    /**
-     * @param mixed $votes
-     */
-    public function setVotes($votes): void
+    public function setVotes(int $votes): self
     {
         $this->votes = $votes;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getHitPoints()
+    public function getCharName(): ?string
+    {
+        return $this->char_name;
+    }
+
+    public function setCharName(string $char_name): self
+    {
+        $this->char_name = $char_name;
+
+        return $this;
+    }
+
+    public function getCharType(): ?string
+    {
+        return $this->char_type;
+    }
+
+    public function setCharType(string $char_type): self
+    {
+        $this->char_type = $char_type;
+
+        return $this;
+    }
+
+    public function getCharClass(): ?string
+    {
+        return $this->char_class;
+    }
+
+    public function setCharClass(string $char_class): self
+    {
+        $this->char_class = $char_class;
+
+        return $this;
+    }
+
+    public function getCharTier(): ?string
+    {
+        return $this->char_tier;
+    }
+
+    public function setCharTier(string $char_tier): self
+    {
+        $this->char_tier = $char_tier;
+
+        return $this;
+    }
+
+    public function getRating(): ?int
+    {
+        return $this->rating;
+    }
+
+    public function setRating(int $rating): self
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
+    public function getHitPoints(): ?int
     {
         return $this->hit_points;
     }
 
-    /**
-     * @param mixed $hit_points
-     */
-    public function setHitPoints($hit_points): void
+    public function setHitPoints(int $hit_points): self
     {
         $this->hit_points = $hit_points;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getAttack()
+    public function getAttack(): ?int
     {
         return $this->attack;
     }
 
-    /**
-     * @param mixed $attack
-     */
-    public function setAttack($attack): void
+    public function setAttack(int $attack): self
     {
         $this->attack = $attack;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDefense()
+    public function getDefense(): ?int
     {
         return $this->defense;
     }
 
-    /**
-     * @param mixed $defense
-     */
-    public function setDefense($defense): void
+    public function setDefense(int $defense): self
     {
         $this->defense = $defense;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getAgility()
+    public function getAgility(): ?int
     {
         return $this->agility;
     }
 
-    /**
-     * @param mixed $agility
-     */
-    public function setAgility($agility): void
+    public function setAgility(int $agility): self
     {
         $this->agility = $agility;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getLuck()
+    public function getLuck(): ?int
     {
         return $this->luck;
     }
 
-    /**
-     * @param mixed $luck
-     */
-    public function setLuck($luck): void
+    public function setLuck(int $luck): self
     {
         $this->luck = $luck;
+
+        return $this;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getSpeed()
+    public function getSpeed(): ?int
     {
         return $this->speed;
     }
 
-    /**
-     * @param mixed $speed
-     */
-    public function setSpeed($speed): void
+    public function setSpeed(int $speed): self
     {
         $this->speed = $speed;
+
+        return $this;
     }
+
+
 }
