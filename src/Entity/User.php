@@ -78,7 +78,7 @@ class User extends BaseUser implements TwoFactorInterface
     /**
      * @ORM\Column(type="integer")
      */
-    private $coins;
+    private $coins=0;
 
     public function __construct()
     {
