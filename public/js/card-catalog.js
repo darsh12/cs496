@@ -4,6 +4,13 @@ $(document).ready(function() {
     var cards = getCardArr();
     var elementSortBar = document.getElementById('sort-bar');
 
+    // by default, the controller shows the cards in rating descending order
+    // need to hide descending btn and show just the ascending button
+    $('#descBtn').hide();
+    $('#ascBtn').show();
+
+    // each card attribute button will apply the specified sort function by descending order
+    // and perform the view function to change the order of the cards on the page by the sort
     $('#nameBtn').click(function() {
         sortByNameDesc(cards);
         setNewSortedView(cards);
@@ -54,6 +61,8 @@ $(document).ready(function() {
         setNewSortedView(cards);
     });
 
+    // the descending and ascending functions are grabbing the previous sort from a class name of the element sort bar
+    // based on the class name, the descending or ascending function will pick the specified sort and perform the opposite order
     $('#descBtn').click(function() {
         if(elementSortBar.className) {
             var prevSort = elementSortBar.className;
@@ -134,6 +143,7 @@ $(document).ready(function() {
         }
     });
 
+    // initializing a javascript array of structs by collecting all specified values within a card attribute class
     function getCardArr() {
         var cardsDict = [];
 
@@ -167,6 +177,7 @@ $(document).ready(function() {
         return cardsDict;
     }
 
+    // rearranging the dom document card views based on the specified sort
     function setNewSortedView(cards) {
         var cardName = document.getElementsByClassName('cardName');
         var cardImg = document.getElementsByClassName('cardImage');
@@ -195,6 +206,10 @@ $(document).ready(function() {
         }
     }
 
+    // each sort function removes and placing a new class for the sort bar element to define what will be the previous sort
+    // then the sort function is applied with either the letter sort followed by the integer sort or vice versa
+    // if letter sort is secondary sort, always performed by ascending order (A-Z)
+    // if integer sort is secondary sort, always performed by descending order (99-0)
     function sortByNameDesc(cards) {
         elementSortBar.classList.remove(elementSortBar.classList[0]);
         elementSortBar.classList.add('name');
