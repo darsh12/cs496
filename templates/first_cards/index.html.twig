@@ -12,7 +12,7 @@
 
                 <h2>Char Cards</h2>
                 {% for i in charCards.userCharCards %}
-                    <li class="js-card-item">  {{ i.charCard.charName }} {{ i.charCard.id }} {{ i.user.id }}
+                    <li class="js-card-item">  {{ i.charCard.charName }} {{ i.cardCount }}
 
                         <a href="#" class="btn btn-link btn-xs js-card-remove"
                            data-url="{{ path('remove_user_char_card',{
@@ -29,7 +29,7 @@
                 <h2>Util Cards</h2>
 
                 {% for i in charCards.userUtilCards %}
-                    <li class="js-card-item">  {{ i.utilCard.utilName }} {{ i.utilCard.id }} {{ i.user.id }}
+                    <li class="js-card-item">  {{ i.utilCard.utilName }} {{ i.cardCount }}
 
                         <a href="#" class="btn btn-link btn-xs js-card-remove"
                            data-url="{{ path('remove_user_util_card',{
