@@ -12,14 +12,33 @@
 
                 <h2>Char Cards</h2>
                 {% for i in charCards.userCharCards %}
-                    <li>  {{ i.charCard.charName }}</li>
+                    <li class="js-card-item">  {{ i.charCard.charName }} {{ i.charCard.id }} {{ i.user.id }}
+
+                        <a href="#" class="btn btn-link btn-xs js-card-remove"
+                           data-url="{{ path('remove_user_char_card',{
+                               cardId: i.charCard.id,
+                               userId: i.user.id
+                           }) }}">
+                            <span><i class="fas fa-times"></i></span></a>
+
+                    </li>
+
                 {% endfor %}
 
 
                 <h2>Util Cards</h2>
 
                 {% for i in charCards.userUtilCards %}
-                    <li>  {{ i.utilCard.utilName }}</li>
+                    <li class="js-card-item">  {{ i.utilCard.utilName }} {{ i.utilCard.id }} {{ i.user.id }}
+
+                        <a href="#" class="btn btn-link btn-xs js-card-remove"
+                           data-url="{{ path('remove_user_util_card',{
+                               cardId: i.utilCard.id,
+                               userId: i.user.id
+                           }) }}">
+                            <span><i class="fas fa-times"></i></span>
+                        </a>
+                    </li>
                 {% endfor %}
 
                 <h2>Decks</h2>
@@ -48,10 +67,34 @@
             </ul>
 
 
-
-
-
         </div>
     </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(function () {
+            $('.js-card-remove').on('click', function (e) {
+                e.preventDefault();
+                $el = $(this).closest('.js-card-item');
+
+                $(this).find('.fa-times')
+                    .removeClass('fa-times')
+                    .addClass('fa-spinner')
+                    .addClass('fa-spin')
+
+                $.ajax({
+                    url: $(this).data('url'),
+                    method: 'DELETE'
+                }).done(function () {
+                    $el.fadeOut();
+                })
+
+            });
+        });
+    </script>
 
 {% endblock %}
