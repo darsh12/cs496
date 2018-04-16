@@ -136,13 +136,51 @@
                                     <span class="cardAgility">{{ card.agility }}</span>
                                 </div>
                             </div>
+                            <div>
+                                <i class="fas fa-money-bill-alt"> <span>{{ card.price }}</span></i>
+                                {% if is_granted('ROLE_USER') %}
+                                <a class="btn btn-link btn-normal js-card-buy"
+                                data-url="{{ path('inventory_buy_char', {
+                                    card: card.id
+                                }) }}"
+                                >Buy</a>
+                                {% endif %}
+                            </div>
                         </div>
                     {% endfor %}
                 {% else %}
                     No cards found.
                 {% endif %}
+
             </div>
         </div>
+    </div>
 
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
     <script src="{{ asset('build/js/card-catalog.js') }}" ></script>
+
+    <script>
+        var redirect= "{{ path('show_user_cards' | escape('js') ) }}";
+        $(document).ready(function () {
+            $('.js-card-buy').on('click', function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: $(this).data('url'),
+                    method: 'POST',
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus, errorThrown);
+                        location.reload();
+                    },
+                    success: function () {
+                        location.href=redirect;
+                    }
+
+                });
+            });
+        })
+    </script>
 {% endblock %}

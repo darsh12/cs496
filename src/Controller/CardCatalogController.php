@@ -2,14 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Avatar;
 use App\Entity\CharCard;
 use App\Entity\CharCardStat;
-use App\Repository\CharCardRepository;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Annotation\Route;
+
 
 class CardCatalogController extends Controller
 {
@@ -48,7 +46,7 @@ class CardCatalogController extends Controller
 //        return $this->render('card_catalog/index.html.twig', [
 //            'controller_name' => 'CardCatalogController',
 //        ]);
-//    }
+//
 
     /**
      * @Route("inventory/card-catalog", name="card_show")
@@ -56,9 +54,45 @@ class CardCatalogController extends Controller
     public function showAction()
     {
         $repository = $this->getDoctrine()->getRepository(CharCard::class);
+        $user=$this->getUser();
 
         $cards = $repository->findAllCardsSortByRatingDesc();
 
-        return $this->render('card_catalog/index.html.twig', array('cards' => $cards));
+        return $this->render('card_catalog/index.html.twig', ['cards' => $cards, 'user'=>$user]);
+    }
+
+    /**
+     * @Route("/inventory/buy/card/{card}", name="inventory_buy_char")
+     *
+     */
+    public function buyCharCard($card)
+    {
+
+        $user=$this->getUser();
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $charCard=$entityManager->getRepository(CharCard::class)->findOneBy(['id'=>$card]);
+
+        if (!$charCard) {
+            throw  new \Exception("Card not found");
+        }
+
+        $userCoins=$user->getCoins();
+        $cardCost=$charCard->getPrice();
+
+        if ($userCoins<$cardCost) {
+            $this->addFlash('error', 'Not enough coins');
+            throw  new \Exception("Not enough coins");
+//            return $this->redirectToRoute('card_show');
+        }
+//        $insertCard=$this->get('App\Controller\FirstCardsController')->insertCharCard($user, $charCard);
+        $user->setCoins($userCoins-$cardCost);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Card successfully bought');
+
+//        return $this->redirectToRoute('show_user_cards');
+        return new Response(null, 204);
+
     }
 }

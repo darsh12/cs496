@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Entity\UserCharCards;
 use App\Entity\UserUtilCards;
 use App\Entity\UtilCard;
+use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -17,6 +18,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class FirstCardsController extends Controller
 {
 
+    protected $entityManager;
+
+    public function __construct(ObjectManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
     /**
      * @Route("/first/show", name="show_user_cards")
      * @Security("has_role('ROLE_USER')")
@@ -24,11 +32,10 @@ class FirstCardsController extends Controller
     public function showUserCharCards()
     {
         $user = $this->getUser();
-        $entityManager = $this->getDoctrine()->getManager();
 
-        $userCharCards = $entityManager->getRepository('App:User')->find($user);
+        $userCharCards = $this->entityManager->getRepository('App:User')->find($user);
 
-        return $this->render('first_cards/index.html.twig', ['charCards' => $userCharCards]);
+        return $this->render('first_cards/index.html.twig', ['user' => $userCharCards]);
     }
 
 
@@ -37,11 +44,10 @@ class FirstCardsController extends Controller
      * @param User $user
      * @param CharCard $charCard
      */
-    private function insertCharCard(User $user, CharCard $charCard)
+    public function insertCharCard(User $user, CharCard $charCard)
     {
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $userCharCardsRepository = $entityManager->getRepository('App:UserCharCards')->findOneBy([
+        $userCharCardsRepository = $this->entityManager->getRepository('App:UserCharCards')->findOneBy([
             'user' => $user, 'char_card' => $charCard]);
 
         /**
@@ -53,12 +59,12 @@ class FirstCardsController extends Controller
             $userCharCards->setCharCard($charCard);
             $userCharCards->setCardCount(($userCharCards->getCardCount()) + 1);
 
-            $entityManager->persist($userCharCards);
+            $this->entityManager->persist($userCharCards);
         } else {
             $userCharCardsRepository->setCardCount(($userCharCardsRepository->getCardCount()) + 1);
         }
 
-        $entityManager->flush();
+        $this->entityManager->flush();
 
     }
 
@@ -68,10 +74,9 @@ class FirstCardsController extends Controller
      * @param User $user
      * @param UtilCard $utilCard
      */
-    private function insertUtilCard(User $user, UtilCard $utilCard)
+    public function insertUtilCard(User $user, UtilCard $utilCard)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $userUtilCardsRepository = $entityManager->getRepository('App:UserUtilCards')->findOneBy([
+        $userUtilCardsRepository = $this->entityManager->getRepository('App:UserUtilCards')->findOneBy([
             'user' => $user, 'util_card' => $utilCard
         ]);
 
@@ -84,13 +89,14 @@ class FirstCardsController extends Controller
             $userUtilCards->setUtilCard($utilCard);
             $userUtilCards->setCardCount(($userUtilCards->getCardCount()) + 1);
 
-            $entityManager->persist($userUtilCards);
+            $this->entityManager->persist($userUtilCards);
         } else {
             $userUtilCardsRepository->setCardCount(($userUtilCardsRepository->getCardCount()) + 1);
         }
 
-        $entityManager->flush();
+        $this->entityManager->flush();
 
+        return new Response(null, 204);
     }
 
     /**
@@ -102,10 +108,9 @@ class FirstCardsController extends Controller
 
 
         $user = $this->getUser();
-        $entityManager = $this->getDoctrine()->getManager();
 
-        $charCards = $entityManager->getRepository('App:CharCard')->findBy(['char_tier' => 'World Star']);
-        $utilCards = $entityManager->getRepository('App:UtilCard')->findBy(['util_tier' => 'World Star']);
+        $charCards = $this->entityManager->getRepository('App:CharCard')->findBy(['char_tier' => 'World Star']);
+        $utilCards = $this->entityManager->getRepository('App:UtilCard')->findBy(['util_tier' => 'World Star']);
 
 
         $randCharIndex = array_rand($charCards, 2);
@@ -128,56 +133,54 @@ class FirstCardsController extends Controller
 
 
     /**
-     * @Route("/first/char/card/{cardId}/user/{userId}", name="sell_user_char_card")
+     * @Route("/first/sell/charCard/{cardId}", name="sell_user_char_card")
      * @Method("DELETE")
      */
-    public function sellUserCharCard($cardId, $userId)
+    public function sellUserCharCard($cardId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $userCharCard = $entityManager->getRepository(UserCharCards::class)->findOneBy(['user' => $userId, 'char_card' => $cardId]);
+        $userId = $this->getUser()->getId();
 
-        $price=$userCharCard->getCharCard()->getPrice();
-        $count=$userCharCard->getCardCount();
+        $userCharCard = $this->entityManager->getRepository(UserCharCards::class)->findOneBy(['user' => $userId, 'char_card' => $cardId]);
+
+        $price = $userCharCard->getCharCard()->getPrice();
+        $count = $userCharCard->getCardCount();
 
         if (!$userCharCard) {
             throw  new Exception("Card not found");
         }
 
-        if ($count>1){
-            $userCharCard->setCardCount($count-1);
+        if ($count > 1) {
+            $userCharCard->setCardCount($count - 1);
 
+        } else {
+            $this->entityManager->remove($userCharCard);
         }
-        else {
-            $entityManager->remove($userCharCard);
-        }
-        $userCharCard->getUser()->setCoins($price*0.5);
+        $userCharCard->getUser()->setCoins($price * 0.5);
 
-        $entityManager->flush();
-        $this->addFlash('success','Card Sold');
+        $this->entityManager->flush();
+        $this->addFlash('success', 'Card Sold');
 
         return new Response(null, 204);
 
     }
 
     /**
-     * @Route("/first/util/card/{cardId}/user/{userId}", name="remove_user_util_card")
+     * @Route("/first/sell/utilCard/{cardId}", name="sell_user_util_card")
      * @Method("DELETE")
      */
-    public function removeUserUtilCard($cardId, $userId)
+    public function sellUserUtilCard($cardId)
     {
-        $entityManager = $this->getDoctrine()->getManager();
-        $userUtilCard = $entityManager->getRepository('App:UserUtilCards')->findOneBy(['user' => $userId, 'util_card' => $cardId]);
-
+        $userId = $this->getUser()->getId();
+        $userUtilCard = $this->entityManager->getRepository('App:UserUtilCards')->findOneBy(['user' => $userId, 'util_card' => $cardId]);
         if (!$userUtilCard) {
             throw  new Exception("Card not found");
         }
 
-        $entityManager->remove($userUtilCard);
-        $entityManager->flush();
+        $this->entityManager->remove($userUtilCard);
+        $this->entityManager->flush();
 
         return new Response(null, 204);
 
     }
-
 
 }

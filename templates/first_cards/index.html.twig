@@ -11,15 +11,15 @@
                 <h1>Show Cards</h1>
 
                 <h2>Char Cards</h2>
-                {% for i in charCards.userCharCards %}
+                {% for i in user.userCharCards %}
                     <li class="js-card-item">  {{ i.charCard.charName }} {{ i.cardCount }}
 
                         <a href="#" class="btn btn-link btn-xs js-card-remove"
                            data-url="{{ path('sell_user_char_card',{
                                cardId: i.charCard.id,
-                               userId: i.user.id
                            }) }}">
-                            <span><i class="fas fa-times"></i></span></a>
+                            <span><i class="fas fa-times"></i></span>
+                        </a>
 
                     </li>
 
@@ -28,13 +28,12 @@
 
                 <h2>Util Cards</h2>
 
-                {% for i in charCards.userUtilCards %}
+                {% for i in user.userUtilCards %}
                     <li class="js-card-item">  {{ i.utilCard.utilName }} {{ i.cardCount }}
 
                         <a href="#" class="btn btn-link btn-xs js-card-remove"
-                           data-url="{{ path('remove_user_util_card',{
+                           data-url="{{ path('sell_user_util_card',{
                                cardId: i.utilCard.id,
-                               userId: i.user.id
                            }) }}">
                             <span><i class="fas fa-times"></i></span>
                         </a>
@@ -45,7 +44,7 @@
 
                 <h3>Char Decks</h3>
 
-                {% for i in charCards.userCharDecks %}
+                {% for i in user.userCharDecks %}
                     {{ i.name }}
                     <li>{{ i.card1.charCard.charName }}</li>
                     <li>{{ i.card2.charCard.charName }}</li>
@@ -56,7 +55,7 @@
 
                 <h3>Util Decks</h3>
 
-                {% for i in charCards.userUtilDecks %}
+                {% for i in user.userUtilDecks %}
                     {{ i.name }}
                     <li>{{ i.card1.utilCard.utilName }}</li>
                     <li>{{ i.card2.utilCard.utilName }}</li>
