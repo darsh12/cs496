@@ -138,12 +138,14 @@ class FirstCardsController extends Controller
      */
     public function sellUserCharCard($cardId)
     {
-        $userId = $this->getUser()->getId();
+        $user = $this->getUser();
+        $userId=$user->getId();
 
         $userCharCard = $this->entityManager->getRepository(UserCharCards::class)->findOneBy(['user' => $userId, 'char_card' => $cardId]);
 
         $price = $userCharCard->getCharCard()->getPrice();
         $count = $userCharCard->getCardCount();
+        $userCoins = $user->getCoins();
 
         if (!$userCharCard) {
             throw  new Exception("Card not found");
@@ -155,7 +157,7 @@ class FirstCardsController extends Controller
         } else {
             $this->entityManager->remove($userCharCard);
         }
-        $userCharCard->getUser()->setCoins($price * 0.5);
+        $userCharCard->getUser()->setCoins($userCoins+($price * 0.5));
 
         $this->entityManager->flush();
         $this->addFlash('success', 'Card Sold');
