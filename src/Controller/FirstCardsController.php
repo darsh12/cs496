@@ -7,7 +7,6 @@ use App\Entity\User;
 use App\Entity\UserCharCards;
 use App\Entity\UserUtilCards;
 use App\Entity\UtilCard;
-use function PHPSTORM_META\type;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -129,20 +128,32 @@ class FirstCardsController extends Controller
 
 
     /**
-     * @Route("/first/char/card/{cardId}/user/{userId}", name="remove_user_char_card")
+     * @Route("/first/char/card/{cardId}/user/{userId}", name="sell_user_char_card")
      * @Method("DELETE")
      */
-    public function removeUserCharCard($cardId, $userId)
+    public function sellUserCharCard($cardId, $userId)
     {
         $entityManager = $this->getDoctrine()->getManager();
-        $userCharCard = $entityManager->getRepository('App:UserCharCards')->findOneBy(['user' => $userId, 'char_card' => $cardId]);
+        $userCharCard = $entityManager->getRepository(UserCharCards::class)->findOneBy(['user' => $userId, 'char_card' => $cardId]);
+
+        $price=$userCharCard->getCharCard()->getPrice();
+        $count=$userCharCard->getCardCount();
 
         if (!$userCharCard) {
             throw  new Exception("Card not found");
         }
 
-        $entityManager->remove($userCharCard);
+        if ($count>1){
+            $userCharCard->setCardCount($count-1);
+
+        }
+        else {
+            $entityManager->remove($userCharCard);
+        }
+        $userCharCard->getUser()->setCoins($price*0.5);
+
         $entityManager->flush();
+        $this->addFlash('success','Card Sold');
 
         return new Response(null, 204);
 

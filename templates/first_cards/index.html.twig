@@ -15,7 +15,7 @@
                     <li class="js-card-item">  {{ i.charCard.charName }} {{ i.cardCount }}
 
                         <a href="#" class="btn btn-link btn-xs js-card-remove"
-                           data-url="{{ path('remove_user_char_card',{
+                           data-url="{{ path('sell_user_char_card',{
                                cardId: i.charCard.id,
                                userId: i.user.id
                            }) }}">
@@ -88,7 +88,10 @@
 
                 $.ajax({
                     url: $(this).data('url'),
-                    method: 'DELETE'
+                    method: 'DELETE',
+                    success: function () {
+                        location.reload();
+                    }
                 }).done(function () {
                     $el.fadeOut();
                 })
