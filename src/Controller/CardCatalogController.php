@@ -85,7 +85,7 @@ class CardCatalogController extends Controller
             throw  new \Exception("Not enough coins");
 //            return $this->redirectToRoute('card_show');
         }
-//        $insertCard=$this->get('App\Controller\FirstCardsController')->insertCharCard($user, $charCard);
+        $this->get('App\Controller\FirstCardsController')->insertCharCard($user, $charCard);
         $user->setCoins($userCoins-$cardCost);
         $entityManager->flush();
 
