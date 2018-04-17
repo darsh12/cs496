@@ -94,30 +94,39 @@
 }
 
 #dynamic_sub_tabs_container {
-    padding-top: .25%;
+    padding: 1% 0 1% 1%;
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
     background-color: #FFFFFF;
-    padding: 1%;
-    padding-right: 0;
     width: 15%;
     float: left;
 }
 
 #dynamic_container {
-    height: 450px;
-    overflow-y: scroll;
+    height: 480px;
+    overflow-y: auto;
     overflow-x: hidden;
-    border-bottom-radius: 10px;
+    border-radius: 0 0 10px 10px;
     border: 5px solid #ffeb00;
-    padding: 2%;
+    padding: 1%;
     margin-left: 15%;
     margin-right: 15%;
-
 }
 
 .custom_container {
     margin-top: 6%;
     margin-left: 15%;
     margin-right: 15%;
+}
+
+.header-center {
+    box-shadow: 0 1px 5px 1px black;
+    margin: 5% auto 5% auto;
+    border-radius: 10px;
+    width: fit-content;
+    background-color: #ffeb00;
+    font-family: "Ostrich-Sans Black";
+    padding: 2%;
+    font-size: 1.75em;
+    color: black;
 }
