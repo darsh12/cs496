@@ -396,4 +396,11 @@ class UserCharCards
     }
 
 
+    public function __toString()
+    {
+        $name = ($this->getCharCard()->getCharName()). " : ".($this->getCharCard()->getCharTier());
+        return $name;
+
+    }
+
 }
