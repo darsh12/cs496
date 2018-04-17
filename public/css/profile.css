@@ -1,10 +1,133 @@
 .profile_column {
     float: left;
+    width: 33.33%;
     height: 100%;
-    display: block;
-    margin-right: 1%;
-    margin-left: 1%;
-    /* Temp stuff*/
+}
+
+.profile_column:first-of-type {
+    float: left;
+}
+
+.profile_column:last-of-type{
+    float: right;
+}
+
+.profile_info {
+    text-align: center;
+    height: 50%;
+}
+
+.profile_name {
+    font-family: "Ostrich-Sans Black";
+    box-shadow: 0 1px 5px 1px black;
+    font-weight: bold;
+    border-radius: 10px 10px 50% 50%;
+    margin-left: 15%;
+    margin-right: 15%;
+    background-color: #ffeb00;
+    border: 4px solid black;
+    padding: 5%;
+    padding-bottom: 6%;
+    font-size: 2em;
+    color: black;
+}
+
+.profile_img {
+    top: -11px;
+    border: 4px solid black;
+    height: 69%;
+    border-radius: 50%;
+    width: 55%;
+    position: relative;
+    z-index: 2;
+}
+
+.profile_level {
+    box-shadow: 0 1px 5px 1px black;
+    font-size: 1em;
+    border-radius: 0 0 25% 25%;
+    top: -30px;
+    margin-left: 35%;
+    margin-right: 35%;
+    background-color: #ffeb00;
+    border: 3px solid black;
+    padding: 2% 2% 0% 2%;
+    position: relative;
+    z-index: 1;
+}
+
+.profile_level span {
+    font-size: 1.25em;
+    border-radius: 0 0 10px 10px;
+    padding: 16% 15% 8% 15%;
+    width: 100%;
     background-color: #FFFFFF;
+    display: block;
+    border: 2px solid black;
+}
+
+.progress.profile_progress {
+    background-color: #FFFFFF;
+    width: 55%;
+    position: relative;
+    box-shadow: 0 1px 1px 1px black;
+    border-radius: 15px;
+    top: -22px;
+    margin: auto;
+}
+
+.progress-bar.profile_progress_bar {
+    background-color: #ffeb00;
+}
+
+.profile_rank {
+    box-shadow: 0 1px 5px 1px black;
+    text-align: center;
+    font-size: 1em;
+    border-radius: 60% 60% 25% 25%;
+    top: -30px;
+    margin-left: 35%;
+    margin-right: 35%;
+    background-color: #ffeb00;
+    border: 3px solid black;
+    padding: 4% 4% 0% 4%;
+    position: relative;
+    z-index: 1;
+    margin-top: 44%;
+}
+
+.profile_rank span {
+    font-size: 1.25em;
+    border-radius: 60% 60% 10px 10px;
+    padding: 16% 15% 8% 15%;
+    width: 100%;
+    background-color: #FFFFFF;
+    display: block;
+    border: 2px solid black;
+}
+
+
+.stat_list {
+    padding: 0;
+    margin: 0 7% 0 7%;
+    font-size: 1.25em;
+}
+
+.stat_list li{
+    border-radius: 10px 20px 20px 10px;
+    background-color: #FFFFFF;
+    list-style: none;
     border: 1px solid black;
+    margin-top: 7%;
+}
+
+.stat_list label {
+    font-weight: bold;
+    border-right: 1px solid black;
+    border-radius: 12px 20px 20px 12px;
+    text-align: center;
+    width: 40%;
+    padding: 1%;
+    background-color: #ffeb00;
+    margin-bottom: 0;
 }
