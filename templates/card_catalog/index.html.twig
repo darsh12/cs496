@@ -35,7 +35,7 @@
                             <button type="button" id="defBtn" class="btn btn-primary btn-block">Defense</button>
                         </div>
                         <div class="col-2 col-offset-1 text-right">
-                            <button type="button" id="ascBtn" class="icon-button"><span class="glyphicon glyphicon-arrow-up"></span></button>
+                            <button type="button" id="ascBtn" class="icon-button"><span><i class="fas fa-arrow-up"></i></span></button>
                         </div>
                     </div>
                     <div class="row">
@@ -49,7 +49,7 @@
                             <button type="button" id="agiBtn" class="btn btn-primary btn-block">Agility</button>
                         </div>
                         <div class="col-2 col-offset-1 text-right">
-                            <button type="button" id="descBtn" class="icon-button"><span class="glyphicon glyphicon-arrow-down"></span></button>
+                            <button type="button" id="descBtn" class="icon-button"><span><i class="fas fa-arrow-down"></i></span></button>
                         </div>
                     </div>
                 </div>
@@ -166,21 +166,29 @@
         var redirect= "{{ path('show_user_cards' | escape('js') ) }}";
         $(document).ready(function () {
             $('.js-card-buy').on('click', function (e) {
-                e.preventDefault();
 
-                $.ajax({
-                    url: $(this).data('url'),
-                    method: 'POST',
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        console.log(textStatus, errorThrown);
-                        location.reload();
-                    },
-                    success: function () {
-                        location.href=redirect;
-                    }
+                if(confirm_buy()) {
+                    e.preventDefault();
 
-                });
+                    $.ajax({
+                        url: $(this).data('url'),
+                        method: 'POST',
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus, errorThrown);
+                            location.reload();
+                        },
+                        success: function () {
+                            location.href = "/first/show";
+                        }
+
+                    });
+                }
             });
-        })
+
+        });
+
+        function confirm_buy() {
+            return confirm('are you sure?');
+        }
     </script>
 {% endblock %}

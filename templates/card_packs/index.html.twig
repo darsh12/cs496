@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello {% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+        .example-wrapper code {
+            background: #F5F5F5;
+            padding: 2px 6px;
+        }
+    </style>
+
+    <div class="example-wrapper">
+
+        <div class="row">
+            <div class="col-4">
+                <h1>Amateur</h1>
+                <p><i class="fas fa-money-bill-alt fa-spin"></i> <span>{{ cost.amateur }}</span></p>
+                <a href="#" class="btn btn-link btn-normal js-pack-buy"
+                   data-url="{{ path('card_packs_buy', {
+                       pack: 'amateur'
+                   }) }}">Buy</a>
+            </div>
+
+            <div class="col-4">
+                <h1>Professional</h1>
+                <p><i class="fas fa-money-bill-alt fa-spin"></i> <span>{{ cost.professional }}</span></p>
+                <a href="#" class="btn btn-link btn-normal js-pack-buy"
+                   data-url="{{ path('card_packs_buy', {
+                       pack: 'professional'
+                   }) }}">Buy</a></div>
+
+            <div class="col-4">
+                <h1>World Star</h1>
+                <p><i class="fas fa-money-bill-alt fa-spin"></i> <span>{{ cost.world_star }}</span></p>
+                <a href="#" class="btn btn-link btn-normal js-pack-buy"
+                   data-url="{{ path('card_packs_buy', {
+                       pack: 'world_star'
+                   }) }}">Buy</a></div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function () {
+            $('.js-pack-buy').on('click', function (e) {
+
+                if (confirm_buy()) {
+                    e.preventDefault();
+
+                    $.ajax({
+                        url: $(this).data('url'),
+                        error: function () {
+                            location.reload();
+                        }
+                    }).done(function () {
+                        location.href = "/first/show";
+                    });
+
+                }
+            });
+
+        });
+
+        function confirm_buy() {
+            return confirm('are you sure?');
+        }
+    </script>
+{% endblock %}

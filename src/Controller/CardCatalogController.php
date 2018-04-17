@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\CharCard;
 use App\Entity\CharCardStat;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -74,7 +75,7 @@ class CardCatalogController extends Controller
         $charCard=$entityManager->getRepository(CharCard::class)->findOneBy(['id'=>$card]);
 
         if (!$charCard) {
-            throw  new \Exception("Card not found");
+            throw  new Exception("Card not found");
         }
 
         $userCoins=$user->getCoins();
@@ -82,7 +83,7 @@ class CardCatalogController extends Controller
 
         if ($userCoins<$cardCost) {
             $this->addFlash('error', 'Not enough coins');
-            throw  new \Exception("Not enough coins");
+            throw  new Exception("Not enough coins");
 //            return $this->redirectToRoute('card_show');
         }
         $this->get('App\Controller\FirstCardsController')->insertCharCard($user, $charCard);

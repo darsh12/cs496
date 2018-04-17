@@ -55,4 +55,32 @@ class CharCardRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function amateurPack() {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.char_tier = :amateur')
+            ->setParameter('amateur', 'Amateur')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function professionalPack() {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.char_tier = :amateur')
+            ->orWhere('a.char_tier = :professional')
+            ->setParameter('amateur', 'Amateur')
+            ->setParameter('professional', 'Professional')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function worldStarPack() {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.char_tier = :professional')
+            ->orWhere('a.char_tier = :world')
+            ->setParameter('professional', 'Professional')
+            ->setParameter('world', 'World Star')
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -66,6 +66,8 @@ class FirstCardsController extends Controller
 
         $this->entityManager->flush();
 
+        return new Response(null, 204);
+
     }
 
 
@@ -122,15 +124,17 @@ class FirstCardsController extends Controller
 
         for ($i = 0; $i < count($randCharIndex); $i++) {
             $randomCharCards[$i] = $charCards[$randCharIndex[$i]];
-            $randomUtilCards[$i] = $utilCards[$randUtilIndex[$i]];
-
             $this->insertCharCard($user, $randomCharCards[$i]);
+        }
+
+        for ($i = 0; $i < count($randUtilIndex); $i++) {
+            $randomUtilCards[$i] = $utilCards[$randUtilIndex[$i]];
             $this->insertUtilCard($user, $randomUtilCards[$i]);
         }
 
+
         return $this->render('first_cards/new.html.twig', ['charCards' => $randomCharCards, 'utilCards' => $randomUtilCards]);
     }
-
 
     /**
      * @Route("/first/sell/charCard/{cardId}", name="sell_user_char_card")
@@ -160,6 +164,7 @@ class FirstCardsController extends Controller
         $userCharCard->getUser()->setCoins($userCoins+($price * 0.5));
 
         $this->entityManager->flush();
+
         $this->addFlash('success', 'Card Sold');
 
         return new Response(null, 204);

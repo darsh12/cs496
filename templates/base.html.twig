@@ -13,8 +13,12 @@
         <link rel="stylesheet" href="{{ asset('css/market.css') }}">
         <link rel="stylesheet" href="{{ asset('css/inventory.css') }}">
         <link rel="stylesheet" href="{{ asset('css/card.css') }}">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
+              integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
+              crossorigin="anonymous">
     {% endblock %}
 
 </head>
@@ -23,11 +27,13 @@
 
 <div class="header">
     <div class="login_logout">
-    {% if is_granted('ROLE_USER') %}
-        <a class="btn btn-normal btn-banner" style="font-size: 2em" href="{{ path('fos_user_security_logout') }}">Logout <i class="fas fa-arrow-right"></i></a>
-    {% else %}
-        <a class="btn btn-normal btn-banner" style="font-size: 2em" href="{{ path('fos_user_security_login') }}">Login <i class="fas fa-arrow-right"></i></a>
-    {% endif %}
+        {% if is_granted('ROLE_USER') %}
+            <a class="btn btn-normal btn-banner" style="font-size: 2em" href="{{ path('fos_user_security_logout') }}">Logout
+                <i class="fas fa-arrow-right"></i></a>
+        {% else %}
+            <a class="btn btn-normal btn-banner" style="font-size: 2em" href="{{ path('fos_user_security_login') }}">Login
+                <i class="fas fa-arrow-right"></i></a>
+        {% endif %}
     </div>
 </div>
 
@@ -36,10 +42,22 @@
 
 <div class="main_content">
     {% for msg in app.session.flashBag.get('success') %}
-        <div class="alert alert-success">{{ msg }}</div>
+        <div class="alert alert-success">{{ msg }}
+            <span class="pull-right">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">
+                    <i class="fas fa-times"></i>
+                </a>
+            </span>
+        </div>
     {% endfor %}
     {% for msg in app.session.flashBag.get('error') %}
-        <div class="alert alert-warning">{{ msg }}</div>
+        <div class="alert alert-warning">{{ msg }}
+            <span class="pull-right">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">
+                    <i class="fas fa-times"></i>
+                </a>
+            </span>
+        </div>
     {% endfor %}
     {% block body %} {% endblock %}
 </div>
@@ -52,8 +70,18 @@
             crossorigin="anonymous"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    <script src="{{ asset('js/homepage.js') }}" ></script>
+    <<<<<<< Updated upstream
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="{{ asset('js/homepage.js') }}"></script>
+    =======
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"></script>
+    <script src="{{ asset('js/homepage.js') }}"></script>
+<<<<<<< Updated upstream
+    >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 {% endblock %}
 
 </body>

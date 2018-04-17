@@ -47,4 +47,32 @@ class UtilCardRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function amateurPack() {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.util_tier = :amateur')
+            ->setParameter('amateur', 'Amateur')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function professionalPack() {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.util_tier = :amateur')
+            ->orWhere('a.util_tier = :professional')
+            ->setParameter('amateur', 'Amateur')
+            ->setParameter('professional', 'Professional')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function worldStarPack() {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.util_tier = :professional')
+            ->orWhere('a.util_tier = :world')
+            ->setParameter('professional', 'Professional')
+            ->setParameter('world', 'World Star')
+            ->getQuery()
+            ->getResult();
+    }
 }

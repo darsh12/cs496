@@ -40,6 +40,8 @@
                     </li>
                 {% endfor %}
 
+                <h2>Coins</h2>
+                <p class="lead">You have {{ user.coins }} coins</p>
             </ul>
         </div>
     </div>
@@ -52,26 +54,31 @@
     <script>
         $(function () {
             $('.js-card-remove').on('click', function (e) {
-                e.preventDefault();
-                $el = $(this).closest('.js-card-item');
 
-                $(this).find('.fa-times')
-                    .removeClass('fa-times')
-                    .addClass('fa-spinner')
-                    .addClass('fa-spin')
+                    e.preventDefault();
+                    //Get the closest element to the link clicked
+                    $el = $(this).closest('.js-card-item');
 
-                $.ajax({
-                    url: $(this).data('url'),
-                    method: 'DELETE',
-                    success: function () {
-                        location.reload();
-                    }
-                }).done(function () {
-                    $el.fadeOut();
-                })
+                    $(this).find('.fa-times')
+                        .removeClass('fa-times')
+                        .addClass('fa-spinner')
+                        .addClass('fa-spin')
 
+                    $.ajax({
+                        url: $(this).data('url'),
+                        method: 'DELETE',
+                        success: function () {
+                            location.reload();
+                        }
+                    }).done(function () {
+                        $el.fadeOut();
+                    });
             });
         });
+
+        function confirm_buy() {
+            return confirm('are you sure?');
+        }
     </script>
 
 {% endblock %}
