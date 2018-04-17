@@ -168,20 +168,35 @@ class FirstCardsController extends Controller
 
     /**
      * @Route("/first/sell/utilCard/{cardId}", name="sell_user_util_card")
-     * @Method("DELETE")
      */
     public function sellUserUtilCard($cardId)
     {
-        $userId = $this->getUser()->getId();
-        $userUtilCard = $this->entityManager->getRepository('App:UserUtilCards')->findOneBy(['user' => $userId, 'util_card' => $cardId]);
+        $user = $this->getUser();
+        $userId=$user->getId();
+
+        $userUtilCard = $this->entityManager->getRepository(UserUtilCards::class)->findOneBy(['user' => $userId, 'util_card' => $cardId]);
+
+        $price = $userUtilCard->getUtilCard()->getPrice();
+        $count = $userUtilCard->getCardCount();
+        $userCoins = $user->getCoins();
+
         if (!$userUtilCard) {
             throw  new Exception("Card not found");
         }
 
-        $this->entityManager->remove($userUtilCard);
+        if ($count > 1) {
+            $userUtilCard->setCardCount($count - 1);
+
+        } else {
+            $this->entityManager->remove($userUtilCard);
+        }
+        $userUtilCard->getUser()->setCoins($userCoins+($price * 0.75));
+
         $this->entityManager->flush();
+        $this->addFlash('success', 'Card Sold');
 
         return new Response(null, 204);
+
 
     }
 
