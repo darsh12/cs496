@@ -1,0 +1,186 @@
+/*Character Card CSS*/
+.character {
+    margin: 2% auto 14% auto;
+    height: 240px;
+    width: 270px;
+}
+
+.char_card {
+    box-shadow: 0 5px 5px 1px black;
+    padding: 3%;
+    height: 100%;
+    width: 100%;
+    background-color: red;
+    border-radius: 0 15px 15px 15px;
+}
+
+.char_name {
+    box-shadow: 0 4px 5px 1px black;
+    min-width: 50%;
+    color: #FFFFFF;
+    font-family: "Ostrich-Sans Black";
+    width: fit-content;
+    border-radius: 20px 20px 0 0px;
+    background-color: red;
+    padding: 1.5%;
+    font-size: 1.75em;
+    text-align: center;
+}
+
+.char_img {
+    height: 67%;
+    width: 100%;
+    border-bottom: 2px solid red;
+}
+
+.char_column {
+    height: 100%;
+    width: 50%;
+    background-color: #FFFFFF;
+    float: left;
+}
+
+.char_rating {
+    font-size: 2.25em;
+    margin: 30% 15% 0 0;
+    text-align: center;
+    color: #FFFFFF;
+    border-radius: 50%;
+    background-color: red;
+    height: fit-content;
+}
+
+.attribute_list {
+    color: black;
+    height: 100%;
+    text-align: left;
+    background-color: lightgrey;
+    font-size: 1.75em;
+    padding: 0;
+    list-style: none;
+}
+
+.attribute_list li {
+    padding: 2% 2% 2% 22%;
+}
+
+.attribute_list li:nth-child(odd){
+    background-color: dimgray;
+}
+
+.char_info {
+    margin-top: 10%;
+    text-align: center;
+    padding: 0;
+    list-style: none;
+    font-size: 1em;
+}
+
+.char_info li {
+    margin: 4%;
+    padding: 5%;
+    border-radius: 10px;
+    color: #FFFFFF;
+    background-color: red;
+}
+
+
+/* Utility Card CSS*/
+.utility {
+    margin: 2% auto 14% auto;
+    height: 240px;
+    width: 300px;
+}
+
+.util_name {
+    box-shadow: 0 4px 5px 1px black;
+    margin-left: auto;
+    min-width: 50%;
+    color: #FFFFFF;
+    font-family: "Ostrich-Sans Black";
+    width: fit-content;
+    border-radius: 20px 20px 0 0px;
+    background-color: darkblue;
+    padding: 1.5%;
+    font-size: 1.75em;
+    text-align: center;
+}
+
+.util_card {
+    box-shadow: 0 5px 5px 1px black;
+    padding: 3%;
+    height: 100%;
+    width: 100%;
+    background-color: darkblue;
+    border-radius: 15px 0 15px 15px;
+}
+
+.mod_header {
+    color: #FFFFFF;
+    text-align: center;
+    width: 52%;
+    font-family: "Ostrich-Sans Black";
+    margin: 0;
+}
+
+.effect_header {
+    padding: 2% 0 0 0;
+    clear: both;
+    color: #FFFFFF;
+    text-align: center;
+    font-family: "Ostrich-Sans Black";
+    margin: 0;
+}
+
+.util_attr_table {
+    border: 1px solid black;
+    height: 40%;
+    background-color: #FFFFFF;
+    float: left;
+    text-align: right;
+}
+
+.util_attr_table td:nth-of-type(1) {
+    padding-right: 5%;
+    font-weight: bold;
+    background-color: lightgrey;
+}
+
+.util_img {
+    width: 50%;
+    height: 40%;
+    float: right;
+    border-radius: 50%;
+}
+
+.effect_list {
+    margin: 0;
+    width: 50%;
+    padding: 0;
+    font-size: .89em;
+}
+
+.effect_list li {
+    border-radius: 10px 20px 20px 10px;
+    background-color: #FFFFFF;
+    list-style: none;
+    border: 1px solid black;
+}
+
+.effect_list label {
+    border-right: 1px solid black;
+    border-radius: 12px 20px 20px 12px;
+    text-align: center;
+    width: 65%;
+    padding: 4%;
+    background-color: #ffeb00;
+    margin-bottom: 0;
+}
+
+.effect_list:nth-of-type(1) {
+    float: left;
+}
+
+.effect_list:nth-of-type(1) {
+    float: right;
+}
