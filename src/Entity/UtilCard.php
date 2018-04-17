@@ -79,6 +79,11 @@ class UtilCard
      */
     private $attribute_modifier;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $price=0;
+
     public function __construct()
     {
         $this->userUtilCards = new ArrayCollection();
@@ -249,6 +254,18 @@ class UtilCard
     public function setAttributeModifier(string $attribute_modifier): self
     {
         $this->attribute_modifier = $attribute_modifier;
+
+        return $this;
+    }
+
+    public function getPrice(): ?int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(int $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }

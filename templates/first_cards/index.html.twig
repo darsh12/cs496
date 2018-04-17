@@ -40,32 +40,7 @@
                     </li>
                 {% endfor %}
 
-                <h2>Decks</h2>
-
-                <h3>Char Decks</h3>
-
-                {% for i in user.userCharDecks %}
-                    {{ i.name }}
-                    <li>{{ i.card1.charCard.charName }}</li>
-                    <li>{{ i.card2.charCard.charName }}</li>
-                    <li>{{ i.card3.charCard.charName }}</li>
-                    <li>{{ i.card4.charCard.charName }}</li>
-                    <li>{{ i.card5.charCard.charName }}</li>
-                {% endfor %}
-
-                <h3>Util Decks</h3>
-
-                {% for i in user.userUtilDecks %}
-                    {{ i.name }}
-                    <li>{{ i.card1.utilCard.utilName }}</li>
-                    <li>{{ i.card2.utilCard.utilName }}</li>
-                    <li>{{ i.card3.utilCard.utilName }}</li>
-                {% endfor %}
-
-
             </ul>
-
-
         </div>
     </div>
 
