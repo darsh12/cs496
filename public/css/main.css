@@ -60,6 +60,25 @@
     width: 25%;
 }
 
+.tab a {
+    padding: 1%;
+    background-color: #FFFFFF;
+    border-radius: 35px 35px 0 0;
+    display: block;
+    color: black;
+}
+
+.tab a:hover {
+    color: #FFFFFF;
+    background-color: #ffeb00;
+    text-decoration: none;
+}
+
+.tab a.current {
+    background-color: #ffeb00;
+    color: #FFFFFF;
+}
+
 .sub_tabs {
     padding-left: 0;
     margin: auto;
@@ -94,6 +113,7 @@
 }
 
 #dynamic_sub_tabs_container {
+    box-shadow: -7px 1px 3px 1px black;
     padding: 1% 0 1% 1%;
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
@@ -103,6 +123,7 @@
 }
 
 #dynamic_container {
+    box-shadow: 0 1px 5px 1px black;
     height: 480px;
     overflow-y: auto;
     overflow-x: hidden;
