@@ -86,6 +86,11 @@ class UserStat
      */
     private $experience=0;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $times_defended=0;
+
 
 
     public function getId()
@@ -257,6 +262,18 @@ class UserStat
     public function setExperience(int $experience): self
     {
         $this->experience = $experience;
+
+        return $this;
+    }
+
+    public function getTimesDefended(): ?int
+    {
+        return $this->times_defended;
+    }
+
+    public function setTimesDefended(int $times_defended): self
+    {
+        $this->times_defended = $times_defended;
 
         return $this;
     }

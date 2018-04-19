@@ -80,6 +80,11 @@ class User extends BaseUser implements TwoFactorInterface
      */
     private $coins=0;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Avatar", inversedBy="users")
+     */
+    private $avatar;
+
     public function __construct()
     {
         parent::__construct();
@@ -443,6 +448,18 @@ class User extends BaseUser implements TwoFactorInterface
     public function setCoins(int $coins): self
     {
         $this->coins = $coins;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?Avatar
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?Avatar $avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }

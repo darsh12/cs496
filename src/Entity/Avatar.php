@@ -33,10 +33,16 @@ class Avatar
      */
     private $utilCards;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="avatar")
+     */
+    private $users;
+
     public function __construct()
     {
         $this->charCards = new ArrayCollection();
         $this->utilCards = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function getId()
@@ -112,6 +118,37 @@ class Avatar
             // set the owning side to null (unless already changed)
             if ($utilCard->getAvatar() === $this) {
                 $utilCard->setAvatar(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|User[]
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->setAvatar($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->contains($user)) {
+            $this->users->removeElement($user);
+            // set the owning side to null (unless already changed)
+            if ($user->getAvatar() === $this) {
+                $user->setAvatar(null);
             }
         }
 
