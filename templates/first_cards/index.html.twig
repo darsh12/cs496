@@ -54,16 +54,15 @@
     <script>
         $(function () {
             $('.js-card-remove').on('click', function (e) {
-
                     e.preventDefault();
                     //Get the closest element to the link clicked
                     $el = $(this).closest('.js-card-item');
 
+                if(confirm_buy()) {
                     $(this).find('.fa-times')
                         .removeClass('fa-times')
                         .addClass('fa-spinner')
                         .addClass('fa-spin')
-
                     $.ajax({
                         url: $(this).data('url'),
                         method: 'DELETE',
@@ -73,6 +72,8 @@
                     }).done(function () {
                         $el.fadeOut();
                     });
+                }
+
             });
         });
 
