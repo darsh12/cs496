@@ -19,6 +19,14 @@ class UserCharCardsRepository extends ServiceEntityRepository
         parent::__construct($registry, UserCharCards::class);
     }
 
+    public function distinctCharCards($user) {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.user = :user')
+            ->setParameter('user', $user)
+            ->select('DISTINCT COUNT(c.char_card) as char_card')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 //    /**
 //     * @return UserCharCards[] Returns an array of UserCharCards objects
 //     */

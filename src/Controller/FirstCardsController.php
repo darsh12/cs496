@@ -151,8 +151,20 @@ class FirstCardsController extends Controller
         $count = $userCharCard->getCardCount();
         $userCoins = $user->getCoins();
 
+        $countDistinctCards= $this->entityManager->getRepository(UserCharCards::class)->distinctCharCards($user);
+
+        //Check if the user has the card
         if (!$userCharCard) {
             throw  new Exception("Card not found");
+        }
+
+        //Check if the user has only five cards
+        if ($countDistinctCards==5 ) {
+            //If he has only 5 card does the card he wants to sell only 1 card
+            if ($count==1) {
+                $this->addFlash('error', 'You need to have at least 5 different cards');
+                throw new Exception("Cannot delete card. Need to have at least 5 cards");
+            }
         }
 
         if ($count > 1) {
@@ -185,8 +197,18 @@ class FirstCardsController extends Controller
         $count = $userUtilCard->getCardCount();
         $userCoins = $user->getCoins();
 
+        $countDistinctCards = $this->entityManager->getRepository(UserUtilCards::class)->distinctUtilCards($user);
+
         if (!$userUtilCard) {
             throw  new Exception("Card not found");
+        }
+
+        if ($countDistinctCards==3) {
+            if ($count==1) {
+                $this->addFlash('error', 'You need to have at least 3 different cards');
+                throw new Exception("Cannot delete card. Need to have at least 3 cards");
+
+            }
         }
 
         if ($count > 1) {

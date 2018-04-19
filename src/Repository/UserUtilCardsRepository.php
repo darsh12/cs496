@@ -19,6 +19,17 @@ class UserUtilCardsRepository extends ServiceEntityRepository
         parent::__construct($registry, UserUtilCards::class);
     }
 
+
+    public function distinctUtilCards($user) {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.user = :user')
+            ->setParameter('user', $user)
+            ->select('DISTINCT COUNT(u.util_card) as util_card')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+    }
+
 //    /**
 //     * @return UserUtilCards[] Returns an array of UserUtilCards objects
 //     */

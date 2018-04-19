@@ -66,6 +66,9 @@
                     $.ajax({
                         url: $(this).data('url'),
                         method: 'DELETE',
+                        error: function () {
+                            location.reload();
+                        },
                         success: function () {
                             location.reload();
                         }
