@@ -45,37 +45,23 @@ class ProfileController extends AbstractController
         // TODO: add card_defeats field to user_util_cards to track worst performing utility card
         // TODO: add timesDefended field to user_stat
 
-        /////////////////////////////////////////
-        ///// Favorite Character Query ////////
-        /////////////////////////////////////////
+            /////////////////////////////////////////
+            ///// Favorite Character Query ////////
+            /////////////////////////////////////////
 
-        // Get Favorite Character Card's Id
-        $favCharID = $userStatObj->getFavouriteCharCard();
+            // Get Favorite Character Card's Id
+            $favCharID = $userStatObj->getFavouriteCharCard();
 
         // If the User has a favorite card, retrieve and render all stats
         // Else Render everything but Favorite/Worst Cards (we'll initialize those after the first battle)
+        // TODO: Complete initialization of UserStat record with favorite/worst cards
         if($favCharID) {
 
-            $userCharCard = $this->getDoctrine()
-                ->getRepository(UserCharCards::class)
-                ->find($favCharID);
-            $favUserCharCard = $userCharCard;
+            $favCharStatCard = $this->getCharStatCard($favCharID);
 
-            // Get Character Card's ID from User<->Card Relation
-            $charCardID = $userCharCard->getCharCard();
-
-            // Get Character Card Object
-            $favCharCard = $this->getDoctrine()
-                ->getRepository(CharCard::class)
-                ->find($charCardID);
-
-            $charAvatarID = $favCharCard->getAvatar();
-            $charAvatar = $this->getDoctrine()
-                ->getRepository(Avatar::class)
-                ->find($charAvatarID);
-
-            $favCharCardImage = $charAvatar->getImagePath();
-            /////////////////////////////////////////
+            $favUserCharCard = $favCharStatCard['userCharCard'];
+            $favCharCard = $favCharStatCard['charCard'];
+            $favCharCardImage = $favCharStatCard['charCardImage'];
             /////////////////////////////////////////
 
 
@@ -86,30 +72,12 @@ class ProfileController extends AbstractController
             // Get Favorite Utility Card's Id
             $favUtilID = $userStatObj->getFavouriteUtilCard();
 
-            // Get User<->Card Object for given ID
-            $userUtilCard = $this->getDoctrine()
-                ->getRepository(UserUtilCards::class)
-                ->find($favUtilID);
-            $favUserUtilCard = $userUtilCard;
+            $utilStatCard = $this->getUtilStatCard($favUtilID);
 
-            // Get Utility Card's ID from User<->Card Relation
-            $utilCardID = $userUtilCard->getUtilCard();
-
-            // Get Utility Card Object
-            $favUtilCard = $this->getDoctrine()
-                ->getRepository(UtilCard::class)
-                ->find($utilCardID);
-
-            $utilAvatarID = $favUtilCard->getAvatar();
-            $utilAvatar = $this->getDoctrine()
-                ->getRepository(Avatar::class)
-                ->find($utilAvatarID);
-
-            $favUtilCardImage = $utilAvatar->getImagePath();
-
-            $jsonAttributeString = $favUtilCard->getAttributeModifier();
-            $favAttrModArray = json_decode($jsonAttributeString);
-            /////////////////////////////////////////
+            $favUserUtilCard = $utilStatCard['userUtilCard'];
+            $favUtilCard = $utilStatCard['utilCard'];
+            $favUtilCardImage = $utilStatCard['utilCardImage'];
+            $favAttrModArray = $utilStatCard['attrModArray'];
             /////////////////////////////////////////
 
 
@@ -120,26 +88,11 @@ class ProfileController extends AbstractController
             // Get Worst Character Card's Id
             $worstCharID = $userStatObj->getDefeatedCharCard();
 
-            $userCharCard = $this->getDoctrine()
-                ->getRepository(UserCharCards::class)
-                ->find($worstCharID);
-            $worstUserCharCard = $userCharCard;
+            $worstCharStatCard = $this->getCharStatCard($worstCharID);
 
-            // Get Worst Character Card's ID from User<->Card Relation
-            $worstCharCardID = $userCharCard->getCharCard();
-
-            // Get Worst Character Card Object
-            $worstCharCard = $this->getDoctrine()
-                ->getRepository(CharCard::class)
-                ->find($worstCharCardID);
-
-            $worstCharAvatarID = $worstCharCard->getAvatar();
-            $worstCharAvatar = $this->getDoctrine()
-                ->getRepository(Avatar::class)
-                ->find($worstCharAvatarID);
-
-            $worstCharCardImage = $worstCharAvatar->getImagePath();
-            /////////////////////////////////////////
+            $worstUserCharCard = $worstCharStatCard['userCharCard'];
+            $worstCharCard = $worstCharStatCard['charCard'];
+            $worstCharCardImage = $worstCharStatCard['charCardImage'];
             /////////////////////////////////////////
 
 
@@ -147,33 +100,15 @@ class ProfileController extends AbstractController
             ///// Worst Utility Query ////////////
             /////////////////////////////////////////
 
-            // Get Worst Utility Card's Id
+            // Get Favorite Utility Card's Id
             $worstUtilID = $userStatObj->getDefeatedUtilCard();
 
-            // Get User<->Card Object for given ID
-            $userUtilCard = $this->getDoctrine()
-                ->getRepository(UserUtilCards::class)
-                ->find($worstUtilID);
-            $worstUserUtilCard = $userUtilCard;
+            $utilStatCard = $this->getUtilStatCard($favUtilID);
 
-            // Get Worst Utility Card's ID from User<->Card Relation
-            $worstUtilCardID = $userUtilCard->getUtilCard();
-
-            // Get Worst Utility Card Object
-            $worstUtilCard = $this->getDoctrine()
-                ->getRepository(UtilCard::class)
-                ->find($worstUtilCardID);
-
-            $worstUtilAvatarID = $worstUtilCard->getAvatar();
-            $worstUtilAvatar = $this->getDoctrine()
-                ->getRepository(Avatar::class)
-                ->find($worstUtilAvatarID);
-
-            $worstUtilCardImage = $worstUtilAvatar->getImagePath();
-
-            $jsonAttributeString = $worstUtilCard->getAttributeModifier();
-            $worstAttrModArray = json_decode($jsonAttributeString);
-            /////////////////////////////////////////
+            $worstUserUtilCard = $utilStatCard['userUtilCard'];
+            $worstUtilCard = $utilStatCard['utilCard'];
+            $worstUtilCardImage = $utilStatCard['utilCardImage'];
+            $worstAttrModArray = $utilStatCard['attrModArray'];
             /////////////////////////////////////////
 
 
@@ -186,14 +121,17 @@ class ProfileController extends AbstractController
                     "level_progress" => 10,
                     "total_matches" => $total,
                     "profile_pic" => $profilePicturePath,
+
                     "fav_char_img" => $favCharCardImage,
                     "fav_util_img" => $favUtilCardImage,
                     "worst_char_img" => $worstCharCardImage,
                     "worst_util_img" => $worstUtilCardImage,
+
                     "fav_char" => $favCharCard,
                     "fav_util" => $favUtilCard,
                     "worst_char" => $worstCharCard,
                     "worst_util" => $worstUtilCard,
+
                     "fav_attr_mod" => $favAttrModArray,
                     "worst_attr_mod" => $worstAttrModArray,
                     "fav_user_char_card" => $favUserCharCard,
@@ -216,5 +154,86 @@ class ProfileController extends AbstractController
                     "render_card_stats" => false
                 ]);
         }
+    }
+
+    /**
+     * @Route("/my_profile/edit",name="app_my-profile-edit")
+     */
+    public function editProfile()
+    {
+        $userName = $this->getUser()->getUsername();
+
+        // TODO: insert avatar id into User table and get path from here
+        // User Profile Avatar
+        $profilePicturePath = "images/temp_profile_pic.png";
+
+        // Return Call
+        return $this->render('profile/profile_edit.html.twig',
+            [
+                "user_name" => $userName,
+                "profile_pic" => $profilePicturePath,
+            ]);
+    }
+
+    // Returns Array of Objects & Values
+    // Representing Player's Favorite/Worst Character Card
+    protected function getCharStatCard($charCardId) {
+        $charStatCard = [];
+
+        $userCharCard = $this->getDoctrine()
+            ->getRepository(UserCharCards::class)
+            ->find($charCardId);
+        $charStatCard['userCharCard'] = $userCharCard;
+
+        // Get Character Card's ID from User<->Card Relation
+        $charCardID = $userCharCard->getCharCard();
+
+        // Get Character Card Object
+        $charStatCard['charCard'] = $this->getDoctrine()
+            ->getRepository(CharCard::class)
+            ->find($charCardID);
+
+        $charAvatarID = $charStatCard['charCard']->getAvatar();
+        $charAvatar = $this->getDoctrine()
+            ->getRepository(Avatar::class)
+            ->find($charAvatarID);
+
+        $charStatCard['charCardImage'] = $charAvatar->getImagePath();
+
+        return $charStatCard;
+
+    }
+
+    // Returns Array of Objects & Values
+    // Representing Player's Favorite/Worst Utility Card
+    protected function getUtilStatCard($utilCardId) {
+
+        $utilStatCard = [];
+
+        // Get User<->Card Object for given ID
+        $userUtilCard = $this->getDoctrine()
+            ->getRepository(UserUtilCards::class)
+            ->find($utilCardId);
+        $utilStatCard['userUtilCard'] = $userUtilCard;
+
+        // Get Utility Card's ID from User<->Card Relation
+        $utilCardID = $userUtilCard->getUtilCard();
+
+        // Get Utility Card Object
+        $utilStatCard['utilCard'] = $this->getDoctrine()
+            ->getRepository(UtilCard::class)
+            ->find($utilCardID);
+
+        $utilAvatarID = $utilStatCard['utilCard']->getAvatar();
+        $utilAvatar = $this->getDoctrine()
+            ->getRepository(Avatar::class)
+            ->find($utilAvatarID);
+
+        $utilStatCard['utilCardImage'] = $utilAvatar->getImagePath();
+
+        $jsonAttributeString = $utilStatCard['utilCard']->getAttributeModifier();
+        $utilStatCard['attrModArray'] = json_decode($jsonAttributeString);
+
+        return $utilStatCard;
     }
 }
