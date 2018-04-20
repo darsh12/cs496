@@ -5,62 +5,66 @@
 
 {% block body %}
 
-    <div class="container">
-        <div class="row">
-            <ul>
+    <div class="container-fluid">
 
-                <h1>Show Cards</h1>
+        <h1 class="text-center">Show Cards</h1>
 
-                <h2>Char Cards</h2>
-                {% for i in user.userCharCards %}
-                    {#<li class="js-card-item">  {{ i.charCard.charName }} {{ i.cardCount }}#}
+        <br>
 
-                    {#<a href="#" class="btn btn-link btn-xs js-card-remove"#}
-                       {#data-url="{{ path('sell_user_char_card',{#}
-                           {#cardId: i.charCard.id,#}
-                       {#}) }}">#}
-                        {#<span><i class="fas fa-times"></i></span>#}
-                    {#</a>#}
+        <div class="blockquote text-center text-info">
+            You have {{ user.coins }} coins
+        </div>
 
-                    {#</li>#}
+        <h2 class="text-center">Char Cards</h2>
 
-                    <div class="container">
-
-                        <div class="row">
-                            <div class="col-6">
-                                <p class="alert-info">Number of cards: {{ i.cardCount }}</p>
-                                {{ macros.charCard(i.charCard, i.charCard.avatar.imagePath) }}
-                                <a href="#" class="btn btn-danger btn-xs js-card-remove"
-                                   data-url="{{ path('sell_user_char_card',{
-                                       cardId: i.charCard.id,
-                                   }) }}">
-                                    <span>Sell</span>
-                                </a>
-                            </div>
+        <div class="row" id="char card">
+            {% for i in user.userCharCards %}
+                <div class="col-3">
+                    <div class="card js-card-item" style="background-color: inherit">
+                        <div class="card-header text-dark text-center">
+                            Number of cards: {{ i.cardCount }}
+                        </div>
+                        {{ macros.charCard(i.charCard, i.charCard.avatar.imagePath) }}
+                        <div class="card-body">
+                            <a href="#"
+                               class="list-group-item list-group-item-action list-group-item-danger text-center js-card-remove"
+                               data-url="{{ path('sell_user_char_card',{
+                                   cardId: i.charCard.id,
+                               }) }}">
+                                    <span class="fa"><i
+                                                class="far fa-money-bill-alt"></i> {{ i.charCard.price/2 }}</span>
+                            </a>
                         </div>
                     </div>
-
-                {% endfor %}
-
-
-                <h2>Util Cards</h2>
-
-                {% for i in user.userUtilCards %}
-                    <li class="js-card-item">  {{ i.utilCard.utilName }} {{ i.cardCount }}
-
-                        <a href="#" class="btn btn-link btn-xs js-card-remove"
-                           data-url="{{ path('sell_user_util_card',{
-                               cardId: i.utilCard.id,
-                           }) }}">
-                            <span><i class="fas fa-times"></i></span>
-                        </a>
-                    </li>
-                {% endfor %}
-
-                <h2>Coins</h2>
-                <p class="lead">You have {{ user.coins }} coins</p>
-            </ul>
+                </div>
+            {% endfor %}
         </div>
+
+        <h2 class="text-center">Util Cards</h2>
+
+        <div class="row" id="util card">
+            {% for i in user.userUtilCards %}
+                <div class="col-3">
+                    <div class="card js-card-item" style="background-color: inherit">
+                        <div class="card-header text-dark text-center">
+                            Number of cards: {{ i.cardCount }}
+                        </div>
+                        {% set attributes = i.utilCard.attributeModifier | json_decode %}
+                        {{ macros.utilCard(i.utilCard, attributes, i.utilCard.avatar.imagePath) }}
+                        <div class="card-body">
+                            <a href="#"
+                               class="list-group-item list-group-item-action list-group-item-danger text-center js-card-remove"
+                               data-url="{{ path('sell_user_util_card',{
+                                   cardId: i.utilCard.id,
+                               }) }}">
+                                <span class="fa"><i class="far fa-money-bill-alt"></i> {{ i.utilCard.price/2 }}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
     </div>
 
 {% endblock %}
@@ -70,27 +74,37 @@
 
     <script>
         $(function () {
+            $(this).scrollTop(0);
             $('.js-card-remove').on('click', function (e) {
                 e.preventDefault();
                 //Get the closest element to the link clicked
                 $el = $(this).closest('.js-card-item');
 
                 if (confirm_buy()) {
-                    $(this).find('.fa-times')
+                    $(this).find('.fa-money-bill-alt')
                         .removeClass('fa-times')
                         .addClass('fa-spinner')
                         .addClass('fa-spin')
                     $.ajax({
                         url: $(this).data('url'),
                         method: 'DELETE',
-                        error: function () {
-                            location.reload();
-                        },
-                        success: function () {
-                            location.reload();
-                        }
+                        // error: function () {
+                        //     $(this).scrollTop(0);
+                        //     location.reload();
+                        //
+                        //
+                        // },
+                        // success: function () {
+                        //     location.reload();
+                        //     $(this).scrollTop(0);
+                        //
+                        // }
                     }).done(function () {
                         $el.fadeOut();
+                        setTimeout(function () {
+                            location.reload();
+                        }, 500)
+
                     });
                 }
 

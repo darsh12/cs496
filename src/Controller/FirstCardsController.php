@@ -33,9 +33,12 @@ class FirstCardsController extends Controller
     {
         $user = $this->getUser();
 
-        $userCharCards = $this->entityManager->getRepository('App:User')->find($user);
+        $userCards = $this->entityManager->getRepository('App:User')->find($user);
 
-        return $this->render('first_cards/index.html.twig', ['user' => $userCharCards]);
+        $utilCards=$this->entityManager->getRepository(UserUtilCards::class)->findBy(['user'=>$user]);
+//        $utilAttributes=$utilCards->getAttributeModifier();
+
+        return $this->render('first_cards/index.html.twig', ['user' => $userCards]);
     }
 
 
