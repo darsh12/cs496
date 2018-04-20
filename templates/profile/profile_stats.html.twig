@@ -1,4 +1,5 @@
 
+{% import 'macros/card.html.twig' as macros %}
  {#Profile Stats #}
     <div class="profile_column">
          {#Profile Image, Level, Progression #}
@@ -32,49 +33,9 @@
         <h4 class="header-center">FAVORITE CHARACTER</h4>
 
         {% if render_card_stats %}
-        <div class="character">
-            <div class="char_name">{{ fav_char.getCharName }}</div>
-            <div class="char_card">
-                 {#Card Info #}
-                <div class="char_column">
-                    <img class="char_img" src="{{ fav_char_img }}">
-                    <div style="width: 65%; height: 32%;" class="char_column">
-                        <ul class="char_info">
-                            <li>{{ fav_char.getCharType }}</li>
-                            <li>{{ fav_char.getCharClass }}</li>
-                        </ul>
-                    </div>
-                    <div style="width: 35%; height: 32%;" class="char_column">
-                        <div class="char_rating">
-                            {{ fav_char.getRating }}
-                        </div>
-                    </div>
-                </div>
-                 {#Card Attributes#}
-                <div class="char_column">
-                    <div class="char_column">
-                        <ul class="attribute_list" style="font-weight: bold;">
-                            <li>HP</li>
-                            <li>ATT</li>
-                            <li>DEF</li>
-                            <li>AGI</li>
-                            <li>LCK</li>
-                            <li>SPD</li>
-                        </ul>
-                    </div>
-                    <div class="char_column">
-                        <ul class="attribute_list">
-                            <li>{{ fav_char.getHitPoints }}</li>
-                            <li>{{ fav_char.getAttack }}</li>
-                            <li>{{ fav_char.getDefense }}</li>
-                            <li>{{ fav_char.getAgility }}</li>
-                            <li>{{ fav_char.getLuck }}</li>
-                            <li>{{ fav_char.getSpeed }}</li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="container">
+                {{ macros.charCard(fav_char, fav_char_img) }}
             </div>
-        </div>
 
         <button type="button" style="margin: 5% 0 0 36%;" class="btn btn-normal" data-trigger="focus" data-placement="top" data-toggle="popover" title="{{ fav_char.getCharName }}" data-content=
         "Enemy Cards Defeated: {{ fav_user_char_card.getCardKill }} -------------
@@ -86,47 +47,10 @@
         <h4 class="header-center">FAVORITE UTILITY</h4>
 
         {% if render_card_stats %}
-        <div class="utility">
-            <div class="util_name">{{ fav_util.getUtilName }}</div>
-            <div class="util_card">
-                <h4 class="mod_header">ATTRIBUTE MODS</h4>
-                <table class="util_attr_table">
-                    <tr><td>HP</td><td>{{ fav_attr_mod.hp }}%</td></tr>
-                    <tr><td>ATT</td><td>{{ fav_attr_mod.attack }}%</td></tr>
-                    <tr><td>DEF</td><td>{{ fav_attr_mod.defense }}%</td></tr>
-                </table>
 
-                <table class="util_attr_table">
-                    <tr><td>AGI</td><td>{{ fav_attr_mod.agility }}%</td></tr>
-                    <tr><td>LCK</td><td>{{ fav_attr_mod.luck }}%</td></tr>
-                    <tr><td>SPD</td><td>{{ fav_attr_mod.speed }}%</td></tr>
-                </table>
-                <img class="util_img" src="{{ fav_util_img }}">
-
-                <h4 class="effect_header">EFFECTS</h4>
-                <ul class="effect_list">
-                    <li title="DEFENDING: Peek at {{ fav_util.getEffectType }} of the attacker's character TYPES.&#10;ATTACKING: Hide {{ fav_util.getEffectType }} of your character TYPES from the defender.">
-                        <label>SHOW TYPE</label>&nbsp&nbsp&nbsp&nbsp{{ fav_util.getEffectType }}</li>
-
-                    <li title="DEFENDING: Show the ORDER of {{ fav_util.getEffectOrder }} of the attacker's exposed characters.&#10;ATTACKING: Hide {{ fav_util.getEffectOrder }} of your exposed character's ORDER.">
-                        <label>SHOW ORD</label>&nbsp&nbsp&nbsp&nbsp{{ fav_util.getEffectOrder }}</li>
-
-                    <li title="DEFENDING: Peek at {{ fav_util.getEffectClass }} of the attacker's character CLASSES.&#10;ATTACKING: Hide {{ fav_util.getEffectClass }} of your character CLASSES from the defender.">
-                        <label>SHOW CLSS</label>&nbsp&nbsp&nbsp&nbsp{{ fav_util.getEffectClass }}</li>
-
-                </ul>
-                <ul class="effect_list">
-                    <li title="SWAP out {{ fav_util.getCardSwap }} characters in your deck for {{ fav_util.getCardSwap }} randomly selected characters from your inventory.">
-                        <label>SWAP CARD</label>&nbsp&nbsp&nbsp&nbsp{{ fav_util.getCardSwap }}</li>
-
-                    <li title="DEFENDING: Peek at {{ fav_util.getEffectChar }} of the attacker's CHARACTERS.&#10;ATTACKING: Hide {{ fav_util.getEffectChar }} of your CHARACTERS from the defender.">
-                        <label>SHOW CHAR</label>&nbsp&nbsp&nbsp&nbsp{{ fav_util.getEffectChar }}</li>
-
-                    <li title="DEFENDING: Peek at {{ fav_util.getEffectUtil }} of the attacker's UTILITY cards.&#10;ATTACKING: Hide {{ fav_util.getEffectUtil }} of your UTILITY cards from the defender.">
-                        <label>SHOW UTIL</label>&nbsp&nbsp&nbsp&nbsp{{ fav_util.getEffectUtil }}</li>
-                </ul>
+            <div class="container">
+                {{ macros.utilCard(fav_util, fav_attr_mod, fav_util_img) }}
             </div>
-        </div>
 
         <button type="button" style="margin: 5% 0 0 36%;" class="btn btn-normal" data-trigger="focus" data-placement="top" data-toggle="popover" title="{{ fav_util.getUtilName }}" data-content=
         "Times Used: {{ fav_user_util_card.getCardUses }}">
@@ -136,48 +60,8 @@
         <h4 class="header-center">WORST CHARACTER</h4>
 
         {% if render_card_stats %}
-        <div class="character">
-            <div class="char_name">{{ worst_char.getCharName }}</div>
-            <div class="char_card">
-                {#Card Info #}
-                <div class="char_column">
-                    <img class="char_img" src="{{ worst_char_img }}">
-                    <div style="width: 65%; height: 32%;" class="char_column">
-                        <ul class="char_info">
-                            <li>{{ worst_char.getCharType }}</li>
-                            <li>{{ worst_char.getCharClass }}</li>
-                        </ul>
-                    </div>
-                    <div style="width: 35%; height: 32%;" class="char_column">
-                        <div class="char_rating">
-                            {{ worst_char.getRating }}
-                        </div>
-                    </div>
-                </div>
-                {#Card Attributes#}
-                <div class="char_column">
-                    <div class="char_column">
-                        <ul class="attribute_list" style="font-weight: bold;">
-                            <li>HP</li>
-                            <li>ATT</li>
-                            <li>DEF</li>
-                            <li>AGI</li>
-                            <li>LCK</li>
-                            <li>SPD</li>
-                        </ul>
-                    </div>
-                    <div class="char_column">
-                        <ul class="attribute_list">
-                            <li>{{ worst_char.getHitPoints }}</li>
-                            <li>{{ worst_char.getAttack }}</li>
-                            <li>{{ worst_char.getDefense }}</li>
-                            <li>{{ worst_char.getAgility }}</li>
-                            <li>{{ worst_char.getLuck }}</li>
-                            <li>{{ worst_char.getSpeed }}</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        <div class="container">
+            {{ macros.charCard(worst_char, worst_char_img) }}
         </div>
 
         <button type="button" style="margin: 5% 0 0 36%;" class="btn btn-normal" data-trigger="focus" data-placement="top" data-toggle="popover" title="{{ worst_char.getCharName }}" data-content=
@@ -191,46 +75,8 @@
         <h4 class="header-center" >WORST UTILITY</h4>
 
         {% if render_card_stats %}
-        <div class="utility">
-            <div class="util_name">{{ worst_util.getUtilName }}</div>
-            <div class="util_card">
-                <h4 class="mod_header">ATTRIBUTE MODS</h4>
-                <table class="util_attr_table">
-                    <tr><td>HP</td><td>{{ worst_attr_mod.hp }}%</td></tr>
-                    <tr><td>ATT</td><td>{{ worst_attr_mod.attack }}%</td></tr>
-                    <tr><td>DEF</td><td>{{ worst_attr_mod.defense }}%</td></tr>
-                </table>
-
-                <table class="util_attr_table">
-                    <tr><td>AGI</td><td>{{ worst_attr_mod.agility }}%</td></tr>
-                    <tr><td>LCK</td><td>{{ worst_attr_mod.luck }}%</td></tr>
-                    <tr><td>SPD</td><td>{{ worst_attr_mod.speed }}%</td></tr>
-                </table>
-                <img class="util_img" src="{{ worst_util_img }}">
-
-                <h4 class="effect_header">EFFECTS</h4>
-                <ul class="effect_list">
-                    <li title="DEFENDING: Peek at {{ worst_util.getEffectType }} of the attacker's character TYPES.&#10;ATTACKING: Hide {{ worst_util.getEffectType }} of your character TYPES from the defender.">
-                        <label>SHOW TYPE</label>&nbsp&nbsp&nbsp&nbsp{{ worst_util.getEffectType }}</li>
-
-                    <li title="DEFENDING: Show the ORDER of {{ worst_util.getEffectOrder }} of the attacker's exposed characters.&#10;ATTACKING: Hide {{ worst_util.getEffectOrder }} of your exposed character's ORDER.">
-                        <label>SHOW ORD</label>&nbsp&nbsp&nbsp&nbsp{{ worst_util.getEffectOrder }}</li>
-
-                    <li title="DEFENDING: Peek at {{ worst_util.getEffectClass }} of the attacker's character CLASSES.&#10;ATTACKING: Hide {{ worst_util.getEffectClass }} of your character CLASSES from the defender.">
-                        <label>SHOW CLSS</label>&nbsp&nbsp&nbsp&nbsp{{ worst_util.getEffectClass }}</li>
-
-                </ul>
-                <ul class="effect_list">
-                    <li title="SWAP out {{ worst_util.getCardSwap }} characters in your deck for {{ worst_util.getCardSwap }} randomly selected characters from your inventory.">
-                        <label>SWAP CARD</label>&nbsp&nbsp&nbsp&nbsp{{ worst_util.getCardSwap }}</li>
-
-                    <li title="DEFENDING: Peek at {{ worst_util.getEffectChar }} of the attacker's CHARACTERS.&#10;ATTACKING: Hide {{ worst_util.getEffectChar }} of your CHARACTERS from the defender.">
-                        <label>SHOW CHAR</label>&nbsp&nbsp&nbsp&nbsp{{ worst_util.getEffectChar }}</li>
-
-                    <li title="DEFENDING: Peek at {{ worst_util.getEffectUtil }} of the attacker's UTILITY cards.&#10;ATTACKING: Hide {{ worst_util.getEffectUtil }} of your UTILITY cards from the defender.">
-                        <label>SHOW UTIL</label>&nbsp&nbsp&nbsp&nbsp{{ worst_util.getEffectUtil }}</li>
-                </ul>
-            </div>
+        <div class="container">
+            {{ macros.utilCard(worst_util, worst_attr_mod, worst_util_img) }}
         </div>
 
         <button type="button" style="margin: 5% 0 0 36%;" class="btn btn-normal" data-trigger="focus" data-placement="top" data-toggle="popover" title="{{ worst_util.getUtilName }}" data-content=
