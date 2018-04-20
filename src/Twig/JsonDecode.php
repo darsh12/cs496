@@ -10,21 +10,14 @@ namespace App\Twig;
 
 
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
 
-class AppExtentsion extends  AbstractExtension {
+/**
+ * @credit https://github.com/bearlikelion/twig-jsontools
+ */
 
-//    public function getFilters() {
-//
-//        return [
-//            new TwigFilter('json_decode',[$this, 'jsonDecode'])
-//        ];
-//
-//    }
-//
-//    public function jsonDecode() {
-//
-//    }
+class JsonDecode extends  AbstractExtension {
+
+
     /**
      * Define Twig filters
      * @example
