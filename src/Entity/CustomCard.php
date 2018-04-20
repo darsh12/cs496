@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CustomCardRepository")
@@ -34,16 +35,19 @@ class CustomCard
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Choice(choices={"Action", "Comedy", "Drama"}, message="Choose a valid type: Comedy, Action, or Drama")
      */
     private $char_type;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Choice(choices={"DPS", "Tank"}, message="Choose a valid class: DPS or Tank")
      */
     private $char_class;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Choice(choices={"World Star", "Professional", "Amateur"}, message="Choose a valid tier: World Star, Professional, or Amateur")
      */
     private $char_tier;
 
@@ -81,6 +85,11 @@ class CustomCard
      * @ORM\Column(type="integer")
      */
     private $speed;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isApproved=false;
 
 
     public function getId()
@@ -244,5 +253,19 @@ class CustomCard
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getIsApproved()
+    {
+        return $this->isApproved;
+    }
 
+    /**
+     * @param mixed $isApproved
+     */
+    public function setIsApproved($isApproved): void
+    {
+        $this->isApproved = $isApproved;
+    }
 }
