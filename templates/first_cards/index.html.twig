@@ -88,12 +88,10 @@
                     $.ajax({
                         url: $(this).data('url'),
                         method: 'DELETE',
-                        // error: function () {
-                        //     $(this).scrollTop(0);
-                        //     location.reload();
-                        //
-                        //
-                        // },
+                        error: function () {
+                            $(this).scrollTop(0);
+                            location.reload();
+                        },
                         // success: function () {
                         //     location.reload();
                         //     $(this).scrollTop(0);

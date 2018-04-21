@@ -42,20 +42,20 @@
 
 <div class="main_content">
     {% for msg in app.session.flashBag.get('success') %}
-        <div class="alert alert-success">{{ msg }}
+        <div class="alert alert-success alert-dismissible fade show">{{ msg }}
             <span class="pull-right">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <i class="fas fa-times"></i>
-                </a>
+                </button>
             </span>
         </div>
     {% endfor %}
     {% for msg in app.session.flashBag.get('error') %}
-        <div class="alert alert-warning">{{ msg }}
+        <div class="alert alert-warning alert-dismissible fade show">{{ msg }}
             <span class="pull-right">
-                <a href="#" class="close" data-dismiss="alert" aria-label="close">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <i class="fas fa-times"></i>
-                </a>
+                </button>
             </span>
         </div>
     {% endfor %}
