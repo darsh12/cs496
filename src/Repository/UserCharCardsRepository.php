@@ -12,11 +12,24 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method UserCharCards[]    findAll()
  * @method UserCharCards[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserCharCardsRepository extends ServiceEntityRepository
-{
-    public function __construct(RegistryInterface $registry)
-    {
+class UserCharCardsRepository extends ServiceEntityRepository {
+    public function __construct(RegistryInterface $registry) {
         parent::__construct($registry, UserCharCards::class);
+    }
+
+
+    /**
+     * Exclusively used on forms only
+     * @param $user
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getUserCards($user) {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.user = :user')
+            ->setParameter('user', $user);
+
+
     }
 
     public function distinctCharCards($user) {

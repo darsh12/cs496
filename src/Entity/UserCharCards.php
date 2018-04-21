@@ -398,7 +398,7 @@ class UserCharCards
 
     public function __toString()
     {
-        $name = ($this->getCharCard()->getCharName()). " : ".($this->getCharCard()->getCharTier());
+        $name = ($this->getCharCard()->getCharName()). " : " .($this->getCharCard()->getCharTier(). " : " .(($this->card_count)-($this->card_uses)) . " use left");
         return $name;
 
     }
