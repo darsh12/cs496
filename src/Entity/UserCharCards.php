@@ -88,6 +88,11 @@ class UserCharCards
      */
     private $userStats_defeatedCards;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $card_deck_uses=0;
+
 
     public function __construct()
     {
@@ -398,9 +403,21 @@ class UserCharCards
 
     public function __toString()
     {
-        $name = ($this->getCharCard()->getCharName()). " : " .($this->getCharCard()->getCharTier(). " : " .(($this->card_count)-($this->card_uses)) . " use left");
+        $name = ($this->getCharCard()->getCharName()). " : " .($this->getCharCard()->getCharTier(). " : " .(($this->card_count)-($this->card_deck_uses)) . " use left");
         return $name;
 
+    }
+
+    public function getCardDeckUses(): ?int
+    {
+        return $this->card_deck_uses;
+    }
+
+    public function setCardDeckUses(int $card_deck_uses): self
+    {
+        $this->card_deck_uses = $card_deck_uses;
+
+        return $this;
     }
 
 }

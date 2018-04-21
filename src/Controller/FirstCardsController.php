@@ -141,7 +141,7 @@ class FirstCardsController extends Controller
 
     /**
      * @Route("/first/sell/charCard/{cardId}", name="sell_user_char_card")
-     * @Method("DELETE")
+     * @Method("POST")
      */
     public function sellUserCharCard($cardId)
     {

@@ -4,10 +4,13 @@ namespace App\Controller;
 
 use App\Entity\UserCharDecks;
 use App\Form\UserCharDeckType;
-use Proxies\__CG__\App\Entity\UserCharCards;
+use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use SensioLabs\Security\Exception\HttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\LogicException;
 
@@ -52,30 +55,30 @@ class UserDecksController extends Controller
             $card4=$deck->getCard4();
             $card5=$deck->getCard5();
 
-            $card1->setCardUses(($card1->getCardUses())+1);
-            $card2->setCardUses(($card2->getCardUses())+1);
-            $card3->setCardUses(($card3->getCardUses())+1);
-            $card4->setCardUses(($card4->getCardUses())+1);
-            $card5->setCardUses(($card5->getCardUses())+1);
+            $card1->setCardDeckUses(($card1->getCardDeckUses())+1);
+            $card2->setCardDeckUses(($card2->getCardDeckUses())+1);
+            $card3->setCardDeckUses(($card3->getCardDeckUses())+1);
+            $card4->setCardDeckUses(($card4->getCardDeckUses())+1);
+            $card5->setCardDeckUses(($card5->getCardDeckUses())+1);
 
 
-            if (($card1->getCardUses())>($card1->getCardCount())) {
+            if (($card1->getCardDeckUses())>($card1->getCardCount())) {
                 $this->addFlash('error', 'Card Limit reached for '.($card1->getCharCard()->getCharName()));
                 throw new LogicException("Card limit reached");
             }
-            if (($card2->getCardUses())>($card2->getCardCount())) {
+            if (($card2->getCardDeckUses())>($card2->getCardCount())) {
                 $this->addFlash('error', 'Card Limit reached for '.($card2->getCharCard()->getCharName()));
                 throw new LogicException("Card limit reached");
             }
-            if (($card3->getCardUses())>($card3->getCardCount())) {
+            if (($card3->getCardDeckUses())>($card3->getCardCount())) {
                 $this->addFlash('error', 'Card Limit reached for '.($card3->getCharCard()->getCharName()));
                 throw new LogicException("Card limit reached");
             }
-            if (($card4->getCardUses())>($card4->getCardCount())) {
+            if (($card4->getCardDeckUses())>($card4->getCardCount())) {
                 $this->addFlash('error', 'Card Limit reached for '.($card4->getCharCard()->getCharName()));
                 throw new LogicException("Card limit reached");
             }
-            if (($card5->getCardUses())>($card5->getCardCount())) {
+            if (($card5->getCardDeckUses())>($card5->getCardCount())) {
                 $this->addFlash('error', 'Card Limit reached for '.($card5->getCharCard()->getCharName()));
                 throw new LogicException("Card limit reached");
             }
@@ -94,11 +97,12 @@ class UserDecksController extends Controller
         ]);
     }
 
-    /**
-     * @Route("/user/decks/{id}/edit", name="user_decks_edit")
-     * @Security("has_role('ROLE_USER')")
-     */
-    public function editDeck(Request $request, UserCharDecks $decks) {
+
+     // @Route("/user/decks/{id}/edit", name="user_decks_edit")
+     // @Security("has_role('ROLE_USER')")
+
+    private function editDeck(Request $request, UserCharDecks $decks) {
+
         $user = $this->getUser();
 
         if (($decks->getUser()) === $user) {
@@ -121,5 +125,41 @@ class UserDecksController extends Controller
         }else {
             throw new LogicException("Card deck not found",404);
         }
+    }
+
+    /**
+     * @Route("/user/decks/{id}/delete", name="user_decks_delete")
+     * @Security("has_role('ROLE_USER')")
+     * @Method("POST")
+     */
+    public function deleteDeck(ObjectManager $manager, $id) {
+
+        $user = $this->getUser();
+        $userCardDecks=$manager->getRepository(UserCharDecks::class)->find($id);
+
+        if ((!$userCardDecks) || ($userCardDecks->getUser() !== $user)) {
+            $this->addFlash('error', 'Card deck not found');
+            throw  new HttpException("Card deck not found", 400);
+        }
+
+        $card1=$userCardDecks->getCard1();
+        $card2=$userCardDecks->getCard2();
+        $card3=$userCardDecks->getCard3();
+        $card4=$userCardDecks->getCard4();
+        $card5=$userCardDecks->getCard5();
+
+        $card1->setCardDeckUses(($card1->getCardDeckUses())-1);
+        $card2->setCardDeckUses(($card2->getCardDeckUses())-1);
+        $card3->setCardDeckUses(($card3->getCardDeckUses())-1);
+        $card4->setCardDeckUses(($card4->getCardDeckUses())-1);
+        $card5->setCardDeckUses(($card5->getCardDeckUses())-1);
+
+        $manager->remove($userCardDecks);
+        $manager->flush();
+
+        $this->addFlash('success', 'Deck deleted');
+
+//        return $this->redirectToRoute('user_decks_show');
+        return new Response(null, 204);
     }
 }

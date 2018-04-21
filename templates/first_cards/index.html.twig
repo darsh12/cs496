@@ -31,8 +31,7 @@
                                data-url="{{ path('sell_user_char_card',{
                                    cardId: i.charCard.id,
                                }) }}">
-                                    <span class="fa"><i
-                                                class="far fa-money-bill-alt"></i> {{ i.charCard.price/2 }}</span>
+                                    <span><i class="far fa-money-bill-alt"></i> {{ i.charCard.price/2 }}</span>
                             </a>
                         </div>
                     </div>
@@ -74,7 +73,6 @@
 
     <script>
         $(function () {
-            $(this).scrollTop(0);
             $('.js-card-remove').on('click', function (e) {
                 e.preventDefault();
                 //Get the closest element to the link clicked
@@ -82,14 +80,13 @@
 
                 if (confirm_buy()) {
                     $(this).find('.fa-money-bill-alt')
-                        .removeClass('fa-times')
+                        .removeClass('fa-money-bill-alt')
                         .addClass('fa-spinner')
                         .addClass('fa-spin')
                     $.ajax({
                         url: $(this).data('url'),
-                        method: 'DELETE',
+                        method: 'POST',
                         error: function () {
-                            $(this).scrollTop(0);
                             location.reload();
                         },
                         // success: function () {
