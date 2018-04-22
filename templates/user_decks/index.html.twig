@@ -5,10 +5,12 @@
 
 
     <div class="container-fluid">
-        <h1 class="text-center">Character Decks</h1>
+        <h1 class="display-2 text-center">Decks</h1>
+        <br>
+        <h1  class="display-4">Character Decks</h1>
 
-        <div class="row">
-            {% for charDecks in userDecks %}
+        <div class="row" id="charDeck">
+            {% for charDecks in charDeck %}
 
                 <div class="card p-3 col-3 js-deck-item">
                     <div class="card-header text-info text-center">
@@ -31,7 +33,7 @@
                     <div class="card-body">
                         <a href="#"
                            class="list-group-item list-group-item-action list-group-item-danger text-center js-deck-remove"
-                           data-url="{{ path('user_decks_delete',{
+                           data-url="{{ path('user_char_decks_delete',{
                                'id': charDecks.id
                            }) }}">
                             <span>
@@ -43,10 +45,53 @@
             {% endfor %}
 
             <div class="col-3" style="margin-top: 6%; margin-left: 8%; margin-bottom: 7%">
-                <a href="{{ path('user_decks_new') }}" title="Add new deck" style="margin-top: 15%;margin-left: 6%;"><i class="fas fa-plus fa-7x"></i></a>
+                <a href="{{ path('user_char_decks_new') }}" title="Add new deck" style="margin-top: 15%;margin-left: 6%;"><i class="fas fa-plus fa-7x"></i></a>
             </div>
 
         </div>
+
+        <br>
+        <h1 class="display-4">Utility Decks</h1>
+
+        <div class="row" id="utilDeck">
+            {% for utilDecks in utilDeck %}
+
+                <div class="card p-3 col-3 js-deck-item" style="background-color: #FFC200">
+                    <div class="card-header text-info text-center" style="background-color: blue">
+                        <h3 class="" style="color: #FFFFFF">{{ utilDecks.name }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title text-center">
+                            <h5>Cards in the deck</h5>
+                        </div>
+                        <blockquote class="blockquote text-muted">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">{{ utilDecks.card1.utilCard.utilName }} - {{ utilDecks.card1.utilCard.utilTier }}</li>
+                                <li class="list-group-item">{{ utilDecks.card2.utilCard.utilName }} - {{ utilDecks.card2.utilCard.utilTier }}</li>
+                                <li class="list-group-item">{{ utilDecks.card3.utilCard.utilName }} - {{ utilDecks.card3.utilCard.utilTier }}</li>
+                            </ul>
+                        </blockquote>
+                    </div>
+                    <div class="card-body">
+                        <a href="#"
+                           class="list-group-item list-group-item-action list-group-item-danger text-center js-deck-remove"
+                           data-url="{{ path('user_util_decks_delete',{
+                               'id': utilDecks.id
+                           }) }}">
+                            <span>
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="col-3" style="margin-top: 6%; margin-left: 8%; margin-bottom: 7%">
+                <a href="{{ path('user_util_decks_new') }}" title="Add new deck" style="margin-top: 15%;margin-left: 6%;"><i class="fas fa-plus fa-7x" style="color: red"></i></a>
+            </div>
+
+        </div>
+
     </div>
 
 

@@ -20,6 +20,20 @@ class UserUtilCardsRepository extends ServiceEntityRepository
     }
 
 
+    /**
+     * Exclusively used on forms only
+     * @param $user
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getUserCards($user) {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.user = :user')
+            ->setParameter('user', $user);
+
+
+    }
+
     public function distinctUtilCards($user) {
         return $this->createQueryBuilder('u')
             ->andWhere('u.user = :user')

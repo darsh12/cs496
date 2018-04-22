@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Create New Util Deck {% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h1 class="text-center">Create new deck</h1>
+
+        {{ form_start(utilDeck) }}
+        {{ form_widget(utilDeck) }}
+        <button type="submit" class="btn btn-primary" formnovalidate>Create</button>
+        {{ form_end(utilDeck) }}
+
+    </div>
+{% endblock %}

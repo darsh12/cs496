@@ -70,6 +70,11 @@ class UserUtilCards
      */
     private $card_defeats=0;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $card_deck_uses=0;
+
     public function __construct()
     {
         $this->userUtilDecks_card1 = new ArrayCollection();
@@ -297,5 +302,24 @@ class UserUtilCards
         $this->card_defeats = $card_defeats;
 
         return $this;
+    }
+
+    public function getCardDeckUses(): ?int
+    {
+        return $this->card_deck_uses;
+    }
+
+    public function setCardDeckUses(int $card_deck_uses): self
+    {
+        $this->card_deck_uses = $card_deck_uses;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        $name = ($this->getUtilCard()->getUtilName()). " : " .($this->getUtilCard()->getUtilTier(). " : " .(($this->card_count)-($this->card_deck_uses)) . " use left");
+        return $name;
+
     }
 }
