@@ -30,67 +30,89 @@ class CustomCard
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $char_name;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Choice(choices={"Action", "Comedy", "Drama"}, message="Choose a valid type: Comedy, Action, or Drama")
+     * @Assert\NotBlank()
+     * @Assert\Choice(choices={"Action", "Comedy", "Drama"})
      */
     private $char_type;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Choice(choices={"DPS", "Tank"}, message="Choose a valid class: DPS or Tank")
+     * @Assert\Choice(choices={"DPS", "Tank"})
      */
     private $char_class;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Choice(choices={"World Star", "Professional", "Amateur"}, message="Choose a valid tier: World Star, Professional, or Amateur")
+     * @Assert\NotBlank()
+     * @Assert\Choice(choices={"World Star", "Professional", "Amateur"})
      */
     private $char_tier;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(min=50, max=99)
      */
     private $rating;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
+     * @Assert\Range(min=50, max=99)
      */
     private $hit_points;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
+     * @Assert\Range(min=50, max=99)
      */
     private $attack;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
+     * @Assert\Range(min=50, max=99)
      */
     private $defense;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
+     * @Assert\Range(min=50, max=99)
      */
     private $agility;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
+     * @Assert\Range(min=50, max=99)
      */
     private $luck;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
+     * @Assert\Range(min=1, max=9)
      */
     private $speed;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="datetime")
+     * @Assert\DateTime()
      */
-    private $isApproved=false;
+    private $dateCreated;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\DateTime()
+     */
+    private $dateAccepted;
 
     public function getId()
     {
@@ -256,16 +278,32 @@ class CustomCard
     /**
      * @return mixed
      */
-    public function getIsApproved()
+    public function getDateCreated()
     {
-        return $this->isApproved;
+        return $this->dateCreated;
     }
 
     /**
-     * @param mixed $isApproved
+     * @param mixed $dateCreated
      */
-    public function setIsApproved($isApproved): void
+    public function setDateCreated($dateCreated): void
     {
-        $this->isApproved = $isApproved;
+        $this->dateCreated = $dateCreated;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateAccepted()
+    {
+        return $this->dateAccepted;
+    }
+
+    /**
+     * @param mixed $dateAccepted
+     */
+    public function setDateAccepted($dateAccepted): void
+    {
+        $this->dateAccepted = $dateAccepted;
     }
 }
