@@ -5,110 +5,110 @@
 
 {% block body %}
 
-    <div class="container-fluid">
+    {#<div class="container-fluid">#}
 
-        <h1 class="text-center">Show Cards</h1>
+        {#<h1 class="text-center">Show Cards</h1>#}
 
-        <br>
+        {#<br>#}
 
-        <div class="blockquote text-center text-info">
-            You have {{ user.coins }} coins
-        </div>
+        {#<div class="blockquote text-center text-info">#}
+            {#You have {{ user.coins }} coins#}
+        {#</div>#}
 
-        <h2 class="text-center">Char Cards</h2>
+        {#<h2 class="text-center">Char Cards</h2>#}
 
-        <div class="row" id="char card">
-            {% for i in user.userCharCards %}
-                <div class="col-3">
-                    <div class="card js-card-item" style="background-color: inherit">
-                        <div class="card-header text-dark text-center">
-                            Number of cards: {{ i.cardCount }}
-                        </div>
-                        {{ macros.charCard(i.charCard, i.charCard.avatar.imagePath) }}
-                        <div class="card-body">
-                            <a href="#"
-                               class="list-group-item list-group-item-action list-group-item-danger text-center js-card-remove"
-                               data-url="{{ path('sell_user_char_card',{
-                                   cardId: i.charCard.id,
-                               }) }}">
-                                    <span><i class="far fa-money-bill-alt"></i> {{ i.charCard.price/2 }}</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+        {#<div class="row" id="char card">#}
+            {#{% for i in user.userCharCards %}#}
+                {#<div class="col-3">#}
+                    {#<div class="card js-card-item" style="background-color: inherit">#}
+                        {#<div class="card-header text-dark text-center">#}
+                            {#Number of cards: {{ i.cardCount }}#}
+                        {#</div>#}
+                        {#{{ macros.charCard(i.charCard, i.charCard.avatar.imagePath) }}#}
+                        {#<div class="card-body">#}
+                            {#<a href="#"#}
+                               {#class="list-group-item list-group-item-action list-group-item-danger text-center js-card-remove"#}
+                               {#data-url="{{ path('sell_user_char_card',{#}
+                                   {#cardId: i.charCard.id,#}
+                               {#}) }}">#}
+                                    {#<span><i class="far fa-money-bill-alt"></i> {{ i.charCard.price/2 }}</span>#}
+                            {#</a>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+            {#{% endfor %}#}
+        {#</div>#}
 
-        <h2 class="text-center">Util Cards</h2>
+        {#<h2 class="text-center">Util Cards</h2>#}
 
-        <div class="row" id="util card">
-            {% for i in user.userUtilCards %}
-                <div class="col-3">
-                    <div class="card js-card-item" style="background-color: inherit">
-                        <div class="card-header text-dark text-center">
-                            Number of cards: {{ i.cardCount }}
-                        </div>
-                        {% set attributes = i.utilCard.attributeModifier | json_decode %}
-                        {{ macros.utilCard(i.utilCard, attributes, i.utilCard.avatar.imagePath) }}
-                        <div class="card-body">
-                            <a href="#"
-                               class="list-group-item list-group-item-action list-group-item-danger text-center js-card-remove"
-                               data-url="{{ path('sell_user_util_card',{
-                                   cardId: i.utilCard.id,
-                               }) }}">
-                                <span class="fa"><i class="far fa-money-bill-alt"></i> {{ i.utilCard.price/2 }}</span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
+        {#<div class="row" id="util card">#}
+            {#{% for i in user.userUtilCards %}#}
+                {#<div class="col-3">#}
+                    {#<div class="card js-card-item" style="background-color: inherit">#}
+                        {#<div class="card-header text-dark text-center">#}
+                            {#Number of cards: {{ i.cardCount }}#}
+                        {#</div>#}
+                        {#{% set attributes = i.utilCard.attributeModifier | json_decode %}#}
+                        {#{{ macros.utilCard(i.utilCard, attributes, i.utilCard.avatar.imagePath) }}#}
+                        {#<div class="card-body">#}
+                            {#<a href="#"#}
+                               {#class="list-group-item list-group-item-action list-group-item-danger text-center js-card-remove"#}
+                               {#data-url="{{ path('sell_user_util_card',{#}
+                                   {#cardId: i.utilCard.id,#}
+                               {#}) }}">#}
+                                {#<span class="fa"><i class="far fa-money-bill-alt"></i> {{ i.utilCard.price/2 }}</span>#}
+                            {#</a>#}
+                        {#</div>#}
+                    {#</div>#}
+                {#</div>#}
+            {#{% endfor %}#}
+        {#</div>#}
 
-    </div>
+    {#</div>#}
 
-{% endblock %}
+{#{% endblock %}#}
 
-{% block javascripts %}
-    {{ parent() }}
+{#{% block javascripts %}#}
+    {#{{ parent() }}#}
 
-    <script>
-        $(function () {
-            $('.js-card-remove').on('click', function (e) {
-                e.preventDefault();
-                //Get the closest element to the link clicked
-                $el = $(this).closest('.js-card-item');
+    {#<script>#}
+        {#$(function () {#}
+            {#$('.js-card-remove').on('click', function (e) {#}
+                {#e.preventDefault();#}
+                {#//Get the closest element to the link clicked#}
+                {#$el = $(this).closest('.js-card-item');#}
 
-                if (confirm_buy()) {
-                    $(this).find('.fa-money-bill-alt')
-                        .removeClass('fa-money-bill-alt')
-                        .addClass('fa-spinner')
-                        .addClass('fa-spin')
-                    $.ajax({
-                        url: $(this).data('url'),
-                        method: 'POST',
-                        error: function () {
-                            location.reload();
-                        },
-                        // success: function () {
-                        //     location.reload();
-                        //     $(this).scrollTop(0);
-                        //
-                        // }
-                    }).done(function () {
-                        $el.fadeOut();
-                        setTimeout(function () {
-                            location.reload();
-                        }, 500)
+                {#if (confirm_buy()) {#}
+                    {#$(this).find('.fa-money-bill-alt')#}
+                        {#.removeClass('fa-money-bill-alt')#}
+                        {#.addClass('fa-spinner')#}
+                        {#.addClass('fa-spin')#}
+                    {#$.ajax({#}
+                        {#url: $(this).data('url'),#}
+                        {#method: 'POST',#}
+                        {#error: function () {#}
+                            {#location.reload();#}
+                        {#},#}
+                        {#// success: function () {#}
+                        {#//     location.reload();#}
+                        {#//     $(this).scrollTop(0);#}
+                        {#//#}
+                        {#// }#}
+                    {#}).done(function () {#}
+                        {#$el.fadeOut();#}
+                        {#setTimeout(function () {#}
+                            {#location.reload();#}
+                        {#}, 500)#}
 
-                    });
-                }
+                    {#});#}
+                {#}#}
 
-            });
-        });
+            {#});#}
+        {#});#}
 
-        function confirm_buy() {
-            return confirm('are you sure?');
-        }
-    </script>
+        {#function confirm_buy() {#}
+            {#return confirm('are you sure?');#}
+        {#}#}
+    {#</script>#}
 
 {% endblock %}

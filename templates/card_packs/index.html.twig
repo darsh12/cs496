@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {% endblock %}
+{% block title %}Card Packs {% endblock %}
 
 {% block body %}
     <style>
@@ -61,11 +61,12 @@
 
                     $.ajax({
                         url: $(this).data('url'),
+                        method: "POST",
                         error: function () {
                             location.reload();
                         }
                     }).done(function () {
-                        location.href = "/first/show";
+                        location.href = "{{ path('show_user_cards') }}";
                     });
 
                 }

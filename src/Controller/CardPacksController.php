@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\CharCard;
+use App\Entity\UtilCard;
 use Doctrine\Common\Persistence\ObjectManager;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,14 +36,15 @@ class CardPacksController extends Controller {
 
     /**
      * @Route("/card/packs/{pack}/buy", name="card_packs_buy")
+     * @Method("POST")
      */
     public function buyPacks($pack) {
 
         $user = $this->getUser();
         $userCoins = $user->getCoins();
 
-        $charCardRepository = $this->entityManager->getRepository('App:CharCard');
-        $utilCardRepository = $this->entityManager->getRepository('App:UtilCard');
+        $charCardRepository = $this->entityManager->getRepository(CharCard::class);
+        $utilCardRepository = $this->entityManager->getRepository(UtilCard::class);
 
 
         $randomCharCards = [];
@@ -67,11 +71,11 @@ class CardPacksController extends Controller {
 
                     for ($i = 0; $i < count($randCharIndex); $i++) {
                         $randomCharCards[$i] = $charCardRepository[$randCharIndex[$i]];
-                        $this->get('App\Controller\FirstCardsController')->insertCharCard($user, $randomCharCards[$i]);
+                        $this->get(FirstCardsController::class)->insertCharCard($user, $randomCharCards[$i]);
                     }
                     for ($i = 0; $i < count($randUtilIndex); $i++) {
                         $randomUtilCards[$i] = $utilCardRepository[$randUtilIndex[$i]];
-                        $this->get('App\Controller\FirstCardsController')->insertUtilCard($user, $randomUtilCards[$i]);
+                        $this->get(FirstCardsController::class)->insertUtilCard($user, $randomUtilCards[$i]);
                     }
 
                     if ($coins > 0) {
@@ -101,11 +105,11 @@ class CardPacksController extends Controller {
 
                     for ($i = 0; $i < count($randCharIndex); $i++) {
                         $randomCharCards[$i] = $charCardRepository[$randCharIndex[$i]];
-                        $this->get('App\Controller\FirstCardsController')->insertCharCard($user, $randomCharCards[$i]);
+                        $this->get(FirstCardsController::class)->insertCharCard($user, $randomCharCards[$i]);
                     }
                     for ($i = 0; $i < count($randUtilIndex); $i++) {
                         $randomUtilCards[$i] = $utilCardRepository[$randUtilIndex[$i]];
-                        $this->get('App\Controller\FirstCardsController')->insertUtilCard($user, $randomUtilCards[$i]);
+                        $this->get(FirstCardsController::class)->insertUtilCard($user, $randomUtilCards[$i]);
                     }
 
                     if ($coins > 0) {
@@ -135,11 +139,11 @@ class CardPacksController extends Controller {
 
                     for ($i = 0; $i < count($randCharIndex); $i++) {
                         $randomCharCards[$i] = $charCardRepository[$randCharIndex[$i]];
-                        $this->get('App\Controller\FirstCardsController')->insertCharCard($user, $randomCharCards[$i]);
+                        $this->get(FirstCardsController::class)->insertCharCard($user, $randomCharCards[$i]);
                     }
                     for ($i = 0; $i < count($randUtilIndex); $i++) {
                         $randomUtilCards[$i] = $utilCardRepository[$randUtilIndex[$i]];
-                        $this->get('App\Controller\FirstCardsController')->insertUtilCard($user, $randomUtilCards[$i]);
+                        $this->get(FirstCardsController::class)->insertUtilCard($user, $randomUtilCards[$i]);
                     }
 
                     if ($coins > 0) {

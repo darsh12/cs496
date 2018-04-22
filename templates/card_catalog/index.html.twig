@@ -163,7 +163,7 @@
     <script src="{{ asset('build/js/card-catalog.js') }}" ></script>
 
     <script>
-        var redirect= "{{ path('show_user_cards' | escape('js') ) }}";
+
         $(document).ready(function () {
             $('.js-card-buy').on('click', function (e) {
 
@@ -178,7 +178,7 @@
                             location.reload();
                         },
                         success: function () {
-                            location.href = "/first/show";
+                            location.reload();
                         }
 
                     });

@@ -63,7 +63,7 @@ class CardCatalogController extends Controller
     }
 
     /**
-     * @Route("/inventory/buy/card/{card}", name="inventory_buy_char")
+     * @Route("/inventory/buy/{card}/char", name="inventory_buy_char")
      *
      */
     public function buyCharCard($card)
@@ -86,7 +86,7 @@ class CardCatalogController extends Controller
             throw  new Exception("Not enough coins");
 //            return $this->redirectToRoute('card_show');
         }
-        $this->get('App\Controller\FirstCardsController')->insertCharCard($user, $charCard);
+        $this->get(FirstCardsController::class)->insertCharCard($user, $charCard);
         $user->setCoins($userCoins-$cardCost);
         $entityManager->flush();
 
