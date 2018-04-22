@@ -101,31 +101,31 @@ class UserDecksController extends Controller
      // @Route("/user/decks/{id}/edit", name="user_decks_edit")
      // @Security("has_role('ROLE_USER')")
 
-    private function editDeck(Request $request, UserCharDecks $decks) {
-
-        $user = $this->getUser();
-
-        if (($decks->getUser()) === $user) {
-            $form = $this->createForm(UserCharDeckType::class, $decks);
-
-
-            if ($form->isSubmitted() && $form->isValid()) {
-                $entityManager = $this->getDoctrine()->getManager();
-
-                $editDeck = $form->getData();
-
-                $entityManager->persist($editDeck);
-                $entityManager->flush();
-
-                $this->addFlash('success', 'Deck successfully edited');
-
-                return $this->redirectToRoute('user_decks_show');
-            }
-            return $this->render('user_decks/editDeck.html.twig', ['charDeck' => $form->createView()]);
-        }else {
-            throw new LogicException("Card deck not found",404);
-        }
-    }
+//    private function editDeck(Request $request, UserCharDecks $decks) {
+//
+//        $user = $this->getUser();
+//
+//        if (($decks->getUser()) === $user) {
+//            $form = $this->createForm(UserCharDeckType::class, $decks);
+//
+//
+//            if ($form->isSubmitted() && $form->isValid()) {
+//                $entityManager = $this->getDoctrine()->getManager();
+//
+//                $editDeck = $form->getData();
+//
+//                $entityManager->persist($editDeck);
+//                $entityManager->flush();
+//
+//                $this->addFlash('success', 'Deck successfully edited');
+//
+//                return $this->redirectToRoute('user_decks_show');
+//            }
+//            return $this->render('user_decks/editDeck.html.twig', ['charDeck' => $form->createView()]);
+//        }else {
+//            throw new LogicException("Card deck not found",404);
+//        }
+//    }
 
     /**
      * @Route("/user/decks/{id}/delete", name="user_decks_delete")
