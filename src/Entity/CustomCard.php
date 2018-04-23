@@ -114,6 +114,13 @@ class CustomCard
      */
     private $dateAccepted;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\File(mimeTypes={ "image/jpeg", "image/gif", "image/png"})
+     */
+    private $image_file;
+
     public function getId()
     {
         return $this->id;
@@ -305,5 +312,21 @@ class CustomCard
     public function setDateAccepted($dateAccepted): void
     {
         $this->dateAccepted = $dateAccepted;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageFile()
+    {
+        return $this->image_file;
+    }
+
+    /**
+     * @param mixed $image_file
+     */
+    public function setImageFile($image_file): void
+    {
+        $this->image_file = $image_file;
     }
 }

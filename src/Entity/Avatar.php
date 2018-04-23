@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AvatarRepository")
@@ -50,16 +51,20 @@ class Avatar
         return $this->id;
     }
 
-    public function getImagePath(): ?string
+    /**
+     * @return mixed
+     */
+    public function getImagePath()
     {
         return $this->image_path;
     }
 
-    public function setImagePath(?string $image_path): self
+    /**
+     * @param mixed $image_path
+     */
+    public function setImagePath($image_path): void
     {
         $this->image_path = $image_path;
-
-        return $this;
     }
 
     /**
