@@ -18,14 +18,17 @@ use App\Form\UserAvatarType;
 use App\Service\FileUploader;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+
 
 // Controller for Profile Sub-Tabs
 class ProfileController extends Controller
 {
     /**
      * @Route("/my_profile/stats",name="app_my-profile-stats")
+     * @Security("has_role('ROLE_USER')")
      */
     public function profileStats()
     {
@@ -163,6 +166,7 @@ class ProfileController extends Controller
 
     /**
      * @Route("/my_profile/edit",name="app_my-profile-edit")
+     * @Security("has_role('ROLE_USER')")
      */
     public function editProfile()
     {
