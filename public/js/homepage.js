@@ -25,11 +25,13 @@ function getDynamicTwigContent(button, containerId, url) {
 
 // AJAX function for tabs
 function getDynamicTabContent(button) {
+    
+    // Temp way to remove notification popups
+    $(".notify_container").remove();
 
     var tabName = $(button).attr("data-url");
 
     $.ajax({
-        // Using dynamic urls for now, may change if not secure enough
         url: "/"+tabName,
         // Successful Retrieval
         success:function(data)
@@ -37,6 +39,9 @@ function getDynamicTabContent(button) {
             $("#dynamic_container").html(data);
             $(".sub_tab.current").removeClass("current");
             $(button).addClass("current");
+
+            // Set onsubmit handler for avatar image upload form
+            initializeSubmitListener();
         },
         // Failed Retrieval
         error: function(data)

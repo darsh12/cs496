@@ -8,7 +8,7 @@
 
 namespace App\Controller;
 
-
+use App\Entity\Avatar;
 use App\Entity\UserStat;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -89,6 +89,18 @@ class DynamicController extends Controller
             $entityManager->persist($userStatObj);
             $entityManager->flush();
             $this->addFlash('success', 'You have now got cards');
+        }
+
+        // Initialize Default Avatar Reference if User has none
+        $userAvatar = $user->getAvatar();
+
+        if(!$userAvatar) {
+            $defaultAvatar = $entityManager
+                ->getRepository(Avatar::class)
+                ->find(15); // Default Avatar's ID = 15
+
+            $user->setAvatar($defaultAvatar);
+            $entityManager->flush();
         }
 
         return new Response(null, 204);
