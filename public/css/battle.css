@@ -1,6 +1,15 @@
+.card.js-deck-item.char_deck_current
+{
+   border: 2px solid red;
+}
+
+.card.js-deck-item.util_deck_current {
+   border: 2px solid orange;
+}
+
 .search_player
 {
-border-style: solid;
+   border-style: solid;
    float: left;
    height: 28em;
    width: 48%;

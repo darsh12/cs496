@@ -36,16 +36,11 @@ function beginRequest(element) {
 
     var requestButton = $("#requestButton");
 
-    var name = $(element).attr('data-name');
-
     $.ajax({
 
         // Using dynamic urls for now, may change if not secure enough
         url: '/battle/deck_setup',
         type: "POST",
-        data: {
-            name: name
-        },
         // Successful Retrieval
         success:function(data)
         {
@@ -63,9 +58,21 @@ function beginRequest(element) {
 
 }
 
+function selectCharDeck(element) {
+    $(".char_deck_current").removeClass("char_deck_current");
+    $(element).addClass("char_deck_current");
+}
+
+function selectUtilDeck(element) {
+    $(".util_deck_current").removeClass("util_deck_current");
+    $(element).addClass("util_deck_current");
+}
+
 function sendRequest(element) {
 
-    var name = $(element).attr('data-name');
+    var defName = $(element).attr('data-name');
+    var attCharDeckID = $(".card.js-deck-item.char_deck_current").attr("data-id");
+    var attUtilDeckID = $(".card.js-deck-item.util_deck_current").attr("data-id");
 
     $.ajax({
 
@@ -73,12 +80,14 @@ function sendRequest(element) {
         url: '/battle/request',
         type: "POST",
         data: {
-            name: name
+            defName: defName,
+            attCharDeckID: attCharDeckID,
+            attUtilDeckID: attUtilDeckID
         },
         // Successful Retrieval
         success:function(data)
         {
-            $(".player_list").append(data);
+            $("body").append(data);
         },
         // Failed Retrieval
         error: function(data)
