@@ -1,0 +1,20 @@
+$statFont: Arial Black;
+
+.card-img .btn {
+    background-color: #ffeb00;
+    font-weight: 700;
+}
+
+label {
+    font-size: 16px;
+    font-family: $statFont;
+}
+
+.slider-value {
+    font-size: 24px;
+    font-family: $statFont;
+}
+
+.success-message {
+    font-family: "Lucida Sans Unicode";
+}

@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/js/custom-card.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div class="text-center success-message">
+        <h1 class="mb-5">Your custom character card is now in the selection queue waiting for approval.</h1>
+        <h2>Hopefully you made a card that we deem acceptable to join the game!</h2>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/js/custom-card.js') }}" ></script>
+{% endblock %}
