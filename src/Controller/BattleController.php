@@ -118,7 +118,7 @@ class BattleController extends AbstractController
         return $this->render("notification.html.twig", [
             "notify_color" => "#07ac14",
             "notify_title" => "Request Sent",
-            "notify_msg" => "Request successfully sent to <strong>$defName</strong>"
+            "notify_msg" => "Request successfully sent to $defName"
         ]);
     }
 
