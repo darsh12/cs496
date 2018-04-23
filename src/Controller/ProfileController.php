@@ -32,6 +32,9 @@ class ProfileController extends Controller
      */
     public function profileStats()
     {
+        $avatarDirectory = $this->getParameter('avatar_directory');
+
+
         $user = $this->getUser();
         $userID = $user->getId();
         $userName = $user->getUsername();
@@ -49,7 +52,8 @@ class ProfileController extends Controller
             ->getRepository(Avatar::class)
             ->find($user->getAvatar());
 
-        $profilePicturePath = $userAvatar->getImagePath();
+        $profilePicturePath = $avatarDirectory.'/'.$userAvatar->getImagePath();
+
 
         // TODO: set experience bar progress (width w/ bootstrap component) using exp points
 
@@ -170,6 +174,8 @@ class ProfileController extends Controller
      */
     public function editProfile()
     {
+        $avatarDirectory = $this->getParameter('avatar_directory');
+
         $user = $this->getUser();
         $userName = $user->getUsername();
 
@@ -178,7 +184,7 @@ class ProfileController extends Controller
             ->getRepository(Avatar::class)
             ->find($user->getAvatar());
 
-        $profilePicturePath = $userAvatar->getImagePath();
+        $profilePicturePath = $avatarDirectory.'/'.$userAvatar->getImagePath();
 
         // Return Call
         return $this->render('profile/profile_edit.html.twig',
