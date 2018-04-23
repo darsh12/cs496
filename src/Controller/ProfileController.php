@@ -186,9 +186,6 @@ class ProfileController extends Controller
 
 
 
-    /**
-     * @Route("/my_profile/avatar_upload",name="app_my-profile-avatar-upload")
-     */
     public function updateUserAvatar()
     {
         // Get File's Source Path/Name
@@ -271,11 +268,10 @@ class ProfileController extends Controller
     }
 
 
-
-
     /**
-     * @Route("/my_profile/avatar")
+     * @Route("/my_profile/avatar_upload",name="app_my-profile-avatar-upload")
      */
+
     public function uploadAvatar(Request $request, FileUploader $fileUploader, ObjectManager $manager)
     {
         $user=$this->getUser();
