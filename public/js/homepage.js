@@ -49,3 +49,10 @@ function getDynamicTabContent(button) {
         }
     });
 }
+
+// Close Notification popup
+function closeNotification(element) {
+    $(element).slideUp("fast", function() {
+        $(element).remove();
+    });
+}

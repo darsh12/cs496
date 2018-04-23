@@ -1,4 +1,6 @@
 .notify_container {
+    cursor: pointer;
+    display: none;
     top: 2%;
     right: 35%;
     border-radius: 0 15px 0 15px;
@@ -7,6 +9,10 @@
     position: absolute;
     width: 30%;
     height: fit-content;
+}
+
+.notify_container:hover {
+    background-color: lightslategrey;
 }
 
 .notify_title {

@@ -14,18 +14,27 @@ use App\Entity\UserCharCards;
 use App\Entity\UserStat;
 use App\Entity\UserUtilCards;
 use App\Entity\UtilCard;
+use App\Form\UserAvatarType;
+use App\Service\FileUploader;
+use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+
 
 // Controller for Profile Sub-Tabs
-class ProfileController extends AbstractController
+class ProfileController extends Controller
 {
     /**
      * @Route("/my_profile/stats",name="app_my-profile-stats")
+     * @Security("has_role('ROLE_USER')")
      */
     public function profileStats()
     {
+        $avatarDirectory = $this->getParameter('avatar_directory');
+
+
         $user = $this->getUser();
         $userID = $user->getId();
         $userName = $user->getUsername();
@@ -43,7 +52,9 @@ class ProfileController extends AbstractController
             ->getRepository(Avatar::class)
             ->find($user->getAvatar());
 
+//        $profilePicturePath = $avatarDirectory.'/'.$userAvatar->getImagePath();
         $profilePicturePath = $userAvatar->getImagePath();
+
 
         // TODO: set experience bar progress (width w/ bootstrap component) using exp points
 
@@ -160,9 +171,12 @@ class ProfileController extends AbstractController
 
     /**
      * @Route("/my_profile/edit",name="app_my-profile-edit")
+     * @Security("has_role('ROLE_USER')")
      */
     public function editProfile()
     {
+        $avatarDirectory = $this->getParameter('avatar_directory');
+
         $user = $this->getUser();
         $userName = $user->getUsername();
 
@@ -171,6 +185,7 @@ class ProfileController extends AbstractController
             ->getRepository(Avatar::class)
             ->find($user->getAvatar());
 
+//        $profilePicturePath = $avatarDirectory.'/'.$userAvatar->getImagePath();
         $profilePicturePath = $userAvatar->getImagePath();
 
         // Return Call
@@ -183,9 +198,6 @@ class ProfileController extends AbstractController
 
 
 
-    /**
-     * @Route("/my_profile/avatar_upload",name="app_my-profile-avatar-upload")
-     */
     public function updateUserAvatar()
     {
         // Get File's Source Path/Name
@@ -268,6 +280,46 @@ class ProfileController extends AbstractController
     }
 
 
+    /**
+     * @Route("/my_profile/avatar_upload",name="app_my-profile-avatar-upload")
+     */
+
+    public function uploadAvatar(Request $request, FileUploader $fileUploader, ObjectManager $manager)
+    {
+        $user=$this->getUser();
+        $avatar =  new Avatar();
+        $form=$this->createForm(UserAvatarType::class, $avatar);
+        $form->handleRequest($request);
+
+        $oldUserAvatar=$user->getAvatar()->getImagePath();
+        $oldAvatar = $manager->getRepository(Avatar::class)->findOneBy(['image_path'=>$oldUserAvatar]);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $file=$form['image_path']->getData();
+
+            $fileName = $fileUploader->uploadImage($file);
+
+            $avatar->setImagePath($fileName);
+            $avatar->addUser($user);
+
+            if ($oldAvatar->getId() !== 15) {
+                $fileUploader->removeImage($oldUserAvatar);
+                $manager->remove($oldAvatar);
+            }
+
+            $manager->persist($avatar);
+            $manager->flush();
+
+            $this->addFlash('success', 'Image uploaded');
+        }
+
+        return $this->render('test.html.twig', ['avatarForm'=>$form->createView()]);
+
+    }
+
+
+
     //////////////////////////////
     ///// HELPER METHODS /////////
     //////////////////////////////
@@ -288,6 +340,7 @@ class ProfileController extends AbstractController
             return FALSE;
         }
     }
+
 
 
     // Returns Array of Objects & Values

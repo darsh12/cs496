@@ -12,6 +12,7 @@ use App\Entity\Avatar;
 use App\Entity\UserStat;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,6 +28,7 @@ class DynamicController extends Controller
 
     /**
      * @Route("/my_profile",name="app_my-profile")
+     * @Security("has_role('ROLE_USER')")
      */
     public function myProfile()
     {
@@ -45,6 +47,7 @@ class DynamicController extends Controller
 
     /**
      * @Route("/inventory",name="app_inventory")
+     * @Security("has_role('ROLE_USER')")
      */
     public function inventory()
     {
@@ -53,6 +56,7 @@ class DynamicController extends Controller
 
     /**
      * @Route("/battle",name="app_battle")
+     * @Security("has_role('ROLE_USER')")
      */
     public function battle()
     {
@@ -61,6 +65,7 @@ class DynamicController extends Controller
 
     /**
      * @Route("/market",name="app_market")
+     * @Security("has_role('ROLE_USER')")
      */
     public function market()
     {

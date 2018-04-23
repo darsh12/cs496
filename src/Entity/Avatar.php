@@ -20,7 +20,9 @@ class Avatar
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Please, upload the product brochure as an image file.")
+     * @Assert\File(mimeTypes={ "image/*" })
      */
     private $image_path;
 

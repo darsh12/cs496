@@ -8,6 +8,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Avatar;
 use App\Entity\User;
 use App\Entity\UserStat;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -26,11 +27,16 @@ class BattlePopup extends AbstractController
 
         $userName = $_POST["name"];
 
-        $user = $manager->getRepository(User::class)->findBy(["username" => $userName]);
+        $user = $manager->getRepository(User::class)->findOneBy(["username" => $userName]);
 
         $userStat = $manager->getRepository(UserStat::class)->findOneBy(["user" => $user]);
 
-        $profilePicturePath = "images/temp_profile_pic.png";
+        // User Profile Avatar
+        $userAvatar = $this->getDoctrine()
+            ->getRepository(Avatar::class)
+            ->find($user->getAvatar());
+
+        $profilePicturePath = $userAvatar->getImagePath();
 
         $total = $userStat->getMatchesLost() + $userStat->getMatchesWon();
 

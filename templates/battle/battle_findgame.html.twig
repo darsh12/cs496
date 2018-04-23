@@ -29,7 +29,7 @@
     </div>
 
     <!-- The Modal -->
-    <div class="modal fade" id="playerModal">
+    <div class="modal" id="playerModal">
         <div class="modal-dialog">
             <div class="modal-content custom">
 
@@ -44,7 +44,8 @@
 
                 <!-- Modal footer -->
                 <div class="modal-footer">
-                    <button id="requestButton" data-name="" type="button" class="btn btn-normal" onclick="beginRequest(this);" >Choose Decks to Battle</button>
+                    <label id="request_error" style="color: red"></label>
+                    <button id="requestButton" data-name="" type="button" class="btn btn-normal" onclick="beginRequest(this);" >Loading...</button>
                 </div>
 
             </div>
