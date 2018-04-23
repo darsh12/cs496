@@ -15,6 +15,7 @@ use App\Entity\UserStat;
 use App\Entity\UserUtilCards;
 use App\Entity\UtilCard;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -23,6 +24,7 @@ class ProfileController extends AbstractController
 {
     /**
      * @Route("/my_profile/stats",name="app_my-profile-stats")
+     * @Security("has_role('ROLE_USER')")
      */
     public function profileStats()
     {
@@ -160,6 +162,7 @@ class ProfileController extends AbstractController
 
     /**
      * @Route("/my_profile/edit",name="app_my-profile-edit")
+     * @Security("has_role('ROLE_USER')")
      */
     public function editProfile()
     {
@@ -185,6 +188,7 @@ class ProfileController extends AbstractController
 
     /**
      * @Route("/my_profile/avatar_upload",name="app_my-profile-avatar-upload")
+     * @Security("has_role('ROLE_USER')")
      */
     public function updateUserAvatar()
     {
