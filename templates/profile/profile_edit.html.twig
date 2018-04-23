@@ -7,15 +7,15 @@
                      class="profile_img">
             </div>
         </div>
-        <div class="upload_container">
+        {#<div class="upload_container">#}
             {# Upload Form #}
-            <label>Upload a new profile picture.</label><br>
-            <form name="img_form" id="img_form"  action="my_profile/avatar_upload" type="POST">
-                <input type="file" accept="image/*" onchange="showUploadPreview()" id="img_input" name="img_input" form="img_form"><br>
-                <button class="btn btn-normal" type="submit" style="margin-top: 2%">Save Profile Picture</button>
-                <label id="upload_error" style="display: none;">Error Text</label>
-            </form>
-        </div>
+            {#<label>Upload a new profile picture.</label><br>#}
+            {#<form name="img_form" id="img_form"  action="my_profile/avatar_upload" type="POST">#}
+                {#<input type="file" accept="image/*" onchange="showUploadPreview()" id="img_input" name="img_input" form="img_form"><br>#}
+                {#<button class="btn btn-normal" type="submit" style="margin-top: 2%">Save Profile Picture</button>#}
+                {#<label id="upload_error" style="display: none;">Error Text</label>#}
+            {#</form>#}
+        {#</div>#}
     </div>
 
     <div class="col">

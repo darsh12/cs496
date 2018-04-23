@@ -52,7 +52,8 @@ class ProfileController extends Controller
             ->getRepository(Avatar::class)
             ->find($user->getAvatar());
 
-        $profilePicturePath = $avatarDirectory.'/'.$userAvatar->getImagePath();
+//        $profilePicturePath = $avatarDirectory.'/'.$userAvatar->getImagePath();
+        $profilePicturePath = $userAvatar->getImagePath();
 
 
         // TODO: set experience bar progress (width w/ bootstrap component) using exp points
@@ -184,7 +185,8 @@ class ProfileController extends Controller
             ->getRepository(Avatar::class)
             ->find($user->getAvatar());
 
-        $profilePicturePath = $avatarDirectory.'/'.$userAvatar->getImagePath();
+//        $profilePicturePath = $avatarDirectory.'/'.$userAvatar->getImagePath();
+        $profilePicturePath = $userAvatar->getImagePath();
 
         // Return Call
         return $this->render('profile/profile_edit.html.twig',
