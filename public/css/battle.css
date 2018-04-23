@@ -13,3 +13,84 @@ border-style: solid;
    height: 28em;
    width: 48%;
 }
+
+.player_list
+{
+   list-style-type: none;
+   margin: 3px;
+   background-color: #FB5607;
+}
+
+.player_list li {
+   cursor: pointer;
+}
+
+.player_list:nth-child(odd)
+{
+   background-color: #FFBE0B;
+}
+.player_list:hover {
+   background-color: white;
+}
+
+.player_list.current {
+   border-top-left-radius: 50px;
+   border-bottom-left-radius: 50px;
+   background-color: #3A86FF;
+}
+
+.popup {
+   position: relative;
+   display: inline-block;
+   cursor: pointer;
+   -webkit-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+   visibility: hidden;
+   width: 160px;
+   background-color: #555;
+   color: #fff;
+   text-align: center;
+   border-radius: 6px;
+   padding: 8px 0;
+   position: absolute;
+   z-index: 1;
+   bottom: 125%;
+   left: 50%;
+   margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+   content: "";
+   position: absolute;
+   top: 100%;
+   left: 50%;
+   margin-left: -5px;
+   border-width: 5px;
+   border-style: solid;
+   border-color: #555 transparent transparent transparent;
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+   visibility: visible;
+   -webkit-animation: fadeIn 1s;
+   animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+   from {opacity: 0;}
+   to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+   from {opacity: 0;}
+   to {opacity:1 ;}
+}

@@ -1,0 +1,24 @@
+<div style="width: 45%; float: left">
+    <div class="profile_info">
+        <div class="profile_name">{{ user_stat.user }}</div>
+        <img src="{{ profile_img }}" class="profile_img">
+        <div class="profile_level">
+            <span>{{ user_stat.getUserLevel }}</span>
+            LVL
+        </div>
+    </div>
+    <div class="profile_rank" style="margin-top: 15%">
+        <span>{{ user_stat.getUserRank }}</span>
+        RANK
+    </div>
+</div>
+
+<div style="width: 55%; float: right;">
+<h4 class="header-center">BATTLE STATISTICS</h4>
+<ul style="font-size: 1em;" class="stat_list">
+    <li style="margin-top: 17%;" ><label>WIN/LOSS</label>&nbsp&nbsp&nbsp&nbsp{{ user_stat.winLossRatio }}</li>
+    <li style="margin-top: 17%;" ><label>WINS</label>&nbsp&nbsp&nbsp&nbsp{{ user_stat.matchesWon }}</li>
+    <li style="margin-top: 17%;" ><label>LOSSES</label>&nbsp&nbsp&nbsp&nbsp{{ user_stat.matchesLost }}</li>
+    <li style="margin-top: 17%;" ><label>TOTAL</label>&nbsp&nbsp&nbsp&nbsp{{ total_matches }}</li>
+</ul>
+</div>
