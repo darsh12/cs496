@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AvatarRepository")
@@ -19,7 +20,9 @@ class Avatar
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="Please, upload the product brochure as an image file.")
+     * @Assert\File(mimeTypes={ "image/*" })
      */
     private $image_path;
 
@@ -55,7 +58,7 @@ class Avatar
         return $this->image_path;
     }
 
-    public function setImagePath(?string $image_path): self
+    public function setImagePath($image_path)
     {
         $this->image_path = $image_path;
 

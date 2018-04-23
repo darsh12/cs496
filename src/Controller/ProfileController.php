@@ -14,12 +14,15 @@ use App\Entity\UserCharCards;
 use App\Entity\UserStat;
 use App\Entity\UserUtilCards;
 use App\Entity\UtilCard;
+use App\Form\UserAvatarType;
+use App\Service\FileUploader;
+use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 // Controller for Profile Sub-Tabs
-class ProfileController extends AbstractController
+class ProfileController extends Controller
 {
     /**
      * @Route("/my_profile/stats",name="app_my-profile-stats")
@@ -268,6 +271,47 @@ class ProfileController extends AbstractController
     }
 
 
+
+
+    /**
+     * @Route("/my_profile/avatar")
+     */
+    public function uploadAvatar(Request $request, FileUploader $fileUploader, ObjectManager $manager)
+    {
+        $user=$this->getUser();
+        $avatar =  new Avatar();
+        $form=$this->createForm(UserAvatarType::class, $avatar);
+        $form->handleRequest($request);
+
+        $oldUserAvatar=$user->getAvatar()->getImagePath();
+        $oldAvatar = $manager->getRepository(Avatar::class)->findOneBy(['image_path'=>$oldUserAvatar]);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $file=$form['image_path']->getData();
+
+            $fileName = $fileUploader->uploadImage($file);
+
+            $avatar->setImagePath($fileName);
+            $avatar->addUser($user);
+
+            if ($oldAvatar->getId() !== 15) {
+                $fileUploader->removeImage($oldUserAvatar);
+                $manager->remove($oldAvatar);
+            }
+
+            $manager->persist($avatar);
+            $manager->flush();
+
+            $this->addFlash('success', 'Image uploaded');
+        }
+
+        return $this->render('test.html.twig', ['avatarForm'=>$form->createView()]);
+
+    }
+
+
+
     //////////////////////////////
     ///// HELPER METHODS /////////
     //////////////////////////////
@@ -288,6 +332,7 @@ class ProfileController extends AbstractController
             return FALSE;
         }
     }
+
 
 
     // Returns Array of Objects & Values
