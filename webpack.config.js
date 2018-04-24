@@ -15,6 +15,7 @@ Encore
 
     // uncomment to define the assets of the project
     .addEntry('js/card-catalog', './public/js/card-catalog.js')
+    .addEntry('js/custom-card', './public/js/custom-card.js')
     // .addEntry('js/app', './assets/js/app.js')
     // .addStyleEntry('css/app', './assets/css/app.scss')
 
