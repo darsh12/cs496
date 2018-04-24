@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% trans_default_domain 'cbs' %}
 
 {% block title %}Create New Util Deck {% endblock %}
 
@@ -9,8 +10,19 @@
         <h1 class="text-center">Create new deck</h1>
 
         {{ form_start(utilDeck) }}
-        {{ form_widget(utilDeck) }}
-        <button type="submit" class="btn btn-primary" formnovalidate>Create</button>
+        <label for="user_util_deck_name">{{ 'global.name'|trans }}</label>
+        {{ form_widget(utilDeck.name) }}
+        <label for="user_util_deck_card1">{{ 'cards.card_1'|trans }}</label>
+        {{ form_widget(utilDeck.card1) }}
+        <label for="user_util_deck_card2">{{ 'cards.card_2'|trans }}</label>
+        {{ form_widget(utilDeck.card2) }}
+        <label for="user_util_deck_card3">{{ 'cards.card_3'|trans }}</label>
+        {{ form_widget(utilDeck.card3) }}
+        <div class="row" style="margin-top: 2%">
+            <div class="col">
+                <input class="btn btn-primary" type="submit" value="{{ 'decks.create'|trans }}">
+            </div>
+        </div>
         {{ form_end(utilDeck) }}
 
     </div>

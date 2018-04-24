@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 {% import 'macros/card.html.twig' as macros %}
+{% trans_default_domain 'cbs' %}
 
 {% block title %}User Cards{% endblock %}
 
@@ -22,7 +23,7 @@
                 <div class="col-3">
                     <div class="card js-card-item" style="background-color: inherit">
                         <div class="card-header text-dark text-center">
-                            Number of cards: {{ i.cardCount }}
+                           {{ 'cards.number_of_cards'|trans }}: {{ i.cardCount }}
                         </div>
                         {{ macros.charCard(i.charCard, i.charCard.avatar.imagePath) }}
                         <div class="card-body">
@@ -46,7 +47,7 @@
                 <div class="col-3">
                     <div class="card js-card-item" style="background-color: inherit">
                         <div class="card-header text-dark text-center">
-                            Number of cards: {{ i.cardCount }}
+                            {{ 'cards.number_of_cards'|trans }}: {{ i.cardCount }}
                         </div>
                         {% set attributes = i.utilCard.attributeModifier | json_decode %}
                         {{ macros.utilCard(i.utilCard, attributes, i.utilCard.avatar.imagePath) }}

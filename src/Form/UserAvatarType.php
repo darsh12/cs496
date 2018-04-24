@@ -14,7 +14,8 @@ class UserAvatarType extends AbstractType
     {
         $builder
             ->add('image_path', FileType::class, [
-                'label'=>'Upload Image'
+                'label'=>'upload.image',
+                'translation_domain'=>'cbs',
             ])
         ;
     }

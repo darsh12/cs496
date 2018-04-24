@@ -1,17 +1,33 @@
 {% extends 'base.html.twig' %}
+{% trans_default_domain 'cbs' %}
 
 {% block title %}Create New Char Deck {% endblock %}
 
 {% block body %}
 
-<div class="container">
+    <div class="container">
 
-    <h1 class="text-center">Create new deck</h1>
+        <h1 class="text-center">Create new deck</h1>
 
-     {{ form_start(charDeck) }}
-    {{ form_widget(charDeck) }}
-    <button type="submit" class="btn btn-primary" formnovalidate>Create</button>
-    {{ form_end(charDeck) }}
+        {{ form_start(charDeck) }}
+        <label for="user_char_deck_name">{{ 'global.name'|trans }}</label>
+        {{ form_widget(charDeck.name) }}
+        <label for="user_char_deck_name">{{ 'cards.card_1'|trans }}</label>
+        {{ form_widget(charDeck.card1) }}
+        <label for="user_char_deck_name">{{ 'cards.card_2'|trans }}</label>
+        {{ form_widget(charDeck.card2) }}
+        <label for="user_char_deck_name">{{ 'cards.card_3'|trans }}</label>
+        {{ form_widget(charDeck.card3) }}
+        <label for="user_char_deck_name">{{ 'cards.card_4'|trans }}</label>
+        {{ form_widget(charDeck.card4) }}
+        <label for="user_char_deck_name">{{ 'cards.card_5'|trans }}</label>
+        {{ form_widget(charDeck.card5) }}
+        <div class="row" style="margin-top: 2%">
+        <div class="col">
+            <input type="submit" class="btn btn-primary" value="{{ 'decks.create'|trans }}" formnovalidate/>
+        </div>
+        </div>
+        {{ form_end(charDeck) }}
 
-</div>
+    </div>
 {% endblock %}

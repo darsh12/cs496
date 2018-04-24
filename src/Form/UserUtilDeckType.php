@@ -43,7 +43,8 @@ class UserUtilDeckType extends AbstractType
 
                 $formOptions = [
                     'class' => UserUtilCards::class,
-                    'placeholder'=>'Choose card',
+                    'placeholder'=>'cards.choose_card',
+                    'translation_domain'=>'cbs',
                     'query_builder' => function (UserUtilCardsRepository $card) use ($user) {
                         return $card->getUserCards($user);
                     },
