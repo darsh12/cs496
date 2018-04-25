@@ -22,24 +22,26 @@ use Symfony\Component\HttpFoundation\Response;
 // Controller for Profile Sub-Tabs
 class BattleController extends AbstractController
 {
-    /**
-     * @Route("/battle/findgame",name="app_my-battle-findgame")
-     * @Security("has_role('ROLE_USER')")
-     */
-    public function battleFindgame(ObjectManager $manager)
-    {
-        $allStat = $manager->getRepository(UserStat::class)->findAll();
-
-        return $this->render('battle/battle_findgame.html.twig', ["stat" => $allStat]);
-    }
+//    /**
+//     * @Route("/battle/findgame",name="app_my-battle-findgame")
+//     * @Security("has_role('ROLE_USER')")
+//     */
+//    public function battleFindgame(ObjectManager $manager)
+//    {
+//        $allStat = $manager->getRepository(UserStat::class)->findAll();
+//
+//        return $this->render('battle/battle_findgame.html.twig', ["stat" => $allStat]);
+//    }
 
     /**
      * @Route("/battle/leaderboard",name="app_my-battle-leaderboard")
      * @Security("has_role('ROLE_USER')")
      */
-    public function battleLeaderboard()
+    public function battleLeaderboard(ObjectManager $manager)
     {
-        return $this->render('battle/battle_leaderboard.html.twig');
+        $allStat = $manager->getRepository(UserStat::class)->findAll();
+
+        return $this->render('battle/battle_leaderboard.html.twig', ["stat" => $allStat]);
     }
 
     /**

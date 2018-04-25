@@ -113,3 +113,42 @@ function sendRequest(element) {
     });
 }
 
+
+function showLeaderboardPopup(element)
+{
+    var name = $(element).attr('data-name');
+    $(".modal-body").html("Loading...");
+    $("#request_error").html("");
+
+
+    $.ajax({
+
+        // Using dynamic urls for now, may change if not secure enough
+        url: '/battle/leaderboard-popup',
+        type: "POST",
+        data: {
+            name: name
+        },
+        // Successful Retrieval
+        success:function(data)
+        {
+            $(".modal-body").html(data);
+            // Fill dynamic Modal content
+        },
+        // Failed Retrieval
+        error: function(data)
+        {
+        }
+    });
+
+}
+
+function requestTabs(tabName) {
+    var i;
+    var x = document.getElementsByClassName("request_tab");
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+    }
+    document.getElementById(tabName).style.display = "block";
+}
+
