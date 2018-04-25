@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\User;
 use App\Entity\UserCharCards;
 use App\Entity\UserUtilCards;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -29,9 +28,10 @@ class UserCardsController extends Controller {
     public function showUserCharCards() {
         $user = $this->getUser();
 
-        $userCards = $this->entityManager->getRepository(User::class)->find($user);
+        $userCharCards = $this->entityManager->getRepository(UserCharCards::class)->orderBy($user);
+        $userUtilCards = $this->entityManager->getRepository(UserUtilCards::class)->orderBy($user);
 
-        return $this->render('user_cards/index.html.twig', ['user' => $userCards]);
+        return $this->render('user_cards/index.html.twig', ['user' => $user, 'charCard' => $userCharCards, 'utilCard' => $userUtilCards]);
     }
 
     /**

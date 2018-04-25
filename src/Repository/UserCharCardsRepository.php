@@ -27,7 +27,9 @@ class UserCharCardsRepository extends ServiceEntityRepository {
     public function getUserCards($user) {
         return $this->createQueryBuilder('u')
             ->andWhere('u.user = :user')
-            ->setParameter('user', $user);
+            ->setParameter('user', $user)
+            ->leftJoin('u.char_card', 'card')
+            ->orderBy('card.rating', 'DESC');
 
 
     }
@@ -39,6 +41,16 @@ class UserCharCardsRepository extends ServiceEntityRepository {
             ->select('DISTINCT COUNT(c.char_card) as char_card')
             ->getQuery()
             ->getSingleScalarResult();
+    }
+
+    public function orderBy($user) {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.user = :user')
+            ->setParameter('user', $user)
+            ->leftJoin('o.char_card', 'card')
+            ->orderBy('card.rating', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 //    /**
 //     * @return UserCharCards[] Returns an array of UserCharCards objects

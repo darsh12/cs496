@@ -32,7 +32,7 @@
         <h2 class="text-center">Char Cards</h2>
 
         <div class="row" id="char card">
-            {% for i in user.userCharCards %}
+            {% for i in charCard %}
                 <div class="col-4">
                     <div class="card js-card-item" style="background-color: inherit">
                         <div class="card-header text-dark text-center">
@@ -56,7 +56,7 @@
         <h2 class="text-center">Util Cards</h2>
 
         <div class="row" id="util card">
-            {% for i in user.userUtilCards %}
+            {% for i in utilCard %}
                 <div class="col-4">
                     <div class="card js-card-item" style="background-color: inherit">
                         <div class="card-header text-dark text-center">
@@ -96,7 +96,7 @@
                     $(this).find('.fa-money-bill-alt')
                         .removeClass('fa-money-bill-alt')
                         .addClass('fa-spinner')
-                        .addClass('fa-spin')
+                        .addClass('fa-spin');
                     $.ajax({
                         url: $(this).data('url'),
                         method: 'POST',

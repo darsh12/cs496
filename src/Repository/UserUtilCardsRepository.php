@@ -29,7 +29,9 @@ class UserUtilCardsRepository extends ServiceEntityRepository
     public function getUserCards($user) {
         return $this->createQueryBuilder('u')
             ->andWhere('u.user = :user')
-            ->setParameter('user', $user);
+            ->setParameter('user', $user)
+            ->leftJoin('u.util_card', 'util')
+            ->orderBy('util.util_name', 'ASC');
 
 
     }
@@ -42,6 +44,16 @@ class UserUtilCardsRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
 
+    }
+
+    public function orderBy($user) {
+        return $this->createQueryBuilder('o')
+            ->leftJoin('o.util_card', 'util')
+            ->andWhere('o.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('util.util_name', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**
