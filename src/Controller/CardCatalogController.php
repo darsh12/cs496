@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\CharCard;
 use App\Entity\CharCardStat;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Response;
@@ -50,7 +51,7 @@ class CardCatalogController extends Controller
 //
 
     /**
-     * @Route("inventory/card-catalog", name="card_show")
+     * @Route("/market", name="card_show_catalog")
      */
     public function showAction()
     {
@@ -64,6 +65,7 @@ class CardCatalogController extends Controller
 
     /**
      * @Route("/inventory/buy/{card}/char", name="inventory_buy_char")
+     * @Method("POST")
      *
      */
     public function buyCharCard($card)

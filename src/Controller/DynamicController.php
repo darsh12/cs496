@@ -175,7 +175,7 @@ class DynamicController extends Controller
 
 
     /**
-     * @Route("/inventory",name="app_inventory")
+     * @Route("/inven",name="app_intory")
      * @Security("has_role('ROLE_USER')")
      */
     public function inventory()

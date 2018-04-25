@@ -22,7 +22,7 @@ class UserCardsController extends Controller {
     }
 
     /**
-     * @Route("/user/cards", name="show_user_cards")
+     * @Route("/inventory", name="show_user_cards")
      * @Security("has_role('ROLE_USER')")
      */
     public function showUserCharCards() {

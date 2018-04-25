@@ -1,11 +1,22 @@
-{% extends 'base.html.twig' %}
+{% extends 'homepage.html.twig' %}
 
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('build/js/card-catalog.css') }}">
 {% endblock %}
 
-{% block body %}
+{% block market_tab %}
+    <li class="tab" ><a class="current" href="{{ path('card_show_catalog') }}">Market<span class="sr-only"></span></a></li>
+{% endblock %}
+
+{% block sub_tabs %}
+    <ul class="sub_tabs">
+        <li class="sub_tab current" onclick="location.href='{{ path('card_show_catalog') }}'">Card Catalog</li>
+        <li class="sub_tab" onclick="location.href='{{ path('card_packs') }}'">Card Packs</li>
+    </ul>
+{% endblock %}
+
+{% block dynamic_container %}
     <div class="container">
         <div id="sort-bar" class="rating">
             <div class="row">

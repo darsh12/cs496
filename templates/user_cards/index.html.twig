@@ -1,10 +1,23 @@
-{% extends 'base.html.twig' %}
+{% extends 'homepage.html.twig' %}
 {% import 'macros/card.html.twig' as macros %}
 {% trans_default_domain 'cbs' %}
 
 {% block title %}User Cards{% endblock %}
 
-{% block body %}
+{% block inventory_tab %}
+    <li class="tab" ><a class="current" href="{{ path('show_user_cards') }}">Inventory<span class="sr-only"></span></a></li>
+{% endblock %}
+
+{% block sub_tabs %}
+    <ul class="sub_tabs">
+        <li class="sub_tab current" onclick="location.href='{{ path('show_user_cards') }}'">Cards</li>
+        <li class="sub_tab" onclick="location.href='{{ path('user_decks_show') }}'">Decks</li>
+        <li class="sub_tab" onclick="location.href='{{ path('custom_card') }}'">Custom Card</li>
+
+    </ul>
+{% endblock %}
+
+{% block dynamic_container %}
 
     <div class="container-fluid">
 
@@ -20,7 +33,7 @@
 
         <div class="row" id="char card">
             {% for i in user.userCharCards %}
-                <div class="col-3">
+                <div class="col-4">
                     <div class="card js-card-item" style="background-color: inherit">
                         <div class="card-header text-dark text-center">
                            {{ 'cards.number_of_cards'|trans }}: {{ i.cardCount }}
@@ -44,7 +57,7 @@
 
         <div class="row" id="util card">
             {% for i in user.userUtilCards %}
-                <div class="col-3">
+                <div class="col-4">
                     <div class="card js-card-item" style="background-color: inherit">
                         <div class="card-header text-dark text-center">
                             {{ 'cards.number_of_cards'|trans }}: {{ i.cardCount }}
