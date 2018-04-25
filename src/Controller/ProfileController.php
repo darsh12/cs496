@@ -50,9 +50,6 @@ class ProfileController extends Controller
             $file=$form['image_path']->getData();
 
             $fileName = $fileUploader->uploadImage($file);
-//            if(!$fileName) {
-//                return null;
-//            }
 
             $avatar->setImagePath($fileName);
             $avatar->addUser($user);

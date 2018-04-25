@@ -2,10 +2,10 @@
 
 {% block sub_tabs %}
     <ul class="sub_tabs">
-        <li class="sub_tab" data-url="my_profile/stats" onclick="location.href='{{ path('app_my-profile') }}'" >Stats</li> {# stats is default current sub-tab #}
-        <li class="sub_tab" data-url="my_profile/battle_history" onclick="location.href='{{ path('app_my-profile') }}'">Battle History</li>
-        <li class="sub_tab" data-url="my_profile/achievements" onclick="location.href='{{ path('app_my-profile') }}'">Achievements</li>
-        <li class="sub_tab current" data-url="my_profile/edit" onclick="location.href='{{ path('app_my-profile-edit') }}'">Edit Profile</li>
+        <li class="sub_tab" onclick="location.href='{{ path('app_my-profile') }}'" >Stats</li> {# stats is default current sub-tab #}
+        <li class="sub_tab" onclick="location.href='{{ path('app_my-profile') }}'">Battle History</li>
+        <li class="sub_tab" onclick="location.href='{{ path('app_my-profile') }}'">Achievements</li>
+        <li class="sub_tab current" onclick="location.href='{{ path('app_my-profile-edit') }}'">Edit Profile</li>
     </ul>
 {% endblock %}
 
@@ -20,7 +20,6 @@
                 </div>
             </div>
             <div class="upload_container">
-
                 {{ form_start(avatarForm) }}
                 {{ form_row(avatarForm.image_path) }}
                 <button class="btn btn-normal">Change Profile Picture</button>

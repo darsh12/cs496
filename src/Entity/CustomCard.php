@@ -117,7 +117,11 @@ class CustomCard
     /**
      * @ORM\Column(type="string", length=255)
      *
-     * @Assert\File(mimeTypes={ "image/jpeg", "image/gif", "image/png"})
+     * @Assert\File(
+     *     maxSize = "1024M",
+     *     maxSizeMessage="File must be less than 1Gb in size",
+     *     mimeTypes={ "image/*" },
+     *     mimeTypesMessage="File must be an image")
      */
     private $image_file;
 
