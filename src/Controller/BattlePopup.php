@@ -14,16 +14,18 @@ use App\Entity\UserStat;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 // Controller for Battle popup
-class BattlePopup extends AbstractController
+class BattlePopup extends Controller
 {
     /**
      * @Route("/battle/popup",name="app_my-battle-popup")
      */
     public function battlePopup(ObjectManager $manager)
     {
+        $avatarDirectory = $this->getParameter('avatar_directory');
 
         $userName = $_POST["name"];
 
@@ -32,11 +34,12 @@ class BattlePopup extends AbstractController
         $userStat = $manager->getRepository(UserStat::class)->findOneBy(["user" => $user]);
 
         // User Profile Avatar
-        $userAvatar = $this->getDoctrine()
+        $userAvatar = $manager
             ->getRepository(Avatar::class)
             ->find($user->getAvatar());
 
-        $profilePicturePath = $userAvatar->getImagePath();
+        $profilePicturePath = $avatarDirectory.'/'.$userAvatar->getImagePath();
+
 
         $total = $userStat->getMatchesLost() + $userStat->getMatchesWon();
 

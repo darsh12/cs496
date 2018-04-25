@@ -1,3 +1,6 @@
+// TODO: Update preview code to work with symfony form
+// TODO: Prevent form from reloading page
+// TODO: Prevent form from resubmitting on page reload
 // Show preview of image selected to upload
 function showUploadPreview() {
 
@@ -20,15 +23,6 @@ function initializeSubmitListener() {
             $("#upload_error").html("No file selected for upload.");
             return;
         }
-
-        // Check if file extension is correct - UNSTABLE FOR NOW
-        // var fileName = document.getElementById("img_input").files[0].name;
-        // var fileExt = fileName.split('.').pop();
-        // if(fileExt !== "png" || fileExt !== "jpg") {
-        //     $("#upload_error").attr("style", "display: block");
-        //     $("#upload_error").html("File is not an image.");
-        //     return;
-        // }
 
         $.ajax({
             url: "my_profile/avatar_upload",
