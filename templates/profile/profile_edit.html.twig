@@ -1,4 +1,5 @@
 {% extends 'tabs/my_profile.html.twig' %}
+{% trans_default_domain 'FOSUserBundle' %}
 
 {% block sub_tabs %}
     <ul class="sub_tabs">
@@ -29,7 +30,13 @@
 
         {# Change Password Form#}
         <div class="col">
-
+            <h3 style="margin-top: 5%">Change your password</h3>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <div>
+                <input class="btn btn-normal" type="submit" value="{{ 'change_password.submit'|trans }}" />
+            </div>
+            {{ form_end(form) }}
         </div>
     </div>
 {% endblock %}

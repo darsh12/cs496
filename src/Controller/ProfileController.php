@@ -6,6 +6,8 @@ use App\Entity\Avatar;
 use App\Form\UserAvatarType;
 use App\Service\FileUploader;
 use Doctrine\Common\Persistence\ObjectManager;
+use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\Form\Type\ChangePasswordFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -14,9 +16,10 @@ use Symfony\Component\HttpFoundation\Request;
 
 // Controller for Profile Sub-Tabs
 class ProfileController extends Controller
+// my_profile/edit
 {
-
     /**
+
      * @Route("/my_profile/edit",name="app_my-profile-edit")
      * @Security("has_role('ROLE_USER')")
      */
@@ -66,12 +69,29 @@ class ProfileController extends Controller
             return $this->redirectToRoute('app_my-profile-edit');
         }
 
+        // TODO: Create Change Password Form
+
+        $passForm = $this->createForm(ChangePasswordFormType::class, $user);
+
+        $passForm->handleRequest($request);
+
+        if ($passForm->isSubmitted() && $passForm->isValid()) {
+
+            $userManager = $this->get('fos_user.user_manager');
+            $userManager->updateUser($user);
+
+            $this->addFlash('success', 'Password Updated');
+            return $this->redirect($this->generateUrl('app_my-profile-edit'));
+        }
+
+
         // Return Call
         return $this->render('profile/profile_edit.html.twig',
             [
                 "user_name" => $userName,
                 "profile_pic" => $profilePicturePath,
                 'avatarForm'=>$form->createView(),
+                "form" => $passForm->createView()
             ]);
     }
 
