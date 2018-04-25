@@ -47,7 +47,7 @@
     color: #FFFFFF;
 }
 
-/*Slighly longer button for top right of containers*/
+/*Slighlty longer button for top right of containers*/
 .btn.btn-banner {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 22px;
@@ -61,22 +61,33 @@
 }
 
 .tab a {
+    background-image: url("../images/tab.png");
+    background-position: center;
     padding: 1%;
-    background-color: #FFFFFF;
-    border-radius: 35px 35px 0 0;
     display: block;
     color: black;
 }
 
 .tab a:hover {
+    background-image: url("../images/tab_current.png");
+    background-position: center;
     color: #FFFFFF;
-    background-color: #ffeb00;
     text-decoration: none;
 }
 
 .tab a.current {
-    background-color: #ffeb00;
+    background-image: url("../images/tab_current.png");
+    background-position: center;
     color: #FFFFFF;
+    background-color: transparent;
+}
+
+/* for tabs */
+#triangle-bottomleft {
+    width: 0;
+    height: 0;
+    border-bottom: 100px solid red;
+    border-right: 100px solid transparent;
 }
 
 .sub_tabs {
