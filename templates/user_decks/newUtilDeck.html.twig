@@ -1,9 +1,20 @@
-{% extends 'base.html.twig' %}
+{% extends 'homepage.html.twig' %}
 {% trans_default_domain 'cbs' %}
 
 {% block title %}Create New Util Deck {% endblock %}
 
-{% block body %}
+{% block inventory_tab %}
+    <li class="tab"><a class="current" href="{{ path('show_user_cards') }}">Inventory<span class="sr-only"></span></a>
+    </li>
+{% endblock %}
+
+{% block sub_tabs %}
+    <ul class="sub_tabs">
+        <li class="sub_tab" onclick="location.href='{{ path('user_decks_show') }}'">Decks</li>
+    </ul>
+{% endblock %}
+
+{% block dynamic_container %}
 
     <div class="container">
 

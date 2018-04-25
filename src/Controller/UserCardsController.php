@@ -6,13 +6,14 @@ use App\Entity\User;
 use App\Entity\UserCharCards;
 use App\Entity\UserUtilCards;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\DBAL\DBALException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class UserCardsController extends Controller {
     protected $entityManager;
@@ -36,6 +37,7 @@ class UserCardsController extends Controller {
     /**
      * @Route("/user/cards/sell/{cardId}/char", name="sell_user_char_card")
      * @Method("POST")
+     * @Security("has_role('ROLE_USER')")
      */
     public function sellUserCharCard($cardId) {
         $user = $this->getUser();
@@ -46,6 +48,7 @@ class UserCardsController extends Controller {
         $price = $userCharCard->getCharCard()->getPrice();
         $count = $userCharCard->getCardCount();
         $userCoins = $user->getCoins();
+        $name = $userCharCard->getCharCard()->getCharName();
 
         $countDistinctCards = $this->entityManager->getRepository(UserCharCards::class)->distinctCharCards($user);
 
@@ -71,7 +74,12 @@ class UserCardsController extends Controller {
         }
         $userCharCard->getUser()->setCoins($userCoins + ($price * 0.5));
 
-        $this->entityManager->flush();
+        try {
+            $this->entityManager->flush();
+        } catch (DBALException $e) {
+            $this->addFlash('error', 'Cannot sell ' . $name . '. Card is in a deck');
+            throw  new DBALException('Char Card in use in a deck');
+        }
 
         $this->addFlash('success', 'Card Sold');
 
@@ -81,6 +89,8 @@ class UserCardsController extends Controller {
 
     /**
      * @Route("/user/cards/sell/{cardId}/util", name="sell_user_util_card")
+     * @Method("POST")
+     * @Security("has_role('ROLE_USER')")
      */
     public function sellUserUtilCard($cardId) {
         $user = $this->getUser();
@@ -91,6 +101,7 @@ class UserCardsController extends Controller {
         $price = $userUtilCard->getUtilCard()->getPrice();
         $count = $userUtilCard->getCardCount();
         $userCoins = $user->getCoins();
+        $name = $userUtilCard->getUtilCard()->getUtilName();
 
         $countDistinctCards = $this->entityManager->getRepository(UserUtilCards::class)->distinctUtilCards($user);
 
@@ -114,7 +125,13 @@ class UserCardsController extends Controller {
         }
         $userUtilCard->getUser()->setCoins($userCoins + ($price * 0.75));
 
-        $this->entityManager->flush();
+        try {
+            $this->entityManager->flush();
+        } catch (DBALException $e) {
+            $this->addFlash('error', 'Cannot sell ' . $name . '. Card is in a deck');
+            throw  new DBALException('Util Card in use in a deck');
+
+        }
         $this->addFlash('success', 'Card Sold');
 
         return new Response(null, 204);

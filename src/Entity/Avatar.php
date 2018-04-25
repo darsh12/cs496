@@ -21,10 +21,10 @@ class Avatar
 
     /**
      * @ORM\Column(type="string")
-     * @Assert\NotBlank(message="Please, upload the product brochure as an image file.")
+     * @Assert\NotBlank(message="Please, upload the avatar as an image file.")
      * @Assert\File(
-     *     maxSize = "1024M",
-     *     maxSizeMessage="File must be less than 1Gb in size",
+     *     maxSize = "5M",
+     *     maxSizeMessage="File must be less than 5mb in size",
      *     mimeTypes={ "image/*" },
      *     mimeTypesMessage="File must be an image")
      */
