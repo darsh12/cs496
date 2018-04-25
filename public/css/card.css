@@ -26,6 +26,9 @@
     text-align: center;
 }
 
+.amateur{
+    background-color: black;
+}
 .char_img {
     height: 67%;
     width: 100%;
@@ -113,6 +116,18 @@
     border-radius: 0 0 15px 15px;
 }
 
+.amateur {
+    background-color: #CD7F32;
+}
+
+.professional {
+    background-color: #FFD700;
+}
+
+
+.worldstar {
+    background-color: #9AC5db;
+}
 .mod_header {
     color: #FFFFFF;
     text-align: center;

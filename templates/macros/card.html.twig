@@ -1,7 +1,11 @@
 {% macro charCard(card, image) %}
+
     <div class="character">
-        <div class="char_name">{{ card.charName }}</div>
-        <div class="char_card">
+        {% set tierClass = card.charTier %}
+        {% set tierClass = (tierClass|replace({' ':''}) | lower) %}
+
+        <div class="char_name {{ tierClass }}">{{ card.charName }}</div>
+        <div class="char_card {{ tierClass }}">
             {#Card Info #}
             <div class="char_column">
                 <img class="char_img" src="{{ image }}">
