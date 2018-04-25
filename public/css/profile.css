@@ -51,12 +51,12 @@
 }
 
 .profile_name {
+    width: fit-content;
     font-family: "Ostrich-Sans Black";
     box-shadow: 0 1px 5px 1px black;
     font-weight: bold;
     border-radius: 10px 10px 50% 50%;
-    margin-left: 15%;
-    margin-right: 15%;
+    margin: auto;
     background-color: #ffeb00;
     border: 4px solid black;
     padding: 5%;
@@ -68,7 +68,7 @@
 .profile_img {
     top: -11px;
     border: 4px solid black;
-    height: 69%;
+    height: 9em;;
     border-radius: 50%;
     width: 55%;
     position: relative;

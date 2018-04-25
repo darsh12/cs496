@@ -1,11 +1,10 @@
-// TODO: Update preview code to work with symfony form
-// TODO: Prevent form from reloading page
-// TODO: Prevent form from resubmitting on page reload
 // Show preview of image selected to upload
+$("#user_avatar_image_path").change(showUploadPreview);
+
 function showUploadPreview() {
 
-    var imageURL = window.URL.createObjectURL(document.getElementById("img_input").files[0]);
-
+    var imageURL = window.URL.createObjectURL(document.getElementById("user_avatar_image_path").files[0]);
+    console.log("Image:" + imageURL);
     $("#profile_pic").attr("src", imageURL);
     $("#upload_error").attr("style", "display: none");
 }
