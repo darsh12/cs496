@@ -58,10 +58,11 @@ class DynamicController extends Controller
      * @Route("/battle",name="app_battle")
      * @Security("has_role('ROLE_USER')")
      */
-    public function battle()
+    public function battle(ObjectManager $manager)
     {
-        return $this->render('tabs/battle.html.twig');
-    }
+        $allStat = $manager->getRepository(UserStat::class)->findAll();
+
+        return $this->render('tabs/battle.html.twig', ["stat" => $allStat]);    }
 
     /**
      * @Route("/market",name="app_market")

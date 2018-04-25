@@ -48,58 +48,76 @@
    background-color: #3A86FF;
 }
 
-.popup {
-   position: relative;
-   display: inline-block;
-   cursor: pointer;
-   -webkit-user-select: none;
-   -moz-user-select: none;
-   -ms-user-select: none;
-   user-select: none;
-}
-
-/* The actual popup */
-.popup .popuptext {
-   visibility: hidden;
-   width: 160px;
-   background-color: #555;
-   color: #fff;
+.leaderboard_title{
+   font-family: "Ostrich-Sans Bold";
+   font-size: 3em;
    text-align: center;
-   border-radius: 6px;
-   padding: 8px 0;
-   position: absolute;
-   z-index: 1;
-   bottom: 125%;
-   left: 50%;
-   margin-left: -80px;
 }
 
-/* Popup arrow */
-.popup .popuptext::after {
-   content: "";
-   position: absolute;
-   top: 100%;
-   left: 50%;
-   margin-left: -5px;
-   border-width: 5px;
-   border-style: solid;
-   border-color: #555 transparent transparent transparent;
+.leaderboard{
+   list-style-type: none;
+   margin: 3px;
+   background-color: #fba717;
 }
 
-/* Toggle this class - hide and show the popup */
-.popup .show {
-   visibility: visible;
-   -webkit-animation: fadeIn 1s;
-   animation: fadeIn 1s;
+.leaderboard li{
+   cursor: pointer;
+
 }
 
-/* Add animation (fade in the popup) */
-@-webkit-keyframes fadeIn {
-   from {opacity: 0;}
-   to {opacity: 1;}
+.leaderboard div{
+   display: inline-block;
+   width: 30%;
 }
 
-@keyframes fadeIn {
-   from {opacity: 0;}
-   to {opacity:1 ;}
+.leaderboard:nth-child(odd)
+{
+   background-color: #2db0ff;
+}
+.leaderboard:hover {
+   background-color: white;
+}
+
+.leaderboard.current {
+   border-top-left-radius: 50px;
+   border-bottom-left-radius: 50px;
+   background-color: #3A86FF;
+}
+
+.request_tab {
+   font-size: 1.5em;
+   text-align: center;
+   width: 50%;
+}
+
+.request_tab a {
+   padding: 1%;
+   background-color: #FFFFFF;
+   border-radius: 35px 35px 0 0;
+   display: block;
+   color: black;
+}
+
+.request_tab a:hover {
+   color: #FFFFFF;
+   background-color: #ffeb00;
+   text-decoration: none;
+   cursor: pointer;
+
+}
+
+.request_tab a.current {
+   background-color: #ffeb00;
+   color: #FFFFFF;
+}
+
+.request_tab.current {
+   border-top-left-radius: 50px;
+   border-bottom-left-radius: 50px;
+   background-color: #ffeb00;
+}
+
+/*Temporary class for current tab selected*/
+.current {
+   background-color: #ffeb00;
 }

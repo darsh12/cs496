@@ -43,5 +43,28 @@ class BattlePopup extends AbstractController
         return $this->render('battle/battle_popup.html.twig', ["total_matches" => $total, "user_stat" => $userStat, "profile_img" => $profilePicturePath]);
     }
 
+    /**
+     * @Route("/battle/leaderboard-popup",name="app_my-battle-leaderboard-popup")
+     */
+    public function leaderboardPopup(ObjectManager $manager)
+    {
+
+        $userName = $_POST["name"];
+
+        $user = $manager->getRepository(User::class)->findOneBy(["username" => $userName]);
+
+        $userStat = $manager->getRepository(UserStat::class)->findOneBy(["user" => $user]);
+
+        // User Profile Avatar
+        $userAvatar = $this->getDoctrine()
+            ->getRepository(Avatar::class)
+            ->find($user->getAvatar());
+
+        $profilePicturePath = $userAvatar->getImagePath();
+
+        $total = $userStat->getMatchesLost() + $userStat->getMatchesWon();
+
+        return $this->render('battle/battle_leaderboard_popup.html.twig', ["total_matches" => $total, "user_stat" => $userStat, "profile_img" => $profilePicturePath]);
+    }
 
 }
