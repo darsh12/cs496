@@ -13,7 +13,6 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
-use Twig\Profiler\Profile;
 
 class DynamicController extends Controller
 {
@@ -169,6 +168,7 @@ class DynamicController extends Controller
             return $this->render('tabs/my_profile.html.twig',
                 [
                     "user_name" => $userName,
+                    "user_rank" => $userRank,
                     "user_stat" => $userStatObj,
                     "level_progress" => $userProgressionExperience,
                     "xp_needed" => $xpNeeded,

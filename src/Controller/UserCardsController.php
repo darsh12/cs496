@@ -5,12 +5,12 @@ namespace App\Controller;
 use App\Entity\UserCharCards;
 use App\Entity\UserUtilCards;
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Config\Definition\Exception\Exception;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -45,6 +45,11 @@ class UserCardsController extends Controller {
 
         $userCharCard = $this->entityManager->getRepository(UserCharCards::class)->findOneBy(['user' => $userId, 'char_card' => $cardId]);
 
+        //Check if the user has the card
+        if (!$userCharCard) {
+            throw  new NotFoundHttpException("Card not found");
+        }
+
         $price = $userCharCard->getCharCard()->getPrice();
         $count = $userCharCard->getCardCount();
         $userCoins = $user->getCoins();
@@ -52,17 +57,14 @@ class UserCardsController extends Controller {
 
         $countDistinctCards = $this->entityManager->getRepository(UserCharCards::class)->distinctCharCards($user);
 
-        //Check if the user has the card
-        if (!$userCharCard) {
-            throw  new NotFoundHttpException("Card not found");
-        }
+
 
         //Check if the user has only five cards
         if ($countDistinctCards == 5) {
             //If he has only 5 card does the card he wants to sell only 1 card
             if ($count == 1) {
                 $this->addFlash('error', 'You need to have at least 5 different cards');
-                throw new Exception("Cannot delete card. Need to have at least 5 cards");
+                throw new HttpException(403, "Cannot delete card. Need to have at least 5 cards");
             }
         }
 
@@ -76,14 +78,20 @@ class UserCardsController extends Controller {
 
         try {
             $this->entityManager->flush();
-        } catch (DBALException $e) {
+        } catch (ForeignKeyConstraintViolationException $e) {
             $this->addFlash('error', 'Cannot sell ' . $name . '. Card is in a deck');
-            throw  new DBALException('Char Card in use in a deck');
+            $data = ['success' => false, 'url' => $this->generateUrl('show_user_cards')];
+            return new JsonResponse($data);
         }
 
         $this->addFlash('success', 'Card Sold');
 
-        return new Response(null, 204);
+        $data = [
+            'success' => true,
+            'url' => $this->generateUrl('show_user_cards')
+        ];
+
+        return new JsonResponse($data);
 
     }
 
@@ -98,6 +106,11 @@ class UserCardsController extends Controller {
 
         $userUtilCard = $this->entityManager->getRepository(UserUtilCards::class)->findOneBy(['user' => $userId, 'util_card' => $cardId]);
 
+
+        if (!$userUtilCard) {
+            throw  new NotFoundHttpException("Card not found");
+        }
+
         $price = $userUtilCard->getUtilCard()->getPrice();
         $count = $userUtilCard->getCardCount();
         $userCoins = $user->getCoins();
@@ -105,14 +118,11 @@ class UserCardsController extends Controller {
 
         $countDistinctCards = $this->entityManager->getRepository(UserUtilCards::class)->distinctUtilCards($user);
 
-        if (!$userUtilCard) {
-            throw  new NotFoundHttpException("Card not found");
-        }
 
         if ($countDistinctCards == 3) {
             if ($count == 1) {
                 $this->addFlash('error', 'You need to have at least 3 different cards');
-                throw new Exception("Cannot delete card. Need to have at least 3 cards");
+                throw new HttpException(403, "Cannot delete card. Need to have at least 5 cards");
 
             }
         }
@@ -127,14 +137,20 @@ class UserCardsController extends Controller {
 
         try {
             $this->entityManager->flush();
-        } catch (DBALException $e) {
+        } catch (ForeignKeyConstraintViolationException $e) {
             $this->addFlash('error', 'Cannot sell ' . $name . '. Card is in a deck');
-            throw  new DBALException('Util Card in use in a deck');
+            $data = ['success' => false, 'url' => $this->generateUrl('show_user_cards')];
+            return new JsonResponse($data);
 
         }
         $this->addFlash('success', 'Card Sold');
 
-        return new Response(null, 204);
+        $data = [
+            'success' => true,
+            'url' => $this->generateUrl('show_user_cards')
+        ];
+
+        return new JsonResponse($data);
 
     }
 

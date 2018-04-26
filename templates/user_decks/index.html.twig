@@ -125,20 +125,25 @@
                 $(this).find('.fa-trash-alt')
                     .removeClass('fa-trash-alt')
                     .addClass('fa-spinner')
-                    .addClass('fa-spin')
+                    .addClass('fa-spin');
                 $.ajax({
                     url: $(this).data('url'),
                     method: 'POST',
                     error: function () {
                         location.reload();
                     },
-                }).done(function () {
+                }).done(function (data) {
                     $el.fadeOut();
-                    setTimeout(function () {
-                        location.reload();
-                    }, 500)
+                    if (data.success === true) {
+                        window.location.href = data.url;
+                    }
+                    if (data.success === false) {
+                        window.location.href = data.url;
+                    }
 
-                });
+                }).fail(function () {
+                    location.reload();
+                })
             });
 
         });
