@@ -40,10 +40,16 @@ class BattlePopup extends Controller
 
         $profilePicturePath = $avatarDirectory.'/'.$userAvatar->getImagePath();
 
-
         $total = $userStat->getMatchesLost() + $userStat->getMatchesWon();
 
-        return $this->render('battle/battle_popup.html.twig', ["total_matches" => $total, "user_stat" => $userStat, "profile_img" => $profilePicturePath]);
+        $userRank = ProfileController::getRankName($userStat->getUserRank());
+
+        return $this->render('battle/battle_popup.html.twig', [
+            "total_matches" => $total,
+            "user_stat" => $userStat,
+            "profile_img" => $profilePicturePath,
+            "user_rank" => $userRank
+        ]);
     }
 
     /**

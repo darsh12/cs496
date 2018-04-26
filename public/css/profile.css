@@ -99,14 +99,28 @@
     border: 2px solid black;
 }
 
+.progress_container {
+    display: inline-flex;
+    top: -22px;
+    width: 65%;
+    margin: auto;
+    position: relative;
+}
+
+.progress_container label {
+    padding: 0% 2% 0% 2%;
+    font-weight: bold;
+    margin: 3%;
+    width: fit-content;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+}
+
 .progress.profile_progress {
     background-color: #FFFFFF;
-    width: 55%;
-    position: relative;
+    width: 100%;
     box-shadow: 0 1px 1px 1px black;
     border-radius: 15px;
-    top: -22px;
-    margin: auto;
 }
 
 .progress-bar.profile_progress_bar {
@@ -114,25 +128,23 @@
 }
 
 .profile_rank {
+    width: 50%;
     box-shadow: 0 1px 5px 1px black;
     text-align: center;
     font-size: 1em;
     border-radius: 60% 60% 25% 25%;
-    top: -30px;
-    margin-left: 35%;
-    margin-right: 35%;
     background-color: #ffeb00;
     border: 3px solid black;
     padding: 4% 4% 0% 4%;
-    position: relative;
     z-index: 1;
-    margin-top: 44%;
+    margin: 34% auto auto auto;
 }
 
 .profile_rank span {
+    font-family: "Ostrich-Sans Black";
     font-size: 1.25em;
     border-radius: 60% 60% 10px 10px;
-    padding: 16% 15% 8% 15%;
+    padding: 10% 15% 8% 15%;
     width: 100%;
     background-color: #FFFFFF;
     display: block;

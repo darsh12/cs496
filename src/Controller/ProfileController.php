@@ -3,20 +3,20 @@
 namespace App\Controller;
 
 use App\Entity\Avatar;
+use App\Entity\UserStat;
 use App\Form\UserAvatarType;
 use App\Service\FileUploader;
 use Doctrine\Common\Persistence\ObjectManager;
-use FOS\UserBundle\Event\FormEvent;
 use FOS\UserBundle\Form\Type\ChangePasswordFormType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 
 // Controller for Profile Sub-Tabs
 class ProfileController extends Controller
-// my_profile/edit
 {
     /**
 
@@ -69,7 +69,6 @@ class ProfileController extends Controller
             return $this->redirectToRoute('app_my-profile-edit');
         }
 
-        // TODO: Create Change Password Form
 
         $passForm = $this->createForm(ChangePasswordFormType::class, $user);
 
@@ -93,6 +92,72 @@ class ProfileController extends Controller
                 'avatarForm'=>$form->createView(),
                 "form" => $passForm->createView()
             ]);
+    }
+
+    ////////////////////////
+    // Returns the number of experience points needed to gain the user's next level
+    // Use this function to check if User can level up after receiving new XP
+    // Usage: 'ProfileController::GetUserNextLevelXP($obj)'
+    ////////////////////////
+    public static function GetUserNextLevelXP(UserStat $userStatObj) {
+
+        $approachingLvl = $userStatObj->getUserLevel() + 1;
+        $const = 0.6; // Exponential Modifier for Level Scale
+        $xpNeeded = (pow($approachingLvl, $const)) * 100;
+
+        return $xpNeeded;
+
+    }
+
+    // Returns string giving player's rank - e.g. 'Bronze II'
+    public static function getRankName($rank) {
+        if($rank <= 0)
+            return "None";
+
+        $rankName = "";
+        if($rank >= 1 && $rank < 6)
+            $rankName = "Bronze";
+        elseif($rank >= 6 && $rank < 11)
+            $rankName = "Silver";
+        elseif($rank >= 11 && $rank < 16)
+            $rankName = "Gold";
+        elseif($rank >= 16 && $rank < 21)
+            $rankName = "Platinum";
+        elseif($rank >= 21 && $rank < 26)
+            $rankName = "Diamond";
+        elseif($rank >= 26 && $rank < 31)
+            $rankName = "Elite";
+
+        $rankLvl = 1;
+        $numArray = ["I", "II", "III", "IV", "V"];
+        $rankLvlName = $numArray[$rankLvl-1];
+
+        return $rankName . " " . $rankLvlName;
+    }
+
+    /**
+
+     * @Route("/level_scale_display",name="app_my-profile-level_scale_display")
+     * @Security("has_role('ROLE_USER')")
+     */
+
+    // Quick Reference tool
+    // Displays list of levels and the experience points needed to acquire them up to 150
+    function levelTest() {
+
+        $xpArray = [];
+        for($i = 0; $i < 150; $i++) {
+            $level = $i;
+            $const = 0.6;
+            $xpNeeded = (pow($level, $const) * 100 ) . " points needed";
+            array_push($xpArray, "$level : $xpNeeded");
+        }
+        $response = "";
+        foreach($xpArray as $line) {
+            $response .= $line."<br>";
+        }
+
+        return new Response($response);
     }
 
 

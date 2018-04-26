@@ -1,8 +1,7 @@
-// Automatically click current sub-tab of current tab to retrieve content
-// window.onload = function() {
-//     console.log("loaded");
-//     $(".sub_tab.default").click();
-// };
+// Initialize popovers for stats page
+$(function () {
+    $('button[data-toggle="popover"]').popover()
+});
 
 // Appends rendered twig to container with given ID
 function getDynamicTwigContent(button, containerId, url) {

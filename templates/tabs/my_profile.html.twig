@@ -25,18 +25,20 @@
             <img src="{{ profile_pic }}"
                  class="profile_img">
             <div class="profile_level">
-                <span>{{ user_stat.getUserLevel }}</span>
+                <span>{{ user_stat.userLevel }}</span>
                 LVL
             </div>
-
-            <div class="progress profile_progress">
-                <div class="progress-bar profile_progress_bar" style="width:{{ level_progress }}%"></div>
+            <div class="progress_container">
+                <label>{{ user_stat.userLevel }}</label>
+                    <div class="progress profile_progress">
+                        <div class="progress-bar profile_progress_bar" style="width:{{ level_progress }}%"></div>
+                    </div>
+                <label>{{ user_stat.userLevel + 1 }}</label>
             </div>
-
         </div>
         {#Rank #}
         <div class="profile_rank">
-            <span>{{ user_stat.getUserRank }}</span>
+            <span>{{ user_rank }}</span>
             RANK
         </div>
     </div>
@@ -115,10 +117,4 @@
             <li><label>DEFENSES</label>&nbsp&nbsp&nbsp&nbsp{{ user_stat.timesAttacked }}</li>
         </ul>
     </div>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
-        $(function () {
-            $('[data-toggle="popover"]').popover()
-        });
-    </script>
 {% endblock %}
