@@ -103,13 +103,6 @@ class ProfileController extends Controller
     // Player's Battle History Page
     function battleHistory(ObjectManager $manager, Battle $battle, BattleRequest $battleRequest, String $type) {
 
-        if(!$battle || !$battleRequest) {
-            // Return Call
-            return $this->render('profile/profile_history.html.twig', [
-                "battleRecordExists" => false
-            ]);
-        }
-
         $defCharDeck = $battle->getDefendCharDeck();
         $defUtilDeck = $battle->getDefendUtilDeck();
         $attCharDeck = $battleRequest->getAttackerCharDeck();
@@ -170,6 +163,15 @@ class ProfileController extends Controller
         if($type === "best") {
 
             $bestBattle = $userStat->getBestWinBattle();
+
+            if(!$bestBattle) {
+                // Return Call
+                return $this->render('profile/profile_history.html.twig', [
+                    "battleRecordExists" => false,
+                    "type" => $type
+                ]);
+            }
+
             $bestBattleRequest = $bestBattle->getRequest();
 
             // Return default Battle History view
@@ -180,6 +182,15 @@ class ProfileController extends Controller
         elseif($type === "worst") {
 
             $worstBattle = $userStat->getWorstLostBattle();
+
+            if(!$worstBattle) {
+                // Return Call
+                return $this->render('profile/profile_history.html.twig', [
+                    "battleRecordExists" => false,
+                    "type" => $type
+                ]);
+            }
+
             $worstBattleRequest = $worstBattle->getRequest();
 
             // Return default Battle History view

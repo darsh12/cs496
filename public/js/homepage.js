@@ -1,6 +1,9 @@
 // Initialize popovers for stats page
+// $(function () {
+//     $('button[data-toggle="popover"]').popover()
+// });
 $(function () {
-    $('button[data-toggle="popover"]').popover()
+    $('[data-toggle="tooltip"]').tooltip()
 });
 
 // Appends rendered twig to container with given ID
@@ -21,24 +24,6 @@ function getDynamicTwigContent(button, containerId, url) {
     });
 }
 
-function getDynamicHistoryContent(button, containerId, url) {
-
-    $.ajax({
-        // Using dynamic urls for now, may change if not secure enough
-        url: url,
-        // Successful Retrieval
-        success:function(data)
-        {
-            $("#"+containerId).html(data);
-            $(".history li").removeClass("current");
-            $(button).addClass("current");
-        },
-        // Failed Retrieval
-        error: function(data)
-        {
-        }
-    });
-}
 
 // AJAX function for tabs
 function getDynamicTabContent(button) {

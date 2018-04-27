@@ -237,37 +237,37 @@
 /* Collapsible Card CSS*/
 
 /* Character */
-.col div.character {
+div.character.card-collapse {
     margin: 0;
     height: 75px;
-    width: 100%;
+    width: 165px;
 }
 
-.col .char_name {
+.card-collapse .char_name {
     height: 33%;
     font-size: 1.3em;
 }
 
-.col .char_card {
+.card-collapse .char_card {
     height: 55px;
 }
 
-.col .char_column {
+.card-collapse .char_column {
     margin-left: 23%;
     border-radius: 10px;
 }
 
-.col .char_column:nth-child(2) {
+.card-collapse .char_column:nth-child(2) {
     display: none;
 }
 
-.col .char_column:nth-child(3) {
+.card-collapse .char_column:nth-child(3) {
     border-radius: 10px;
     margin: 0;
     height: fit-content;
 }
 
-.col .char_img {
+.card-collapse .char_img {
     border-radius: 10px;
     height: 100%;
     width: 61%;
@@ -275,7 +275,7 @@
     border-bottom: none;
 }
 
-.col .char_rating {
+.card-collapse .char_rating {
     float: right;
     border-radius: 10px;
     line-height: 2.5em;
@@ -288,16 +288,18 @@
 }
 
 /* Utility */
-.col div.utility {
+div.utility.card-collapse  {
+    margin-top: 30px;
+    margin-bottom: 0;
     height: 65px;
-    width: 100%;
+    width: 165px;
 }
 
-.col .util_name {
+.card-collapse .util_name {
     font-size: 1.3em;
 }
 
-.col .util_img {
+.card-collapse .util_img {
     float: unset;
     width: 40%;
     height: 100%;
@@ -305,18 +307,18 @@
     margin-left: 30%;
 }
 
-.col .mod_header {
+.card-collapse .mod_header {
     display: none;
 }
 
-.col .util_attr_table {
+.card-collapse .util_attr_table {
     display: none;
 }
 
-.col .effect_list {
+.card-collapse .effect_list {
     display: none;
 }
 
-.col .effect_header {
+.card-collapse .effect_header {
     display: none;
 }
