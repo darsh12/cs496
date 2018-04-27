@@ -82,7 +82,6 @@ function sendRequest(element) {
     var attUtilDeckID = $(".card.js-deck-item.util_deck_current").attr("data-id");
 
 
-    // TODO: validate decks are chosen before sending request and closing modal
     if(attCharDeckID == null || attUtilDeckID == null) {
         $("#request_error").html("Choose both a character and utility deck before confirming.")
         return;

@@ -1,0 +1,40 @@
+{% extends 'tabs/my_profile.html.twig' %}
+{% import 'macros/battle_history.html.twig' as macro %}
+
+{% block sub_tabs %}
+    <ul class="sub_tabs">
+        <li class="sub_tab" onclick="location.href='{{ path('app_my-profile') }}'" >Stats</li> {# stats is default current sub-tab #}
+        <li class="sub_tab current" onclick="location.href='{{ path('app_history-ajax', {'type':'best'}) }}'">Battle History</li>
+        <li class="sub_tab" onclick="location.href='{{ path('app_my-profile-achieve') }}'">Achievements</li>
+        <li class="sub_tab" onclick="location.href='{{ path('app_my-profile-edit') }}'">Edit Profile</li>
+    </ul>
+{% endblock %}
+
+{% block sub_sub_tabs %}
+    <ul class="history">
+        {%  if type == "best" %}
+            <li onclick="location.href='{{ path('app_history-ajax', {'type':'best'}) }}'" class="current">BEST BATTLE</li>
+        {% else %}
+            <li onclick="location.href='{{ path('app_history-ajax', {'type':'best'}) }}'">BEST BATTLE</li>
+        {% endif %}
+
+        {%  if type == "worst" %}
+            <li onclick="location.href='{{ path('app_history-ajax', {'type':'worst'}) }}'" class="current">WORST BATTLE</li>
+        {% else %}
+            <li onclick="location.href='{{ path('app_history-ajax', {'type':'worst'}) }}'">WORST BATTLE</li>
+        {% endif %}
+
+        <li onclick="getDynamicHistoryContent(this, 'history_container','{{ path('app_history-ajax', {'type':'all'}) }}')">All BATTLES</li>
+    </ul>
+{% endblock %}
+
+{% block dynamic_container %}
+
+    {% if battleRecordExists %}
+        <div id="history_container">
+            {{ macro.battleHistory(battle, battle_request, att_chars, att_utils, def_chars, def_utils) }}
+        </div>
+    {% else %}
+        <p style="width: fit-content; margin: 5% auto auto auto; font-size: 1.5em;">You have no battle record for this statistic.</p>
+    {% endif %}
+{% endblock %}

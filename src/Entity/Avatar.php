@@ -22,11 +22,17 @@ class Avatar
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank(message="Please, upload the avatar as an image file.")
-     * @Assert\File(
+     * @Assert\Image(
      *     maxSize = "5M",
-     *     maxSizeMessage="File must be less than 5mb in size",
+     *     maxSizeMessage="Image must be less than 5mb in size",
+     *     minWidth = 150,
+     *     minWidthMessage="Image width must be greater than 150 pixels",
+     *     minHeight = 170,
+     *     minHeightMessage="Image height must be greater than 170 pixels",
      *     mimeTypes={ "image/*" },
-     *     mimeTypesMessage="File must be an image")
+     *     mimeTypesMessage="File must be an image"),
+     *     detectCorrupted=true,
+     *     corruptedMessage="Image file is corrupted, please use another image"
      */
     private $image_path;
 
