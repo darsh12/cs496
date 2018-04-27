@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -16,6 +17,17 @@ class CustomCard
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CustomCardVote", mappedBy="customCard", orphanRemoval=true)
+     */
+    private $customCards;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->customCards = new ArrayCollection();
+    }
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="customCards")
@@ -49,7 +61,6 @@ class CustomCard
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
      * @Assert\Choice(choices={"World Star", "Professional", "Amateur"})
      */
     private $char_tier;

@@ -51,6 +51,11 @@ class User extends BaseUser implements TwoFactorInterface
     private $customCards;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CustomCardVote", mappedBy="user", orphanRemoval=true)
+     */
+    private $userCustomCardVotes;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserAchievement", mappedBy="user")
      */
     private $userAchievements;
@@ -93,6 +98,7 @@ class User extends BaseUser implements TwoFactorInterface
         $this->userCharDecks = new ArrayCollection();
         $this->userUtilDecks = new ArrayCollection();
         $this->customCards = new ArrayCollection();
+        $this->userCustomCardVotes = new ArrayCollection();
         $this->userAchievements = new ArrayCollection();
         $this->battleRequests_attacker = new ArrayCollection();
         $this->battlerRequests_defender = new ArrayCollection();
