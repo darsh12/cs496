@@ -5,7 +5,9 @@
 {% block title %}User Cards{% endblock %}
 
 {% block inventory_tab %}
-    <li class="tab" ><a class="current" href="{{ path('show_user_cards') }}">Inventory<span class="sr-only"></span></a></li>
+    <li class="tab">
+        <a class="current" href="{{ path('show_user_cards') }}">Inventory<span class="sr-only"></span></a>
+    </li>
 {% endblock %}
 
 {% block sub_tabs %}
@@ -36,7 +38,7 @@
                 <div class="col-4">
                     <div class="card js-card-item" style="background-color: inherit">
                         <div class="card-header text-dark text-center">
-                           {{ 'cards.number_of_cards'|trans }}: {{ i.cardCount }}
+                            {{ 'cards.number_of_cards'|trans }}: {{ i.cardCount }}
                         </div>
                         {{ macros.charCard(i.charCard, i.charCard.avatar.imagePath) }}
                         <div class="card-body">
@@ -100,16 +102,15 @@
                     $.ajax({
                         url: $(this).data('url'),
                         method: 'POST',
-                        error: function () {
-                            location.reload();
-                        },
-
-                    }).done(function () {
+                    }).done(function (data) {
                         $el.fadeOut();
-                        setTimeout(function () {
-                            location.reload();
-                        }, 500)
-
+                        if (data.success === true) {
+                            window.location.href = data.url;
+                        } else if (data.success === false) {
+                            window.location.href = data.url;
+                        }
+                    }).fail(function (data) {
+                        location.reload();
                     });
                 }
 

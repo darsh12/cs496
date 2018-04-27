@@ -7,16 +7,15 @@ use App\Entity\UserUtilDecks;
 use App\Form\UserCharDeckType;
 use App\Form\UserUtilDeckType;
 use Doctrine\Common\Persistence\ObjectManager;
-use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use SensioLabs\Security\Exception\HttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Exception\LogicException;
 
 class UserDecksController extends Controller {
     /**
@@ -62,7 +61,7 @@ class UserDecksController extends Controller {
             for ($i = 0; $i < sizeof($userCharDeckRepo); $i++) {
                 if ($name === ($userCharDeckRepo[$i]->getName())) {
                     $this->addFlash('error', 'Char deck name in use');
-                    throw new Exception($this->redirect($request->getUri()));
+                    throw new HttpException(403, $this->redirect($request->getUri()));
                 }
 
             }
@@ -72,7 +71,7 @@ class UserDecksController extends Controller {
                 ($card3 === $card4) || ($card3 === $card5) ||
                 ($card4 === $card5)) {
                 $this->addFlash('error', 'Cannot have the same card twice in the same deck');
-                throw new LogicException($this->redirect($request->getUri()));
+                throw new HttpException(403, $this->redirect($request->getUri()));
             }
 
             $entityManager->persist($deck);
@@ -115,7 +114,7 @@ class UserDecksController extends Controller {
             for ($i = 0; $i < sizeof($userUtilDeckRepo); $i++) {
                 if ($name === ($userUtilDeckRepo[$i]->getName())) {
                     $this->addFlash('error', 'Util deck name in use');
-                    throw new Exception($this->redirect($request->getUri()));
+                    throw new HttpException(403, $this->redirect($request->getUri()));
                 }
 
             }
@@ -123,7 +122,7 @@ class UserDecksController extends Controller {
             if (($card1 === $card2) || ($card1 === $card3) ||
                 ($card2 === $card3)) {
                 $this->addFlash('error', 'Cannot have the same card twice in the same deck');
-                throw new LogicException($this->redirect($request->getUri()));
+                throw new HttpException(403, $this->redirect($request->getUri()));
             }
 
             $entityManager->persist($deck);
@@ -151,28 +150,36 @@ class UserDecksController extends Controller {
 
         $user = $this->getUser();
         $userCharDecks = $manager->getRepository(UserCharDecks::class)->find($id);
-        $name = $userCharDecks->getName();
 
         if ((!$userCharDecks) || ($userCharDecks->getUser() !== $user)) {
             $this->addFlash('error', 'Card deck not found');
-            throw  new HttpException("Card deck not found", 404);
+            throw  new NotFoundHttpException("Card deck not found");
         }
 
+        $name = $userCharDecks->getName();
 
         $manager->remove($userCharDecks);
 
         try {
             $manager->flush();
-        } catch (DBALException $e) {
-            $this->addFlash('error', 'Cannot delete util deck ' . $name . '. Card is in a battle');
-            throw  new DBALException('Util deck in use in a battle');
+        } catch (ForeignKeyConstraintViolationException $e) {
+            $this->addFlash('error', 'Cannot delete char deck ' . $name . '. Card is in a battle');
+            $data = [
+                'success' => false,
+                'url' => $this->generateUrl('user_decks_show')
+            ];
 
+            return new JsonResponse($data);
         }
 
         $this->addFlash('success', 'Deck deleted');
 
-//        return $this->redirectToRoute('user_decks_show');
-        return new Response(null, 204);
+        $data = [
+            'success' => true,
+            'url' => $this->generateUrl('user_decks_show')
+        ];
+
+        return new JsonResponse($data);
     }
 
     /**
@@ -184,26 +191,34 @@ class UserDecksController extends Controller {
 
         $user = $this->getUser();
         $userUtilDecks = $manager->getRepository(UserUtilDecks::class)->find($id);
-        $name = $userUtilDecks->getName();
+
 
         if ((!$userUtilDecks) || ($userUtilDecks->getUser() !== $user)) {
             $this->addFlash('error', 'Card deck not found');
-            throw  new HttpException("Card deck not found", 404);
+            throw  new NotFoundHttpException("Card deck not found");
         }
-
+        $name = $userUtilDecks->getName();
 
         $manager->remove($userUtilDecks);
         try {
             $manager->flush();
-        } catch (DBALException $e) {
+        } catch (ForeignKeyConstraintViolationException $e) {
             $this->addFlash('error', 'Cannot delete util deck ' . $name . '. Card is in a battle');
-            throw  new DBALException('Util deck in use in a battle');
+            $data = [
+                'success' => false,
+                'url' => $this->generateUrl('user_decks_show')
+            ];
+            return new JsonResponse($data);
 
         }
         $this->addFlash('success', 'Deck deleted');
 
-//        return $this->redirectToRoute('user_decks_show');
-        return new Response(null, 204);
+        $data = [
+            'success' => true,
+            'url' => $this->generateUrl('user_decks_show')
+        ];
+
+        return new JsonResponse($data);
     }
 
 

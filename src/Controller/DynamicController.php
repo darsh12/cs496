@@ -58,8 +58,13 @@ class DynamicController extends Controller
 
         $profilePicturePath = $avatarDirectory.'/'.$userAvatar->getImagePath();
 
+        // Calculate User's progress based on their current level and XP held
+        $xpNeeded = ProfileController::GetUserNextLevelXP($userStatObj);
+        $xpHeld = $userStatObj->getExperience();
+        $userProgressionExperience = ($xpHeld / $xpNeeded) * 100;
 
-        // TODO: set experience bar progress (width w/ bootstrap component) using exp points
+        // Get User's Rank display
+        $userRank = ProfileController::getRankName($userStatObj->getUserRank());
 
         //////////////////////////////////////
         ///// Favorite Character Query ///////
@@ -119,7 +124,7 @@ class DynamicController extends Controller
             // Get Favorite Utility Card's Id
             $worstUtilID = $userStatObj->getDefeatedUtilCard();
 
-            $utilStatCard = $this->getUtilStatCard($favUtilID);
+            $utilStatCard = $this->getUtilStatCard($worstUtilID);
 
             $worstUserUtilCard = $utilStatCard['userUtilCard'];
             $worstUtilCard = $utilStatCard['utilCard'];
@@ -133,8 +138,9 @@ class DynamicController extends Controller
                 [
                     "user_name" => $userName,
                     "user_stat" => $userStatObj,
-                    // TODO: Calculate level progress based on current level and current XP
-                    "level_progress" => 10,
+                    "user_rank" => $userRank,
+                    "level_progress" => $userProgressionExperience,
+                    "xp_needed" => $xpNeeded,
                     "total_matches" => $total,
                     "profile_pic" => $profilePicturePath,
 
@@ -162,9 +168,10 @@ class DynamicController extends Controller
             return $this->render('tabs/my_profile.html.twig',
                 [
                     "user_name" => $userName,
+                    "user_rank" => $userRank,
                     "user_stat" => $userStatObj,
-                    // TODO: Calculate level progress based on current level and current XP
-                    "level_progress" => 10,
+                    "level_progress" => $userProgressionExperience,
+                    "xp_needed" => $xpNeeded,
                     "total_matches" => $total,
                     "profile_pic" => $profilePicturePath,
                     "render_card_stats" => false
@@ -288,10 +295,12 @@ class DynamicController extends Controller
 
             $userStatObj = new UserStat();
             $userStatObj->setUser($user);
+            $userStatObj->setUserLevel(1);
+            $userStatObj->setUserRank(1);
 
             $entityManager->persist($userStatObj);
             $entityManager->flush();
-            $this->addFlash('success', 'You have now got cards');
+            $this->addFlash('success', 'You have received free cards for registering an account! Check your inventory for details.');
         }
 
         // Initialize Default Avatar Reference if User has none
@@ -308,6 +317,5 @@ class DynamicController extends Controller
 
         return new Response(null, 204);
     }
-
 
 }
