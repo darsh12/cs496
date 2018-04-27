@@ -19,6 +19,14 @@ class UserStatRepository extends ServiceEntityRepository
         parent::__construct($registry, UserStat::class);
     }
 
+    public function ExceptCurrentUser($user) {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.user != :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return UserStat[] Returns an array of UserStat objects
 //     */
