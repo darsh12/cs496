@@ -76,6 +76,7 @@ class BattleController extends AbstractController
         $attacker = $this->getUser();
 
         // TODO: Validate that defender is part of player list shown when choosing an opponent
+        // TODO: List should come from same logic used when rendering Find Game content
         $defender = $manager
             ->getRepository(User::class)
             ->findOneBy(["username" => $defName]);
