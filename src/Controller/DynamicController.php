@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Avatar;
+use App\Entity\BattleRequest;
 use App\Entity\CharCard;
 use App\Entity\UserCharCards;
 use App\Entity\UserStat;
@@ -196,9 +197,15 @@ class DynamicController extends Controller
      */
     public function battle(ObjectManager $manager)
     {
-        $allStat = $manager->getRepository(UserStat::class)->findAll();
+        $user = $this->getUser();
+        $userRepo = $manager->getRepository(UserStat::class)->findOneBy(['user' => $user]);
+        $otherUserStats = $manager->getRepository(UserStat::class)->ExceptCurrentUser($user);
+        $sentBattles = $manager->getRepository(BattleRequest::class)->getDefenderStat($user);
+        $receivedBattles = $manager->getRepository(BattleRequest::class)->getAttackerStat($user);
 
-        return $this->render('tabs/battle.html.twig', ["stat" => $allStat]);    }
+
+        return $this->render('tabs/battle.html.twig', ["otherUserStats" => $otherUserStats, 'sentBattles' => $sentBattles, 'receivedBattles' => $receivedBattles, 'userStats' => $userRepo]);
+    }
 
     /**
      * @Route("/market",name="app_market")
