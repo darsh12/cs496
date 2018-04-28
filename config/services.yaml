@@ -33,3 +33,8 @@ services:
     App\Service\FileUploader:
             arguments:
                 $targetDirectory: '%avatar_directory%'
+
+    app.redirect_after_register_confirmation:
+        class: App\EventSubscriber\RedirectAfterRegistrationConfirmSubscriber
+        tags:
+            - {name: kernel.event_subscriber}
