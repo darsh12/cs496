@@ -221,17 +221,29 @@
 }
 
 .history_header div:nth-child(2) {
+    font-weight: bold;
     border-radius: 0 0 10px 10px;
     background-color: #ffeb00;
 }
 
+.history_item {
+
+}
+
+.history_item_content {
+
+}
+
 .battle_report {
-    padding: 5% 1% 5% 1%;
+    max-width: 15%;
+    position: fixed;
+    padding: 1%;
     border-radius: 10px;
-    margin-top: 3%;
+     margin-top: 4%;
     height: 380px;
     background-color: #FFFFFF;
     text-align: center;
+    width: inherit;
 }
 
 /* Collapsible Card CSS*/
