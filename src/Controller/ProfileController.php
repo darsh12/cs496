@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Avatar;
+use App\Entity\Battle;
+use App\Entity\BattleRequest;
 use App\Entity\UserStat;
 use App\Form\UserAvatarType;
 use App\Service\FileUploader;
@@ -19,7 +21,6 @@ use Symfony\Component\HttpFoundation\Response;
 class ProfileController extends Controller
 {
     /**
-
      * @Route("/my_profile/edit",name="app_my-profile-edit")
      * @Security("has_role('ROLE_USER')")
      */
@@ -70,8 +71,8 @@ class ProfileController extends Controller
         }
 
 
+        // Create Change Password form
         $passForm = $this->createForm(ChangePasswordFormType::class, $user);
-
         $passForm->handleRequest($request);
 
         if ($passForm->isSubmitted() && $passForm->isValid()) {
@@ -93,6 +94,133 @@ class ProfileController extends Controller
                 "form" => $passForm->createView()
             ]);
     }
+
+    /**
+     * @Route("/my_profile/history",name="app_my-profile-history")
+     * @Security("has_role('ROLE_USER')")
+     */
+
+    // Player's Battle History Page
+    function battleHistory(ObjectManager $manager, Battle $battle, BattleRequest $battleRequest, String $type) {
+
+        $defCharDeck = $battle->getDefendCharDeck();
+        $defUtilDeck = $battle->getDefendUtilDeck();
+        $attCharDeck = $battleRequest->getAttackerCharDeck();
+        $attUtilDeck = $battleRequest->getAttackerUtilDeck();
+
+        $attChars = [
+            $attCharDeck->getCard1()->getCharCard(),
+            $attCharDeck->getCard2()->getCharCard(),
+            $attCharDeck->getCard3()->getCharCard(),
+            $attCharDeck->getCard4()->getCharCard(),
+            $attCharDeck->getCard5()->getCharCard()
+        ];
+        $attUtils = [
+            $attUtilDeck->getCard1()->getUtilCard(),
+            $attUtilDeck->getCard2()->getUtilCard(),
+            $attUtilDeck->getCard3()->getUtilCard()
+        ];
+        $defChars = [
+            $defCharDeck->getCard1()->getCharCard(),
+            $defCharDeck->getCard2()->getCharCard(),
+            $defCharDeck->getCard3()->getCharCard(),
+            $defCharDeck->getCard4()->getCharCard(),
+            $defCharDeck->getCard5()->getCharCard()
+        ];
+        $defUtils = [
+            $defUtilDeck->getCard1()->getUtilCard(),
+            $defUtilDeck->getCard2()->getUtilCard(),
+            $defUtilDeck->getCard3()->getUtilCard()
+        ];
+
+        // Return Call
+        return $this->render('profile/profile_history.html.twig', [
+            "battleRecordExists" => true,
+            "battle" => $battle,
+            "battle_request" => $battleRequest,
+            "att_chars" => $attChars,
+            "att_utils" => $attUtils,
+            "def_chars" => $defChars,
+            "def_utils" => $defUtils,
+            "type" => $type
+        ]);
+    }
+
+    // Route so I can grab the battleHistory macro w/ AJAX
+    /**
+     * @Route("/history/{type}",name="app_history-ajax")
+     * @Security("has_role('ROLE_USER')")
+     */
+
+    function battleHistoryAJAX($type, ObjectManager $manager) {
+
+        $user = $this->getUser();
+        $userStat = $manager
+            ->getRepository(UserStat::class)
+            ->findOneBy(["user" => $user]);
+
+        // Render Best Battle History
+        if($type === "best") {
+
+            $bestBattle = $userStat->getBestWinBattle();
+
+            if(!$bestBattle) {
+                // Return Call
+                return $this->render('profile/profile_history.html.twig', [
+                    "battleRecordExists" => false,
+                    "type" => $type
+                ]);
+            }
+
+            $bestBattleRequest = $bestBattle->getRequest();
+
+            // Return default Battle History view
+            return $this->battleHistory($manager, $bestBattle, $bestBattleRequest, "best");
+        }
+
+        // Render Worst Battle History
+        elseif($type === "worst") {
+
+            $worstBattle = $userStat->getWorstLostBattle();
+
+            if(!$worstBattle) {
+                // Return Call
+                return $this->render('profile/profile_history.html.twig', [
+                    "battleRecordExists" => false,
+                    "type" => $type
+                ]);
+            }
+
+            $worstBattleRequest = $worstBattle->getRequest();
+
+            // Return default Battle History view
+            return $this->battleHistory($manager, $worstBattle, $worstBattleRequest, "worst");
+        }
+        // Render All battles
+        else {
+
+            // Return Call
+            return $this->render('profile/profile_history_all.html.twig');
+        }
+
+
+    }
+
+    /**
+     * @Route("/my_profile/achieve",name="app_my-profile-achieve")
+     * @Security("has_role('ROLE_USER')")
+     */
+
+    // Player's Achievement List
+    function profileAchievements() {
+
+        // Return Call
+        return $this->render('profile/profile_achieve.html.twig');
+    }
+
+    //////////////////////////////
+    ///// HELPER METHODS /////////
+    //////////////////////////////
 
     ////////////////////////
     // Returns the number of experience points needed to gain the user's next level
@@ -136,7 +264,6 @@ class ProfileController extends Controller
     }
 
     /**
-
      * @Route("/level_scale_display",name="app_my-profile-level_scale_display")
      * @Security("has_role('ROLE_USER')")
      */

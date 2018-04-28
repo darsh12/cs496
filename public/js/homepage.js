@@ -1,6 +1,9 @@
 // Initialize popovers for stats page
+// $(function () {
+//     $('button[data-toggle="popover"]').popover()
+// });
 $(function () {
-    $('button[data-toggle="popover"]').popover()
+    $('[data-toggle="tooltip"]').tooltip()
 });
 
 // Appends rendered twig to container with given ID
@@ -20,6 +23,7 @@ function getDynamicTwigContent(button, containerId, url) {
         }
     });
 }
+
 
 // AJAX function for tabs
 function getDynamicTabContent(button) {

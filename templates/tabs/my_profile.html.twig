@@ -7,13 +7,17 @@
 {% block sub_tabs %}
     <ul class="sub_tabs">
         <li class="sub_tab current" onclick="location.href='{{ path('app_my-profile') }}'" >Stats</li> {# stats is default current sub-tab #}
-        <li class="sub_tab" onclick="location.href='{{ path('app_my-profile') }}'">Battle History</li>
-        <li class="sub_tab" onclick="location.href='{{ path('app_my-profile') }}'">Achievements</li>
+        <li class="sub_tab" onclick="location.href='{{ path('app_history-ajax', {'type':'best'}) }}'">Battle History</li>
+        <li class="sub_tab" onclick="location.href='{{ path('app_my-profile-achieve') }}'">Achievements</li>
         <li class="sub_tab" onclick="location.href='{{ path('app_my-profile-edit') }}'">Edit Profile</li>
     </ul>
 {% endblock %}
 
+{% block sub_sub_tabs %}
+{% endblock %}
+
 {% block dynamic_container %}
+
 
     {% import 'macros/card.html.twig' as macros %}
     {#Profile Stats #}
@@ -21,8 +25,8 @@
         {#Profile Image, Level, Progression #}
         <div class="profile_info">
 
-            <div class="profile_name">{{ user_name }}</div>
-            <img src="{{ profile_pic }}"
+            <div style="cursor: pointer"  onclick="location.href='{{ path('app_my-profile-edit') }}'" class="profile_name">{{ user_name }}</div>
+            <img style="cursor: pointer" onclick="location.href='{{ path('app_my-profile-edit') }}'" src="{{ profile_pic }}"
                  class="profile_img">
             <div class="profile_level">
                 <span>{{ user_stat.userLevel }}</span>
@@ -52,55 +56,43 @@
         <h4 class="header-center">FAVORITE CHARACTER</h4>
 
         {% if render_card_stats %}
-            <div class="container">
+            <div class="container" style="margin-bottom: 22%;" data-html="true" data-toggle="tooltip" data-placement="bottom"
+                 title="Enemy Cards Defeated: {{ fav_user_char_card.getCardKill }}<br>
+                    Times Defeated: {{ fav_user_char_card.getCardDeath }}<br>
+                    Times Used: {{ fav_user_char_card.getCardUses }}">
                 {{ macros.charCard(fav_char, fav_char_img) }}
             </div>
-
-            <button type="button" style="margin: 5% 0 0 36%;" class="btn btn-normal" data-trigger="focus" data-placement="top" data-toggle="popover" title="{{ fav_char.getCharName }}" data-content=
-            "Enemy Cards Defeated: {{ fav_user_char_card.getCardKill }} -------------
-        Times Defeated: {{ fav_user_char_card.getCardDeath }} ---------------------
-        Times Used: {{ fav_user_char_card.getCardUses }} -------------------------">
-                View Details</button>
         {% endif %}
 
         <h4 class="header-center">FAVORITE UTILITY</h4>
 
         {% if render_card_stats %}
 
-            <div class="container">
+            <div class="container" style="margin-bottom: 22%;" data-html="true" data-toggle="tooltip" data-placement="bottom"
+                 title="Times Used: {{ fav_user_util_card.getCardUses }}" >
                 {{ macros.utilCard(fav_util, fav_attr_mod, fav_util_img) }}
             </div>
-
-            <button type="button" style="margin: 5% 0 0 36%;" class="btn btn-normal" data-trigger="focus" data-placement="top" data-toggle="popover" title="{{ fav_util.getUtilName }}" data-content=
-            "Times Used: {{ fav_user_util_card.getCardUses }}">
-                View Details</button>
         {% endif %}
 
         <h4 class="header-center">WORST CHARACTER</h4>
 
         {% if render_card_stats %}
-            <div class="container">
+            <div class="container" style="margin-bottom: 22%;" data-html="true" data-toggle="tooltip" data-placement="bottom"
+                 title="Enemy Cards Defeated: {{ worst_user_char_card.getCardKill }}<br>
+                    Times Defeated: {{ worst_user_char_card.getCardDeath }}<br>
+                    Times Used: {{ worst_user_char_card.getCardUses }}">
                 {{ macros.charCard(worst_char, worst_char_img) }}
             </div>
-
-            <button type="button" style="margin: 5% 0 0 36%;" class="btn btn-normal" data-trigger="focus" data-placement="top" data-toggle="popover" title="{{ worst_char.getCharName }}" data-content=
-            "Enemy Cards Defeated: {{ worst_user_char_card.getCardKill }} -------------
-        Times Defeated: {{ worst_user_char_card.getCardDeath }} ---------------------
-        Times Used: {{ worst_user_char_card.getCardUses }} ------------------------- ">
-                View Details</button>
 
         {% endif %}
 
         <h4 class="header-center" >WORST UTILITY</h4>
 
         {% if render_card_stats %}
-            <div class="container">
+            <div class="container" style="margin-bottom: 22%;" data-html="true" data-toggle="tooltip" data-placement="bottom"
+                 title="Times Used: {{ worst_user_util_card.getCardUses }}" >
                 {{ macros.utilCard(worst_util, worst_attr_mod, worst_util_img) }}
             </div>
-
-            <button type="button" style="margin: 5% 0 0 36%;" class="btn btn-normal" data-trigger="focus" data-placement="top" data-toggle="popover" title="{{ worst_util.getUtilName }}" data-content=
-            "Times Used: {{ worst_user_util_card.getCardUses }}">
-                View Details</button>
         {% endif %}
 
     </div>

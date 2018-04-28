@@ -9,7 +9,7 @@
 
 .search_player
 {
-   border-style: solid;
+   /*border-style: solid;*/
    float: left;
    height: 28em;
    width: 48%;
@@ -17,7 +17,7 @@
 
 .requests
 {
-   border-style: solid;
+   /*border-style: solid;*/
    float:  right;
    height: 28em;
    width: 48%;
@@ -87,18 +87,19 @@
 .request_tab {
    font-size: 1.5em;
    text-align: center;
-   width: 50%;
+   width: 100%;
+   list-style-type: none;
+
 }
 
-.request_tab a {
+.request_tab li {
    padding: 1%;
-   background-color: #FFFFFF;
    border-radius: 35px 35px 0 0;
-   display: block;
-   color: black;
+   display: inline-block;
+   width: 45%;
 }
 
-.request_tab a:hover {
+.request_tab li:hover {
    color: #FFFFFF;
    background-color: #ffeb00;
    text-decoration: none;
@@ -106,18 +107,44 @@
 
 }
 
-.request_tab a.current {
+.request_tab li.current {
    background-color: #ffeb00;
    color: #FFFFFF;
 }
 
-.request_tab.current {
-   border-top-left-radius: 50px;
-   border-bottom-left-radius: 50px;
-   background-color: #ffeb00;
+.request_tab_color{
+   background-color: white;
+}
+.request_tab_current {
+   background-color: yellow;
 }
 
 /*Temporary class for current tab selected*/
 .current {
    background-color: #ffeb00;
+}
+
+.request_list
+{
+   list-style-type: none;
+   margin: 3px;
+   background-color: #FB5607;
+}
+
+.request_list li {
+   cursor: pointer;
+}
+
+.request_list:nth-child(odd)
+{
+   background-color: #FFBE0B;
+}
+.request_list:hover {
+   background-color: white;
+}
+
+.request_list.current {
+   border-top-left-radius: 50px;
+   border-bottom-left-radius: 50px;
+   background-color: #3A86FF;
 }
