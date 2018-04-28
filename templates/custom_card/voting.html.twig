@@ -88,11 +88,15 @@
                                         {# do nothing #}
                                     {% endif %}
                                     <div class="row">
-                                        {{ totalVotes }}
+                                        <p data-toggle="tooltip" data-placement="right" title="Total number of votes">
+                                            {{ totalVotes }}
+                                        </p>
                                     </div>
                                     <div class="row">
                                         {% set votePerc = votePerc * 100 %}
-                                        {{ votePerc|number_format(0) ~ '%' }}
+                                        <p data-toggle="tooltip" data-placement="bottom" title="Voting percantage">
+                                            {{ votePerc|number_format(0) ~ '%' }}
+                                        </p>
                                     </div>
 
                                 </div>
@@ -132,4 +136,10 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('build/js/custom-card.js') }}" ></script>
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
 {% endblock %}
