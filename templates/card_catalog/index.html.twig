@@ -70,6 +70,7 @@
             <div class="col-12 card-grid">
                 {% if cards is defined %}
                     {% for card in cards %}
+                {% set imagePath = char_card_dir~'/'~card.image_path %}
                         {% if loop.index0 is divisible by (3) %}
                             {% if loop.index0 != 0 %}
                                 </div>
@@ -84,7 +85,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-6">
-                                    <img src="{{ card.image_path }}" class="img-thumbnail cardImage"
+                                    <img src="{{ card.imagePath }}" class="img-thumbnail cardImage"
                                          alt="{{ card.char_name }} character image" title="{{ card.char_name }}">
                                 </div>
                                 <div class="col-4">
