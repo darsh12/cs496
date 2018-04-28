@@ -122,7 +122,7 @@ class CustomCardController extends Controller
         $charCard = new CharCard();
         $charCardImg = new Avatar();
 
-        $charCard->setCharName($customCard->getCharName());
+        $charCard->setCharName(ucwords($customCard->getCharName()));
         $charCard->setCharType($customCard->getCharType());
         $charCard->setCharClass($customCard->getCharClass());
         $charCard->setCharTier($customCard->getCharTier());
