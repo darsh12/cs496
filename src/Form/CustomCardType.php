@@ -36,15 +36,6 @@ class CustomCardType extends AbstractType
                     'Tank' => 'Tank',
                 )
             ))
-            ->add('char_tier', ChoiceType::class, array(
-                'label' => 'Tier',
-                'placeholder' => 'Select Tier',
-                'choices' => array(
-                    'Amateur' => 'Amateur',
-                    'Professional' => 'Professional',
-                    'World Star' => 'World Star',
-                )
-            ))
             ->add('image_file', FileType::class, array(
                 'label' => 'Upload Image (jpeg, gif, png)'
             ))

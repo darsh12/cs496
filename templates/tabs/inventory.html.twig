@@ -6,10 +6,12 @@
 
 {% block sub_tabs %}
     <ul class="sub_tabs">
-        <li class="sub_tab" data-url="inventory/card-catalog" onclick="getDynamicTabContent(this)">Card Catalog</li>
-    </ul>
-    <ul class="sub_tabs">
-        <li class="sub_tab" data-url="inventory/custom-card" onclick="getDynamicTabContent(this)">Custom Card</li>
+        <li class="sub_tab" onclick="location.href='{{ path('custom_card') }}'">Custom Card</li>
     </ul>
 {% endblock %}
 
+{% block inventory %}
+    <p style="color: red;">
+        Youre now in the Inventory page
+    </p>
+{% endblock %}
