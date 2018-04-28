@@ -40,8 +40,16 @@
                         </div>
                         <div class="col-3">
                             {% set voteCount = 0 %}
+                            {% set upCount = 0 %}
+                            {% set downCount = 0 %}
                             {% for vote in cardVotes %}
                                 {% if card.id == vote.customCard.id %}
+                                    {% if vote.vote == 'Up' %}
+                                        {% set upCount = upCount + 1 %}
+                                    {% else %}
+                                        {% set downCount = downCount + 1 %}
+                                    {% endif %}
+
                                     {% if user == vote.user %}
                                         {% set voteCount = voteCount + 1 %}
                                     {% endif %}
@@ -68,15 +76,25 @@
                                     </div>
                                 </div>
                             {% else %}
-                                <div class="bar-graph">
+                                <div class="vote-percentage">
+                                    {% set totalVotes = upCount + downCount %}
+                                    {% set votePerc = 0 %}
+                                    {% if upCount > downCount %}
+                                        {% set votePerc = upCount / totalVotes %}
+                                    {% elseif downCount > upCount %}
+                                        {% set votePerc = downCount / totalVotes %}
+                                        {% set votePerc = -votePerc %}
+                                    {% else %}
+                                        {# do nothing #}
+                                    {% endif %}
                                     <div class="row">
-                                        <div class="col-6 text-center">
-
-                                        </div>
-                                        <div class="col-6 text-center">
-
-                                        </div>
+                                        {{ totalVotes }}
                                     </div>
+                                    <div class="row">
+                                        {% set votePerc = votePerc * 100 %}
+                                        {{ votePerc|number_format(0) ~ '%' }}
+                                    </div>
+
                                 </div>
                             {% endif %}
                         </div>
