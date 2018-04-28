@@ -40,7 +40,7 @@
             position: fixed;
         ">
                 <div>REPORT</div>
-                <div>4/20/18</div>
+                <div>{{ battle.time|date('m/d/Y') }}</div>
             </div>
             <div class="battle_report">{{ battle.report }}</div>
         </div>

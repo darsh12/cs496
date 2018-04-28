@@ -113,6 +113,12 @@ function showReceivedPopup(element)
 // Close modal on return and delete battle request records server side
 function declineBattle(element) {
 
+    element.html("Loading...");
+    element.attr("onclick", "")
+
+    var requestButton = $("#requestButton");
+    requestButton.attr("onclick", "")
+
     var requestID = $(element).attr("data-request");
 
     $.ajax({
@@ -143,6 +149,9 @@ function declineBattle(element) {
 // Change view of screen to let defender choose util cards, eventually peek at attacker's if applicable
 function acceptBattle(element) {
 
+    $('#playerModal').modal('hide')
+    $(".modal-backdrop.show").remove();
+
     var requestButton = $("#requestButton");
     requestButton.html("Loading...");
 
@@ -168,11 +177,8 @@ function acceptBattle(element) {
 
 }
 
-
+// Sends data to insert Battle Record
 function startBattle(element){
-    var requestButton = $("#requestButton");
-    requestButton.attr("onclick", "");
-    requestButton.html("Loading...");
 
     var attName = $(element).attr('data-name');
     var requestid = $(element).attr('data-name2');
@@ -189,7 +195,6 @@ function startBattle(element){
 
     $.ajax({
 
-        // Using dynamic urls for now, may change if not secure enough
         url: '/battle/start',
         type: "POST",
         data: {

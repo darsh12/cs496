@@ -1,48 +1,59 @@
-<div>
-    <h3 class="leaderboard_title">Leaderboard</h3>
-</div>
+{% extends "tabs/battle.html.twig" %}
 
-
-<div >
-    {% for user_stat in stat  %}
-
-    <ul class="leaderboard">
-        <li style="" data-toggle="modal" data-target="#playerModal" data-name="{{ user_stat.user}}" onclick="showLeaderboardPopup(this)">
-            <div style="">
-                Rank: {{ user_stat.userRank }}
-            </div>
-            <div style="">
-                {{ user_stat.user}}
-            </div>
-            <div style="">
-                Level: {{ user_stat.userLevel }}
-            </div>
-        </li>
+{% block sub_tabs %}
+    <ul class="sub_tabs">
+        <li class="sub_tab" onclick="location.href='{{ path('app_battle') }}'">Find Game</li> {# Find Game is default current sub-tab #}
+        <li class="sub_tab current" onclick="location.href='{{ path('app_my-battle-leaderboard') }}'">Leaderboard</li>
     </ul>
+{% endblock %}
 
-    {% endfor %}
-
-    <!-- The Modal -->
-    <div class="modal fade" id="playerModal">
-        <div class="modal-dialog">
-            <div class="modal-content custom">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    {#<button id="requestButton" data-name="" type="button" class="btn btn-normal" onclick="beginRequest(this);" >Choose Decks to Battle</button>#}
-                </div>
-
-            </div>
-        </div>
+{% block dynamic_container %}
+    <div>
+        <h3 class="leaderboard_title">Leaderboard</h3>
     </div>
 
-</div>
+
+    <div >
+        {% for user_stat in stat  %}
+
+        <ul class="leaderboard">
+            <li style="" data-toggle="modal" data-target="#playerModal" data-name="{{ user_stat.user}}" onclick="showLeaderboardPopup(this)">
+                <div style="">
+                    Rank: {{ user_stat.userRank }}
+                </div>
+                <div style="">
+                    {{ user_stat.user}}
+                </div>
+                <div style="">
+                    Level: {{ user_stat.userLevel }}
+                </div>
+            </li>
+        </ul>
+
+        {% endfor %}
+
+        <!-- The Modal -->
+        <div class="modal fade" id="playerModal">
+            <div class="modal-dialog">
+                <div class="modal-content custom">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        {#<button id="requestButton" data-name="" type="button" class="btn btn-normal" onclick="beginRequest(this);" >Choose Decks to Battle</button>#}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

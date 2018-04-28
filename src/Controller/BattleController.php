@@ -135,28 +135,57 @@ class BattleController extends AbstractController
     public function battleStart(ObjectManager $manager)
     {
         $attName = $_POST['attName'];
-        $requestid = $_POST['requestid'];
+        $user = $this->getUser();
+        $requestID = $_POST['requestID'];
+
+        $requestToAccept = $manager
+            ->getRepository(BattleRequest::class)
+            ->find($requestID);
+
+        // If request is not associated with User, return error
+        if($requestToAccept->getDefender() !== $user) {
+
+            return $this->render("notification.html.twig", [
+                "notify_color" => "red",
+                "notify_title" => "Invalid Action",
+                "notify_msg" => "You may only accept requests sent to you."
+            ]);
+        }
+
+        $requestBattle = $manager
+            ->getRepository(Battle::class)
+            ->findOneBy(["request" => $requestToAccept]);
+
+        // If Request has associated battle record, do not Accept, return error
+        if($requestBattle) {
+
+            return $this->render("notification.html.twig", [
+                "notify_color" => "red",
+                "notify_title" => "Invalid Action",
+                "notify_msg" => "This battle request has already been accepted."
+            ]);
+        }
+
+
+        //////////////////////////////////////////////////////////
+        //////////////////////////////////////////////////////////
 
         $defCharDeckID = $_POST['defCharDeckID'];
         $defUtilDeckID = $_POST['defUtilDeckID'];
 
         $defender = $this->getUser();
 
-//        $attacker = $manager
-//            ->getRepository(User::class)
-//            ->findOneBy(["username" => $attName]);
-
-
-        $request = $manager
+        $requestToAccept = $manager
             ->getRepository(BattleRequest::class)
-            ->find($requestid);
+            ->find($requestID);
 
-
-        // Get Char Deck of Attacker
+        // Get Char Deck of Defender
         $defCharDeck = $manager
             ->getRepository(UserCharDecks::class)
             ->find($defCharDeckID);
-        // If Attacker's Char Deck is not their own, return error
+
+
+        // If Defender's Char Deck is not their own, return error
         if($defCharDeck->getUser() !== $defender) {
             return $this->render("notification.html.twig", [
                 "notify_color" => "red",
@@ -165,11 +194,11 @@ class BattleController extends AbstractController
             ]);
         }
 
-        // Get  Util Deck of Attacker
+        // Get Util Deck of Defender
         $defUtilDeck = $manager
             ->getRepository(UserUtilDecks::class)
             ->find($defUtilDeckID);
-        // If Attacker's Util Deck is not their own, return error
+        // If Defender's Util Deck is not their own, return error
         if($defUtilDeck->getUser() !== $defender) {
             return $this->render("notification.html.twig", [
                 "notify_color" => "red",
@@ -178,13 +207,13 @@ class BattleController extends AbstractController
             ]);
         }
 
+        // TODO: Logic to determine winner and build report will go here
+
         // Create Battle Request Record
         $battle = new Battle();
-//        $battle->setAttacker($attacker);
-//        $battle->setDefender($defender);
-        $battle->setRequest($request);
-//        $battle->setWinner($this->getUser());
-        //$battle->setReport('Devin is the Best');
+        $battle->setRequest($requestToAccept);
+        // $battle->setWinner();
+        // $battle->setReport();
         $battle->setDefendCharDeck($defCharDeck);
         $battle->setDefendUtilDeck($defUtilDeck);
 
@@ -192,11 +221,9 @@ class BattleController extends AbstractController
         $manager->flush();
 
 
-        return $this->render("notification.html.twig", [
-            "notify_color" => "#07ac14",
-            "notify_title" => "Battle Start",
-            "notify_msg" => "Battle successfully started against $attName"
-        ]);
+        // Render Results/Awards view
+//        return $this->render();
+        return new Response(dump($battle));
     }
 
 
@@ -215,6 +242,7 @@ class BattleController extends AbstractController
             ->getRepository(BattleRequest::class)
             ->find($requestID);
 
+        // If Request chosen to decline is not associated with user, return error
         if($requestToDelete->getDefender() !== $user) {
 
             return $this->render("notification.html.twig", [
@@ -224,6 +252,21 @@ class BattleController extends AbstractController
             ]);
         }
 
+        $requestBattle = $manager
+            ->getRepository(Battle::class)
+            ->findOneBy(["request" => $requestToDelete]);
+
+        // If Request has associated battle record, do not Decline, return error
+        if($requestBattle) {
+
+            return $this->render("notification.html.twig", [
+                "notify_color" => "red",
+                "notify_title" => "Invalid Action",
+                "notify_msg" => "This battle request has already been accepted."
+            ]);
+        }
+
+        // Delete Request Record
         $manager->remove($requestToDelete);
         $manager->flush();
 
