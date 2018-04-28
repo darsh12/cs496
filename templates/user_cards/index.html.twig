@@ -49,7 +49,7 @@
                                data-url="{{ path('sell_user_char_card',{
                                    cardId: i.charCard.id,
                                }) }}">
-                                <span><i class="far fa-money-bill-alt"></i> {{ i.charCard.price/2 }}</span>
+                                <span><i class="far fa-money-bill-alt"></i> {{ i.charCard.price*0.5 }}</span>
                             </a>
                         </div>
                     </div>
@@ -63,22 +63,23 @@
             {% for i in utilCard %}
                 {% set imagePath = util_card_dir ~'/'~ i.utilCard.avatar.imagePath %}
                 <div class="col-4">
-                    <div class="card js-card-item" style="background-color: inherit">
+                    <div class="card js-card-item" style="background-color: inherit;width: 305px;height: 300px;">
                         <div class="card-header text-dark text-center">
                             {{ 'cards.number_of_cards'|trans }}: {{ i.cardCount }}
                         </div>
                         {% set attributes = i.utilCard.attributeModifier | json_decode %}
                         {{ macros.utilCard(i.utilCard, attributes, imagePath ) }}
-                        <div class="card-body">
-                            <a href="#"
-                               class="list-group-item list-group-item-action list-group-item-danger text-center js-card-remove"
-                               data-url="{{ path('sell_user_util_card',{
-                                   cardId: i.utilCard.id,
-                               }) }}">
-                                <span class="fa"><i class="far fa-money-bill-alt"></i> {{ i.utilCard.price/2 }}</span>
-                            </a>
-                        </div>
                     </div>
+                    <div class="card-functions" style="margin-top: 30%">
+                        <a href="#" style="margin-top: 5%"
+                           class="list-group-item list-group-item-action list-group-item-danger text-center js-card-remove"
+                           data-url="{{ path('sell_user_util_card',{
+                               cardId: i.utilCard.id,
+                           }) }}">
+                            <span class="fa"><i class="far fa-money-bill-alt"></i> {{ i.utilCard.price*0.75 }}</span>
+                        </a>
+                    </div>
+
                 </div>
             {% endfor %}
         </div>
