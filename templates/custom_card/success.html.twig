@@ -26,7 +26,8 @@
     <div class="col-8 offset-2 text-center success-message">
         <h1 class="mb-5">Your custom character card is now in the selection queue waiting for approval.</h1>
         <div class="row">
-            {{ macros.custCharCard(card, card.image_file) }}
+            {% set imagePath = custom_char_card_dir ~'/'~ card.imageFile %}
+            {{ macros.charCard(card, imagePath) }}
         </div>
 
         <h2>Hopefully you made a card that we deem acceptable to join the game!</h2>

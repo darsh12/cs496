@@ -32,10 +32,11 @@
 
         {% for card in cards %}
             {% if card.dateAccepted != null %}
+                {% set imagePath = custom_char_card_dir ~'/'~ card.imageFile %}
                 <div class="custom-card mb-5">
                     <div class="row">
                         <div class="col-6">
-                            {{ macros.custCharCard(card, card.image_file) }}
+                            {{ macros.charCard(card, imagePath) }}
                         </div>
                         <div class="col-3">
                             {% set voteCount = 0 %}

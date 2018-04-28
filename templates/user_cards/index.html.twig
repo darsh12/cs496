@@ -35,15 +35,17 @@
 
         <div class="row" id="char card">
             {% for i in charCard %}
+                {% set imagePath = char_card_dir ~'/'~ i.charCard.avatar.imagePath %}
                 <div class="col-4">
-                    <div class="card js-card-item" style="background-color: inherit">
+                    <div class="card js-card-item" style="background-color: inherit;height: 400px; margin-top: 5%;">
                         <div class="card-header text-dark text-center">
                             {{ 'cards.number_of_cards'|trans }}: {{ i.cardCount }}
                         </div>
-                        {{ macros.charCard(i.charCard, i.charCard.avatar.imagePath) }}
-                        <div class="card-body">
+                        {{ macros.charCard(i.charCard, imagePath) }}
+                        <div class="card-functions">
                             <a href="#"
-                               class="list-group-item list-group-item-action list-group-item-danger text-center js-card-remove"
+                               class="list-group-item list-group-item-action list-group-item-danger  text-center js-card-remove"
+                               style="background-color: inherit;"
                                data-url="{{ path('sell_user_char_card',{
                                    cardId: i.charCard.id,
                                }) }}">
@@ -59,13 +61,14 @@
 
         <div class="row" id="util card">
             {% for i in utilCard %}
+                {% set imagePath = util_card_dir ~'/'~ i.utilCard.avatar.imagePath %}
                 <div class="col-4">
                     <div class="card js-card-item" style="background-color: inherit">
                         <div class="card-header text-dark text-center">
                             {{ 'cards.number_of_cards'|trans }}: {{ i.cardCount }}
                         </div>
                         {% set attributes = i.utilCard.attributeModifier | json_decode %}
-                        {{ macros.utilCard(i.utilCard, attributes, i.utilCard.avatar.imagePath) }}
+                        {{ macros.utilCard(i.utilCard, attributes, imagePath ) }}
                         <div class="card-body">
                             <a href="#"
                                class="list-group-item list-group-item-action list-group-item-danger text-center js-card-remove"
