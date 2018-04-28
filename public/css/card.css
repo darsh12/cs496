@@ -8,47 +8,43 @@
 .char_card {
     box-shadow: 0 5px 5px 1px black;
     padding: 3%;
-    height: 100%;
+    height: 280px;
     width: 100%;
-    background-color: red;
-    border-radius: 0 0 15px 15px;
+    border-radius: 15px 15px 15px 15px;
 }
 
 .char_name {
     box-shadow: 0 4px 5px 1px black;
-    color: #FFFFFF;
+    background: rgb(130,167,166);
+    background: radial-gradient(circle, rgba(130,167,166,1) 0%, rgba(120,89,100,1) 100%);
+    color: #02182B;
     font-family: "Ostrich-Sans Black";
     width: 100%;
     border-radius: 20px 20px 0 0px;
-    background-color: red;
     padding: 1.5%;
     font-size: 1.75em;
     text-align: center;
 }
 
-.amateur{
-    background-color: black;
-}
 .char_img {
-    height: 67%;
+    box-shadow: 0 4px 5px 1px black;
+    height: 55%;
     width: 100%;
-    border-bottom: 2px solid red;
 }
 
 .char_column {
     height: 100%;
     width: 50%;
-    background-color: #FFFFFF;
     float: left;
 }
 
 .char_rating {
     padding: 15% 0 15% 0;
-    font-size: 1.5em;
+    font-size: 1.6em;
+    font-weight: bold;
     text-align: center;
-    color: #FFFFFF;
+    color: #02182B;
     border-radius: 50%;
-    background-color: red;
     height: fit-content;
     margin-top: 25%;
 }
@@ -57,18 +53,19 @@
     color: black;
     height: 100%;
     text-align: left;
-    background-color: lightgrey;
     font-size: 1.45em;
     padding: 0;
     list-style: none;
 }
 
 .attribute_list li {
+    font-size: 22px;
+    font-weight: 700;
+    color: #02182B;
     padding: 2% 2% 2% 22%;
-}
-
-.attribute_list li:nth-child(odd){
-    background-color: dimgray;
+    -webkit-box-shadow: 0px 17px 9px -12px rgba(0,0,0,0.55);
+    -moz-box-shadow: 0px 17px 9px -12px rgba(0,0,0,0.55);
+    box-shadow: 0px 17px 9px -12px rgba(0,0,0,0.55);
 }
 
 .char_info {
@@ -79,11 +76,12 @@
 }
 
 .char_info li {
+    font-size: 1em;
+    font-weight: bold;
     margin: 4%;
     padding: 5%;
     border-radius: 10px;
-    color: #FFFFFF;
-    background-color: red;
+    color: #02182B;
 }
 
 
@@ -97,7 +95,7 @@
 .util_name {
     box-shadow: 0 4px 5px 1px black;
     margin-left: auto;
-    color: #FFFFFF;
+    color: #46351D;
     font-family: "Ostrich-Sans Black";
     width: 100%;
     border-radius: 20px 20px 0 0px;
@@ -117,17 +115,20 @@
 }
 
 .amateur {
-    background-color: #CD7F32;
+    background: rgb(175,103,31);
+    background: linear-gradient(90deg, rgba(175,103,31,1) 0%, rgba(154,136,107,1) 61%, rgba(252,179,69,1) 100%);
 }
 
 .professional {
-    background-color: #FFD700;
+    background: rgb(240,230,140);
+    background: linear-gradient(90deg, rgba(240,230,140,1) 0%, rgba(255,215,0,1) 43%, rgba(218,165,32,1) 100%);
 }
-
 
 .worldstar {
-    background-color: #9AC5db;
+    background: rgb(131,58,180);
+    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(57,133,164,1) 52%, rgba(69,214,252,1) 100%);
 }
+
 .mod_header {
     color: #FFFFFF;
     text-align: center;
