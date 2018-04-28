@@ -58,6 +58,11 @@ class Battle
      */
     private $userStats_worstLost;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $viewed=false;
+
     public function __construct()
     {
         $this->time = new \DateTime();
@@ -200,6 +205,18 @@ class Battle
                 $userStatsWorstLost->setWorstLostBattle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getViewed(): ?bool
+    {
+        return $this->viewed;
+    }
+
+    public function setViewed(bool $viewed): self
+    {
+        $this->viewed = $viewed;
 
         return $this;
     }

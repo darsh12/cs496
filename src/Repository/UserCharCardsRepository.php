@@ -12,13 +12,46 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method UserCharCards[]    findAll()
  * @method UserCharCards[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserCharCardsRepository extends ServiceEntityRepository
-{
-    public function __construct(RegistryInterface $registry)
-    {
+class UserCharCardsRepository extends ServiceEntityRepository {
+    public function __construct(RegistryInterface $registry) {
         parent::__construct($registry, UserCharCards::class);
     }
 
+
+    /**
+     * Exclusively used on forms only
+     * @param $user
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getUserCards($user) {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.user = :user')
+            ->setParameter('user', $user)
+            ->leftJoin('u.char_card', 'card')
+            ->orderBy('card.rating', 'DESC');
+
+
+    }
+
+    public function distinctCharCards($user) {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.user = :user')
+            ->setParameter('user', $user)
+            ->select('DISTINCT COUNT(c.char_card) as char_card')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function orderBy($user) {
+        return $this->createQueryBuilder('o')
+            ->andWhere('o.user = :user')
+            ->setParameter('user', $user)
+            ->leftJoin('o.char_card', 'card')
+            ->orderBy('card.rating', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 //    /**
 //     * @return UserCharCards[] Returns an array of UserCharCards objects
 //     */

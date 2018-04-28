@@ -14,7 +14,8 @@ class TwoFactorType extends AbstractType
         $builder
             ->add('twoFA_code', TextType::class, array(
                 'required'=> true,
-                'label'=>"2FA Code",
+                'label'=>"two_factor.code",
+                'translation_domain'=>'cbs',
                 'attr' => array('maxlength' => 6, 'minlength'=>6, 'style'=>'width: 160px;')
                 ))
         ;

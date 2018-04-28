@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CustomCardRepository")
@@ -17,6 +19,16 @@ class CustomCard
     private $id;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CustomCardVote", mappedBy="customCard", orphanRemoval=true)
+     */
+    private $customCards;
+
+    public function __construct()
+    {
+        $this->customCards = new ArrayCollection();
+    }
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="customCards")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -29,59 +41,104 @@ class CustomCard
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $char_name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Choice(choices={"Action", "Comedy", "Drama"})
      */
     private $char_type;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Choice(choices={"DPS", "Tank"})
      */
     private $char_class;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Choice(choices={"World Star", "Professional", "Amateur"})
      */
     private $char_tier;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(min=50, max=99)
      */
     private $rating;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
+     * @Assert\Range(min=50, max=99)
      */
     private $hit_points;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
+     * @Assert\Range(min=50, max=99)
      */
     private $attack;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
+     * @Assert\Range(min=50, max=99)
      */
     private $defense;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
+     * @Assert\Range(min=50, max=99)
      */
     private $agility;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
+     * @Assert\Range(min=50, max=99)
      */
     private $luck;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\NotBlank()
+     * @Assert\Range(min=1, max=9)
      */
     private $speed;
 
+    /**
+     * @ORM\Column(type="datetime")
+     * @Assert\DateTime()
+     */
+    private $dateCreated;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\DateTime()
+     */
+    private $dateAccepted;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Image(
+     *     maxSize = "5M",
+     *     maxSizeMessage="Image must be less than 5mb in size",
+     *     minWidth = 150,
+     *     minWidthMessage="Image width must be greater than 150 pixels",
+     *     minHeight = 170,
+     *     minHeightMessage="Image height must be greater than 170 pixels",
+     *     mimeTypes={ "image/*" },
+     *     mimeTypesMessage="File must be an image"),
+     *     detectCorrupted=true,
+     *     corruptedMessage="Image file is corrupted, please use another image"
+     */
+    private $image_file;
 
     public function getId()
     {
@@ -244,5 +301,51 @@ class CustomCard
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
 
+    /**
+     * @param mixed $dateCreated
+     */
+    public function setDateCreated($dateCreated): void
+    {
+        $this->dateCreated = $dateCreated;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateAccepted()
+    {
+        return $this->dateAccepted;
+    }
+
+    /**
+     * @param mixed $dateAccepted
+     */
+    public function setDateAccepted($dateAccepted): void
+    {
+        $this->dateAccepted = $dateAccepted;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImageFile()
+    {
+        return $this->image_file;
+    }
+
+    /**
+     * @param mixed $image_file
+     */
+    public function setImageFile($image_file): void
+    {
+        $this->image_file = $image_file;
+    }
 }

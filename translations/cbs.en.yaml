@@ -1,0 +1,21 @@
+global:
+  name: Name
+
+two_factor:
+  code: 2FA Code
+
+cards:
+  card_1: Card 1
+  card_2: Card 2
+  card_3: Card 3
+  card_4: Card 4
+  card_5: Card 5
+  choose_card: Choose Card
+  number_of_cards: Number of Cards
+
+decks:
+  create: Create
+
+upload:
+  image: Upload Image
+  upload: Upload

@@ -51,6 +51,11 @@ class User extends BaseUser implements TwoFactorInterface
     private $customCards;
 
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CustomCardVote", mappedBy="user", orphanRemoval=true)
+     */
+    private $userCustomCardVotes;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserAchievement", mappedBy="user")
      */
     private $userAchievements;
@@ -80,13 +85,20 @@ class User extends BaseUser implements TwoFactorInterface
      */
     private $coins=0;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Avatar", inversedBy="users")
+     */
+    private $avatar;
+
     public function __construct()
     {
+        parent::__construct();
         $this->userCharCards = new ArrayCollection();
         $this->userUtilCards = new ArrayCollection();
         $this->userCharDecks = new ArrayCollection();
         $this->userUtilDecks = new ArrayCollection();
         $this->customCards = new ArrayCollection();
+        $this->userCustomCardVotes = new ArrayCollection();
         $this->userAchievements = new ArrayCollection();
         $this->battleRequests_attacker = new ArrayCollection();
         $this->battlerRequests_defender = new ArrayCollection();
@@ -442,6 +454,18 @@ class User extends BaseUser implements TwoFactorInterface
     public function setCoins(int $coins): self
     {
         $this->coins = $coins;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?Avatar
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?Avatar $avatar): self
+    {
+        $this->avatar = $avatar;
 
         return $this;
     }

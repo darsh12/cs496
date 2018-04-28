@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b5fcbe375e23ab7a64ae78db2bd09ac8",
+    "content-hash": "2bc8835aca00d262ac3f2edcaf4f63eb",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -467,16 +467,16 @@
         },
         {
             "name": "doctrine/doctrine-bundle",
-            "version": "1.8.1",
+            "version": "1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/DoctrineBundle.git",
-                "reference": "eb6e4fb904a459be28872765ab6e2d246aac7c87"
+                "reference": "703fad32e4c8cbe609caf45a71a1d4266c830f0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/eb6e4fb904a459be28872765ab6e2d246aac7c87",
-                "reference": "eb6e4fb904a459be28872765ab6e2d246aac7c87",
+                "url": "https://api.github.com/repos/doctrine/DoctrineBundle/zipball/703fad32e4c8cbe609caf45a71a1d4266c830f0f",
+                "reference": "703fad32e4c8cbe609caf45a71a1d4266c830f0f",
                 "shasum": ""
             },
             "require": {
@@ -487,13 +487,13 @@
                 "symfony/console": "~2.7|~3.0|~4.0",
                 "symfony/dependency-injection": "~2.7|~3.0|~4.0",
                 "symfony/doctrine-bridge": "~2.7|~3.0|~4.0",
-                "symfony/framework-bundle": "~2.7|~3.0|~4.0"
+                "symfony/framework-bundle": "^2.7.22|~3.0|~4.0"
             },
             "conflict": {
                 "symfony/http-foundation": "<2.6"
             },
             "require-dev": {
-                "doctrine/orm": "~2.3",
+                "doctrine/orm": "~2.4",
                 "phpunit/phpunit": "^4.8.36|^5.7|^6.4",
                 "satooshi/php-coveralls": "^1.0",
                 "symfony/phpunit-bridge": "~2.7|~3.0|~4.0",
@@ -548,7 +548,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2017-11-24T13:09:19+00:00"
+            "time": "2018-04-19T14:07:39+00:00"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -1030,16 +1030,16 @@
         },
         {
             "name": "egulias/email-validator",
-            "version": "2.1.3",
+            "version": "2.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egulias/EmailValidator.git",
-                "reference": "1bec00a10039b823cc94eef4eddd47dcd3b2ca04"
+                "reference": "8790f594151ca6a2010c6218e09d96df67173ad3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/1bec00a10039b823cc94eef4eddd47dcd3b2ca04",
-                "reference": "1bec00a10039b823cc94eef4eddd47dcd3b2ca04",
+                "url": "https://api.github.com/repos/egulias/EmailValidator/zipball/8790f594151ca6a2010c6218e09d96df67173ad3",
+                "reference": "8790f594151ca6a2010c6218e09d96df67173ad3",
                 "shasum": ""
             },
             "require": {
@@ -1048,7 +1048,7 @@
             },
             "require-dev": {
                 "dominicsayers/isemail": "dev-master",
-                "phpunit/phpunit": "^4.8.35",
+                "phpunit/phpunit": "^4.8.35||^5.7||^6.0",
                 "satooshi/php-coveralls": "^1.0.1"
             },
             "suggest": {
@@ -1083,26 +1083,72 @@
                 "validation",
                 "validator"
             ],
-            "time": "2017-11-15T23:40:40+00:00"
+            "time": "2018-04-10T10:11:19+00:00"
         },
         {
-            "name": "endroid/qr-code",
-            "version": "3.2.8",
+            "name": "endroid/installer",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/endroid/qr-code.git",
-                "reference": "844f9ea95bd6b012097890c6106c909cd802add2"
+                "url": "https://github.com/endroid/installer.git",
+                "reference": "dde0a3d63ae92d4a67535e92da2b80d2b45cb06a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/endroid/qr-code/zipball/844f9ea95bd6b012097890c6106c909cd802add2",
-                "reference": "844f9ea95bd6b012097890c6106c909cd802add2",
+                "url": "https://api.github.com/repos/endroid/installer/zipball/dde0a3d63ae92d4a67535e92da2b80d2b45cb06a",
+                "reference": "dde0a3d63ae92d4a67535e92da2b80d2b45cb06a",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.1",
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.7|^6.0"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                },
+                "class": "Endroid\\Installer\\Installer"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Endroid\\Installer\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeroen van den Enden",
+                    "email": "info@endroid.nl"
+                }
+            ],
+            "time": "2018-04-10T20:59:23+00:00"
+        },
+        {
+            "name": "endroid/qr-code",
+            "version": "3.2.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/endroid/qr-code.git",
+                "reference": "be8af010a62b8086e26e01a40400b65dd0522db5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/endroid/qr-code/zipball/be8af010a62b8086e26e01a40400b65dd0522db5",
+                "reference": "be8af010a62b8086e26e01a40400b65dd0522db5",
                 "shasum": ""
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3",
+                "endroid/installer": "^1.0.3",
                 "ext-gd": "*",
-                "khanamiryan/qrcode-detector-decoder": "^1.0",
+                "khanamiryan/qrcode-detector-decoder": "1.0",
                 "myclabs/php-enum": "^1.5",
                 "php": ">=7.1",
                 "symfony/options-resolver": "^2.7|^3.0|^4.0",
@@ -1129,8 +1175,7 @@
             "authors": [
                 {
                     "name": "Jeroen van den Enden",
-                    "email": "info@endroid.nl",
-                    "homepage": "https://endroid.nl/"
+                    "email": "info@endroid.nl"
                 }
             ],
             "description": "Endroid QR Code",
@@ -1143,7 +1188,7 @@
                 "qr",
                 "qrcode"
             ],
-            "time": "2018-02-27T21:35:30+00:00"
+            "time": "2018-04-14T06:34:09+00:00"
         },
         {
             "name": "endroid/qr-code-bundle",
@@ -1331,16 +1376,16 @@
         },
         {
             "name": "khanamiryan/qrcode-detector-decoder",
-            "version": "1.0.1",
+            "version": "1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/khanamiryan/php-qrcode-detector-decoder.git",
-                "reference": "4ff2f14006930631ed30f0d15da72b032c96bc0a"
+                "reference": "96d5f80680b04803c4f1b69d6e01735e876b80c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/khanamiryan/php-qrcode-detector-decoder/zipball/4ff2f14006930631ed30f0d15da72b032c96bc0a",
-                "reference": "4ff2f14006930631ed30f0d15da72b032c96bc0a",
+                "url": "https://api.github.com/repos/khanamiryan/php-qrcode-detector-decoder/zipball/96d5f80680b04803c4f1b69d6e01735e876b80c7",
+                "reference": "96d5f80680b04803c4f1b69d6e01735e876b80c7",
                 "shasum": ""
             },
             "require": {
@@ -1351,11 +1396,11 @@
             },
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "Zxing\\": "lib/"
-                },
+                "classmap": [
+                    "lib/"
+                ],
                 "files": [
-                    "lib/Common/customFunctions.php"
+                    "lib/common/customFunctions.php"
                 ]
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1371,13 +1416,13 @@
                 }
             ],
             "description": "QR code decoder / reader",
-            "homepage": "https://github.com/khanamiryan/php-qrcode-detector-decoder/",
+            "homepage": "https://github.com/khanamiryan/php-qrcode-detector-decoder",
             "keywords": [
                 "barcode",
                 "qr",
                 "zxing"
             ],
-            "time": "2018-04-01T20:25:53+00:00"
+            "time": "2017-01-13T09:11:46+00:00"
         },
         {
             "name": "lcobucci/jwt",
@@ -1969,16 +2014,16 @@
         },
         {
             "name": "scheb/two-factor-bundle",
-            "version": "v3.3.0",
+            "version": "v3.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scheb/two-factor-bundle.git",
-                "reference": "34aa5dfc561dc3352134cdc08215f67dc55722b8"
+                "reference": "d14041decba23ba6dca97beb71a99517aa463b44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/scheb/two-factor-bundle/zipball/34aa5dfc561dc3352134cdc08215f67dc55722b8",
-                "reference": "34aa5dfc561dc3352134cdc08215f67dc55722b8",
+                "url": "https://api.github.com/repos/scheb/two-factor-bundle/zipball/d14041decba23ba6dca97beb71a99517aa463b44",
+                "reference": "d14041decba23ba6dca97beb71a99517aa463b44",
                 "shasum": ""
             },
             "require": {
@@ -2026,7 +2071,7 @@
                 "two-factor",
                 "two-step"
             ],
-            "time": "2018-03-19T21:24:09+00:00"
+            "time": "2018-04-17T17:35:02+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -3590,22 +3635,22 @@
         },
         {
             "name": "symfony/maker-bundle",
-            "version": "v1.3.1",
+            "version": "v1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/maker-bundle.git",
-                "reference": "c936864823ac60508e37d8fb1d9bc6a02d03ffa7"
+                "reference": "8713152f523b337177163a328485ea6a39fae7ad"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/c936864823ac60508e37d8fb1d9bc6a02d03ffa7",
-                "reference": "c936864823ac60508e37d8fb1d9bc6a02d03ffa7",
+                "url": "https://api.github.com/repos/symfony/maker-bundle/zipball/8713152f523b337177163a328485ea6a39fae7ad",
+                "reference": "8713152f523b337177163a328485ea6a39fae7ad",
                 "shasum": ""
             },
             "require": {
                 "doctrine/inflector": "^1.2",
                 "nikic/php-parser": "^4.0",
-                "php": "^7.1.3",
+                "php": "^7.0.8",
                 "symfony/config": "^3.4|^4.0",
                 "symfony/console": "^3.4|^4.0",
                 "symfony/dependency-injection": "^3.4|^4.0",
@@ -3617,7 +3662,7 @@
             "require-dev": {
                 "allocine/twigcs": "^3.0",
                 "doctrine/doctrine-bundle": "^1.8",
-                "doctrine/orm": "^2.6",
+                "doctrine/orm": "^2.3",
                 "friendsofphp/php-cs-fixer": "^2.8",
                 "symfony/phpunit-bridge": "^3.4|^4.0",
                 "symfony/process": "^3.4|^4.0"
@@ -3651,7 +3696,7 @@
                 "scaffold",
                 "scaffolding"
             ],
-            "time": "2018-03-21T13:40:46+00:00"
+            "time": "2018-04-19T17:28:47+00:00"
         },
         {
             "name": "symfony/monolog-bridge",
@@ -5443,6 +5488,180 @@
                 "productivity"
             ],
             "time": "2018-01-10T08:34:20+00:00"
+        },
+        {
+            "name": "fzaninotto/faker",
+            "version": "v1.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fzaninotto/Faker.git",
+                "reference": "d3ed4cc37051c1ca52d22d76b437d14809fc7e0d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fzaninotto/Faker/zipball/d3ed4cc37051c1ca52d22d76b437d14809fc7e0d",
+                "reference": "d3ed4cc37051c1ca52d22d76b437d14809fc7e0d",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3.3 || ^7.0"
+            },
+            "require-dev": {
+                "ext-intl": "*",
+                "phpunit/phpunit": "^4.0 || ^5.0",
+                "squizlabs/php_codesniffer": "^1.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Faker\\": "src/Faker/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "François Zaninotto"
+                }
+            ],
+            "description": "Faker is a PHP library that generates fake data for you.",
+            "keywords": [
+                "data",
+                "faker",
+                "fixtures"
+            ],
+            "time": "2017-08-15T16:48:10+00:00"
+        },
+        {
+            "name": "myclabs/deep-copy",
+            "version": "1.7.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/myclabs/DeepCopy.git",
+                "reference": "3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e",
+                "reference": "3b8a3a99ba1f6a3952ac2747d989303cbd6b7a3e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.6 || ^7.0"
+            },
+            "require-dev": {
+                "doctrine/collections": "^1.0",
+                "doctrine/common": "^2.6",
+                "phpunit/phpunit": "^4.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DeepCopy\\": "src/DeepCopy/"
+                },
+                "files": [
+                    "src/DeepCopy/deep_copy.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Create deep copies (clones) of your objects",
+            "keywords": [
+                "clone",
+                "copy",
+                "duplicate",
+                "object",
+                "object graph"
+            ],
+            "time": "2017-10-19T19:58:43+00:00"
+        },
+        {
+            "name": "nelmio/alice",
+            "version": "v3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nelmio/alice.git",
+                "reference": "ddcc459081434ac3a7a2bef2c8a78db49ba11e79"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nelmio/alice/zipball/ddcc459081434ac3a7a2bef2c8a78db49ba11e79",
+                "reference": "ddcc459081434ac3a7a2bef2c8a78db49ba11e79",
+                "shasum": ""
+            },
+            "require": {
+                "fzaninotto/faker": "^1.6",
+                "myclabs/deep-copy": "^1.5.2",
+                "php": "^7.1",
+                "symfony/property-access": "^2.8 || ^3.4 || ^4.0",
+                "symfony/yaml": "^2.8 || ^3.4 || ^4.0"
+            },
+            "conflict": {
+                "symfony/framework-bundle": "<3.4"
+            },
+            "require-dev": {
+                "bamarni/composer-bin-plugin": "^1.1.0",
+                "php-mock/php-mock": "^2.0",
+                "phpspec/prophecy": "^1.6",
+                "phpunit/phpunit": "^7.0",
+                "symfony/phpunit-bridge": "^3.4.5 || ^4.0.5",
+                "symfony/var-dumper": "^3.4 || ^4.0"
+            },
+            "suggest": {
+                "theofidry/alice-data-fixtures": "Wrapper for Alice to provide a persistence layer."
+            },
+            "type": "library",
+            "extra": {
+                "bamarni-bin": {
+                    "bin-links": false
+                },
+                "branch-alias": {
+                    "dev-master": "3.1.0-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/deep_clone.php"
+                ],
+                "psr-4": {
+                    "Nelmio\\Alice\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be"
+                },
+                {
+                    "name": "Tim Shelburne",
+                    "email": "shelburt02@gmail.com"
+                },
+                {
+                    "name": "Théo FIDRY",
+                    "email": "theo.fidry@gmail.com"
+                }
+            ],
+            "description": "Expressive fixtures generator",
+            "keywords": [
+                "Fixture",
+                "data",
+                "faker",
+                "test"
+            ],
+            "time": "2018-04-07T09:07:10+00:00"
         },
         {
             "name": "symfony/browser-kit",

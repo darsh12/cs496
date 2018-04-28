@@ -1,10 +1,336 @@
+/* Stats CSS */
 .profile_column {
     float: left;
+    width: 33.33%;
     height: 100%;
-    display: block;
-    margin-right: 1%;
-    margin-left: 1%;
-    /* Temp stuff*/
+}
+
+.profile_column:first-of-type {
+    float: left;
+}
+
+.profile_column:last-of-type{
+    float: right;
+}
+
+.profile_info {
+    text-align: center;
+    height: 50%;
+}
+
+.profile_name {
+    width: fit-content;
+    font-family: "Ostrich-Sans Black";
+    box-shadow: 0 1px 5px 1px black;
+    font-weight: bold;
+    border-radius: 10px 10px 50% 50%;
+    margin: auto;
+    background-color: #ffeb00;
+    border: 4px solid black;
+    padding: 5%;
+    padding-bottom: 6%;
+    font-size: 2em;
+    color: black;
+}
+
+.profile_img {
+    top: -11px;
+    border: 4px solid black;
+    height: 9em;;
+    border-radius: 50%;
+    width: 55%;
+    position: relative;
+    z-index: 2;
+}
+
+.profile_level {
+    box-shadow: 0 1px 5px 1px black;
+    font-size: 1em;
+    border-radius: 0 0 25% 25%;
+    top: -30px;
+    margin-left: 35%;
+    margin-right: 35%;
+    background-color: #ffeb00;
+    border: 3px solid black;
+    padding: 2% 2% 0% 2%;
+    position: relative;
+    z-index: 1;
+}
+
+.profile_level span {
+    font-size: 1.25em;
+    border-radius: 0 0 10px 10px;
+    padding: 16% 15% 8% 15%;
+    width: 100%;
     background-color: #FFFFFF;
+    display: block;
+    border: 2px solid black;
+}
+
+.progress_container {
+    display: inline-flex;
+    top: -22px;
+    width: 65%;
+    margin: auto;
+    position: relative;
+}
+
+.progress_container label {
+    padding: 0% 2% 0% 2%;
+    font-weight: bold;
+    margin: 3%;
+    width: fit-content;
+    border-radius: 5px;
+    background-color: #FFFFFF;
+}
+
+.progress.profile_progress {
+    background-color: #FFFFFF;
+    width: 100%;
+    box-shadow: 0 1px 1px 1px black;
+    border-radius: 15px;
+}
+
+.progress-bar.profile_progress_bar {
+    background-color: #ffeb00;
+}
+
+.profile_rank {
+    width: 50%;
+    box-shadow: 0 1px 5px 1px black;
+    text-align: center;
+    font-size: 1em;
+    border-radius: 60% 60% 25% 25%;
+    background-color: #ffeb00;
+    border: 3px solid black;
+    padding: 4% 4% 0% 4%;
+    z-index: 1;
+    margin: 34% auto auto auto;
+}
+
+.profile_rank span {
+    font-family: "Ostrich-Sans Black";
+    font-size: 1.25em;
+    border-radius: 60% 60% 10px 10px;
+    padding: 10% 15% 8% 15%;
+    width: 100%;
+    background-color: #FFFFFF;
+    display: block;
+    border: 2px solid black;
+}
+
+
+.stat_list {
+    padding: 0;
+    margin: 0 7% 0 7%;
+    font-size: 1.25em;
+}
+
+.stat_list li{
+    border-radius: 10px 20px 20px 10px;
+    background-color: #FFFFFF;
+    list-style: none;
     border: 1px solid black;
+    margin-top: 7%;
+}
+
+.stat_list label {
+    font-weight: bold;
+    border-right: 1px solid black;
+    border-radius: 12px 20px 20px 12px;
+    text-align: center;
+    width: 40%;
+    padding: 1%;
+    background-color: #ffeb00;
+    margin-bottom: 0;
+}
+
+
+/* Edit Profile CSS */
+.upload_container {
+    top: 7em;
+    position: relative;
+    right: 2em;
+}
+
+.upload_container input {
+    position: relative;
+    width: 205px;
+}
+
+.form_container {
+    position: relative;
+    bottom: 5em;
+    right: 5em;
+    width: 36%;
+    float: right;
+}
+
+.change_pass_form label {
+    width: 35%;
+    margin-left: 3%;
+}
+
+.change_pass_form button {
+    margin: 4% 0 0 28%;
+}
+
+#upload_error {
+    margin-top: 1%;
+    color: red;
+}
+
+/* Battle History CSS*/
+
+.history {
+    list-style: none;
+    margin: 2% 0 0 0;
+    clear: both;
+    float: left;
+    width: 15%;
+}
+.history li {
+    margin: 2% 1% 3% 0;
+    float: right;
+    width: 95%;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 1px 5px 1px black;
+    border-radius: 10px 0 0 10px;
+    background-color: #FFFFFF;
+    font-family: "Ostrich-Sans Black";
+    padding: 2.5%;
+    color: black;
+    font-size: 1.8em;
+}
+
+.history li.current {
+    background-color: #ffeb00;
+}
+
+.history li:hover {
+    background-color: #ffeb00;
+}
+
+.history_header {
+    border-radius: 0 0 10px 10px;
+    background-color: #FFFFFF;
+    width: 37%;
+    margin: 0 auto 2% auto;
+    text-align: center;
+}
+
+.history_header div:nth-child(2) {
+    font-weight: bold;
+    border-radius: 0 0 10px 10px;
+    background-color: #ffeb00;
+}
+
+.history_item {
+
+}
+
+.history_item_content {
+
+}
+
+.battle_report {
+    max-width: 15%;
+    position: fixed;
+    padding: 1%;
+    border-radius: 10px;
+     margin-top: 4%;
+    height: 380px;
+    background-color: #FFFFFF;
+    text-align: center;
+    width: inherit;
+}
+
+/* Collapsible Card CSS*/
+
+/* Character */
+div.character.card-collapse {
+    margin: 0;
+    height: 75px;
+    width: 165px;
+}
+
+.card-collapse .char_name {
+    height: 33%;
+    font-size: 1.3em;
+}
+
+.card-collapse .char_card {
+    height: 55px;
+}
+
+.card-collapse .char_column {
+    margin-left: 23%;
+    border-radius: 10px;
+}
+
+.card-collapse .char_column:nth-child(2) {
+    display: none;
+}
+
+.card-collapse .char_column:nth-child(3) {
+    border-radius: 10px;
+    margin: 0;
+    height: fit-content;
+}
+
+.card-collapse .char_img {
+    border-radius: 10px;
+    height: 100%;
+    width: 61%;
+    float: right;
+    border-bottom: none;
+}
+
+.card-collapse .char_rating {
+    float: right;
+    border-radius: 10px;
+    line-height: 2.5em;
+    padding: 0;
+    font-size: 1em;
+    color: black;
+    margin: auto;
+    font-weight: bold;
+    background-color: transparent;
+}
+
+/* Utility */
+div.utility.card-collapse  {
+    margin-top: 30px;
+    margin-bottom: 0;
+    height: 65px;
+    width: 165px;
+}
+
+.card-collapse .util_name {
+    font-size: 1.3em;
+}
+
+.card-collapse .util_img {
+    float: unset;
+    width: 40%;
+    height: 100%;
+    border-radius: 50%;
+    margin-left: 30%;
+}
+
+.card-collapse .mod_header {
+    display: none;
+}
+
+.card-collapse .util_attr_table {
+    display: none;
+}
+
+.card-collapse .effect_list {
+    display: none;
+}
+
+.card-collapse .effect_header {
+    display: none;
 }

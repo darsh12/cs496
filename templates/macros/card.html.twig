@@ -1,0 +1,161 @@
+{% macro charCard(card, image) %}
+
+    <div class="character">
+        {% set tierClass = card.charTier %}
+        {% set tierClass = (tierClass|replace({' ':''}) | lower) %}
+
+        <div class="char_name {{ tierClass }}">{{ card.charName }}</div>
+        <div class="char_card {{ tierClass }}">
+            {#Card Info #}
+            <div class="char_column">
+                <img class="char_img" src="{{ image }}">
+                <div style="width: 65%; height: 32%;" class="char_column">
+                    <ul class="char_info">
+                        <li>{{ card.charType }}</li>
+                        <li>{{ card.charClass }}</li>
+                    </ul>
+                </div>
+                <div style="width: 35%; height: 32%;" class="char_column">
+                    <div class="char_rating">
+                        {{ card.rating }}
+                    </div>
+                </div>
+            </div>
+            {#Card Attributes#}
+            <div class="char_column">
+                <div class="char_column">
+                    <ul class="attribute_list" style="font-weight: bold;">
+                        <li>HP</li>
+                        <li>ATT</li>
+                        <li>DEF</li>
+                        <li>AGI</li>
+                        <li>LCK</li>
+                        <li>SPD</li>
+                    </ul>
+                </div>
+                <div class="char_column">
+                    <ul class="attribute_list">
+                        <li>{{ card.hitPoints }}</li>
+                        <li>{{ card.attack }}</li>
+                        <li>{{ card.defense }}</li>
+                        <li>{{ card.agility }}</li>
+                        <li>{{ card.luck }}</li>
+                        <li>{{ card.speed }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro custCharCard(card, image) %}
+    {% set cardTier = card.char_tier %}
+    {% set cardTier = cardTier|replace({' ': ''}) %}
+    {% set cardTier = cardTier|lower %}
+    <div class="character">
+        {#<div class="char_name">{{ card.char_name }}</div>#}
+        <div class="char_card {{ cardTier }}">
+            <div class="char_name">{{ card.char_name }}</div>
+            {#Card Info #}
+            <div class="char_column">
+                <img class="char_img" src="{{ asset('images/custom_character_card/' ~ image) }}">
+                <div style="width: 65%; height: 32%;" class="char_column">
+                    <ul class="char_info">
+                        <li>{{ card.char_type }}</li>
+                        <li>{{ card.char_class }}</li>
+                    </ul>
+                </div>
+                <div style="width: 35%; height: 32%;" class="char_column">
+                    <div class="char_rating">
+                        {{ card.rating }}
+                    </div>
+                </div>
+            </div>
+            {#Card Attributes#}
+            <div class="char_column">
+                <div class="char_column">
+                    <ul class="attribute_list" style="font-weight: bold;">
+                        <li class="small-attr">HP</li>
+                        <li class="small-attr">ATT</li>
+                        <li class="small-attr">DEF</li>
+                        <li class="small-attr">AGI</li>
+                        <li class="small-attr">LCK</li>
+                        <li class="small-attr">SPD</li>
+                    </ul>
+                </div>
+                <div class="char_column">
+                    <ul class="attribute_list">
+                        <li>{{ card.hit_points }}</li>
+                        <li>{{ card.attack }}</li>
+                        <li>{{ card.defense }}</li>
+                        <li>{{ card.agility }}</li>
+                        <li>{{ card.luck }}</li>
+                        <li>{{ card.speed }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro utilCard(card, attribute, image) %}
+    <div class="utility">
+        <div class="util_name">{{ card.utilName }}</div>
+        <div class="util_card">
+            <h4 class="mod_header">ATTRIBUTE MODS</h4>
+            <table class="util_attr_table">
+                <tr>
+                    <td>HP</td>
+                    <td>{{ attribute.hp }}%</td>
+                </tr>
+                <tr>
+                    <td>ATT</td>
+                    <td>{{ attribute.attack }}%</td>
+                </tr>
+                <tr>
+                    <td>DEF</td>
+                    <td>{{ attribute.defense }}%</td>
+                </tr>
+            </table>
+
+            <table class="util_attr_table">
+                <tr>
+                    <td>AGI</td>
+                    <td>{{ attribute.agility }}%</td>
+                </tr>
+                <tr>
+                    <td>LCK</td>
+                    <td>{{ attribute.luck }}%</td>
+                </tr>
+                <tr>
+                    <td>SPD</td>
+                    <td>{{ attribute.speed }}%</td>
+                </tr>
+            </table>
+            <img class="util_img" src="{{ image }}">
+
+            <h4 class="effect_header">EFFECTS</h4>
+            <ul class="effect_list">
+                <li title="DEFENDING: Peek at {{ card.effectType }} of the attacker's character TYPES.&#10;ATTACKING: Hide {{ card.effectType }} of your character TYPES from the defender.">
+                    <label>SHOW TYPE</label>&nbsp&nbsp&nbsp&nbsp{{ card.effectType }}</li>
+
+                <li title="DEFENDING: Show the ORDER of {{ card.effectOrder }} of the attacker's exposed characters.&#10;ATTACKING: Hide {{ card.effectOrder }} of your exposed character's ORDER.">
+                    <label>SHOW ORD</label>&nbsp&nbsp&nbsp&nbsp{{ card.effectOrder }}</li>
+
+                <li title="DEFENDING: Peek at {{ card.effectClass }} of the attacker's character CLASSES.&#10;ATTACKING: Hide {{ card.effectClass }} of your character CLASSES from the defender.">
+                    <label>SHOW CLSS</label>&nbsp&nbsp&nbsp&nbsp{{ card.effectClass }}</li>
+
+            </ul>
+            <ul class="effect_list">
+                <li title="SWAP out {{ card.cardSwap }} characters in your deck for {{ card.cardSwap }} randomly selected characters from your inventory.">
+                    <label>SWAP CARD</label>&nbsp&nbsp&nbsp&nbsp{{ card.cardSwap }}</li>
+
+                <li title="DEFENDING: Peek at {{ card.effectChar }} of the attacker's CHARACTERS.&#10;ATTACKING: Hide {{ card.effectChar }} of your CHARACTERS from the defender.">
+                    <label>SHOW CHAR</label>&nbsp&nbsp&nbsp&nbsp{{ card.effectChar }}</li>
+
+                <li title="DEFENDING: Peek at {{ card.effectUtil }} of the attacker's UTILITY cards.&#10;ATTACKING: Hide {{ card.effectUtil }} of your UTILITY cards from the defender.">
+                    <label>SHOW UTIL</label>&nbsp&nbsp&nbsp&nbsp{{ card.effectUtil }}</li>
+            </ul>
+        </div>
+    </div>
+{% endmacro %}

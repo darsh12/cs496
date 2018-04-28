@@ -1,0 +1,202 @@
+/*Character Card CSS*/
+.character {
+    margin: 2% auto 14% auto;
+    height: 240px;
+    width: 270px;
+}
+
+.char_card {
+    box-shadow: 0 5px 5px 1px black;
+    padding: 3%;
+    height: 280px;
+    width: 100%;
+    border-radius: 15px 15px 15px 15px;
+}
+
+.char_name {
+    box-shadow: 0 4px 5px 1px black;
+    background: rgb(130,167,166);
+    background: radial-gradient(circle, rgba(130,167,166,1) 0%, rgba(120,89,100,1) 100%);
+    color: #02182B;
+    font-family: "Ostrich-Sans Black";
+    width: 100%;
+    border-radius: 20px 20px 0 0px;
+    padding: 1.5%;
+    font-size: 1.75em;
+    text-align: center;
+}
+
+.char_img {
+    box-shadow: 0 4px 5px 1px black;
+    height: 55%;
+    width: 100%;
+}
+
+.char_column {
+    height: 100%;
+    width: 50%;
+    float: left;
+}
+
+.char_rating {
+    padding: 15% 0 15% 0;
+    font-size: 1.6em;
+    font-weight: bold;
+    text-align: center;
+    color: #02182B;
+    border-radius: 50%;
+    height: fit-content;
+    margin-top: 25%;
+}
+
+.attribute_list {
+    color: black;
+    height: 100%;
+    text-align: left;
+    font-size: 1.45em;
+    padding: 0;
+    list-style: none;
+}
+
+.attribute_list li {
+    font-size: 22px;
+    font-weight: 700;
+    color: #02182B;
+    padding: 2% 2% 2% 22%;
+    -webkit-box-shadow: 0px 17px 9px -12px rgba(0,0,0,0.55);
+    -moz-box-shadow: 0px 17px 9px -12px rgba(0,0,0,0.55);
+    box-shadow: 0px 17px 9px -12px rgba(0,0,0,0.55);
+}
+
+.char_info {
+    text-align: center;
+    padding: 0;
+    list-style: none;
+    font-size: 1em;
+}
+
+.char_info li {
+    font-size: 1em;
+    font-weight: bold;
+    margin: 4%;
+    padding: 5%;
+    border-radius: 10px;
+    color: #02182B;
+}
+
+
+/* Utility Card CSS*/
+.utility {
+    margin: 2% auto 19% auto;
+    height: 270px;
+    width: 300px;
+}
+
+.util_name {
+    box-shadow: 0 4px 5px 1px black;
+    margin-left: auto;
+    color: #46351D;
+    font-family: "Ostrich-Sans Black";
+    width: 100%;
+    border-radius: 20px 20px 0 0px;
+    background-color: darkblue;
+    padding: 1.5%;
+    font-size: 1.75em;
+    text-align: center;
+}
+
+.util_card {
+    box-shadow: 0 5px 5px 1px black;
+    padding: 3%;
+    height: 100%;
+    width: 100%;
+    background-color: darkblue;
+    border-radius: 0 0 15px 15px;
+}
+
+.amateur {
+    background: rgb(175,103,31);
+    background: linear-gradient(90deg, rgba(175,103,31,1) 0%, rgba(154,136,107,1) 61%, rgba(252,179,69,1) 100%);
+}
+
+.professional {
+    background: rgb(240,230,140);
+    background: linear-gradient(90deg, rgba(240,230,140,1) 0%, rgba(255,215,0,1) 43%, rgba(218,165,32,1) 100%);
+}
+
+.worldstar {
+    background: rgb(131,58,180);
+    background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(57,133,164,1) 52%, rgba(69,214,252,1) 100%);
+}
+
+.mod_header {
+    color: #FFFFFF;
+    text-align: center;
+    width: 52%;
+    font-family: "Ostrich-Sans Black";
+    margin: 0;
+}
+
+.effect_header {
+    padding: 2% 0 0 0;
+    clear: both;
+    color: #FFFFFF;
+    text-align: center;
+    font-family: "Ostrich-Sans Black";
+    margin: 0;
+}
+
+.util_attr_table {
+    width: 25%;
+    border: 1px solid black;
+    height: 40%;
+    background-color: #FFFFFF;
+    float: left;
+    text-align: right;
+}
+
+.util_attr_table td:nth-of-type(1) {
+    padding-right: 5%;
+    font-weight: bold;
+    background-color: lightgrey;
+}
+
+.util_img {
+    width: 45%;
+    height: 40%;
+    float: right;
+    border-radius: 50%;
+}
+
+.effect_list {
+    margin: 0;
+    width: 50%;
+    padding: 0;
+    font-size: .75em;
+}
+
+.effect_list li {
+    border-radius: 10px 20px 20px 10px;
+    background-color: #FFFFFF;
+    list-style: none;
+    border: 1px solid black;
+}
+
+.effect_list label {
+    font-weight: bold;
+    border-right: 1px solid black;
+    border-radius: 12px 20px 20px 12px;
+    text-align: center;
+    width: 65%;
+    padding: 4%;
+    background-color: #ffeb00;
+    margin-bottom: 0;
+}
+
+.effect_list:nth-of-type(1) {
+    float: left;
+}
+
+.effect_list:nth-of-type(1) {
+    float: right;
+}

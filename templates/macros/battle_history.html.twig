@@ -1,0 +1,76 @@
+{% macro battleHistory(battle, battle_request, att_chars, att_utils, def_chars, def_utils) %}
+    {% import "macros/card.html.twig" as macros %}
+    <div class="row">
+
+         {#Attacker Info#}
+        <div class="col">
+            <div class="history_header">
+                <div>{{ battle_request.attacker }}</div>
+                <div>ATTACKER</div>
+            </div>
+
+
+             {#Attacker Cards#}
+            <div class="row">
+                 {#Chars#}
+                <div class="col">
+                    {% for attChar in att_chars %}
+                        {# TODO: need to download card images or always retrieve them with only imagePath #}
+                        {#{% set image = "images/avatars/" ~ attChar.avatar.imagePath %}#}
+                        {% set image = attChar.avatar.imagePath %}
+                        {{ macros.charCard(attChar, image) }}
+                    {% endfor %}
+                </div>
+                 {#Utils#}
+                <div class="col">
+                    {% for attUtil in att_utils %}
+                        {#{% set image = "images/avatars/" ~ attUtil.avatar.imagePath %}#}
+                        {% set image = attUtil.avatar.imagePath %}
+                        {{ macros.utilCard(attUtil, attUtil.attributeModifier|json_decode(), image) }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+         {#Battle Report#}
+        <div class="col-3">
+            <div class="history_header" style="
+            max-width: 15%;
+            width: inherit;
+            position: fixed;
+        ">
+                <div>REPORT</div>
+                <div>{{ battle.time|date('m/d/Y') }}</div>
+            </div>
+            <div class="battle_report">{{ battle.report }}</div>
+        </div>
+
+         {#Defender Info#}
+        <div class="col">
+            <div class="history_header">
+                <div>{{ battle_request.defender }}</div>
+                <div>DEFENDER</div>
+            </div>
+
+             {#Defender Cards#}
+            <div class="row">
+                {#Chars#}
+                <div class="col">
+                    {% for defChar in def_chars %}
+                        {#{% set image = "images/avatars/" ~ defChar.avatar.imagePath %}#}
+                        {% set image = defChar.avatar.imagePath %}
+                        {{ macros.charCard(defChar, image) }}
+                    {% endfor %}
+                </div>
+                 {#Utils#}
+                <div class="col">
+                    {% for defUtil in def_utils %}
+                        {#{% set image = "images/avatars/" ~ defUtil.avatar.imagePath %}#}
+                        {% set image = defUtil.avatar.imagePath %}
+                        {{ macros.utilCard(defUtil, defUtil.attributeModifier|json_decode(), image) }}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}

@@ -1,6 +1,15 @@
+.card.js-deck-item.char_deck_current
+{
+   border: 2px solid red;
+}
+
+.card.js-deck-item.util_deck_current {
+   border: 2px solid orange;
+}
+
 .search_player
 {
-border-style: solid;
+   /*border-style: solid;*/
    float: left;
    height: 28em;
    width: 48%;
@@ -8,8 +17,134 @@ border-style: solid;
 
 .requests
 {
-   border-style: solid;
+   /*border-style: solid;*/
    float:  right;
    height: 28em;
    width: 48%;
+}
+
+.player_list
+{
+   list-style-type: none;
+   margin: 3px;
+   background-color: #FB5607;
+}
+
+.player_list li {
+   cursor: pointer;
+}
+
+.player_list:nth-child(odd)
+{
+   background-color: #FFBE0B;
+}
+.player_list:hover {
+   background-color: white;
+}
+
+.player_list.current {
+   border-top-left-radius: 50px;
+   border-bottom-left-radius: 50px;
+   background-color: #3A86FF;
+}
+
+.leaderboard_title{
+   font-family: "Ostrich-Sans Bold";
+   font-size: 3em;
+   text-align: center;
+}
+
+.leaderboard{
+   list-style-type: none;
+   margin: 3px;
+   background-color: #fba717;
+}
+
+.leaderboard li{
+   cursor: pointer;
+
+}
+
+.leaderboard div{
+   display: inline-block;
+   width: 30%;
+}
+
+.leaderboard:nth-child(odd)
+{
+   background-color: #2db0ff;
+}
+.leaderboard:hover {
+   background-color: white;
+}
+
+.leaderboard.current {
+   border-top-left-radius: 50px;
+   border-bottom-left-radius: 50px;
+   background-color: #3A86FF;
+}
+
+.request_tab {
+   font-size: 1.5em;
+   text-align: center;
+   width: 100%;
+   list-style-type: none;
+
+}
+
+.request_tab li {
+   padding: 1%;
+   border-radius: 35px 35px 0 0;
+   display: inline-block;
+   width: 45%;
+}
+
+.request_tab li:hover {
+   color: #FFFFFF;
+   background-color: #ffeb00;
+   text-decoration: none;
+   cursor: pointer;
+
+}
+
+.request_tab li.current {
+   background-color: #ffeb00;
+   color: #FFFFFF;
+}
+
+.request_tab_color{
+   background-color: white;
+}
+.request_tab_current {
+   background-color: yellow;
+}
+
+/*Temporary class for current tab selected*/
+.current {
+   background-color: #ffeb00;
+}
+
+.request_list
+{
+   list-style-type: none;
+   margin: 3px;
+   background-color: #FB5607;
+}
+
+.request_list li {
+   cursor: pointer;
+}
+
+.request_list:nth-child(odd)
+{
+   background-color: #FFBE0B;
+}
+.request_list:hover {
+   background-color: white;
+}
+
+.request_list.current {
+   border-top-left-radius: 50px;
+   border-bottom-left-radius: 50px;
+   background-color: #3A86FF;
 }

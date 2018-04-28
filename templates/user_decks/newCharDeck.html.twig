@@ -1,0 +1,45 @@
+{% extends 'homepage.html.twig' %}
+{% trans_default_domain 'cbs' %}
+
+{% block title %}Create New Char Deck {% endblock %}
+
+{% block inventory_tab %}
+    <li class="tab"><a class="current" href="{{ path('show_user_cards') }}">Inventory<span class="sr-only"></span></a>
+    </li>
+{% endblock %}
+
+{% block sub_tabs %}
+    <ul class="sub_tabs">
+        <li class="sub_tab" onclick="location.href='{{ path('user_decks_show') }}'">Decks</li>
+    </ul>
+{% endblock %}
+
+{% block dynamic_container %}
+
+    <div class="container">
+
+        <h1 class="text-center">Create new deck</h1>
+
+        {{ form_start(charDeck) }}
+        <label for="user_char_deck_name">{{ 'global.name'|trans }}</label>
+        {{ form_widget(charDeck.name) }}
+        <label for="user_char_deck_name">{{ 'cards.card_1'|trans }}</label>
+        {{ form_widget(charDeck.card1) }}
+        <label for="user_char_deck_name">{{ 'cards.card_2'|trans }}</label>
+        {{ form_widget(charDeck.card2) }}
+        <label for="user_char_deck_name">{{ 'cards.card_3'|trans }}</label>
+        {{ form_widget(charDeck.card3) }}
+        <label for="user_char_deck_name">{{ 'cards.card_4'|trans }}</label>
+        {{ form_widget(charDeck.card4) }}
+        <label for="user_char_deck_name">{{ 'cards.card_5'|trans }}</label>
+        {{ form_widget(charDeck.card5) }}
+        <div class="row" style="margin-top: 2%">
+        <div class="col">
+            <input type="submit" class="btn btn-primary" value="{{ 'decks.create'|trans }}" formnovalidate/>
+        </div>
+        </div>
+        {{ form_end(charDeck) }}
+
+    </div>
+{% endblock %}
+

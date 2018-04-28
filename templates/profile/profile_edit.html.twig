@@ -1,0 +1,42 @@
+{% extends 'tabs/my_profile.html.twig' %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block sub_tabs %}
+    <ul class="sub_tabs">
+        <li class="sub_tab" onclick="location.href='{{ path('app_my-profile') }}'" >Stats</li> {# stats is default current sub-tab #}
+        <li class="sub_tab" onclick="location.href='{{ path('app_history-ajax', {'type':'best'}) }}'">Battle History</li>
+        <li class="sub_tab" onclick="location.href='{{ path('app_my-profile-achieve') }}'">Achievements</li>
+        <li class="sub_tab current" onclick="location.href='{{ path('app_my-profile-edit') }}'">Edit Profile</li>
+    </ul>
+{% endblock %}
+
+{% block dynamic_container %}
+    <div class="row">
+        <div class="col">
+            <div style="width: 55%; float: left">
+                <div class="profile_info">
+                    <div class="profile_name">{{ user_name }}</div>
+                    <img id="profile_pic" src={{ asset(profile_pic)}}
+                         class="profile_img">
+                </div>
+            </div>
+            <div class="upload_container">
+                {{ form_start(avatarForm) }}
+                {{ form_row(avatarForm.image_path) }}
+                <button class="btn btn-normal">Change Profile Picture</button>
+                {{ form_end(avatarForm) }}
+            </div>
+        </div>
+
+        {# Change Password Form#}
+        <div class="col">
+            <h3 style="margin-top: 5%">Change your password</h3>
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <div>
+                <input class="btn btn-normal" type="submit" value="{{ 'change_password.submit'|trans }}" />
+            </div>
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

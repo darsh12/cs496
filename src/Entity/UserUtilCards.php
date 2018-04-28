@@ -65,6 +65,12 @@ class UserUtilCards
      */
     private $userStats_defeatedCards;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $card_defeats=0;
+
+
     public function __construct()
     {
         $this->userUtilDecks_card1 = new ArrayCollection();
@@ -280,5 +286,25 @@ class UserUtilCards
         }
 
         return $this;
+    }
+
+    public function getCardDefeats(): ?int
+    {
+        return $this->card_defeats;
+    }
+
+    public function setCardDefeats(int $card_defeats): self
+    {
+        $this->card_defeats = $card_defeats;
+
+        return $this;
+    }
+
+
+    public function __toString()
+    {
+        $name = ($this->getUtilCard()->getUtilName()) . " : " . ($this->getUtilCard()->getUtilTier());
+        return $name;
+
     }
 }

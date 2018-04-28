@@ -1,0 +1,39 @@
+{% extends 'homepage.html.twig' %}
+
+{% import "macros/card.html.twig" as macros %}
+
+{% block title %}Custom Char Card Success{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/js/custom-card.css') }}">
+{% endblock %}
+
+{% block inventory_tab %}
+    <li class="tab" ><a class="current" href="{{ path('show_user_cards') }}">Inventory<span class="sr-only"></span></a></li>
+{% endblock %}
+
+{% block sub_tabs %}
+    <ul class="sub_tabs">
+        <li class="sub_tab" onclick="location.href='{{ path('show_user_cards') }}'">Cards</li>
+        <li class="sub_tab" onclick="location.href='{{ path('user_decks_show') }}'">Decks</li>
+        <li class="sub_tab current" onclick="location.href='{{ path('custom_card') }}'">Custom Card Create</li>
+        <li class="sub_tab" onclick="location.href='{{ path('custom_card_vote_show') }}'">Custom Card Vote</li>
+    </ul>
+{% endblock %}
+
+{% block dynamic_container %}
+    <div class="col-8 offset-2 text-center success-message">
+        <h1 class="mb-5">Your custom character card is now in the selection queue waiting for approval.</h1>
+        <div class="row">
+            {{ macros.custCharCard(card, card.image_file) }}
+        </div>
+
+        <h2>Hopefully you made a card that we deem acceptable to join the game!</h2>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/js/custom-card.js') }}" ></script>
+{% endblock %}

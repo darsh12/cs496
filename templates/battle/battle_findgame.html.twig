@@ -1,9 +1,56 @@
+
+
 <div>
-    <div class="search_player">
+    <div class="search_player rounded">
         Find players here
+        {#{{ dump(user) }}#}
+        {#{% for user in users %}#}
+            {#<li class="player_list">{{ user.username }}</li>#}
+        {#{% endfor %}#}
+
+        {% for user_stat in stat  %}
+            <ul class="player_list">
+                {#<li onclick="sendRequest(this)">{{ user_stat.user}} <br> Rank: {{ user_stat.userRank }} Level: {{ user_stat.userLevel }}</li>#}
+                <li data-toggle="modal" data-target="#playerModal" data-name="{{ user_stat.user}}" onclick="showPlayerPopup(this)"><div class="li_lvl">{{ user_stat.userLevel }}</div>{{ user_stat.user}}<div class="li_rank">{{ user_stat.userRank }}</div></li>
+            </ul>
+
+
+        {% endfor %}
     </div>
 
-    <div class = "requests">
-        Requests Here
+    <div class = "requests rounded">
+
+        {% for user_stat in stat %}
+            <ul class="player_list">
+            <li>{{ user_stat.userRank }}</li>
+            </ul>
+        {% endfor %}
+
     </div>
+
+    <!-- The Modal -->
+    <div class="modal" id="playerModal">
+        <div class="modal-dialog">
+            <div class="modal-content custom">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <label id="request_error" style="color: red"></label>
+                    <button id="requestButton" data-name="" type="button" class="btn btn-normal" onclick="beginRequest(this);" >Loading...</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </div>
+

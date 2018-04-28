@@ -1,0 +1,28 @@
+$margin20: 20px;
+$margin30: 30px;
+
+#sort-bar .row {
+    margin-bottom: $margin20;
+}
+.icon-button {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    border: 0;
+    background: transparent;
+}
+#sort-bar .glyphicon {
+    color: #337ab7;
+    font-size: 26px;
+}
+.card-grid {
+    margin-top: $margin20;
+}
+.img-thumbnail {
+    width: 100px;
+    height: 120px;
+}
+.row-margin {
+    margin-bottom: $margin30;
+}

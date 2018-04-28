@@ -19,6 +19,49 @@ class BattleRequestRepository extends ServiceEntityRepository
         parent::__construct($registry, BattleRequest::class);
     }
 
+    /**
+     * Used for sentBattles
+     *
+     * @param $user
+     *
+     * @return mixed
+     */
+    public function getAttackerStat($user) {
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.attacker', 'a')
+            ->leftJoin('a.userStats', 's')
+            ->leftJoin('u.battles', 'b')
+            ->andWhere('u.defender = :user')
+            ->andWhere('b.request IS NULL')
+            ->setParameter('user', $user)
+            ->addSelect('s.user_rank')
+            ->addSelect('s.user_level')
+            ->getQuery()
+            ->getResult();
+    }
+
+
+    /**
+     * Used for receivedBattles
+     *
+     * @param $user
+     *
+     * @return mixed
+     */
+    public function getDefenderStat($user) {
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.defender', 'a')
+            ->leftJoin('a.userStats', 's')
+            ->leftJoin('u.battles', 'b')
+            ->andWhere('u.attacker = :user')
+            ->andWhere('b.request IS NULL')
+            ->setParameter('user', $user)
+            ->addSelect('s.user_rank')
+            ->addSelect('s.user_level')
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return BattleRequest[] Returns an array of BattleRequest objects
 //     */

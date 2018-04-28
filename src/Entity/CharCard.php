@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CharCardRepository")
@@ -17,7 +18,6 @@ class CharCard
      * @ORM\Column(type="integer")
      */
     private $id;
-    
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -26,16 +26,19 @@ class CharCard
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Choice(choices={"Action", "Comedy", "Drama"}, message="Choose a valid type: Comedy, Action, or Drama")
      */
     private $char_type;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Choice(choices={"DPS", "Tank"}, message="Choose a valid class: DPS or Tank")
      */
     private $char_class;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Choice(choices={"World Star", "Professional", "Amateur"}, message="Choose a valid tier: World Star, Professional, or Amateur")
      */
     private $char_tier;
 
@@ -85,6 +88,11 @@ class CharCard
      * @ORM\OneToMany(targetEntity="App\Entity\UserCharCards", mappedBy="char_card", orphanRemoval=true)
      */
     private $userCharCards;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $price=0;
 
     public function __construct()
     {
@@ -272,6 +280,18 @@ class CharCard
                 $userCharCard->setCharCard(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPrice(): ?int
+    {
+        return $this->price;
+    }
+
+    public function setPrice(int $price): self
+    {
+        $this->price = $price;
 
         return $this;
     }

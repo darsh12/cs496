@@ -1,0 +1,91 @@
+{% extends 'homepage.html.twig' %}
+
+{% block title %}Custom Character Card{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/js/custom-card.css') }}">
+{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block inventory_tab %}
+    <li class="tab" ><a class="current" href="{{ path('show_user_cards') }}">Inventory<span class="sr-only"></span></a></li>
+{% endblock %}
+
+{% block sub_tabs %}
+    <ul class="sub_tabs">
+        <li class="sub_tab" onclick="location.href='{{ path('show_user_cards') }}'">Cards</li>
+        <li class="sub_tab" onclick="location.href='{{ path('user_decks_show') }}'">Decks</li>
+        <li class="sub_tab current" onclick="location.href='{{ path('custom_card') }}'">Custom Card Create</li>
+        <li class="sub_tab" onclick="location.href='{{ path('custom_card_vote_show') }}'">Custom Card Vote</li>
+    </ul>
+{% endblock %}
+
+{% block dynamic_container %}
+    <div class="container">
+        <div class="text-center mb-4">
+            <h1>Create Custom Character Card</h1>
+        </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                {{ form_start(form) }}
+                {{ form_row(form.char_name) }}
+                {{ form_row(form.char_type) }}
+                {{ form_row(form.char_class) }}
+                {{ form_row(form.image_file) }}
+                <hr>
+                <div class="mb-4">
+                    <h2>Customize Card Stats</h2>
+                </div>
+                <div class="slider">
+                    {{ form_row(form.hitpoints) }}
+                    <div class="text-right">
+                        <span class="slider-value">{{ form.hitpoints.vars.value }}</span>
+                    </div>
+                </div>
+                <div class="slider">
+                    {{ form_row(form.attack) }}
+                    <div class="text-right">
+                        <span class="slider-value">{{ form.attack.vars.value }}</span>
+                    </div>
+                </div>
+                <div class="slider">
+                    {{ form_row(form.defense) }}
+                    <div class="text-right">
+                        <span class="slider-value">{{ form.defense.vars.value }}</span>
+                    </div>
+                </div>
+                <div class="slider">
+                    {{ form_row(form.luck) }}
+                    <div class="text-right">
+                        <span class="slider-value">{{ form.luck.vars.value }}</span>
+                    </div>
+                </div>
+                <div class="slider">
+                    {{ form_row(form.agility) }}
+                    <div class="text-right">
+                        <span class="slider-value">{{ form.agility.vars.value }}</span>
+                    </div>
+                </div>
+                <div class="slider">
+                    {{ form_row(form.speed) }}
+                    <div class="text-right">
+                        <span class="slider-value">{{ form.speed.vars.value }}</span>
+                    </div>
+                </div>
+
+                <div class="text-right mt-5 mb-3">
+                    <button class="btn btn-success">Submit</button>
+                </div>
+
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/js/custom-card.js') }}" ></script>
+{% endblock %}

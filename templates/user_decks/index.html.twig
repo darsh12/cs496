@@ -1,0 +1,152 @@
+{% extends 'homepage.html.twig' %}
+
+{% block title %}User Decks{% endblock %}
+
+{% block inventory_tab %}
+    <li class="tab" ><a class="current" href="{{ path('show_user_cards') }}">Inventory<span class="sr-only"></span></a></li>
+{% endblock %}
+
+{% block sub_tabs %}
+    <ul class="sub_tabs">
+        <li class="sub_tab " onclick="location.href='{{ path('show_user_cards') }}'">Cards</li>
+        <li class="sub_tab current" onclick="location.href='{{ path('user_decks_show') }}'">Decks</li>
+        <li class="sub_tab" onclick="location.href='{{ path('custom_card') }}'">Custom Card Create</li>
+        <li class="sub_tab" onclick="location.href='{{ path('custom_card_vote_show') }}'">Custom Card Vote</li>
+    </ul>
+{% endblock %}
+
+{% block dynamic_container %}
+
+
+    <div class="container-fluid">
+        <h1 class="display-2 text-center">Decks</h1>
+        <br>
+        <h1  class="display-4">Character Decks</h1>
+
+        <div class="row" id="charDeck">
+            {% for charDecks in charDeck %}
+
+                <div class="card p-3 col-3 js-deck-item">
+                    <div class="card-header text-info text-center">
+                        {{ charDecks.name }}
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title text-center">
+                            <h5>Cards in the deck</h5>
+                        </div>
+                        <blockquote class="blockquote text-muted">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">{{ charDecks.card1.charCard.charName }} - {{ charDecks.card1.charCard.charTier }}</li>
+                                <li class="list-group-item">{{ charDecks.card2.charCard.charName }} - {{ charDecks.card2.charCard.charTier }}</li>
+                                <li class="list-group-item">{{ charDecks.card3.charCard.charName }} - {{ charDecks.card3.charCard.charTier }}</li>
+                                <li class="list-group-item">{{ charDecks.card4.charCard.charName }} - {{ charDecks.card4.charCard.charTier }}</li>
+                                <li class="list-group-item">{{ charDecks.card5.charCard.charName }} - {{ charDecks.card5.charCard.charTier }}</li>
+                            </ul>
+                        </blockquote>
+                    </div>
+                    <div class="card-body">
+                        <a href="#"
+                           class="list-group-item list-group-item-action list-group-item-danger text-center js-deck-remove"
+                           data-url="{{ path('user_char_decks_delete',{
+                               'id': charDecks.id
+                           }) }}">
+                            <span>
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="col-3" style="margin-top: 6%; margin-left: 8%; margin-bottom: 7%">
+                <a href="{{ path('user_char_decks_new') }}" title="Add new deck" style="margin-top: 15%;margin-left: 6%;"><i class="fas fa-plus fa-7x"></i></a>
+            </div>
+
+        </div>
+
+        <br>
+        <h1 class="display-4">Utility Decks</h1>
+
+        <div class="row" id="utilDeck">
+            {% for utilDecks in utilDeck %}
+
+                <div class="card p-3 col-3 js-deck-item" style="background-color: #FFC200">
+                    <div class="card-header text-info text-center" style="background-color: blue">
+                        <h3 class="" style="color: #FFFFFF">{{ utilDecks.name }}</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title text-center">
+                            <h5>Cards in the deck</h5>
+                        </div>
+                        <blockquote class="blockquote text-muted">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">{{ utilDecks.card1.utilCard.utilName }} - {{ utilDecks.card1.utilCard.utilTier }}</li>
+                                <li class="list-group-item">{{ utilDecks.card2.utilCard.utilName }} - {{ utilDecks.card2.utilCard.utilTier }}</li>
+                                <li class="list-group-item">{{ utilDecks.card3.utilCard.utilName }} - {{ utilDecks.card3.utilCard.utilTier }}</li>
+                            </ul>
+                        </blockquote>
+                    </div>
+                    <div class="card-body">
+                        <a href="#"
+                           class="list-group-item list-group-item-action list-group-item-danger text-center js-deck-remove"
+                           data-url="{{ path('user_util_decks_delete',{
+                               'id': utilDecks.id
+                           }) }}">
+                            <span>
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+
+            <div class="col-3" style="margin-top: 6%; margin-left: 8%; margin-bottom: 7%">
+                <a href="{{ path('user_util_decks_new') }}" title="Add new deck" style="margin-top: 15%;margin-left: 6%;"><i class="fas fa-plus fa-7x" style="color: red"></i></a>
+            </div>
+
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(function () {
+            $('.js-deck-remove').on('click', function (e) {
+                e.preventDefault();
+
+                $el = $(this).closest('.js-deck-item');
+
+                $(this).find('.fa-trash-alt')
+                    .removeClass('fa-trash-alt')
+                    .addClass('fa-spinner')
+                    .addClass('fa-spin');
+                $.ajax({
+                    url: $(this).data('url'),
+                    method: 'POST',
+                    error: function () {
+                        location.reload();
+                    },
+                }).done(function (data) {
+                    $el.fadeOut();
+                    if (data.success === true) {
+                        window.location.href = data.url;
+                    }
+                    if (data.success === false) {
+                        window.location.href = data.url;
+                    }
+
+                }).fail(function () {
+                    location.reload();
+                })
+            });
+
+        });
+    </script>
+{% endblock %}

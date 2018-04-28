@@ -1,0 +1,83 @@
+<div class="row">
+    <div class="col" id="charDeck">
+        <h5>Character Decks</h5>
+        {% for charDecks in charDeck %}
+
+            <div class="card js-deck-item" data-id="{{ charDecks.id }}" onclick="selectCharDeck(this)"
+                 style="margin-top: 7%">
+                <div class="card-header text-info text-center">
+                    <h3> {{ charDecks.name }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="card-title text-center">
+                        <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                data-target="#{{ charDecks.id }}" aria-expanded="false"
+                                aria-controls="{{ charDecks.id }}">
+                            Cards in the deck
+                        </button>
+                    </div>
+                    <div class="collapse" id="{{ charDecks.id }}">
+                        <blockquote class="blockquote text-muted">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">{{ charDecks.card1.charCard.charName }}
+                                    - {{ charDecks.card1.charCard.charTier }}</li>
+                                <li class="list-group-item">{{ charDecks.card2.charCard.charName }}
+                                    - {{ charDecks.card2.charCard.charTier }}</li>
+                                <li class="list-group-item">{{ charDecks.card3.charCard.charName }}
+                                    - {{ charDecks.card3.charCard.charTier }}</li>
+                                <li class="list-group-item">{{ charDecks.card4.charCard.charName }}
+                                    - {{ charDecks.card4.charCard.charTier }}</li>
+                                <li class="list-group-item">{{ charDecks.card5.charCard.charName }}
+                                    - {{ charDecks.card5.charCard.charTier }}</li>
+                            </ul>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="col" id="utilDeck">
+        <h5>Utility Decks</h5>
+        {% for utilDecks in utilDeck %}
+
+            <div class="card js-deck-item" style="background-color: #FFC200; margin-top: 7%"
+                 data-id="{{ utilDecks.id }}" onclick="selectUtilDeck(this)">
+                <div class="card-header text-info text-center" style="background-color: blue">
+                    <h3 class="" style="color: #FFFFFF">{{ utilDecks.name }}</h3>
+                </div>
+                <div class="card-body">
+                    <div class="card-title text-center">
+                        <button class="btn btn-primary" data-toggle="collapse" data-target="#{{ utilDecks.id }}"
+                                aria-expanded="false" aria-controls="{{ utilDecks.id }}">Cards in the deck
+                        </button>
+                    </div>
+                    <div class="collapse" id="{{ utilDecks.id }}">
+
+                        <blockquote class="blockquote text-muted">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">{{ utilDecks.card1.utilCard.utilName }}
+                                    - {{ utilDecks.card1.utilCard.utilTier }}</li>
+                                <li class="list-group-item">{{ utilDecks.card2.utilCard.utilName }}
+                                    - {{ utilDecks.card2.utilCard.utilTier }}</li>
+                                <li class="list-group-item">{{ utilDecks.card3.utilCard.utilName }}
+                                    - {{ utilDecks.card3.utilCard.utilTier }}</li>
+                            </ul>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+    jQuery('button').click(function (e) {
+        jQuery('.collapse').collapse('hide');
+    });
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+</script>

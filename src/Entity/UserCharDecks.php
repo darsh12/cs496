@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserCharDecksRepository")
@@ -20,32 +21,43 @@ class UserCharDecks
 
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=255)
      */
     private $name;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="App\Entity\UserCharCards", inversedBy="userDecks_card1")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $card1;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="App\Entity\UserCharCards", inversedBy="userDecks_card2")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $card2;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="App\Entity\UserCharCards", inversedBy="userDecks_card3")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $card3;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="App\Entity\UserCharCards", inversedBy="userDecks_card4")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $card4;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\ManyToOne(targetEntity="App\Entity\UserCharCards", inversedBy="userDecks_card5")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $card5;
 

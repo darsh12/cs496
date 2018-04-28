@@ -1,0 +1,116 @@
+{% extends 'homepage.html.twig' %}
+
+{% import "macros/card.html.twig" as macros %}
+
+{% block title %}Custom Card Voting{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/js/custom-card.css') }}">
+{% endblock %}
+
+{% block inventory_tab %}
+    <li class="tab" ><a class="current" href="{{ path('show_user_cards') }}">Inventory<span class="sr-only"></span></a></li>
+{% endblock %}
+
+{% block sub_tabs %}
+    <ul class="sub_tabs">
+        <li class="sub_tab" onclick="location.href='{{ path('show_user_cards') }}'">Cards</li>
+        <li class="sub_tab" onclick="location.href='{{ path('user_decks_show') }}'">Decks</li>
+        <li class="sub_tab" onclick="location.href='{{ path('custom_card') }}'">Custom Card Create</li>
+        <li class="sub_tab current" onclick="location.href='{{ path('custom_card_vote_show') }}'">Custom Card Vote</li>
+    </ul>
+{% endblock %}
+
+{% block dynamic_container %}
+    <div class="container">
+        <div class="row">
+            <div class="col-12 mb-5 text-center">
+                <h1>Vote custom character cards</h1>
+            </div>
+        </div>
+
+        {% for card in cards %}
+            {% if card.dateAccepted != null %}
+                <div class="custom-card mb-5">
+                    <div class="row">
+                        <div class="col-6">
+                            {{ macros.custCharCard(card, card.image_file) }}
+                        </div>
+                        <div class="col-3">
+                            {% set voteCount = 0 %}
+                            {% for vote in cardVotes %}
+                                {% if card.id == vote.customCard.id %}
+                                    {% if user == vote.user %}
+                                        {% set voteCount = voteCount + 1 %}
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if voteCount == 0 %}
+                                <div class="card-functions">
+                                    <div class="row">
+                                        <div class="text-left">
+                                            <a href="#" class="confirmUpVote"
+                                               data-url="{{ path('custom_card_vote_up', {'cardId': card.id}) }}">
+                                                <i class="fas fa-thumbs-up fa-5x"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="text-left">
+                                            <a href="#" class="confirmDownVote"
+                                               data-url="{{ path('custom_card_vote_down', {'cardId': card.id}) }}">
+                                                <i class="fas fa-thumbs-down fa-5x"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="bar-graph">
+                                    <div class="row">
+                                        <div class="col-6 text-center">
+
+                                        </div>
+                                        <div class="col-6 text-center">
+
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-3">
+                            <div class="card-functions">
+                                <div class="row">
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <div class="col-6 align-middle">
+                                            <a href="#" class="confirmAdd"
+                                               data-url="{{ path('custom_card_vote_add', {'cardId': card.id}) }}">
+                                                <i class="fas fa-plus fa-5x"></i>
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="row">
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <div class="col-6 align-middle">
+                                            <a href="#" class="confirmRemove"
+                                               data-url="{{ path('custom_card_vote_remove', {'cardId': card.id}) }}">
+                                                <i class="fas fa-minus fa-5x"></i>
+                                            </a>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/js/custom-card.js') }}" ></script>
+{% endblock %}

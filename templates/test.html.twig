@@ -1,9 +1,9 @@
 {% extends "homepage.html.twig" %}
 
-{% block dynamic %}
-{# Button template to retrieve dynamic content#}
-    <div id="dynamic_content_container">
-        <button class="btn" onclick="getDynamicTwigContent(this, 'dynamic_content_container', 'content/' + value);"
-                value="This value is passed to JS function to pass to appropriate URL to return rendered TWIG">Get Dynamic Content</button>
-    </div>
+{% block body %}
+    {{ form_start(avatarForm) }}
+    {{ form_row(avatarForm.image_path) }}
+    <button class="btn btn-primary">Upload</button>
+    {{ form_end(avatarForm) }}
+
 {% endblock %}

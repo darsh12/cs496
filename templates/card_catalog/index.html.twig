@@ -1,0 +1,205 @@
+{% extends 'homepage.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('build/js/card-catalog.css') }}">
+{% endblock %}
+
+{% block market_tab %}
+    <li class="tab" ><a class="current" href="{{ path('card_show_catalog') }}">Market<span class="sr-only"></span></a></li>
+{% endblock %}
+
+{% block sub_tabs %}
+    <ul class="sub_tabs">
+        <li class="sub_tab current" onclick="location.href='{{ path('card_show_catalog') }}'">Card Catalog</li>
+        <li class="sub_tab" onclick="location.href='{{ path('card_packs') }}'">Card Packs</li>
+    </ul>
+{% endblock %}
+
+{% block dynamic_container %}
+    <div class="container">
+        <div id="sort-bar" class="rating">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+                        <div class="col-2">
+                            <button type="button" id="nameBtn" class="btn btn-primary btn-block">Name</button>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" id="ratingBtn" class="btn btn-primary btn-block">Rating</button>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" id="typeBtn" class="btn btn-primary btn-block">Type</button>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" id="classBtn" class="btn btn-primary btn-block">Class</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <button type="button" id="hpBtn" class="btn btn-primary btn-block">HitPoints</button>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" id="attBtn" class="btn btn-primary btn-block">Attack</button>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" id="defBtn" class="btn btn-primary btn-block">Defense</button>
+                        </div>
+                        <div class="col-2 col-offset-1 text-right">
+                            <button type="button" id="ascBtn" class="icon-button"><span><i class="fas fa-arrow-up"></i></span></button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <button type="button" id="spdBtn" class="btn btn-primary btn-block">Speed</button>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" id="lckBtn" class="btn btn-primary btn-block">Luck</button>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" id="agiBtn" class="btn btn-primary btn-block">Agility</button>
+                        </div>
+                        <div class="col-2 col-offset-1 text-right">
+                            <button type="button" id="descBtn" class="icon-button"><span><i class="fas fa-arrow-down"></i></span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 card-grid">
+                {% if cards is defined %}
+                    {% for card in cards %}
+                        {% if loop.index0 is divisible by (3) %}
+                            {% if loop.index0 != 0 %}
+                                </div>
+                            {% endif %}
+                            <div class="row row-margin">
+                        {% endif %}
+                        <div class="col-4 cardTier" id="{{ card.char_tier|replace({' ':''})|lower }}">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="cardName">{{ card.char_name }}</h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <img src="{{ card.image_path }}" class="img-thumbnail cardImage"
+                                         alt="{{ card.char_name }} character image" title="{{ card.char_name }}">
+                                </div>
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <span class="cardRating">{{ card.rating }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <span class="cardType">{{ card.char_type }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <span class="cardClass">{{ card.char_class }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2">
+                                    <span>HP</span>
+                                </div>
+                                <div class="col-2">
+                                    <span class="cardHitPoints">{{ card.hit_points }}</span>
+                                </div>
+                                <div class="col-2">
+                                    <span>SPD</span>
+                                </div>
+                                <div class="col-2">
+                                    <span class="cardSpeed">{{ card.speed }}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2">
+                                    <span>ATT</span>
+                                </div>
+                                <div class="col-2">
+                                    <span class="cardAttack">{{ card.attack }}</span>
+                                </div>
+                                <div class="col-2">
+                                    <span>LCK</span>
+                                </div>
+                                <div class="col-2">
+                                    <span class="cardLuck">{{ card.luck }}</span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2">
+                                    <span>DEF</span>
+                                </div>
+                                <div class="col-2">
+                                    <span class="cardDefense">{{ card.defense }}</span>
+                                </div>
+                                <div class="col-2">
+                                    <span>AGI</span>
+                                </div>
+                                <div class="col-2">
+                                    <span class="cardAgility">{{ card.agility }}</span>
+                                </div>
+                            </div>
+                            <div>
+                                <i class="fas fa-money-bill-alt"> <span>{{ card.price }}</span></i>
+                                {% if is_granted('ROLE_USER') %}
+                                <a class="btn btn-link btn-normal js-card-buy"
+                                data-url="{{ path('inventory_buy_char', {
+                                    card: card.id
+                                }) }}"
+                                >Buy</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    No cards found.
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('build/js/card-catalog.js') }}" ></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $('.js-card-buy').on('click', function (e) {
+
+                if(confirm_buy()) {
+                    e.preventDefault();
+
+                    $.ajax({
+                        url: $(this).data('url'),
+                        method: 'POST',
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log(textStatus, errorThrown);
+                            location.reload();
+                        },
+                        success: function () {
+                            location.reload();
+                        }
+
+                    });
+                }
+            });
+
+        });
+
+        function confirm_buy() {
+            return confirm('are you sure?');
+        }
+    </script>
+{% endblock %}

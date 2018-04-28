@@ -1,66 +1,106 @@
-    {# Profile Stats #}
+
+{% import 'macros/card.html.twig' as macros %}
+ {#Profile Stats #}
     <div class="profile_column">
-        {# Profile Image, Level, Progression #}
+         {#Profile Image, Level, Progression #}
         <div class="profile_info">
-            <div class="profile_name"> Username </div>
-            <img class="profile_img">
-            <div>
-                100
-                <span>LVL</span>
+            <div class="profile_name">{{ user_name }}</div>
+            <img src="{{ profile_pic }}"
+                 class="profile_img">
+            <div class="profile_level">
+                <span>{{ user_stat.getUserLevel }}</span>
+                LVL
             </div>
-            <div class="profile_progress"></div>
+
+            <div class="progress profile_progress">
+                <div class="progress-bar profile_progress_bar" style="width:{{ level_progress }}%"></div>
+            </div>
+
         </div>
-        {# Rank #}
-        <div>
-            2
-            <span>RANK</span>
-        </div>
-        {# Play-time #}
-        <div>
-            00:00:00
-            <span>PLAY-TIME</span>
+         {#Rank #}
+        <div class="profile_rank">
+            <span>{{ user_stat.getUserRank }}</span>
+            RANK
         </div>
     </div>
 
-    {# Card Stats #}
-    <div class="profile_column">
+     {#Card Stats #}
+    <div class="profile_column" style="overflow-y: auto">
 
-        <h4>FAVORITE CHARACTER</h4>
-        <div class="character"></div>
+        {% if not render_card_stats %}
+            <p style="text-align: justify">Complete Battles to view which of your cards perform the best (and worst) down below!</p>
+        {% endif %}
+        <h4 class="header-center">FAVORITE CHARACTER</h4>
 
-        <h4>FAVORITE UTILITY</h4>
-        <div class="utility"></div>
+        {% if render_card_stats %}
+            <div class="container">
+                {{ macros.charCard(fav_char, fav_char_img) }}
+            </div>
+
+        <button type="button" style="margin: 5% 0 0 36%;" class="btn btn-normal" data-trigger="focus" data-placement="top" data-toggle="popover" title="{{ fav_char.getCharName }}" data-content=
+        "Enemy Cards Defeated: {{ fav_user_char_card.getCardKill }} -------------
+        Times Defeated: {{ fav_user_char_card.getCardDeath }} ---------------------
+        Times Used: {{ fav_user_char_card.getCardUses }} -------------------------">
+            View Details</button>
+        {% endif %}
+
+        <h4 class="header-center">FAVORITE UTILITY</h4>
+
+        {% if render_card_stats %}
+
+            <div class="container">
+                {{ macros.utilCard(fav_util, fav_attr_mod, fav_util_img) }}
+            </div>
+
+        <button type="button" style="margin: 5% 0 0 36%;" class="btn btn-normal" data-trigger="focus" data-placement="top" data-toggle="popover" title="{{ fav_util.getUtilName }}" data-content=
+        "Times Used: {{ fav_user_util_card.getCardUses }}">
+            View Details</button>
+        {% endif %}
+
+        <h4 class="header-center">WORST CHARACTER</h4>
+
+        {% if render_card_stats %}
+        <div class="container">
+            {{ macros.charCard(worst_char, worst_char_img) }}
+        </div>
+
+        <button type="button" style="margin: 5% 0 0 36%;" class="btn btn-normal" data-trigger="focus" data-placement="top" data-toggle="popover" title="{{ worst_char.getCharName }}" data-content=
+        "Enemy Cards Defeated: {{ worst_user_char_card.getCardKill }} -------------
+        Times Defeated: {{ worst_user_char_card.getCardDeath }} ---------------------
+        Times Used: {{ worst_user_char_card.getCardUses }} ------------------------- ">
+            View Details</button>
+
+        {% endif %}
+
+        <h4 class="header-center" >WORST UTILITY</h4>
+
+        {% if render_card_stats %}
+        <div class="container">
+            {{ macros.utilCard(worst_util, worst_attr_mod, worst_util_img) }}
+        </div>
+
+        <button type="button" style="margin: 5% 0 0 36%;" class="btn btn-normal" data-trigger="focus" data-placement="top" data-toggle="popover" title="{{ worst_util.getUtilName }}" data-content=
+        "Times Used: {{ worst_user_util_card.getCardUses }}">
+            View Details</button>
+        {% endif %}
 
     </div>
 
-    {# Battle Stats #}
+     {#Battle Stats #}
     <div class="profile_column">
-        <h4>BATTLE STATISTICS</h4>
-        <ul>
-            <li>W/L</li>
-            <li>WINS</li>
-            <li>LOSSES</li>
-            <li>TOTAL</li>
-            <li>ATTACKS</li>
-            <li>DEFENSES</li>
+        <h4 class="header-center">BATTLE STATISTICS</h4>
+        <ul class="stat_list">
+            <li><label>WIN/LOSS</label>&nbsp&nbsp&nbsp&nbsp{{ user_stat.winLossRatio }}</li>
+            <li><label>WINS</label>&nbsp&nbsp&nbsp&nbsp{{ user_stat.matchesWon }}</li>
+            <li><label>LOSSES</label>&nbsp&nbsp&nbsp&nbsp{{ user_stat.matchesLost }}</li>
+            <li><label>TOTAL</label>&nbsp&nbsp&nbsp&nbsp{{ total_matches }}</li>
+            <li><label>ATTACKS</label>&nbsp&nbsp&nbsp&nbsp{{ user_stat.timesAttacked }}</li>
+            <li><label>DEFENSES</label>&nbsp&nbsp&nbsp&nbsp{{ user_stat.timesAttacked }}</li>
         </ul>
     </div>
-    {#{{ user.name }}#}
-    {#{{ user.rank }}#}
-    {#{{ user.level }}#}
-    {#{{ user.playtime }}#}
 
-    {#{{ user.fave_char_card }}#}
-    {#{{ user.fave_util_card }} #}{# derived from user_util_card with highest number of uses #}
-    {#{{ user.worst_card }}#}
-
-    {#{{ user.total_matches }}#}
-    {#{{ user.matches_won }}#}
-    {#{{ user.matches_lost }}#}
-    {#{{ user.win_loss_ratio }}#}
-
-    {#{{ user.times_attacked }}#}
-    {#{{ user.times_defended }}#}
-
-    {#{{ user.best_battle }}#}
-    {#{{ user.worst_battle }}#}
+ <script>
+     $(function () {
+         $('[data-toggle="popover"]').popover()
+     });
+ </script>

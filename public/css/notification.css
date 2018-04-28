@@ -1,0 +1,27 @@
+.notify_container {
+    cursor: pointer;
+    display: none;
+    top: 2%;
+    right: 35%;
+    border-radius: 0 15px 0 15px;
+    box-shadow: 0 1px 5px 1px black;
+    background-color: #FFFFFF;
+    position: absolute;
+    width: 30%;
+    height: fit-content;
+}
+
+.notify_container:hover {
+    background-color: lightslategrey;
+}
+
+.notify_title {
+    padding: 1% 1% 0 4%;
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+.notify_msg {
+    padding: 1% 1% 0 4%;
+    font-weight: bold;
+}

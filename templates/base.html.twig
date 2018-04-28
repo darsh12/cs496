@@ -12,22 +12,29 @@
         <link rel="stylesheet" href="{{ asset('css/profile.css') }}">
         <link rel="stylesheet" href="{{ asset('css/market.css') }}">
         <link rel="stylesheet" href="{{ asset('css/inventory.css') }}">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ asset('css/card.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/notification.css') }}">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
+              integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg"
+              crossorigin="anonymous">
     {% endblock %}
-
 
 </head>
 <body class="global-background">
 
 
 <div class="header">
-    <a></a>
     <div class="login_logout">
-    {% if is_granted('ROLE_USER') %}
-        <a class="btn btn-normal btn-banner" style="font-size: 2em" href="{{ path('fos_user_security_logout') }}">Logout &#10151;</a>
-    {% else %}
-        <a class="btn btn-normal btn-banner" style="font-size: 2em" href="{{ path('fos_user_security_login') }}">Login &#10151;</a>
-    {% endif %}
+        {% if is_granted('ROLE_USER') %}
+            <a class="btn btn-normal btn-banner" style="font-size: 2em" href="{{ path('fos_user_security_logout') }}">Logout
+                <i class="fas fa-arrow-right"></i></a>
+        {% else %}
+            <a class="btn btn-normal btn-banner" style="font-size: 2em" href="{{ path('fos_user_security_login') }}">Login / Register
+                <i class="fas fa-arrow-right"></i></a>
+        {% endif %}
     </div>
 </div>
 
@@ -36,24 +43,41 @@
 
 <div class="main_content">
     {% for msg in app.session.flashBag.get('success') %}
-        <div class="alert alert-success">{{ msg }}</div>
+        <div class="alert alert-success alert-dismissible fade show">{{ msg }}
+            <span class="pull-right">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </span>
+        </div>
     {% endfor %}
     {% for msg in app.session.flashBag.get('error') %}
-        <div class="alert alert-warning">{{ msg }}</div>
+        <div class="alert alert-warning alert-dismissible fade show">{{ msg }}
+            <span class="pull-right">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </span>
+        </div>
     {% endfor %}
     {% block body %} {% endblock %}
 </div>
 
 
 {% block javascripts %}
-    <script src="{{ asset('js/jquery.slim.min.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
             integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
             crossorigin="anonymous"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"></script>
-    <script src="{{ asset('js/homepage.js') }}" ></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="{{ asset('js/homepage.js') }}"></script>
+    <script src="{{ asset('js/profile.js') }}"></script>
+    <script src="{{ asset('js/battle.js') }}"></script>
+
 {% endblock %}
 
 </body>

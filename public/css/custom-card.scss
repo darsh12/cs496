@@ -1,0 +1,40 @@
+$statFont: Arial Black;
+
+.card-img .btn {
+    background-color: #ffeb00;
+    font-weight: 700;
+}
+
+label {
+    font-size: 16px;
+    font-family: $statFont;
+}
+
+.slider-value {
+    font-size: 24px;
+    font-family: $statFont;
+}
+
+.success-message {
+    font-family: "Lucida Sans Unicode";
+}
+
+.card-functions .row {
+    margin: 40px 0 40px 0;
+}
+
+.card-functions .fa-plus {
+     color: blue;
+ }
+
+.card-functions .fa-minus {
+    color: red;
+}
+
+.card-functions .fa-thumbs-up {
+    color: #505050;
+}
+
+.card-functions .fa-thumbs-down {
+    color: #333333;
+}

@@ -1,0 +1,78 @@
+{% extends 'homepage.html.twig' %}
+
+{% block title %}Card Packs {% endblock %}
+
+{% block market_tab %}
+    <li class="tab" ><a class="current" href="{{ path('card_show_catalog') }}">Market<span class="sr-only"></span></a></li>
+{% endblock %}
+
+{% block sub_tabs %}
+    <ul class="sub_tabs">
+        <li class="sub_tab " onclick="location.href='{{ path('card_show_catalog') }}'">Card Catalog</li>
+        <li class="sub_tab current" onclick="location.href='{{ path('card_packs') }}'">Card Packs</li>
+    </ul>
+{% endblock %}
+
+
+{% block  dynamic_container%}
+<div class="container">
+        <div class="row">
+            <div class="col-4">
+                <h1>Amateur</h1>
+                <p><i class="fas fa-money-bill-alt fa-spin"></i> <span>{{ cost.amateur }}</span></p>
+                <a href="#" class="btn btn-link btn-normal js-pack-buy"
+                   data-url="{{ path('card_packs_buy', {
+                       pack: 'amateur'
+                   }) }}">Buy</a>
+            </div>
+
+            <div class="col-4">
+                <h1>Professional</h1>
+                <p><i class="fas fa-money-bill-alt fa-spin"></i> <span>{{ cost.professional }}</span></p>
+                <a href="#" class="btn btn-link btn-normal js-pack-buy"
+                   data-url="{{ path('card_packs_buy', {
+                       pack: 'professional'
+                   }) }}">Buy</a></div>
+
+            <div class="col-4">
+                <h1>World Star</h1>
+                <p><i class="fas fa-money-bill-alt fa-spin"></i> <span>{{ cost.world_star }}</span></p>
+                <a href="#" class="btn btn-link btn-normal js-pack-buy"
+                   data-url="{{ path('card_packs_buy', {
+                       pack: 'world_star'
+                   }) }}">Buy</a></div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function () {
+            $('.js-pack-buy').on('click', function (e) {
+
+                if (confirm_buy()) {
+                    e.preventDefault();
+
+                    $.ajax({
+                        url: $(this).data('url'),
+                        method: "POST",
+                        error: function () {
+                            location.reload();
+                        }
+                    }).done(function () {
+                        location.href = "{{ path('show_user_cards') }}";
+                    });
+
+                }
+            });
+
+        });
+
+        function confirm_buy() {
+            return confirm('are you sure?');
+        }
+    </script>
+{% endblock %}

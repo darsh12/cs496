@@ -3,7 +3,9 @@
 {% block body %}
 
 
+
     {% if is_granted('ROLE_USER') %}
+
 
     {% else %}
             <h1 class="intro_title">
@@ -20,13 +22,13 @@
 
         <nav class="custom_container">
             <div id="navbarSupportedContent">
-                <ul class="nav nav-tabs">
+                <ul class="nav">
                     {% block profile_tab %}
-                        <li class="tab" onclick="toggleCurrentTab(this)"><a href="{{ path('app_my-profile') }}">Profile<span class="sr-only"></span></a></li>
+                        <li class="tab"><a href="{{ path('app_my-profile') }}">Profile<span class="sr-only"></span></a></li>
                     {% endblock %}
 
                     {% block inventory_tab %}
-                        <li class="tab" ><a  href="{{ path('app_inventory') }}">Inventory<span class="sr-only"></span></a></li>
+                        <li class="tab" ><a  href="{{ path('show_user_cards') }}">Inventory<span class="sr-only"></span></a></li>
                     {% endblock %}
 
                     {% block battle_tab %}
@@ -34,7 +36,7 @@
                     {% endblock %}
 
                     {% block market_tab %}
-                    <li class="tab" ><a href="{{ path('app_market') }}">Market<span class="sr-only"></span></a></li>
+                    <li class="tab" ><a href="{{ path('card_show_catalog') }}">Market<span class="sr-only"></span></a></li>
                     {% endblock %}
 
                 </ul>
@@ -47,9 +49,13 @@
             {% endblock %}
         </div>
 
+        {% block sub_sub_tabs %}
+        {% endblock %}
+
         {#Dynamic content for each tab#}
         <div id="dynamic_container">
-
+            {% block dynamic_container %}
+            {% endblock %}
         </div>
 
 

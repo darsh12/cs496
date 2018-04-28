@@ -1,0 +1,3 @@
+App\Entity\Avatar:
+  avatar{1..10}:
+    image_path: <name()>
