@@ -60,7 +60,8 @@
                  title="Enemy Cards Defeated: {{ fav_user_char_card.getCardKill }}<br>
                     Times Defeated: {{ fav_user_char_card.getCardDeath }}<br>
                     Times Used: {{ fav_user_char_card.getCardUses }}">
-                {{ macros.charCard(fav_char, fav_char_img) }}
+                {% set imagePath = char_card_dir~'/'~ fav_char_img %}
+                {{ macros.charCard(fav_char, imagePath) }}
             </div>
         {% endif %}
 
@@ -70,7 +71,9 @@
 
             <div class="container" style="margin-bottom: 22%;" data-html="true" data-toggle="tooltip" data-placement="bottom"
                  title="Times Used: {{ fav_user_util_card.getCardUses }}" >
-                {{ macros.utilCard(fav_util, fav_attr_mod, fav_util_img) }}
+                {% set imagePath = util_card_dir~'/'~ fav_util_img %}
+
+                {{ macros.utilCard(fav_util, fav_attr_mod, imagePath) }}
             </div>
         {% endif %}
 
@@ -81,7 +84,9 @@
                  title="Enemy Cards Defeated: {{ worst_user_char_card.getCardKill }}<br>
                     Times Defeated: {{ worst_user_char_card.getCardDeath }}<br>
                     Times Used: {{ worst_user_char_card.getCardUses }}">
-                {{ macros.charCard(worst_char, worst_char_img) }}
+                {% set imagePath = char_card_dir~'/'~ worst_char_img %}
+
+                {{ macros.charCard(worst_char, imagePath) }}
             </div>
 
         {% endif %}
@@ -91,7 +96,9 @@
         {% if render_card_stats %}
             <div class="container" style="margin-bottom: 22%;" data-html="true" data-toggle="tooltip" data-placement="bottom"
                  title="Times Used: {{ worst_user_util_card.getCardUses }}" >
-                {{ macros.utilCard(worst_util, worst_attr_mod, worst_util_img) }}
+                {% set imagePath = util_card_dir~'/'~ worst_util_img %}
+
+                {{ macros.utilCard(worst_util, worst_attr_mod, imagePath) }}
             </div>
         {% endif %}
 

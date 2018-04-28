@@ -17,16 +17,16 @@
                     {% for attChar in att_chars %}
                         {# TODO: need to download card images or always retrieve them with only imagePath #}
                         {#{% set image = "images/avatars/" ~ attChar.avatar.imagePath %}#}
-                        {% set image = attChar.avatar.imagePath %}
-                        {{ macros.charCard(attChar, image) }}
+                        {% set imagePath = char_card_dir~'/'~ attChar.avatar.imagePath %}
+                        {{ macros.charCard(attChar, imagePath) }}
                     {% endfor %}
                 </div>
                  {#Utils#}
                 <div class="col">
                     {% for attUtil in att_utils %}
                         {#{% set image = "images/avatars/" ~ attUtil.avatar.imagePath %}#}
-                        {% set image = attUtil.avatar.imagePath %}
-                        {{ macros.utilCard(attUtil, attUtil.attributeModifier|json_decode(), image) }}
+                        {% set imagePath = util_card_dir~'/'~attUtil.avatar.imagePath %}
+                        {{ macros.utilCard(attUtil, attUtil.attributeModifier|json_decode(), imagePath) }}
                     {% endfor %}
                 </div>
             </div>
@@ -58,16 +58,16 @@
                 <div class="col">
                     {% for defChar in def_chars %}
                         {#{% set image = "images/avatars/" ~ defChar.avatar.imagePath %}#}
-                        {% set image = defChar.avatar.imagePath %}
-                        {{ macros.charCard(defChar, image) }}
+                        {% set imagePath = char_card_dir~'/'~defChar.avatar.imagePath %}
+                        {{ macros.charCard(defChar, imagePath) }}
                     {% endfor %}
                 </div>
                  {#Utils#}
                 <div class="col">
                     {% for defUtil in def_utils %}
                         {#{% set image = "images/avatars/" ~ defUtil.avatar.imagePath %}#}
-                        {% set image = defUtil.avatar.imagePath %}
-                        {{ macros.utilCard(defUtil, defUtil.attributeModifier|json_decode(), image) }}
+                        {% set imagePath = util_card_dir~'/'~defUtil.avatar.imagePath %}
+                        {{ macros.utilCard(defUtil, defUtil.attributeModifier|json_decode(), imagePath) }}
                     {% endfor %}
                 </div>
             </div>

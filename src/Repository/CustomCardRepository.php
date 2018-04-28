@@ -50,9 +50,6 @@ class CustomCardRepository extends ServiceEntityRepository
 
     public function findAllCardsSortByDateTimeAsc() {
         return $this->createQueryBuilder('cc')
-            ->select('cc.id', 'cc.char_name', 'cc.char_class', 'cc.char_type', 'cc.char_tier', 'cc.rating',
-                'cc.hit_points', 'cc.attack', 'cc.defense', 'cc.luck', 'cc.agility', 'cc.speed',
-                'cc.dateCreated', 'cc.dateAccepted', 'cc.image_file')
             ->addOrderBy('cc.dateCreated', 'ASC')
             ->getQuery()
             ->getResult();
@@ -60,9 +57,6 @@ class CustomCardRepository extends ServiceEntityRepository
 
     public function findOneCardByLastEntry($cardDateTime) {
         return $this->createQueryBuilder('cc')
-            ->select('cc.id', 'cc.char_name', 'cc.char_class', 'cc.char_type', 'cc.char_tier', 'cc.rating',
-                'cc.hit_points', 'cc.attack', 'cc.defense', 'cc.luck', 'cc.agility', 'cc.speed',
-                'cc.dateCreated', 'cc.image_file')
             ->addOrderBy('cc.dateCreated', 'DESC')
             ->where('cc.dateCreated = :cardDateTime')
             ->setParameter('cardDateTime', $cardDateTime)
