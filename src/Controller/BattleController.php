@@ -8,6 +8,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Battle;
 use App\Entity\BattleRequest;
 use App\Entity\User;
 use App\Entity\UserCharDecks;
@@ -122,6 +123,114 @@ class BattleController extends AbstractController
             "notify_color" => "#07ac14",
             "notify_title" => "Request Sent",
             "notify_msg" => "Request successfully sent to $defName"
+        ]);
+    }
+
+
+
+    /**
+     * @Route("/battle/start",name="app_my-battle-start")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function battleStart(ObjectManager $manager)
+    {
+        $attName = $_POST['attName'];
+        $requestid = $_POST['requestid'];
+
+        $defCharDeckID = $_POST['defCharDeckID'];
+        $defUtilDeckID = $_POST['defUtilDeckID'];
+
+        $defender = $this->getUser();
+
+//        $attacker = $manager
+//            ->getRepository(User::class)
+//            ->findOneBy(["username" => $attName]);
+
+
+        $request = $manager
+            ->getRepository(BattleRequest::class)
+            ->find($requestid);
+
+
+        // Get Char Deck of Attacker
+        $defCharDeck = $manager
+            ->getRepository(UserCharDecks::class)
+            ->find($defCharDeckID);
+        // If Attacker's Char Deck is not their own, return error
+        if($defCharDeck->getUser() !== $defender) {
+            return $this->render("notification.html.twig", [
+                "notify_color" => "red",
+                "notify_title" => "Invalid Character Deck Choice",
+                "notify_msg" => "You may only use decks that you own."
+            ]);
+        }
+
+        // Get  Util Deck of Attacker
+        $defUtilDeck = $manager
+            ->getRepository(UserUtilDecks::class)
+            ->find($defUtilDeckID);
+        // If Attacker's Util Deck is not their own, return error
+        if($defUtilDeck->getUser() !== $defender) {
+            return $this->render("notification.html.twig", [
+                "notify_color" => "red",
+                "notify_title" => "Invalid Utility Deck Choice",
+                "notify_msg" => "You may only use decks that you own."
+            ]);
+        }
+
+        // Create Battle Request Record
+        $battle = new Battle();
+//        $battle->setAttacker($attacker);
+//        $battle->setDefender($defender);
+        $battle->setRequest($request);
+//        $battle->setWinner($this->getUser());
+        //$battle->setReport('Devin is the Best');
+        $battle->setDefendCharDeck($defCharDeck);
+        $battle->setDefendUtilDeck($defUtilDeck);
+
+        $manager->persist($battle);
+        $manager->flush();
+
+
+        return $this->render("notification.html.twig", [
+            "notify_color" => "#07ac14",
+            "notify_title" => "Battle Start",
+            "notify_msg" => "Battle successfully started against $attName"
+        ]);
+    }
+
+
+    /**
+     * @Route("/battle/decline",name="app_my-battle-decline")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function battleDecline(ObjectManager $manager)
+    {
+
+        $user = $this->getUser();
+
+        $requestID = $_POST['requestID'];
+
+        $requestToDelete = $manager
+            ->getRepository(BattleRequest::class)
+            ->find($requestID);
+
+        if($requestToDelete->getDefender() !== $user) {
+
+            return $this->render("notification.html.twig", [
+                "notify_color" => "red",
+                "notify_title" => "Invalid Action",
+                "notify_msg" => "You may only decline requests sent to you."
+            ]);
+        }
+
+        $manager->remove($requestToDelete);
+        $manager->flush();
+
+        return $this->render("notification.html.twig", [
+            "notify_color" => "#07ac14",
+            "notify_title" => "Battle Declined",
+            "notify_msg" => "Battle Request successfully declined."
         ]);
     }
 
