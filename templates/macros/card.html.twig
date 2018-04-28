@@ -46,10 +46,56 @@
             </div>
         </div>
     </div>
+{% endmacro %}
 
-
-
-
+{% macro custCharCard(card, image) %}
+    {% set cardTier = card.char_tier %}
+    {% set cardTier = cardTier|replace({' ': ''}) %}
+    {% set cardTier = cardTier|lower %}
+    <div class="character">
+        {#<div class="char_name">{{ card.char_name }}</div>#}
+        <div class="char_card {{ cardTier }}">
+            <div class="char_name">{{ card.char_name }}</div>
+            {#Card Info #}
+            <div class="char_column">
+                <img class="char_img" src="{{ asset('images/custom_character_card/' ~ image) }}">
+                <div style="width: 65%; height: 32%;" class="char_column">
+                    <ul class="char_info">
+                        <li>{{ card.char_type }}</li>
+                        <li>{{ card.char_class }}</li>
+                    </ul>
+                </div>
+                <div style="width: 35%; height: 32%;" class="char_column">
+                    <div class="char_rating">
+                        {{ card.rating }}
+                    </div>
+                </div>
+            </div>
+            {#Card Attributes#}
+            <div class="char_column">
+                <div class="char_column">
+                    <ul class="attribute_list" style="font-weight: bold;">
+                        <li class="small-attr">HP</li>
+                        <li class="small-attr">ATT</li>
+                        <li class="small-attr">DEF</li>
+                        <li class="small-attr">AGI</li>
+                        <li class="small-attr">LCK</li>
+                        <li class="small-attr">SPD</li>
+                    </ul>
+                </div>
+                <div class="char_column">
+                    <ul class="attribute_list">
+                        <li>{{ card.hit_points }}</li>
+                        <li>{{ card.attack }}</li>
+                        <li>{{ card.defense }}</li>
+                        <li>{{ card.agility }}</li>
+                        <li>{{ card.luck }}</li>
+                        <li>{{ card.speed }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endmacro %}
 
 {% macro utilCard(card, attribute, image) %}
