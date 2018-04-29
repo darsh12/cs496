@@ -63,4 +63,11 @@ class CustomCardRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleResult();
     }
+
+    public function findAllCardsSortByVotePercDesc() {
+        return $this->createQueryBuilder('cc')
+            ->addOrderBy('cc.vote_perc', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }
