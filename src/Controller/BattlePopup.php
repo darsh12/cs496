@@ -38,7 +38,7 @@ class BattlePopup extends Controller
             ->getRepository(Avatar::class)
             ->find($user->getAvatar());
 
-        $profilePicturePath = $avatarDirectory.'/'.$userAvatar->getImagePath();
+        $profilePicturePath = $avatarDirectory . '/' . $userAvatar->getImagePath();
 
         $total = $userStat->getMatchesLost() + $userStat->getMatchesWon();
 
@@ -57,6 +57,7 @@ class BattlePopup extends Controller
      */
     public function leaderboardPopup(ObjectManager $manager)
     {
+        $avatarDirectory = $this->getParameter('avatar_directory');
 
         $userName = $_POST["name"];
 
@@ -65,15 +66,22 @@ class BattlePopup extends Controller
         $userStat = $manager->getRepository(UserStat::class)->findOneBy(["user" => $user]);
 
         // User Profile Avatar
-        $userAvatar = $this->getDoctrine()
+        $userAvatar = $manager
             ->getRepository(Avatar::class)
             ->find($user->getAvatar());
 
-        $profilePicturePath = $userAvatar->getImagePath();
+        $profilePicturePath = $avatarDirectory . '/' . $userAvatar->getImagePath();
 
         $total = $userStat->getMatchesLost() + $userStat->getMatchesWon();
 
-        return $this->render('battle/battle_leaderboard_popup.html.twig', ["total_matches" => $total, "user_stat" => $userStat, "profile_img" => $profilePicturePath]);
+        $userRank = ProfileController::getRankName($userStat->getUserRank());
+
+        return $this->render('battle/battle_leaderboard_popup.html.twig', [
+            "total_matches" => $total,
+            "user_stat" => $userStat,
+            "profile_img" => $profilePicturePath,
+            "user_rank" => $userRank
+        ]);
     }
 
 }

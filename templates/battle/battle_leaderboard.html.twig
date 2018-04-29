@@ -19,7 +19,8 @@
         <ul class="leaderboard">
             <li style="" data-toggle="modal" data-target="#playerModal" data-name="{{ user_stat.user}}" onclick="showLeaderboardPopup(this)">
                 <div style="">
-                    Rank: {{ user_stat.userRank }}
+                    Rank: {{ rankNames[user_stat.user.getUsername] }}
+                    {#Rank: {{ user_stat.userRank }}#}
                 </div>
                 <div style="">
                     {{ user_stat.user}}
