@@ -1,0 +1,5 @@
+{% import "macros/card.html.twig" as cards %}
+{% set imagePath = char_card_dir~'/'~ charCardObj.avatar.imagePath %}
+<div class="card_popup" onclick="closeNotification(this)">
+    {{ cards.charCard(charCardObj, imagePath) }}
+</div>

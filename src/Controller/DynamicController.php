@@ -29,7 +29,7 @@ class DynamicController extends Controller
      * @Route("/my_profile",name="app_my-profile")
      * @Security("has_role('ROLE_USER')")
      */
-    public function myProfile()
+    public function myProfile(ObjectManager $manager)
     {
         if(!$this->getUser())
             return $this->render('homepage.html.twig');
@@ -94,7 +94,7 @@ class DynamicController extends Controller
             // Get Favorite Utility Card's Id
             $favUtilID = $userStatObj->getFavouriteUtilCard();
 
-            $utilStatCard = $this->getUtilStatCard($favUtilID);
+            $utilStatCard = $this->getUtilStatCard($favUtilID, $manager);
 
             $favUserUtilCard = $utilStatCard['userUtilCard'];
             $favUtilCard = $utilStatCard['utilCard'];
@@ -125,7 +125,7 @@ class DynamicController extends Controller
             // Get Favorite Utility Card's Id
             $worstUtilID = $userStatObj->getDefeatedUtilCard();
 
-            $utilStatCard = $this->getUtilStatCard($worstUtilID);
+            $utilStatCard = $this->getUtilStatCard($worstUtilID, $manager);
 
             $worstUserUtilCard = $utilStatCard['userUtilCard'];
             $worstUtilCard = $utilStatCard['utilCard'];
@@ -224,7 +224,7 @@ class DynamicController extends Controller
 
     // Returns Array of Objects & Values
     // Representing Player's Favorite/Worst Character Card
-    protected function getCharStatCard($charCardId) {
+    public function getCharStatCard($charCardId) {
         $charStatCard = [];
 
         $userCharCard = $this->getDoctrine()
@@ -254,12 +254,12 @@ class DynamicController extends Controller
 
     // Returns Array of Objects & Values
     // Representing Player's Favorite/Worst Utility Card
-    protected function getUtilStatCard($utilCardId) {
+    public function getUtilStatCard($utilCardId, ObjectManager $manager) {
 
         $utilStatCard = [];
 
         // Get User<->Card Object for given ID
-        $userUtilCard = $this->getDoctrine()
+        $userUtilCard = $manager
             ->getRepository(UserUtilCards::class)
             ->find($utilCardId);
         $utilStatCard['userUtilCard'] = $userUtilCard;
@@ -268,12 +268,12 @@ class DynamicController extends Controller
         $utilCardID = $userUtilCard->getUtilCard();
 
         // Get Utility Card Object
-        $utilStatCard['utilCard'] = $this->getDoctrine()
+        $utilStatCard['utilCard'] = $manager
             ->getRepository(UtilCard::class)
             ->find($utilCardID);
 
         $utilAvatarID = $utilStatCard['utilCard']->getAvatar();
-        $utilAvatar = $this->getDoctrine()
+        $utilAvatar = $manager
             ->getRepository(Avatar::class)
             ->find($utilAvatarID);
 

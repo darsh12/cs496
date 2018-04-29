@@ -1,8 +1,46 @@
+// Show popup of card info when clicking card item in deck
+function showCardPopup(element, type) {
+
+    var cardID = $(element).attr('data-value');
+
+    $.ajax({
+
+        // Using dynamic urls for now, may change if not secure enough
+        url: '/battle/card_popup',
+        type: "POST",
+        data: {
+            cardID: cardID,
+            type: type
+        },
+        // Successful Retrieval
+        success:function(data)
+        {
+            //TODO: append card popup to proper position
+            // TODO: change styling of deck items for onclick (add dialog icon)
+            $("body").append(data);
+            $(".card_popup").slideDown(600);
+        },
+        // Failed Retrieval
+        error: function(data)
+        {
+        }
+    });
+}
+
+
 function showPlayerPopup(element)
 {
    var name = $(element).attr('data-name');
    var requestButton = $("#requestButton");
    requestButton.html("Loading...");
+
+    // Hide Decline button, remove its data attr and onclick
+    var declineButton = $("#declineButton");
+    declineButton.attr("style", "display: none");
+    declineButton.attr("data-request", "");
+    declineButton.attr("onclick", "");
+
+
     $(".modal-body").html("");
     $("#request_error").html("");
 
@@ -113,8 +151,8 @@ function showReceivedPopup(element)
 // Close modal on return and delete battle request records server side
 function declineBattle(element) {
 
-    element.html("Loading...");
-    element.attr("onclick", "")
+    $(element).html("Loading...");
+    $(element).attr("onclick", "")
 
     var requestButton = $("#requestButton");
     requestButton.attr("onclick", "")
