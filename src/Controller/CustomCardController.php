@@ -135,7 +135,7 @@ class CustomCardController extends Controller
         $charCard->setAgility($customCard->getAgility());
         $charCard->setSpeed($customCard->getSpeed());
 
-        $charCard->setPrice(100);
+        $charCard->setPrice($this->setCustomCardPricing($customCard->getRating()));
 
         $charCardImg->setImagePath($customCard->getImageFile());
         $charCard->setAvatar($charCardImg);
@@ -342,5 +342,35 @@ class CustomCardController extends Controller
         }
 
         return $charTier;
+    }
+
+    private function setCustomCardPricing($rating)
+    {
+        $ratingDiff = $rating - 50;
+
+        if ($rating >= 96) {
+            $raiseBonus = $ratingDiff * 30;
+        } elseif($rating >= 90) {
+            $raiseBonus = $ratingDiff * 15;
+        } else {
+            $raiseBonus = $ratingDiff * 5;
+        }
+
+        $raiseMult = ($ratingDiff / 7) * 2;
+        $raiseMultBase = ($ratingDiff / 10) * 5;
+
+        if($rating >= 95) {
+            $raiseBase = 500;
+        } elseif($rating >= 900) {
+            $raiseBase = 300;
+        } elseif($rating >= 82) {
+            $raiseBase = 100;
+        } elseif($rating >= 69) {
+            $raiseBase = 55;
+        } else {
+            $raiseBase = 25;
+        }
+
+        return $raiseBonus + ($raiseMult * $raiseMultBase) + $raiseBase;
     }
 }
