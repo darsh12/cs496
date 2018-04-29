@@ -213,6 +213,7 @@
 }
 
 .history_header {
+    box-shadow: 0 1px 5px 1px black;
     border-radius: 0 0 10px 10px;
     background-color: #FFFFFF;
     width: 37%;
@@ -227,11 +228,43 @@
 }
 
 .history_item {
+    cursor: pointer;
+    border-radius: 10px 10px 0 0;
+    width: fit-content;
+    background-color: #ffeb00;
+    font-size: 1.3em;
+    padding: 0 1% 0 1%;
+}
 
+
+.history_item label {
+    text-align: center;
+    border-radius: 10px;
+    color: #FFFFFF;
+    background-color: #4d4d4d;
+    display: inline-block;
+    margin-bottom: .5rem;
+    padding: 5px;
+}
+
+.history_item label:nth-child(1) {
+    color: black;
+    font-weight: bold;
+    background-color: transparent;
+}
+
+.history_item .fa-caret-right {
+    font-size: 1.7em;
+    margin-top: 1%;
+}
+
+.history_item:hover .fa-caret-right {
+    color: #FFFFFF;
 }
 
 .history_item_content {
-
+    border: 6px solid #ffeb00;
+    border-bottom: 2px solid black;
 }
 
 .battle_report {
@@ -256,35 +289,37 @@ div.character.card-collapse {
 }
 
 .card-collapse .char_name {
-    height: 33%;
+    margin-bottom: 2px;
+    height: 45%;
     font-size: 1.3em;
 }
 
+.card-collapse .char_name + .char_column {
+    height: 75%;
+}
+
 .card-collapse .char_card {
-    height: 55px;
+    height: 70px;
 }
 
 .card-collapse .char_column {
-    margin-left: 23%;
+    margin-left: 18%;
     border-radius: 10px;
 }
 
-.card-collapse .char_column:nth-child(2) {
+.card-collapse .char_attr {
     display: none;
 }
 
-.card-collapse .char_column:nth-child(3) {
-    border-radius: 10px;
-    margin: 0;
-    height: fit-content;
+.card-collapse .info_col {
+    display: none;
 }
 
 .card-collapse .char_img {
     border-radius: 10px;
-    height: 100%;
-    width: 61%;
+    height: 75%;
+    width: 50%;
     float: right;
-    border-bottom: none;
 }
 
 .card-collapse .char_rating {

@@ -1,6 +1,6 @@
 {% macro charCard(card, image) %}
 
-    <div class="character">
+    {#<div class="character">#}
         {% set cardTier = card.charTier %}
         {% set cardTier = cardTier|replace({' ': ''}) | lower %}
 
@@ -11,20 +11,20 @@
                 {#Card Info #}
                 <div class="char_column">
                     <img class="char_img" src="{{ asset(image) }}">
-                    <div style="width: 65%; height: 32%;" class="char_column">
+                    <div style="width: 65%; height: 32%;" class="char_column info_col">
                         <ul class="char_info">
                             <li>{{ card.charType }}</li>
                             <li>{{ card.charClass }}</li>
                         </ul>
                     </div>
-                    <div style="width: 35%; height: 32%;" class="char_column">
+                    <div style="width: 26%; height: 32%;" class="char_column">
                         <div class="char_rating">
                             {{ card.rating }}
                         </div>
                     </div>
                 </div>
                 {#Card Attributes#}
-                <div class="char_column">
+                <div class="char_column char_attr">
                     <div class="char_column">
                         <ul class="attribute_list" style="font-weight: bold;">
                             <li class="small-attr">HP</li>
@@ -48,7 +48,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    {#</div>#}
 {% endmacro %}
 
 {#{% macro custCharCard(card, image) %}#}
