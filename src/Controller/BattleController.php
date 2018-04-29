@@ -40,9 +40,14 @@ class BattleController extends AbstractController
      */
     public function battleLeaderboard(ObjectManager $manager)
     {
-        $allStat = $manager->getRepository(UserStat::class)->findAll();
+        $allStat = $manager->getRepository(UserStat::class)->orderRank();
 
-        return $this->render('battle/battle_leaderboard.html.twig', ["stat" => $allStat]);
+        $rankNames = [];
+        foreach ($allStat as $stat){
+            $rankNames[$stat->getUsername()] = ProfileController::getRankName($stat->getUserRank());
+        }
+
+        return $this->render('battle/battle_leaderboard.html.twig', ["stat" => $allStat, "rankNames" =>$rankNames]);
     }
 
     /**
