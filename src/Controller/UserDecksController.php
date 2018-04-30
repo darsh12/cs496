@@ -12,10 +12,8 @@ use Doctrine\DBAL\Exception\ForeignKeyConstraintViolationException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -79,20 +77,19 @@ class UserDecksController extends Controller {
 
             if (($userNetWorth - $usedNetWorth) !== $remainingNetworth) {
                 $this->addFlash('error', 'Somewhere something happened. Please try again later');
-                throw new \Exception('User networth doesnt match with input');
+                return $this->redirectToRoute('user_decks_show');
             }
 
             if (($userNetWorth - $usedNetWorth) < 0) {
                 $this->addFlash('error', 'You have exceeded your networth. Please choose different characters');
-                throw new Exception('Net worth exceeded');
+                return $this->redirectToRoute('user_decks_show');
             }
 
-            die;
 
             for ($i = 0; $i < sizeof($userCharDeckRepo); $i++) {
                 if ($name === ($userCharDeckRepo[$i]->getName())) {
                     $this->addFlash('error', 'Char deck name in use');
-                    throw new HttpException(403, $this->redirect($request->getUri()));
+                    return $this->redirectToRoute('user_decks_show');
                 }
 
             }
@@ -102,7 +99,7 @@ class UserDecksController extends Controller {
                 ($card3 === $card4) || ($card3 === $card5) ||
                 ($card4 === $card5)) {
                 $this->addFlash('error', 'Cannot have the same card twice in the same deck');
-                throw new HttpException(403, $this->redirect($request->getUri()));
+                return $this->redirectToRoute('user_decks_show');
             }
 
             $entityManager->persist($deck);
@@ -145,7 +142,7 @@ class UserDecksController extends Controller {
             for ($i = 0; $i < sizeof($userUtilDeckRepo); $i++) {
                 if ($name === ($userUtilDeckRepo[$i]->getName())) {
                     $this->addFlash('error', 'Util deck name in use');
-                    throw new HttpException(403, $this->redirect($request->getUri()));
+                    return $this->redirectToRoute('user_decks_show');
                 }
 
             }
@@ -153,7 +150,7 @@ class UserDecksController extends Controller {
             if (($card1 === $card2) || ($card1 === $card3) ||
                 ($card2 === $card3)) {
                 $this->addFlash('error', 'Cannot have the same card twice in the same deck');
-                throw new HttpException(403, $this->redirect($request->getUri()));
+                return $this->redirectToRoute('user_decks_show');
             }
 
             $entityManager->persist($deck);
