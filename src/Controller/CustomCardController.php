@@ -7,6 +7,7 @@ use App\Entity\CharCard;
 use App\Entity\CustomCard;
 use App\Entity\CustomCardVote;
 use App\Form\CustomCardType;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -80,6 +81,8 @@ class CustomCardController extends Controller
         $ccName = $customCard->getCharName();
         $ccDateTime = $customCard->getDateCreated();
 
+        $this->removeImage($customCard->getImageFile());
+
         $em->remove($customCard);
         $em->flush();
 
@@ -151,7 +154,10 @@ class CustomCardController extends Controller
         $charCard->setAgility($customCard->getAgility());
         $charCard->setSpeed($customCard->getSpeed());
 
+
         $charCard->setPrice($this->setCustomCardPricing($customCard->getRating()));
+
+        $charCard->setNetWorth($charCard->getPrice() * 0.65);
 
         $charCardImg->setImagePath($customCard->getImageFile());
         $charCard->setAvatar($charCardImg);
@@ -179,6 +185,8 @@ class CustomCardController extends Controller
         if (!$customCard) {
             throw new NotFoundHttpException("Card not found");
         }
+
+        $this->removeImage($customCard->getImageFile());
 
         $em->remove($customCard);
         $em->flush();
@@ -213,7 +221,6 @@ class CustomCardController extends Controller
 
         $customCard->setVotePerc($this->getCustomCardVotePerc($cardId));
 
-//        $em->persist($customCardVote);
         $em->persist($customCard);
         $em->flush();
 
@@ -242,9 +249,11 @@ class CustomCardController extends Controller
         $customCardVote->setCustomCard($customCard);
         $customCardVote->setVote('Down');
 
+        $em->persist($customCardVote);
+        $em->flush();
+
         $customCard->setVotePerc($this->getCustomCardVotePerc($cardId));
 
-        $em->persist($customCardVote);
         $em->persist($customCard);
         $em->flush();
 
@@ -343,7 +352,6 @@ class CustomCardController extends Controller
         $repository = $this->getDoctrine()->getRepository(CustomCard::class);
         $user=$this->getUser();
 
-//        $card = $repository->findOneCardByLastEntry();
         $card = $repository->findOneCardByLastEntry($dateCreated);
 
         return $this->render('custom_card/success.html.twig', ['card' => $card, 'user' => $user]);
@@ -381,11 +389,11 @@ class CustomCardController extends Controller
     private function setCustomCardTier($rating) {
         $charTier = "";
 
-        if($rating >= 50 && $rating <= 68) {
+        if($rating > 49 && $rating < 69) {
             $charTier = "Amateur";
-        } elseif ($rating >= 69 && $rating <= 81) {
+        } elseif ($rating > 68 && $rating < 82) {
             $charTier = "Professional";
-        } elseif ($rating >= 82 && $rating <= 99) {
+        } elseif ($rating > 81 && $rating < 100) {
             $charTier = "World Star";
         }
 
@@ -420,5 +428,11 @@ class CustomCardController extends Controller
         }
 
         return $raiseBonus + ($raiseMult * $raiseMultBase) + $raiseBase;
+    }
+
+    private function removeImage($image) {
+        $fileSystem = new Filesystem();
+        $path = $this->getParameter('custom_char_card_dir').'/'.$image;
+        $fileSystem->remove($path);
     }
 }

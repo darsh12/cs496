@@ -68,34 +68,34 @@ $(document).ready(function() {
             var prevSort = elementSortBar.className;
 
             switch(prevSort) {
-                case 'name':
+                case 'sortName':
                     sortByNameDesc(cards);
                     break;
-                case 'rating':
+                case 'sortRating':
                     sortByRatingDesc(cards);
                     break;
-                case 'type':
+                case 'sortType':
                     sortByTypeDesc(cards);
                     break;
-                case 'class':
+                case 'sortClass':
                     sortByClassDesc(cards);
                     break;
-                case 'hitpoints':
+                case 'sortHitpoints':
                     sortByHitPointsDesc(cards);
                     break;
-                case 'attack':
+                case 'sortAttack':
                     sortByAttackDesc(cards);
                     break;
-                case 'defense':
+                case 'sortDefense':
                     sortByDefenseDesc(cards);
                     break;
-                case 'speed':
+                case 'sortSpeed':
                     sortBySpeedDesc(cards);
                     break;
-                case 'luck':
+                case 'sortLuck':
                     sortByLuckDesc(cards);
                     break;
-                case 'agility':
+                case 'sortAgility':
                     sortByAgilityDesc(cards);
             }
 
@@ -179,7 +179,7 @@ $(document).ready(function() {
             cardsDict[i].push({speed : cardSpeed[i].innerHTML});
             cardsDict[i].push({price : cardPrice[i].innerHTML});
             cardsDict[i].push({id : cardId[i].classList[1]});
-            cardsDict[i].push({buyId : buyId[i].data});
+            cardsDict[i].push({buyId : buyId[i].getAttribute('data-url')});
         }
 
         return cardsDict;
@@ -221,8 +221,8 @@ $(document).ready(function() {
             cardPrice[i].innerHTML = cards[i][12].price;
             var idClassName = cardId[i].classList[1];
             cardId[i].classList.remove(idClassName);
-            cardId[i].classList.add(cards[i][12].id);
-            buyId[i].data = '/inventory/buy/' + cards[i][12].id + '/char';
+            cardId[i].classList.add(cards[i][13].id);
+            buyId[i].setAttribute('data-url', '/inventory/buy/' + cards[i][13].id + '/char');
         }
     }
 

@@ -1,0 +1,31 @@
+{% extends 'homepage.html.twig' %}
+
+{% block title %}Card Packs {% endblock %}
+
+{% block market_tab %}
+    <li class="tab"><a class="current" href="{{ path('card_show_catalog') }}">Market<span class="sr-only"></span></a>
+    </li>
+{% endblock %}
+
+{% block dynamic_container %}
+
+    <ul>
+        <h2>Character cards got: </h2>
+        {% for charCard in charCards %}
+            <li> {{ charCard.charName }} : {{ charCard.charTier }}</li>
+        {% endfor %}
+
+        <h2>Utility cards got: </h2>
+
+        {% for utilCard in utilCards %}
+            <li> {{ utilCard.utilName }} : {{ utilCard.utilTier }}</li>
+        {% endfor %}
+
+        {% if coins >0 %}
+            <h2> {{ coins }} coins </h2>
+        {% endif %}
+    </ul>
+
+
+
+{% endblock %}

@@ -44,7 +44,7 @@ class Battle
     private $time;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="text")
      */
     private $report="No reports right now";
 
