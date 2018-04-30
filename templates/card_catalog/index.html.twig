@@ -81,7 +81,7 @@
                         {% endif %}
                         <div class="col-4">
                             {{ macros.charCard(card, imagePath) }}
-                            <div class="text-center buy-options">
+                            <div class="col-12 text-center buy-options">
                                 <i class="fas fa-money-bill-alt">
                                 <span class="price">{{ card.price }}</span></i>
                                 {% if is_granted('ROLE_USER') %}
