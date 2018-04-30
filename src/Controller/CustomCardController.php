@@ -96,9 +96,26 @@ class CustomCardController extends Controller
     {
         $repoCustomCard = $this->getDoctrine()->getRepository(CustomCard::class);
         $repoCustomCardVote = $this->getDoctrine()->getRepository(CustomCardVote::class);
-        $user=$this->getUser();
+        $user = $this->getUser();
 
         $cards = $repoCustomCard->findAllCardsSortByDateTimeAsc();
+        $cardVotes = $repoCustomCardVote->findAll();
+
+        return $this->render('custom_card/voting.html.twig', ['cards' => $cards, 'user' => $user, 'cardVotes' => $cardVotes]);
+    }
+
+    /**
+     * @Route("/custom-card/voting/perc-desc", name="custom_card_vote_perc_desc")
+     * @Security("has_role('ROLE_ADMIN')")
+     */
+    public function showCustomCardVotePercDesc()
+    {
+        $repoCustomCard = $this->getDoctrine()->getRepository(CustomCard::class);
+        $repoCustomCardVote = $this->getDoctrine()->getRepository(CustomCardVote::class);
+        $user = $this->getUser();
+
+        $cards = $repoCustomCard->findAllCardsSortByVotePercDesc();
+        dump($cards);
         $cardVotes = $repoCustomCardVote->findAll();
 
         return $this->render('custom_card/voting.html.twig', ['cards' => $cards, 'user' => $user, 'cardVotes' => $cardVotes]);
@@ -195,6 +212,12 @@ class CustomCardController extends Controller
         $em->persist($customCardVote);
         $em->flush();
 
+        $customCard->setVotePerc($this->getCustomCardVotePerc($cardId));
+
+//        $em->persist($customCardVote);
+        $em->persist($customCard);
+        $em->flush();
+
         $this->addFlash('success', 'Custom card vote has been updated');
         return new Response(null, 204);
     }
@@ -220,11 +243,37 @@ class CustomCardController extends Controller
         $customCardVote->setCustomCard($customCard);
         $customCardVote->setVote('Down');
 
+        $customCard->setVotePerc($this->getCustomCardVotePerc($cardId));
+
         $em->persist($customCardVote);
+        $em->persist($customCard);
         $em->flush();
 
         $this->addFlash('success', 'Custom card vote has been updated');
         return new Response(null, 204);
+    }
+
+    private function getCustomCardVotePerc($cardId) {
+        $em = $this->getDoctrine()->getManager();
+        $customCardVoteData = $em->getRepository(CustomCardVote::class);
+
+        $ccTotalVotes = $customCardVoteData->getTotalVoteCount($cardId);
+        $ccUpVotes = $customCardVoteData->getUpVoteCount($cardId);
+        $ccDownVotes = $customCardVoteData->getDownVoteCount($cardId);
+
+        $ccVotePerc = 0;
+        $ccUpVotePerc = (integer)$ccUpVotes[1] / (integer)$ccTotalVotes[1];
+        $ccDownVotePerc = (integer)$ccDownVotes[1] / (integer)$ccTotalVotes[1];
+
+        if($ccUpVotePerc > $ccDownVotePerc) {
+            $ccVotePerc = $ccUpVotePerc;
+        } elseif ($ccDownVotePerc > $ccUpVotePerc) {
+            $ccVotePerc = -($ccDownVotePerc);
+        }
+
+        $ccVotePerc = $ccVotePerc * 100;
+
+        return $ccVotePerc;
     }
 
     /***** custom card creation functions *****/

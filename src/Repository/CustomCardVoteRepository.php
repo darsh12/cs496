@@ -47,4 +47,35 @@ class CustomCardVoteRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getTotalVoteCount($customCardId) {
+        return $this->createQueryBuilder('ccv')
+            ->select('count(ccv.customCard)')
+            ->where('ccv.customCard = :customCardId')
+            ->setParameter('customCardId', $customCardId)
+            ->getQuery()
+            ->getSingleResult();
+    }
+
+    public function getUpVoteCount($customCardId) {
+        return $this->createQueryBuilder('ccv')
+            ->select('count(ccv.customCard)')
+            ->where('ccv.customCard = :customCardId')
+            ->andWhere('ccv.vote = :up')
+            ->setParameter('customCardId', $customCardId)
+            ->setParameter('up', 'Up')
+            ->getQuery()
+            ->getSingleResult();
+    }
+
+    public function getDownVoteCount($customCardId) {
+        return $this->createQueryBuilder('ccv')
+            ->select('count(ccv.customCard)')
+            ->where('ccv.customCard = :customCardId')
+            ->andWhere('ccv.vote = :down')
+            ->setParameter('customCardId', $customCardId)
+            ->setParameter('down', 'Down')
+            ->getQuery()
+            ->getSingleResult();
+    }
 }

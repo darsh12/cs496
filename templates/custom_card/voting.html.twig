@@ -30,6 +30,19 @@
             </div>
         </div>
 
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="vote-perc-btn">
+                <div class="row">
+                    <div class="col-3 offset-8 text-center">
+                        <a href="{{ path('custom_card_vote_perc_desc') }}" id="votePerc">
+                            <span>Vote %</span>
+                            <i class="fas fa-sort-down fa-2x"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
         {% for card in cards %}
             {% if card.dateAccepted != null %}
                 {% set imagePath = custom_char_card_dir ~'/'~ card.imageFile %}
@@ -78,24 +91,14 @@
                             {% else %}
                                 <div class="vote-percentage">
                                     {% set totalVotes = upCount + downCount %}
-                                    {% set votePerc = 0 %}
-                                    {% if upCount > downCount %}
-                                        {% set votePerc = upCount / totalVotes %}
-                                    {% elseif downCount > upCount %}
-                                        {% set votePerc = downCount / totalVotes %}
-                                        {% set votePerc = -votePerc %}
-                                    {% else %}
-                                        {# do nothing #}
-                                    {% endif %}
                                     <div class="row">
-                                        <p data-toggle="tooltip" data-placement="right" title="Total number of votes">
+                                        <p data-toggle="tooltip" data-placement="top" title="Total number of votes">
                                             {{ totalVotes }}
                                         </p>
                                     </div>
                                     <div class="row">
-                                        {% set votePerc = votePerc * 100 %}
-                                        <p data-toggle="tooltip" data-placement="bottom" title="Voting percantage">
-                                            {{ votePerc|number_format(0) ~ '%' }}
+                                        <p data-toggle="tooltip" data-placement="top" class="vote-percent" title="Voting percentage">
+                                            {{ card.votePerc ~ '%' }}
                                         </p>
                                     </div>
 

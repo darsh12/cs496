@@ -35,9 +35,9 @@ class CustomCard
     private $user;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal")
      */
-    private $votes=0;
+    private $vote_perc=0;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -157,16 +157,20 @@ class CustomCard
         return $this;
     }
 
-    public function getVotes(): ?int
+    /**
+     * @return mixed
+     */
+    public function getVotePerc()
     {
-        return $this->votes;
+        return $this->vote_perc;
     }
 
-    public function setVotes(int $votes): self
+    /**
+     * @param mixed $vote_perc
+     */
+    public function setVotePerc($vote_perc): void
     {
-        $this->votes = $votes;
-
-        return $this;
+        $this->vote_perc = $vote_perc;
     }
 
     public function getCharName(): ?string
