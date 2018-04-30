@@ -36,8 +36,8 @@ class UserStatRepository extends ServiceEntityRepository
 
     public function orderRank() {
         return $this->createQueryBuilder('u')
-            ->orderBy('u.user_rank', 'DESC')
-            ->orderBy('u.user_level', 'DESC')
+            ->addorderBy('u.user_rank', 'DESC')
+            ->addorderBy('u.user_level', 'DESC')
             ->getQuery()
             ->getResult();
     }

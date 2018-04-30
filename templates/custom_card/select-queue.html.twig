@@ -30,34 +30,36 @@
             </div>
         </div>
 
-        {% for card in cards %}
-            {% if card.dateAccepted == null %}
-                {% set imagePath = custom_char_card_dir ~'/'~ card.imageFile %}
-                <div class="custom-card mb-5">
-                    <div class="row">
-                        <div class="col-6">
-                            {{ macros.charCard(card, imagePath) }}
-                        </div>
-                        <div class="card-functions">
+        {% if cards is defined %}
+            {% for card in cards %}
+                {% if card.dateAccepted == null %}
+                    {% set imagePath = custom_char_card_dir ~'/'~ card.imageFile %}
+                    <div class="custom-card mb-5">
+                        <div class="row">
                             <div class="col-6">
-                                <div class="row align-middle">
-                                    <a href="#" class="confirmAccept"
-                                       data-url="{{ path('custom_card_select_accept', {'cardId': card.id}) }}">
-                                        <i class="fas fa-plus fa-5x"></i>
-                                    </a>
-                                </div>
-                                <div class="row align-middle">
-                                    <a href="#" class="confirmRemove"
-                                       data-url="{{ path('custom_card_select_remove', {'cardId': card.id}) }}">
-                                       <i class="fas fa-minus fa-5x"></i>
-                                    </a>
+                                {{ macros.charCard(card, imagePath) }}
+                            </div>
+                            <div class="card-functions">
+                                <div class="col-6">
+                                    <div class="row align-middle">
+                                        <a href="#" class="confirmAccept"
+                                           data-url="{{ path('custom_card_select_accept', {'cardId': card.id}) }}">
+                                            <i class="fas fa-plus fa-5x"></i>
+                                        </a>
+                                    </div>
+                                    <div class="row align-middle">
+                                        <a href="#" class="confirmRemove"
+                                           data-url="{{ path('custom_card_select_remove', {'cardId': card.id}) }}">
+                                           <i class="fas fa-minus fa-5x"></i>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endif %}
-        {% endfor %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}
 

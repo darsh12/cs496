@@ -188,12 +188,17 @@ class BattleController extends AbstractController
             ]);
         }
 
+
+
+
         // Create Battle Request Record
         $battleRequest = new BattleRequest();
         $battleRequest->setAttacker($attacker);
         $battleRequest->setDefender($defender);
         $battleRequest->setAttackerCharDeck($attCharDeck);
         $battleRequest->setAttackerUtilDeck($attUtilDeck);
+
+
 
         $manager->persist($battleRequest);
         $manager->flush();

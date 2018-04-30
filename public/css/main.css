@@ -10,6 +10,7 @@
     font-family: "Ostrich-Sans Bold";
 }
 
+
 .header{
     position: fixed;
     left: 0;
@@ -20,13 +21,16 @@
 
 .main_content {
     margin-top: 5%;
+
+
 }
 
 .footer {
     position: fixed;
-    left: 0;
+    right: 0;
     bottom: 0;
-    width: 100%;
+    left: 0;
+    height: 50px;
     background-color: #1c2541;
     color: white;
     text-align: center;
@@ -143,6 +147,7 @@
     padding: 1%;
     margin-left: 15%;
     margin-right: 15%;
+
 }
 
 .custom_container {
