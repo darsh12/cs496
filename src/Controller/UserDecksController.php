@@ -85,7 +85,6 @@ class UserDecksController extends Controller {
                 return $this->redirectToRoute('user_decks_show');
             }
 
-            die;
 
             for ($i = 0; $i < sizeof($userCharDeckRepo); $i++) {
                 if ($name === ($userCharDeckRepo[$i]->getName())) {
