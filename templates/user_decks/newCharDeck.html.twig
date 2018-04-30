@@ -21,6 +21,11 @@
         <h1 class="text-center">Create new deck</h1>
 
         {{ form_start(charDeck) }}
+
+        <input type="text" name="usernetworth" id="usernetworth" readonly class="form-control"
+               value="{{ userNetWorth }}">
+        <input type="hidden" id="hiddennetworth" value="{{ userNetWorth }}">
+        {#<h3>Remaining net worth: <span id="netWorth">  {{ form_widget(charDeck.worth) }}</span></h3>#}
         <label for="user_char_deck_name">{{ 'global.name'|trans }}</label>
         {{ form_widget(charDeck.name) }}
         <label for="user_char_deck_name">{{ 'cards.card_1'|trans }}</label>
@@ -34,12 +39,57 @@
         <label for="user_char_deck_name">{{ 'cards.card_5'|trans }}</label>
         {{ form_widget(charDeck.card5) }}
         <div class="row" style="margin-top: 2%">
-        <div class="col">
-            <input type="submit" class="btn btn-primary" value="{{ 'decks.create'|trans }}" formnovalidate/>
-        </div>
+            <div class="col">
+                <input type="submit" class="btn btn-primary" value="{{ 'decks.create'|trans }}" formnovalidate/>
+            </div>
         </div>
         {{ form_end(charDeck) }}
 
+
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        // $(function () {
+        //     $('.dropdown-select').change(function () {
+        //         let networth=  $(this).find(':selected').data("networth")
+        //
+        //         var currentValue =$('#usernetworth').val();
+        //         let oldValue =parseInt(parseFloat(currentValue));
+        //         let newValue = oldValue - networth
+        //         $('#usernetworth').val(newValue);
+        //         console.log(newValue);
+        //
+        //     });
+        //
+        // })
+
+        $(function () {
+            $(".dropdown-select").on("change", function () {
+                //change input #grandtotal value according check/uncheck checkboxes
+                $("#usernetworth").val(function () {
+                    //declare a variable to keep the sum of the values
+                    var sum = 1000;
+                    //using an iterator find and sum the values of checked checkboxes
+                    $(":selected").each(function () {
+                        console.log($(this).data("networth"));
+                        sum -= ~~$(this).data("networth");
+                    });
+                    return sum;
+                });
+            });
+
+            $("#usernetworth").val(function () {
+                var sum = 1000;
+                $(":selected").each(function () {
+                    sum -= ~~$(this).val();
+                });
+                return sum;
+            });
+        })
+    </script>
 {% endblock %}
 
