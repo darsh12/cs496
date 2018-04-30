@@ -1,3 +1,14 @@
+.char_peek_info {
+    font-family: "Ostrich-Sans Black";
+    color: #FFFFFF;
+    padding: 2%;
+    clear: both;
+    background-color: red;
+    border-radius: 10px;
+    width: fit-content;
+    font-size: 1.3em;
+}
+
 .card_popup {
     display: none;
     z-index: 10000;

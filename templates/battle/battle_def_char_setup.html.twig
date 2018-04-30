@@ -1,0 +1,47 @@
+{%  import "macros/decks.html.twig" as decks %}
+{%  import "macros/card.html.twig" as cards %}
+{%  import "macros/battle_char_peek.html.twig" as peeks %}
+
+
+<div class="row" style="height: 100%; display: none;">
+    <div class="col">
+        {#Char Peek#}
+        <div class="col">
+            <div class="char_peek">
+                <h5 style="text-align: center">Attacker's Visible Character Cards</h5>
+                {{ peeks.charPeek(attCharDeck, diff_char, diff_type, diff_order, diff_class) }}
+            </div>
+        </div>
+        {#Util Peek#}
+        <div class="col">
+            <div class="util_peek">
+                <h5 style="text-align: center">Attacker's Visible Utility Cards</h5>
+                {% if diff_util > 0 %}
+                    {% set imagePath1 = util_card_dir~'/'~utilDeck.card1.utilCard.avatar.imagePath %}
+                    {{ cards.utilCard(utilDeck.card1.utilCard, attribute1, imagePath1) }}
+
+                    {% if diff_util > 1 %}
+                        {% set imagePath2 = util_card_dir~'/'~utilDeck.card2.utilCard.avatar.imagePath %}
+                        {{ cards.utilCard(utilDeck.card2.utilCard, attribute2, imagePath2) }}
+                    {% endif %}
+
+                    {% if diff_util > 2 %}
+                        {% set imagePath3 = util_card_dir~'/'~utilDeck.card3.utilCard.avatar.imagePath %}
+                        {{ cards.utilCard(utilDeck.card3.utilCard, attribute3, imagePath3) }}
+                    {% endif %}
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <h4 style="text-align: center">Choose Character Deck</h4>
+        {{ decks.charDecks(charDeck) }}
+    </div>
+    <div class="col">
+        <button onclick="startBattle(this)" style="position: relative; font-size: 2em; top: 50%;" class="btn btn-normal">Start Battle Simulation
+            <i class="fa fa-arrow-right"></i>
+        </button>
+        <label style="color: red; left: 15%; position: relative; top: 50%;" id="request_error"></label>
+    </div>
+</div>

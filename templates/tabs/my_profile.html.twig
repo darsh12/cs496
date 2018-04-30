@@ -8,7 +8,7 @@
     <ul class="sub_tabs">
         <li class="sub_tab current" onclick="location.href='{{ path('app_my-profile') }}'" >Stats</li> {# stats is default current sub-tab #}
         <li class="sub_tab" onclick="location.href='{{ path('app_history-ajax', {'type':'best'}) }}'">Battle History</li>
-        <li class="sub_tab" onclick="location.href='{{ path('app_my-profile-achieve') }}'">Achievements</li>
+        {#<li class="sub_tab" onclick="location.href='{{ path('app_my-profile-achieve') }}'">Achievements</li>#}
         <li class="sub_tab" onclick="location.href='{{ path('app_my-profile-edit') }}'">Edit Profile</li>
     </ul>
 {% endblock %}
@@ -113,7 +113,7 @@
             <li><label>LOSSES</label>&nbsp&nbsp&nbsp&nbsp{{ user_stat.matchesLost }}</li>
             <li><label>TOTAL</label>&nbsp&nbsp&nbsp&nbsp{{ total_matches }}</li>
             <li><label>ATTACKS</label>&nbsp&nbsp&nbsp&nbsp{{ user_stat.timesAttacked }}</li>
-            <li><label>DEFENSES</label>&nbsp&nbsp&nbsp&nbsp{{ user_stat.timesAttacked }}</li>
+            <li><label>DEFENSES</label>&nbsp&nbsp&nbsp&nbsp{{ user_stat.timesDefended }}</li>
         </ul>
     </div>
 {% endblock %}

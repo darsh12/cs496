@@ -1,0 +1,18 @@
+{%  import "macros/decks.html.twig" as decks %}
+<div class="row" style="height: 100%; display: none;">
+    <div class="col-2"></div>
+    <div class="col-5">
+        <h4 style="text-align: center">Choose Utility Deck</h4>
+        {{ decks.utilDecks(utilDeck) }}
+    </div>
+    <div class="col">
+        <div style=" left: 15%;
+                     position: relative;
+                     top: 50%;">
+            <button style="font-size: 2em;" onclick="confirmUtil(this)" class="btn btn-normal">Confirm Utility Deck
+                <i class="fa fa-arrow-right"></i>
+            </button>
+            <label style="color: red" id="request_error"></label>
+        </div>
+    </div>
+</div>
