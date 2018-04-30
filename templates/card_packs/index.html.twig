@@ -20,27 +20,35 @@
             <div class="col-4">
                 <h1>Amateur</h1>
                 <p><i class="fas fa-money-bill-alt fa-spin"></i> <span>{{ cost.amateur }}</span></p>
-                <a href="#" class="btn btn-link btn-normal js-pack-buy"
-                   data-url="{{ path('card_packs_buy', {
-                       pack: 'amateur'
-                   }) }}">Buy</a>
+                {#<a href="#" class="btn btn-link btn-normal js-pack-buy"#}
+                {#data-url="{{ path('card_packs_buy', {#}
+                {#pack: 'amateur'#}
+                {#}) }}">Buy</a>#}
+                <a href="{{ path('card_packs_buy', {'pack':'amateur'}) }}" class="btn btn-link btn-normal">Buy</a>
+
             </div>
 
             <div class="col-4">
                 <h1>Professional</h1>
                 <p><i class="fas fa-money-bill-alt fa-spin"></i> <span>{{ cost.professional }}</span></p>
-                <a href="#" class="btn btn-link btn-normal js-pack-buy"
-                   data-url="{{ path('card_packs_buy', {
-                       pack: 'professional'
-                   }) }}">Buy</a></div>
+                {#<a href="#" class="btn btn-link btn-normal js-pack-buy"#}
+                {#data-url="{{ path('card_packs_buy', {#}
+                {#pack: 'professional'#}
+                {#}) }}">Buy</a>#}
+                <a href="{{ path('card_packs_buy', {'pack':'professional'}) }}" class="btn btn-link btn-normal">Buy</a>
+
+            </div>
 
             <div class="col-4">
                 <h1>World Star</h1>
                 <p><i class="fas fa-money-bill-alt fa-spin"></i> <span>{{ cost.world_star }}</span></p>
-                <a href="#" class="btn btn-link btn-normal js-pack-buy"
-                   data-url="{{ path('card_packs_buy', {
-                       pack: 'world_star'
-                   }) }}">Buy</a></div>
+                {#<a href="#" class="btn btn-link btn-normal js-pack-buy"#}
+                {#data-url="{{ path('card_packs_buy', {#}
+                {#pack: 'world_star'#}
+                {#}) }}">Buy</a></div>#}
+
+                <a href="{{ path('card_packs_buy', {'pack':'world_star'}) }}" class="btn btn-link btn-normal">Buy</a>
+            </div>
         </div>
     </div>
 {% endblock %}
@@ -63,7 +71,7 @@
                             location.reload();
                         }
                     }).done(function () {
-                        location.href = "{{ path('show_user_cards') }}";
+                        location.href = $(this).data('url');
                     });
 
                 }
