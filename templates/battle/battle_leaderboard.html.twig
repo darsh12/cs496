@@ -2,7 +2,8 @@
 
 {% block sub_tabs %}
     <ul class="sub_tabs">
-        <li class="sub_tab" onclick="location.href='{{ path('app_battle') }}'">Find Game</li> {# Find Game is default current sub-tab #}
+        <li class="sub_tab" onclick="location.href='{{ path('app_battle') }}'">Find Game
+        </li> {# Find Game is default current sub-tab #}
         <li class="sub_tab current" onclick="location.href='{{ path('app_my-battle-leaderboard') }}'">Leaderboard</li>
     </ul>
 {% endblock %}
@@ -13,22 +14,30 @@
     </div>
 
 
-    <div >
-        {% for user_stat in stat  %}
+    <div>
+        {% for user_stat in stat %}
 
-        <ul class="leaderboard">
-            <li style="" data-toggle="modal" data-target="#playerModal" data-name="{{ user_stat.user}}" onclick="showLeaderboardPopup(this)">
-                <div style="">
-                    Rank: {{ user_stat.userRank }}
-                </div>
-                <div style="">
-                    {{ user_stat.user}}
-                </div>
-                <div style="">
-                    Level: {{ user_stat.userLevel }}
-                </div>
-            </li>
-        </ul>
+            {% set userColor = '' %}
+            {% if user_stat.user == app.user %}
+                {% set userColor = '#64E9EE' %}
+
+            {% endif %}
+
+
+            <ul style=" background-color: {{ userColor }}" class="leaderboard">
+                <li data-toggle="modal" data-target="#playerModal" data-name="{{ user_stat.user }}"
+                    onclick="showLeaderboardPopup(this)">
+                    <div style="">
+                        Rank: {{ rankNames[user_stat.user.getUsername] }}
+                    </div>
+                    <div id="user">
+                        {{ user_stat.user }}
+                    </div>
+                    <div style="">
+                        Level: {{ user_stat.userLevel }}
+                    </div>
+                </li>
+            </ul>
 
         {% endfor %}
 

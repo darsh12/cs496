@@ -30,106 +30,111 @@
             </div>
         </div>
 
-        {% for card in cards %}
-            {% if card.dateAccepted != null %}
-                {% set imagePath = custom_char_card_dir ~'/'~ card.imageFile %}
-                <div class="custom-card mb-5">
-                    <div class="row">
-                        <div class="col-6">
-                            {{ macros.charCard(card, imagePath) }}
-                        </div>
-                        <div class="col-3">
-                            {% set voteCount = 0 %}
-                            {% set upCount = 0 %}
-                            {% set downCount = 0 %}
-                            {% for vote in cardVotes %}
-                                {% if card.id == vote.customCard.id %}
-                                    {% if vote.vote == 'Up' %}
-                                        {% set upCount = upCount + 1 %}
-                                    {% else %}
-                                        {% set downCount = downCount + 1 %}
-                                    {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+            <div class="vote-perc-btn">
+                <div class="row">
+                    <div class="col-3 offset-8 text-center">
+                        <a href="{{ path('custom_card_vote_perc_desc') }}" id="votePerc">
+                            <span>Vote %</span>
+                            <i class="fas fa-sort-down fa-2x"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
 
-                                    {% if user == vote.user %}
-                                        {% set voteCount = voteCount + 1 %}
+        {% if cards is defined %}
+            {% for card in cards %}
+                {% if card.dateAccepted != null %}
+                    {% set imagePath = custom_char_card_dir ~'/'~ card.imageFile %}
+                    <div class="custom-card mb-5">
+                        <div class="row">
+                            <div class="col-6">
+                                {{ macros.charCard(card, imagePath) }}
+                            </div>
+                            <div class="col-3">
+                                {% set voteCount = 0 %}
+                                {% set upCount = 0 %}
+                                {% set downCount = 0 %}
+                                {% for vote in cardVotes %}
+                                    {% if card.id == vote.customCard.id %}
+                                        {% if vote.vote == 'Up' %}
+                                            {% set upCount = upCount + 1 %}
+                                        {% else %}
+                                            {% set downCount = downCount + 1 %}
+                                        {% endif %}
+
+                                        {% if user == vote.user %}
+                                            {% set voteCount = voteCount + 1 %}
+                                        {% endif %}
                                     {% endif %}
+                                {% endfor %}
+
+                                {% if voteCount == 0 %}
+                                    <div class="card-functions">
+                                        <div class="row">
+                                            <div class="text-left">
+                                                <a href="#" class="confirmUpVote"
+                                                   data-url="{{ path('custom_card_vote_up', {'cardId': card.id}) }}">
+                                                    <i class="fas fa-thumbs-up fa-5x"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="text-left">
+                                                <a href="#" class="confirmDownVote"
+                                                   data-url="{{ path('custom_card_vote_down', {'cardId': card.id}) }}">
+                                                    <i class="fas fa-thumbs-down fa-5x"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="vote-percentage">
+                                        {% set totalVotes = upCount + downCount %}
+                                        <div class="row">
+                                            <p data-toggle="tooltip" data-placement="top" title="Total number of votes">
+                                                {{ totalVotes }}
+                                            </p>
+                                        </div>
+                                        <div class="row">
+                                            <p data-toggle="tooltip" data-placement="top" class="vote-percent" title="Voting percentage">
+                                                {{ card.votePerc ~ '%' }}
+                                            </p>
+                                        </div>
+
+                                    </div>
                                 {% endif %}
-                            {% endfor %}
-
-                            {% if voteCount == 0 %}
+                            </div>
+                            <div class="col-3">
                                 <div class="card-functions">
                                     <div class="row">
-                                        <div class="text-left">
-                                            <a href="#" class="confirmUpVote"
-                                               data-url="{{ path('custom_card_vote_up', {'cardId': card.id}) }}">
-                                                <i class="fas fa-thumbs-up fa-5x"></i>
-                                            </a>
-                                        </div>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <div class="col-6 align-middle">
+                                                <a href="#" class="confirmAdd"
+                                                   data-url="{{ path('custom_card_vote_add', {'cardId': card.id}) }}">
+                                                    <i class="fas fa-plus fa-5x"></i>
+                                                </a>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                     <div class="row">
-                                        <div class="text-left">
-                                            <a href="#" class="confirmDownVote"
-                                               data-url="{{ path('custom_card_vote_down', {'cardId': card.id}) }}">
-                                                <i class="fas fa-thumbs-down fa-5x"></i>
-                                            </a>
-                                        </div>
+                                        {% if is_granted('ROLE_ADMIN') %}
+                                            <div class="col-6 align-middle">
+                                                <a href="#" class="confirmRemove"
+                                                   data-url="{{ path('custom_card_vote_remove', {'cardId': card.id}) }}">
+                                                    <i class="fas fa-minus fa-5x"></i>
+                                                </a>
+                                            </div>
+                                        {% endif %}
                                     </div>
-                                </div>
-                            {% else %}
-                                <div class="vote-percentage">
-                                    {% set totalVotes = upCount + downCount %}
-                                    {% set votePerc = 0 %}
-                                    {% if upCount > downCount %}
-                                        {% set votePerc = upCount / totalVotes %}
-                                    {% elseif downCount > upCount %}
-                                        {% set votePerc = downCount / totalVotes %}
-                                        {% set votePerc = -votePerc %}
-                                    {% else %}
-                                        {# do nothing #}
-                                    {% endif %}
-                                    <div class="row">
-                                        <p data-toggle="tooltip" data-placement="right" title="Total number of votes">
-                                            {{ totalVotes }}
-                                        </p>
-                                    </div>
-                                    <div class="row">
-                                        {% set votePerc = votePerc * 100 %}
-                                        <p data-toggle="tooltip" data-placement="bottom" title="Voting percantage">
-                                            {{ votePerc|number_format(0) ~ '%' }}
-                                        </p>
-                                    </div>
-
-                                </div>
-                            {% endif %}
-                        </div>
-                        <div class="col-3">
-                            <div class="card-functions">
-                                <div class="row">
-                                    {% if is_granted('ROLE_ADMIN') %}
-                                        <div class="col-6 align-middle">
-                                            <a href="#" class="confirmAdd"
-                                               data-url="{{ path('custom_card_vote_add', {'cardId': card.id}) }}">
-                                                <i class="fas fa-plus fa-5x"></i>
-                                            </a>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                                <div class="row">
-                                    {% if is_granted('ROLE_ADMIN') %}
-                                        <div class="col-6 align-middle">
-                                            <a href="#" class="confirmRemove"
-                                               data-url="{{ path('custom_card_vote_remove', {'cardId': card.id}) }}">
-                                                <i class="fas fa-minus fa-5x"></i>
-                                            </a>
-                                        </div>
-                                    {% endif %}
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            {% endif %}
-        {% endfor %}
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}
 

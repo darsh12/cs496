@@ -29,8 +29,12 @@
 <div class="header">
     <div class="login_logout">
         {% if is_granted('ROLE_USER') %}
+            {#<div style="float: left; padding-right: 4em; font-size: 2em;">#}
+                {#{{ app.user }}#}
+            {#</div>#}
             <a class="btn btn-normal btn-banner" style="font-size: 2em" href="{{ path('fos_user_security_logout') }}">Logout
                 <i class="fas fa-arrow-right"></i></a>
+
         {% else %}
             <a class="btn btn-normal btn-banner" style="font-size: 2em" href="{{ path('fos_user_security_login') }}">Login / Register
                 <i class="fas fa-arrow-right"></i></a>
@@ -61,6 +65,11 @@
         </div>
     {% endfor %}
     {% block body %} {% endblock %}
+</div>
+
+<div class="footer">
+    <p>Contact, FAQ <br> Travis, Darshan, Devin, John</p>
+
 </div>
 
 

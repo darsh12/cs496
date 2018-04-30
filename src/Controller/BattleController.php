@@ -10,10 +10,14 @@ namespace App\Controller;
 
 use App\Entity\Battle;
 use App\Entity\BattleRequest;
+use App\Entity\CharCard;
 use App\Entity\User;
+use App\Entity\UserCharCards;
 use App\Entity\UserCharDecks;
 use App\Entity\UserStat;
+use App\Entity\UserUtilCards;
 use App\Entity\UserUtilDecks;
+use App\Entity\UtilCard;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -23,16 +27,54 @@ use Symfony\Component\HttpFoundation\Response;
 // Controller for Profile Sub-Tabs
 class BattleController extends AbstractController
 {
-//    /**
-//     * @Route("/battle/findgame",name="app_my-battle-findgame")
-//     * @Security("has_role('ROLE_USER')")
-//     */
-//    public function battleFindgame(ObjectManager $manager)
-//    {
-//        $allStat = $manager->getRepository(UserStat::class)->findAll();
-//
-//        return $this->render('battle/battle_findgame.html.twig', ["stat" => $allStat]);
-//    }
+    /**
+     * @Route("/battle/card_popup",name="app_my-battle-card")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function cardPopup(ObjectManager $manager)
+    {
+        $user = $this->getUser();
+        $type = $_POST['type'];
+        $cardID = $_POST['cardID'];
+
+        // Get User Card Relation Object
+        if($type === "util") {
+            $card = $manager
+                ->getRepository(UserUtilCards::class)
+                ->find($cardID);
+
+            // Check for ownership
+            if($card->getUser() !== $user) {
+                return $this->render(new Response("You may only view info for cards you own."));
+            }
+
+            $cardObj = $card->getUtilCard();
+
+            $instance = new DynamicController($manager);
+            $utilStatCard = $instance->getUtilStatCard($card, $manager);
+
+            $attrModArray = $utilStatCard['attrModArray'];
+
+            return $this->render('battle/battle_util_card.html.twig', ["utilCardObj" => $cardObj, "attribute" => $attrModArray]);
+
+        }
+        elseif($type === "char") {
+            $card = $manager
+                ->getRepository(UserCharCards::class)
+                ->find($cardID);
+
+            // Check for ownership
+            if($card->getUser() !== $user) {
+                return $this->render(new Response("You may only view info for cards you own."));
+            }
+
+            $cardObj = $card->getCharCard();
+
+            return $this->render('battle/battle_char_card.html.twig', ["charCardObj" => $cardObj]);
+
+        }
+
+    }
 
     /**
      * @Route("/battle/leaderboard",name="app_my-battle-leaderboard")
@@ -40,16 +82,22 @@ class BattleController extends AbstractController
      */
     public function battleLeaderboard(ObjectManager $manager)
     {
-        $allStat = $manager->getRepository(UserStat::class)->findAll();
+        $allStat = $manager->getRepository(UserStat::class)->orderRank();
 
-        return $this->render('battle/battle_leaderboard.html.twig', ["stat" => $allStat]);
+        $rankNames = [];
+        foreach ($allStat as $stat){
+            $rankNames[$stat->getUsername()] = ProfileController::getRankName($stat->getUserRank());
+        }
+
+        return $this->render('battle/battle_leaderboard.html.twig', ["stat" => $allStat, "rankNames" =>$rankNames]);
     }
 
+    // Deck setup for attacker
     /**
      * @Route("/battle/deck_setup",name="app_my-battle-deck_setup")
      * @Security("has_role('ROLE_USER')")
      */
-    public function battleDeckSetup(ObjectManager $manager)
+    public function attackerDeckSetup(ObjectManager $manager)
     {
         $user = $this->getUser();
 
@@ -62,6 +110,37 @@ class BattleController extends AbstractController
             ->findBy(["user" => $user]);
 
         return $this->render('battle/battle_deck_setup.html.twig', ["charDeck" => $userCharDecks, "utilDeck" => $userUtilDecks]);
+    }
+
+    /**
+     * @Route("/battle/defender_util_setup",name="app_my-battle-def_util_setup")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function defenderUtilDeckSetup(ObjectManager $manager)
+    {
+        $user = $this->getUser();
+
+        $userUtilDecks = $manager
+            ->getRepository(UserUtilDecks::class)
+            ->findBy(["user" => $user]);
+
+        return $this->render('macros', ["utilDeck" => $userUtilDecks]);
+    }
+
+    /**
+     * @Route("/battle/defender_char_setup",name="app_my-battle-def_char_setup")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function defenderCharDeckSetup(ObjectManager $manager)
+    {
+        $user = $this->getUser();
+
+        $userCharDecks = $manager
+            ->getRepository(UserCharDecks::class)
+            ->findBy(["user" => $user]);
+
+
+        return $this->render('battle/battle_deck_setup.html.twig', ["charDeck" => $userCharDecks]);
     }
 
     /**
@@ -109,12 +188,17 @@ class BattleController extends AbstractController
             ]);
         }
 
+
+
+
         // Create Battle Request Record
         $battleRequest = new BattleRequest();
         $battleRequest->setAttacker($attacker);
         $battleRequest->setDefender($defender);
         $battleRequest->setAttackerCharDeck($attCharDeck);
         $battleRequest->setAttackerUtilDeck($attUtilDeck);
+
+
 
         $manager->persist($battleRequest);
         $manager->flush();

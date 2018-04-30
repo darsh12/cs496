@@ -19,6 +19,14 @@ class BattleRepository extends ServiceEntityRepository
         parent::__construct($registry, Battle::class);
     }
 
+    public function totalWinCount($user) {
+        return $this->createQueryBuilder('b')
+            ->andWhere('b.winner = :user')
+            ->setParameter('user', $user)
+            ->select('COUNT(b.winner) AS totalWins')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 //    /**
 //     * @return Battle[] Returns an array of Battle objects
 //     */

@@ -7,16 +7,16 @@
 {% block sub_tabs %}
 
     <ul class="sub_tabs">
-        <li class="sub_tab current" data-url="battle/findgame" onclick="getDynamicTabContent(this)">Find Game
+        <li class="sub_tab current" onclick="location.href='{{ path('app_battle') }}'">Find Game
         </li> {# Find Game is default current sub-tab #}
-        <li class="sub_tab" data-url="battle/leaderboard" onclick="getDynamicTabContent(this)">Leaderboard</li>
+        <li class="sub_tab" onclick="location.href='{{ path('app_my-battle-leaderboard') }}'">Leaderboard</li>
     </ul>
 {% endblock %}
 
 {% block dynamic_container %}
 
     <div>
-        <div class="search_player rounded">
+        <div class="search_player">
             <h3 style="text-align: center">Find Players to Battle</h3>
             {% set lowerBound = userStats.userRank - 2 %}
             {% set upperBound = userStats.userRank + 2 %}
@@ -27,7 +27,7 @@
                         {#<li onclick="sendRequest(this)">{{ user_stat.user}} <br> Rank: {{ user_stat.userRank }} Level: {{ user_stat.userLevel }}</li>#}
                         <li data-toggle="modal" data-target="#playerModal" data-name="{{ user_stat.user }}"
                             onclick="showPlayerPopup(this)">
-                            <div class="li_rank">Rank: {{ user_stat.userRank }}</div>
+                            <div class="li_rank">Rank: {{ rankNames[user_stat.user.getUsername] }}</div>
                             <div class="li_lvl">Level: {{ user_stat.userLevel }}</div>{{ user_stat.user }}
                         </li>
                     </ul>
@@ -36,45 +36,51 @@
             {% endfor %}
         </div>
 
-        <div class="requests rounded">
-            <h3 style="text-align: center">Requests</h3>
-            <nav style="margin-left: 1%; margin-right: 1%" class="">
+        <div class="requests">
 
-                <div class="request_tab">
+            <h3 style="float: left; text-align: center; ">Requests</h3>
+            <div class="request_tab">
+
+                <ul>
                     <li class="request_tab_current request_tab_color"
                         onclick="requestTabs('Received'); requestTabCurrent(this)">Received
                     </li>
                     <li class="request_tab_color" onclick="requestTabs('Sent'); requestTabCurrent(this)">Sent</li>
-                </div>
+                </ul>
+            </div>
 
-                <div id="Received" class="w3-container request_tab_content">
-                    {% for received in receivedBattles %}
-                        <ul class="request_list">
-                            <li data-toggle="modal" data-target="#playerModal" data-name="{{ received[0].attacker }}" data-name2 = "{{ received[0].id }}" onclick="showReceivedPopup(this)">
-                                <div>Rank: {{ received.user_rank }}</div>
-                                <div> Level: {{ received.user_level }}</div>
-                                <div>{{ received[0].attacker }}</div>
-                                <div>Request ID: {{ received[0].id }}</div>
-                            </li>
-                        </ul>
-                    {% endfor %}
+            <div id="Received" class="request_tab_content">
+                {% for received in receivedBattles %}
+                    <ul class="request_list">
+                        <li data-toggle="modal" data-target="#playerModal" data-name="{{ received[0].attacker }}"
+                            data-name2="{{ received[0].id }}" onclick="showReceivedPopup(this)">
+                            <div>Rank: {{ rankNames[received[0].attacker.getUsername ] }}</div>
+                            <div> Level: {{ received.user_level }}</div>
+                            <div>{{ received[0].attacker }}</div>
+                                <span >{{ received[0].time | date('d-m-y') }}</span >
 
-                </div>
+                                {#<div>Request ID: {{ received[0].id }}</div>#}
+                        </li>
+                    </ul>
+                {% endfor %}
 
-                <div id="Sent" class="w3-container request_tab_content" style="display:none">
+            </div>
 
-                    {% for sent in sentBattles %}
-                        <ul class="request_list">
-                            <li>
-                                <div>Rank: {{ sent.user_rank }}</div>
-                                <div>Level: {{ sent.user_level }}</div>
-                                <div>{{ sent[0].defender }}</div>
-                            </li>
-                        </ul>
-                    {% endfor %}
-                </div>
+            <div id="Sent" class="request_tab_content" style="display:none">
 
-            </nav>
+                {% for sent in sentBattles %}
+                    <ul class="request_list">
+                        <li>
+                            <div>Rank: {{ rankNames[sent[0].defender.getUsername] }}</div>
+                            <div>Level: {{ sent.user_level }}</div>
+                            <div>{{ sent[0].defender }}</div>
+                            <span >{{ sent[0].time | date('d-m-y') }}</span >
+
+                        </li>
+                    </ul>
+                {% endfor %}
+            </div>
+
 
         </div>
 
@@ -98,7 +104,8 @@
                         <button id="requestButton" data-name="" type="button" class="btn btn-normal"
                                 onclick="beginRequest(this);">Loading...
                         </button>
-                        <button style="display: none;" id="declineButton" data-request="" type="button" class="btn btn-normal"
+                        <button style="display: none;" id="declineButton" data-request="" type="button"
+                                class="btn btn-normal"
                                 onclick="">Loading...
                         </button>
                     </div>

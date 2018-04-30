@@ -277,4 +277,8 @@ class UserStat
 
         return $this;
     }
+
+    public function getUserName(){
+        return $this->user->getUsername();
+    }
 }
