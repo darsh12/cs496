@@ -66,11 +66,12 @@
 
             </div>
 
+
             <div id="Sent" class="request_tab_content" style="display:none">
 
                 {% for sent in sentBattles %}
                     <ul class="request_list">
-                        <li>
+                        <li data-name2 = "{{ sent[0].id }}" onclick="showBattleResults(this)">
                             <div>Rank: {{ rankNames[sent[0].defender.getUsername] }}</div>
                             <div>Level: {{ sent.user_level }}</div>
                             <div>{{ sent[0].defender }}</div>
@@ -80,7 +81,6 @@
                     </ul>
                 {% endfor %}
             </div>
-
 
         </div>
 

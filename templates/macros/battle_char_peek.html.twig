@@ -1,0 +1,218 @@
+{#TODO: make this prettier by showing actual card, but omitting certain components#}
+{% macro charPeek(attCharDeck, diff_char, diff_type, diff_order, diff_class) %}
+    <h6>1st Card</h6>
+    {% if diff_char > 0 %}
+        <div class="character card-collapse">
+            <div class="char_card professional">
+                <div class="char_name">{{ attCharDeck.card1.charCard.charName }}</div>
+                <div class="char_column">
+                    {% set imagePath = char_card_dir~'/'~attCharDeck.card1.charCard.avatar.imagePath %}
+                    <img class="char_img" src="{{ imagePath }}">
+                    <div style="width: 26%; height: 32%;" class="char_column">
+                        <div class="char_rating">
+                            {{ attCharDeck.card1.charCard.rating }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {#</div>#}
+    {% endif %}
+    {% if diff_class > 0%}
+        <div class="char_peek_info">
+            {{ attCharDeck.card1.charCard.charClass }}
+        </div>
+    {% endif %}
+    {% if diff_type > 0%}
+        <div class="char_peek_info">
+            {{ attCharDeck.card1.charCard.charType }}
+        </div>
+    {% endif %}
+    {% if diff_order > 0%}
+        <ul class="attribute_list" style="margin-top: 2%;">
+            <li class="small-attr">HP &nbsp;&nbsp;&nbsp;{{ attCharDeck.card1.charCard.hitPoints }}</li>
+            <li class="small-attr">ATT &nbsp;&nbsp;{{ attCharDeck.card1.charCard.attack }}</li>
+            <li class="small-attr">DEF &nbsp;&nbsp;{{ attCharDeck.card1.charCard.defense }}</li>
+            <li class="small-attr">AGI &nbsp;&nbsp;{{ attCharDeck.card1.charCard.agility }}</li>
+            <li class="small-attr">LCK &nbsp;&nbsp;{{ attCharDeck.card1.charCard.luck }}</li>
+            <li class="small-attr">SPD &nbsp;&nbsp;{{ attCharDeck.card1.charCard.speed }}</li>
+        </ul>
+    {% endif %}
+    <div class="divider"></div>
+
+    <br><br>
+    {#////////////////////////////////////////////////////#}
+
+    <h6>2nd Card</h6>
+    {% if diff_char > 1 %}
+        <div class="character card-collapse">
+            <div class="char_card professional">
+                <div class="char_name">{{ attCharDeck.card2.charCard.charName }}</div>
+                <div class="char_column">
+                    {% set imagePath = char_card_dir~'/'~attCharDeck.card2.charCard.avatar.imagePath %}
+                    <img class="char_img" src="{{ imagePath }}">
+                    <div style="width: 26%; height: 32%;" class="char_column">
+                        <div class="char_rating">
+                            {{ attCharDeck.card2.charCard.rating }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if diff_class > 1%}
+        <div class="char_peek_info">
+            {{ attCharDeck.card2.charCard.charClass }}
+        </div>
+    {% endif %}
+    {% if diff_type > 1%}
+        <div class="char_peek_info">
+            {{ attCharDeck.card2.charCard.charType }}
+        </div>
+    {% endif %}
+    {% if diff_order > 1%}
+        <ul class="attribute_list" style="margin-top: 2%;">
+            <li class="small-attr">HP &nbsp;&nbsp;&nbsp;{{ attCharDeck.card2.charCard.hitPoints }}</li>
+            <li class="small-attr">ATT &nbsp;&nbsp;{{ attCharDeck.card2.charCard.attack }}</li>
+            <li class="small-attr">DEF &nbsp;&nbsp;{{ attCharDeck.card2.charCard.defense }}</li>
+            <li class="small-attr">AGI &nbsp;&nbsp;{{ attCharDeck.card2.charCard.agility }}</li>
+            <li class="small-attr">LCK &nbsp;&nbsp;{{ attCharDeck.card2.charCard.luck }}</li>
+            <li class="small-attr">SPD &nbsp;&nbsp;{{ attCharDeck.card2.charCard.speed }}</li>
+        </ul>
+    {% endif %}
+    <div class="divider"></div>
+
+    <br><br>
+
+    {#////////////////////////////////////////////////////#}
+
+    <h6>3rd Card</h6>
+    {% if diff_char > 2 %}
+        <div class="character card-collapse">
+            <div class="char_card professional">
+                <div class="char_name">{{ attCharDeck.card3.charCard.charName }}</div>
+                <div class="char_column">
+                    {% set imagePath = char_card_dir~'/'~attCharDeck.card3.charCard.avatar.imagePath %}
+                    <img class="char_img" src="{{ imagePath }}">
+                    <div style="width: 26%; height: 32%;" class="char_column">
+                        <div class="char_rating">
+                            {{ attCharDeck.card3.charCard.rating }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if diff_class > 2%}
+        <div class="char_peek_info">
+            {{ attCharDeck.card3.charCard.charClass }}
+        </div>
+    {% endif %}
+    {% if diff_type > 2%}
+        <div class="char_peek_info">
+            {{ attCharDeck.card3.charCard.charType }}
+        </div>
+    {% endif %}
+    {% if diff_order > 2%}
+        <ul class="attribute_list" style="margin-top: 2%;">
+            <li class="small-attr">HP &nbsp;&nbsp;&nbsp;{{ attCharDeck.card3.charCard.hitPoints }}</li>
+            <li class="small-attr">ATT &nbsp;&nbsp;{{ attCharDeck.card3.charCard.attack }}</li>
+            <li class="small-attr">DEF &nbsp;&nbsp;{{ attCharDeck.card3.charCard.defense }}</li>
+            <li class="small-attr">AGI &nbsp;&nbsp;{{ attCharDeck.card3.charCard.agility }}</li>
+            <li class="small-attr">LCK &nbsp;&nbsp;{{ attCharDeck.card3.charCard.luck }}</li>
+            <li class="small-attr">SPD &nbsp;&nbsp;{{ attCharDeck.card3.charCard.speed }}</li>
+        </ul>
+    {% endif %}
+    <div class="divider"></div>
+
+    <br><br>
+
+    {#////////////////////////////////////////////////////#}
+
+    <h6>4th Card</h6>
+    {% if diff_char > 3 %}
+        <div class="character card-collapse">
+            <div class="char_card professional">
+                <div class="char_name">{{ attCharDeck.card4.charCard.charName }}</div>
+                <div class="char_column">
+                    {% set imagePath = char_card_dir~'/'~attCharDeck.card4.charCard.avatar.imagePath %}
+                    <img class="char_img" src="{{ imagePath }}">
+                    <div style="width: 26%; height: 32%;" class="char_column">
+                        <div class="char_rating">
+                            {{ attCharDeck.card4.charCard.rating }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if diff_class > 3%}
+        <div class="char_peek_info">
+            {{ attCharDeck.card4.charCard.charClass }}
+        </div>
+    {% endif %}
+    {% if diff_type > 3%}
+        <div class="char_peek_info">
+            {{ attCharDeck.card4.charCard.charType }}
+        </div>
+    {% endif %}
+    {% if diff_order > 3%}
+        <ul class="attribute_list" style="margin-top: 2%;">
+            <li class="small-attr">HP &nbsp;&nbsp;&nbsp;{{ attCharDeck.card4.charCard.hitPoints }}</li>
+            <li class="small-attr">ATT &nbsp;&nbsp;{{ attCharDeck.card4.charCard.attack }}</li>
+            <li class="small-attr">DEF &nbsp;&nbsp;{{ attCharDeck.card4.charCard.defense }}</li>
+            <li class="small-attr">AGI &nbsp;&nbsp;{{ attCharDeck.card4.charCard.agility }}</li>
+            <li class="small-attr">LCK &nbsp;&nbsp;{{ attCharDeck.card4.charCard.luck }}</li>
+            <li class="small-attr">SPD &nbsp;&nbsp;{{ attCharDeck.card4.charCard.speed }}</li>
+        </ul>
+    {% endif %}
+    <div class="divider"></div>
+
+    <br><br>
+
+    {#////////////////////////////////////////////////////#}
+
+    <h6>5th Card</h6>
+    {% if diff_char > 4 %}
+        <div class="character card-collapse">
+            <div class="char_card professional">
+                <div class="char_name">{{ attCharDeck.card5.charCard.charName }}</div>
+                <div class="char_column">
+                    {% set imagePath = char_card_dir~'/'~attCharDeck.card5.charCard.avatar.imagePath %}
+                    <img class="char_img" src="{{ imagePath }}">
+                    <div style="width: 26%; height: 32%;" class="char_column">
+                        <div class="char_rating">
+                            {{ attCharDeck.card5.charCard.rating }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    {% if diff_class > 4%}
+        <div class="char_peek_info">
+            {{ attCharDeck.card5.charCard.charClass }}
+        </div>
+    {% endif %}
+    {% if diff_type > 4%}
+        <div class="char_peek_info">
+            {{ attCharDeck.card5.charCard.charType }}
+        </div>
+    {% endif %}
+    {% if diff_order > 4%}
+        <ul class="attribute_list" style="margin-top: 2%;">
+            <li class="small-attr">HP &nbsp;&nbsp;&nbsp;{{ attCharDeck.card5.charCard.hitPoints }}</li>
+            <li class="small-attr">ATT &nbsp;&nbsp;{{ attCharDeck.card5.charCard.attack }}</li>
+            <li class="small-attr">DEF &nbsp;&nbsp;{{ attCharDeck.card5.charCard.defense }}</li>
+            <li class="small-attr">AGI &nbsp;&nbsp;{{ attCharDeck.card5.charCard.agility }}</li>
+            <li class="small-attr">LCK &nbsp;&nbsp;{{ attCharDeck.card5.charCard.luck }}</li>
+            <li class="small-attr">SPD &nbsp;&nbsp;{{ attCharDeck.card5.charCard.speed }}</li>
+        </ul>
+    {% endif %}
+    <div class="divider"></div>
+
+    <br><br>
+
+    {#////////////////////////////////////////////////////#}
+
+{% endmacro %}

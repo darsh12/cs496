@@ -13,33 +13,38 @@
                         <button class="btn btn-primary" type="button" data-toggle="collapse"
                                 data-target="#{{ charDecks.id }}" aria-expanded="false"
                                 aria-controls="{{ charDecks.id }}">
-                            Cards in the deck
+                            Show Cards
                         </button>
                     </div>
                     <div class="collapse" id="{{ charDecks.id }}">
                         <blockquote class="blockquote text-muted">
                             <ul class="list-group list-group-flush">
 
-                                <li data-value="{{ charDecks.card1.charCard.id }}" onclick="showCardPopup(this)"
-                                    class="list-group-item">{{ charDecks.card1.charCard.charName }}
-                                    - {{ charDecks.card1.charCard.charTier }}</li>
+                                <li data-value="{{ charDecks.card1.id }}" onclick="showCardPopup(this, 'char')"
+                                    class="list-group-item popup-item">{{ charDecks.card1.charCard.charName }}
+                                    {#- {{ charDecks.card1.charCard.charTier }}#}
+                                    <i class="fas fa-external-link-alt"></i></li>
 
-                                <li data-value="{{ charDecks.card2.charCard.id }}" onclick="showCardPopup(this)"
-                                    class="list-group-item">{{ charDecks.card2.charCard.charName }}
-                                    - {{ charDecks.card2.charCard.charTier }}</li>
+                                <li data-value="{{ charDecks.card2.id }}" onclick="showCardPopup(this, 'char')"
+                                    class="list-group-item popup-item">{{ charDecks.card2.charCard.charName }}
+                                    {#- {{ charDecks.card2.charCard.charTier }}#}
+                                    <i class="fas fa-external-link-alt"></i></li>
 
-                                <li data-value="{{ charDecks.card3.charCard.id }}" onclick="showCardPopup(this)"
-                                    class="list-group-item">{{ charDecks.card3.charCard.charName }}
-                                    - {{ charDecks.card3.charCard.charTier }}</li>
+                                <li data-value="{{ charDecks.card3.id }}" onclick="showCardPopup(this, 'char')"
+                                    class="list-group-item popup-item">{{ charDecks.card3.charCard.charName }}
+                                    {#- {{ charDecks.card3.charCard.charTier }}#}
+                                    <i class="fas fa-external-link-alt"></i></li>
 
-                                <li data-value="{{ charDecks.card4.charCard.id }}" onclick="showCardPopup(this)"
-                                    class="list-group-item">{{ charDecks.card4.charCard.charName }}
-                                    - {{ charDecks.card4.charCard.charTier }}</li>
+                                <li data-value="{{ charDecks.card4.id }}" onclick="showCardPopup(this, 'char')"
+                                    class="list-group-item popup-item">{{ charDecks.card4.charCard.charName }}
+                                    {#- {{ charDecks.card4.charCard.charTier }}#}
+                                    <i class="fas fa-external-link-alt"></i></li>
 
-                                <li data-value="{{ charDecks.card5.charCard.id }}" onclick="showCardPopup(this)"
-                                    class="list-group-item">{{ charDecks.card5.charCard.charName }}
-                                    - {{ charDecks.card5.charCard.charTier }}</li>
-                            </ul>
+                                <li data-value="{{ charDecks.card5.id }}" onclick="showCardPopup(this, 'char')"
+                                    class="list-group-item popup-item">{{ charDecks.card5.charCard.charName }}
+                                    {#- {{ charDecks.card5.charCard.charTier }}#}
+                            </ul>                                    <i class="fas fa-external-link-alt"></i></li>
+
                         </blockquote>
                     </div>
                 </div>
@@ -50,7 +55,7 @@
 
 {% macro utilDecks(utilDeck) %}
     <div id="utilDeck">
-        <h4 class="header-center">Character Decks</h4>
+        <h4 class="header-center">Utility Decks</h4>
         {% for utilDecks in utilDeck %}
 
             <div class="card js-deck-item" style="background-color: #FFC200; margin-top: 7%"
@@ -61,20 +66,31 @@
                 <div class="card-body">
                     <div class="card-title text-center">
                         <button class="btn btn-primary" data-toggle="collapse" data-target="#{{ utilDecks.id }}"
-                                aria-expanded="false" aria-controls="{{ utilDecks.id }}">Cards in the deck
+                                aria-expanded="false" aria-controls="{{ utilDecks.id }}">
+                            Show Cards
                         </button>
                     </div>
                     <div class="collapse" id="{{ utilDecks.id }}">
 
                         <blockquote class="blockquote text-muted">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">{{ utilDecks.card1.utilCard.utilName }}
-                                    - {{ utilDecks.card1.utilCard.utilTier }}</li>
-                                <li class="list-group-item">{{ utilDecks.card2.utilCard.utilName }}
-                                    - {{ utilDecks.card2.utilCard.utilTier }}</li>
-                                <li class="list-group-item">{{ utilDecks.card3.utilCard.utilName }}
-                                    - {{ utilDecks.card3.utilCard.utilTier }}</li>
+
+                                <li data-value="{{ utilDecks.card1.id }}" onclick="showCardPopup(this, 'util')"
+                                    class="list-group-item popup-item">{{ utilDecks.card1.utilCard.utilName }}
+                                    {#- {{ utilDecks.card1.utilCard.utilTier }}#}
+                                    <i class="fas fa-external-link-alt"></i></li>
+
+                                <li data-value="{{ utilDecks.card2.id }}" onclick="showCardPopup(this, 'util')"
+                                    class="list-group-item popup-item">{{ utilDecks.card2.utilCard.utilName }}
+                                    {#- {{ utilDecks.card2.utilCard.utilTier }}#}
+                                    <i class="fas fa-external-link-alt"></i></li>
+
+                                <li data-value="{{ utilDecks.card3.id }}" onclick="showCardPopup(this, 'util')"
+                                    class="list-group-item popup-item">{{ utilDecks.card3.utilCard.utilName }}
+                                    {#- {{ utilDecks.card3.utilCard.utilTier }}#}
+                                    <i class="fas fa-external-link-alt"></i></li>
                             </ul>
+
                         </blockquote>
                     </div>
                 </div>

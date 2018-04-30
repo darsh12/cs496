@@ -1,1 +1,13 @@
-<div>List of all battles go here</div>
+{#{% macro battleHistoryAll(battle, opponent, result, ) %}#}
+    {#<div data-value="{{ battle.id }}" class="history_item">#}
+        {#<label>{{ opponent }}</label>#}
+        {#<label>{{ battle.time|date('m/d/Y') }}</label>#}
+        {#<label>{{ result }}</label>#}
+    <div data-value="1" class="history_item" onclick="getBattleHistory(this)">
+        <label>SnoopDog420</label>
+        <label>4/20/18</label>
+        <label>WIN</label>
+        &nbsp;&nbsp;<i class="fa fa-caret-right"></i>
+    </div>
+    <div class="history_item_content" ></div>
+{#{% endmacro %}#}

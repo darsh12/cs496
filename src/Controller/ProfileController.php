@@ -103,6 +103,7 @@ class ProfileController extends Controller
     // Player's Battle History Page
     function battleHistory(ObjectManager $manager, Battle $battle, BattleRequest $battleRequest, String $type) {
 
+        //TODO: Handle custom type condition and render individual macro
         $defCharDeck = $battle->getDefendCharDeck();
         $defUtilDeck = $battle->getDefendUtilDeck();
         $attCharDeck = $battleRequest->getAttackerCharDeck();
@@ -196,11 +197,35 @@ class ProfileController extends Controller
             // Return default Battle History view
             return $this->battleHistory($manager, $worstBattle, $worstBattleRequest, "worst");
         }
-        // Render All battles
-        else {
+
+        // Render All battle history items
+        elseif($type !== "all") {
+            // TODO: Get all of user's battle records and sort based on date
 
             // Return Call
             return $this->render('profile/profile_history_all.html.twig');
+        }
+
+        // Render specific Battle History with slug ID
+        else {
+
+            $battle = $manager
+                ->getRepository(Battle::class)
+                ->find($type);
+
+            if(!$battle) {
+                // Return Call
+                return $this->render('profile/profile_history.html.twig', [
+                    "battleRecordExists" => false,
+                    "type" => $type
+                ]);
+            }
+            // TODO: validate that battle history viewed is one in which User was a part of
+
+            $battleRequest = $battle->getRequest();
+
+            // Return Call
+            return $this->battleHistory($manager, $battle, $battleRequest, "custom");
         }
 
 

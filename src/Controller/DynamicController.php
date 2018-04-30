@@ -259,7 +259,7 @@ class DynamicController extends Controller
 
     // Returns Array of Objects & Values
     // Representing Player's Favorite/Worst Utility Card
-    public function getUtilStatCard($utilCardId, ObjectManager $manager) {
+    public static function getUtilStatCard($utilCardId, ObjectManager $manager) {
 
         $utilStatCard = [];
 

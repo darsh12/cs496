@@ -3,6 +3,8 @@ function showCardPopup(element, type) {
 
     var cardID = $(element).attr('data-value');
 
+    $(element).append("<label id='load_msg'>&nbsp;&nbsp;Loading...</label>");
+
     $.ajax({
 
         // Using dynamic urls for now, may change if not secure enough
@@ -17,6 +19,7 @@ function showCardPopup(element, type) {
         {
             //TODO: append card popup to proper position
             // TODO: change styling of deck items for onclick (add dialog icon)
+            $("#load_msg").remove();
             $("body").append(data);
             $(".card_popup").slideDown(600);
         },
@@ -152,10 +155,10 @@ function showReceivedPopup(element)
 function declineBattle(element) {
 
     $(element).html("Loading...");
-    $(element).attr("onclick", "")
+    $(element).attr("onclick", "");
 
     var requestButton = $("#requestButton");
-    requestButton.attr("onclick", "")
+    requestButton.attr("onclick", "");
 
     var requestID = $(element).attr("data-request");
 
@@ -184,8 +187,17 @@ function declineBattle(element) {
 
 }
 
+var acceptedBattleRequestID;
+var acceptedBattleAttackerName;
+var acceptedBattleUtilID;
+
 // Change view of screen to let defender choose util cards, eventually peek at attacker's if applicable
 function acceptBattle(element) {
+
+    acceptedBattleRequestID = $(element).attr("data-name2");
+    acceptedBattleAttackerName = $(element).attr("data-name");
+
+    $("#dynamic_container").html("Loading Deck Selection...");
 
     $('#playerModal').modal('hide')
     $(".modal-backdrop.show").remove();
@@ -195,17 +207,52 @@ function acceptBattle(element) {
 
     $.ajax({
 
-        // Using dynamic urls for now, may change if not secure enough
-        url: '/battle/deck_setup',
+        url: '/battle/defender_util_setup',
         type: "POST",
         // Successful Retrieval
         success:function(data)
         {
-            $(".modal-body").html(data);
-            // Fill dynamic Modal content
-            requestButton.attr("onclick", "startBattle(this);");
-            // requestButton.attr("data-dismiss", "modal");
-            requestButton.html("Confirm Decks and Start Battle");
+            $("#dynamic_container").html(data);
+            $(".row").slideDown();
+        },
+        // Failed Retrieval
+        error: function(data)
+        {
+        }
+    });
+
+}
+
+function confirmUtil(element) {
+
+    acceptedBattleUtilID = $(".card.js-deck-item.util_deck_current").attr("data-id");
+    if(acceptedBattleUtilID == null) {
+
+        $("#request_error").html("Choose a utility deck before confirming.")
+        return;
+    }
+    $(element).html("Confirming...");
+
+    $.ajax({
+
+        url: '/battle/defender_char_setup',
+        type: "POST",
+        data: {
+            defUtilDeck: acceptedBattleUtilID,
+            request: acceptedBattleRequestID
+        },
+        // Successful Retrieval
+        success:function(data)
+        {
+            $("#dynamic_container").html(data);
+            $(".row").slideDown();
+
+
+            // Set onclick handlers for collapse
+            $(".character").click(collapseCard);
+            $(".utility").click(collapseCard);
+
+            decollapseAllCards();
         },
         // Failed Retrieval
         error: function(data)
@@ -218,18 +265,19 @@ function acceptBattle(element) {
 // Sends data to insert Battle Record
 function startBattle(element){
 
-    var attName = $(element).attr('data-name');
-    var requestid = $(element).attr('data-name2');
+    var attName = acceptedBattleAttackerName;
+    var requestid = acceptedBattleRequestID;
 
     var defCharDeckID = $(".card.js-deck-item.char_deck_current").attr("data-id");
-    var defUtilDeckID = $(".card.js-deck-item.util_deck_current").attr("data-id");
+    var defUtilDeckID = acceptedBattleUtilID;
 
+    if(defCharDeckID == null) {
 
-    if(defCharDeckID == null || defUtilDeckID == null) {
-
-        $("#request_error").html("Choose both a character and utility deck before confirming.")
+        $("#request_error").html("Choose a character deck before starting.")
         return;
     }
+
+    $(element).html("Starting...");
 
     $.ajax({
 
@@ -237,17 +285,40 @@ function startBattle(element){
         type: "POST",
         data: {
             attName: attName,
-            requestid: requestid,
+            requestID: requestid,
             defCharDeckID: defCharDeckID,
             defUtilDeckID: defUtilDeckID
         },
         // Successful Retrieval
         success:function(data)
         {
-            $('#playerModal').modal('hide')
-            $(".modal-backdrop.show").remove();
-            $("body").append(data);
-            $(".notify_container").slideDown(600);
+            $("#dynamic_container").html(data);
+        },
+        // Failed Retrieval
+        error: function(data)
+        {
+        }
+    });
+}
+
+function showBattleResults(element){
+
+
+    var requestid = $(element).attr("data-name2");
+
+    $(element).append("<label>Loading...</label>");
+
+    $.ajax({
+
+        url: '/battle/results',
+        type: "POST",
+        data: {
+            requestID: requestid
+        },
+        // Successful Retrieval
+        success:function(data)
+        {
+            $("#dynamic_container").html(data);
         },
         // Failed Retrieval
         error: function(data)
