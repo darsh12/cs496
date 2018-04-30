@@ -115,7 +115,6 @@ class CustomCardController extends Controller
         $user = $this->getUser();
 
         $cards = $repoCustomCard->findAllCardsSortByVotePercDesc();
-        dump($cards);
         $cardVotes = $repoCustomCardVote->findAll();
 
         return $this->render('custom_card/voting.html.twig', ['cards' => $cards, 'user' => $user, 'cardVotes' => $cardVotes]);
