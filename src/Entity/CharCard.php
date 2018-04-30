@@ -94,6 +94,11 @@ class CharCard
      */
     private $price=0;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $NetWorth = 0;
+
     public function __construct()
     {
         $this->userCharCards = new ArrayCollection();
@@ -292,6 +297,16 @@ class CharCard
     public function setPrice(int $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getNetWorth(): ?int {
+        return $this->NetWorth;
+    }
+
+    public function setNetWorth(int $NetWorth): self {
+        $this->NetWorth = $NetWorth;
 
         return $this;
     }
