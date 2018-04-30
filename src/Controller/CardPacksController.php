@@ -5,10 +5,9 @@ namespace App\Controller;
 use App\Entity\CharCard;
 use App\Entity\UtilCard;
 use Doctrine\Common\Persistence\ObjectManager;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Config\Definition\Exception\Exception;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class CardPacksController extends Controller {
@@ -25,6 +24,7 @@ class CardPacksController extends Controller {
 
     /**
      * @Route("/card/packs", name="card_packs")
+     * @Security("has_role('ROLE_USER')")
      */
     public function index() {
 
@@ -36,7 +36,8 @@ class CardPacksController extends Controller {
 
     /**
      * @Route("/card/packs/{pack}/buy", name="card_packs_buy")
-     * @Method("POST")
+     * @Security("has_role('ROLE_USER')")
+     *
      */
     public function buyPacks($pack) {
 
@@ -170,8 +171,8 @@ class CardPacksController extends Controller {
             $this->addFlash('error', "An error occurred. No such pack exists. Please try again later");
             throw new Exception("Card pack not found");
         }
-        return new Response(null, 204);
-//        Return $this->render('card_packs/packs.html.twig', ['charCards' => $randomCharCards, 'utilCards' => $randomUtilCards, 'coins' => $coins]);
+//        return new Response(null, 204);
+        Return $this->render('card_packs/packs.html.twig', ['charCards' => $randomCharCards, 'utilCards' => $randomUtilCards, 'coins' => $coins]);
 
 
     }

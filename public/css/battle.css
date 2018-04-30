@@ -57,6 +57,11 @@
    cursor: pointer;
 }
 
+.player_list li div{
+   display: inline-block;
+   width: 30%;
+}
+
 .player_list:nth-child(odd)
 {
    background-color: #FFBE0B;
@@ -80,7 +85,7 @@
 .leaderboard{
    list-style-type: none;
    margin: 3px;
-   background-color: #fba717;
+   background-color: grey;
 }
 
 .leaderboard li{
@@ -95,7 +100,7 @@
 
 .leaderboard:nth-child(odd)
 {
-   background-color: #2db0ff;
+   background-color: darkgrey;
 }
 .leaderboard:hover {
    background-color: white;
@@ -108,18 +113,28 @@
 }
 
 .request_tab {
-   font-size: 1.5em;
+   font-size: 1.6em;
    text-align: center;
-   width: 100%;
    list-style-type: none;
+   vertical-align:top;
+   margin:0;
+   padding: 0;
+
 
 }
 
+.request_tab ul {
+   margin:0;
+   padding:0;
+}
+
+
 .request_tab li {
-   padding: 1%;
-   border-radius: 35px 35px 0 0;
    display: inline-block;
-   width: 45%;
+   vertical-align:top;
+   width: 30%;
+   margin:0;
+   padding:0;
 }
 
 .request_tab li:hover {
@@ -156,6 +171,11 @@
 
 .request_list li {
    cursor: pointer;
+}
+
+.request_list li div {
+display: inline-block;
+margin-right: 3%;
 }
 
 .request_list:nth-child(odd)

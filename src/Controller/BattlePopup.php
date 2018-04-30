@@ -13,15 +13,15 @@ use App\Entity\User;
 use App\Entity\UserStat;
 use Doctrine\Common\Persistence\ObjectManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 
 // Controller for Battle popup
 class BattlePopup extends Controller
 {
     /**
      * @Route("/battle/popup",name="app_my-battle-popup")
+     * @Security("has_role('ROLE_USER')")
      */
     public function battlePopup(ObjectManager $manager)
     {
@@ -54,6 +54,7 @@ class BattlePopup extends Controller
 
     /**
      * @Route("/battle/leaderboard-popup",name="app_my-battle-leaderboard-popup")
+     * @Security("has_role('ROLE_USER')")
      */
     public function leaderboardPopup(ObjectManager $manager)
     {

@@ -11,7 +11,7 @@
         {% for user_stat in stat  %}
             <ul class="player_list">
                 {#<li onclick="sendRequest(this)">{{ user_stat.user}} <br> Rank: {{ user_stat.userRank }} Level: {{ user_stat.userLevel }}</li>#}
-                <li data-toggle="modal" data-target="#playerModal" data-name="{{ user_stat.user}}" onclick="showPlayerPopup(this)"><div class="li_lvl">{{ user_stat.userLevel }}</div>{{ user_stat.user}}<div class="li_rank">{{ user_stat.userRank }}</div></li>
+                <li data-toggle="modal" data-target="#playerModal" data-name="{{ user_stat.user}}" onclick="showPlayerPopup(this)"><div class="li_lvl">{{ user_stat.userLevel }}</div>{{ user_stat.user}}<div class="li_rank">{{ rankNames[user_stat.user.getUsername]}}</div></li>
             </ul>
 
 

@@ -19,6 +19,13 @@ class UserStatRepository extends ServiceEntityRepository
         parent::__construct($registry, UserStat::class);
     }
 
+    public function getUserRank($user) {
+        return $this->createQueryBuilder('u')
+            ->select('u.user_rank')
+            ->where('u.user = :user')
+            ->setParameter('user', $user);
+    }
+
     public function ExceptCurrentUser($user) {
         return $this->createQueryBuilder('u')
             ->andWhere('u.user != :user')
@@ -29,8 +36,8 @@ class UserStatRepository extends ServiceEntityRepository
 
     public function orderRank() {
         return $this->createQueryBuilder('u')
-            ->orderBy('u.user_rank', 'DESC')
-            ->orderBy('u.user_level', 'DESC')
+            ->addorderBy('u.user_rank', 'DESC')
+            ->addorderBy('u.user_level', 'DESC')
             ->getQuery()
             ->getResult();
     }

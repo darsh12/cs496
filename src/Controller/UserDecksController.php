@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\UserCharDecks;
+use App\Entity\UserStat;
 use App\Entity\UserUtilDecks;
 use App\Form\UserCharDeckType;
 use App\Form\UserUtilDeckType;
@@ -13,11 +14,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserDecksController extends Controller {
+
     /**
      * @Route("/user/decks", name="user_decks_show")
      * @Security("has_role('ROLE_USER')")
@@ -25,6 +26,7 @@ class UserDecksController extends Controller {
     public function showDeck() {
 
         $user = $this->getUser();
+
 
         $charDecks = $this->getDoctrine()->getRepository(UserCharDecks::class)->findBy(['user' => $user]);
         $utilDecks = $this->getDoctrine()->getRepository(UserUtilDecks::class)->findBy(['user' => $user]);
@@ -38,10 +40,21 @@ class UserDecksController extends Controller {
      */
     public function newCharDeck(Request $request, ObjectManager $manager) {
         $user = $this->getUser();
+        $netWorth = ['Bronze' => 1000, 'Silver' => 1500, 'Gold' => 2000, 'Platinum' => 2500, 'Diamond' => 3000, 'Elite' => 3500];
+        $userRank = $manager->getRepository(UserStat::class)->findOneBy(['user' => $user]);
+        $rankName = ProfileController::getRankName($userRank->getUserRank());
+        //Strip the rank number
+        $strippedRankName = substr($rankName, 0, strrpos($rankName, ' '));
+
+        if (!array_key_exists($strippedRankName, $netWorth)) {
+            $this->addFlash('error', 'Something went wrong. Please try again later');
+            throw new NotFoundHttpException('Net worth not found');
+        }
+        $userNetWorth = $netWorth[$strippedRankName];
+
 
         $form = $this->createForm(UserCharDeckType::class);
         $userCharDeckRepo = $manager->getRepository(UserCharDecks::class)->findBy(['user' => $user]);
-
 
         $form->handleRequest($request);
 
@@ -51,6 +64,7 @@ class UserDecksController extends Controller {
             $deck = $form->getData();
             $deck->setUser($user);
 
+
             $name = $deck->getName();
             $card1 = $deck->getCard1();
             $card2 = $deck->getCard2();
@@ -58,10 +72,24 @@ class UserDecksController extends Controller {
             $card4 = $deck->getCard4();
             $card5 = $deck->getCard5();
 
+            $usedNetWorth = $card1->getCharCard()->getNetWorth() + $card2->getCharCard()->getNetWorth() + $card3->getCharCard()->getNetWorth() + $card4->getCharCard()->getNetWorth() + $card5->getCharCard()->getNetWorth();
+            $remainingNetworth = (integer)$_POST['usernetworth'];
+
+            if (($userNetWorth - $usedNetWorth) !== $remainingNetworth) {
+                $this->addFlash('error', 'Somewhere something happened. Please try again later');
+                return $this->redirectToRoute('user_decks_show');
+            }
+
+            if (($userNetWorth - $usedNetWorth) < 0) {
+                $this->addFlash('error', 'You have exceeded your networth. Please choose different characters');
+                return $this->redirectToRoute('user_decks_show');
+            }
+
+
             for ($i = 0; $i < sizeof($userCharDeckRepo); $i++) {
                 if ($name === ($userCharDeckRepo[$i]->getName())) {
                     $this->addFlash('error', 'Char deck name in use');
-                    throw new HttpException(403, $this->redirect($request->getUri()));
+                    return $this->redirectToRoute('user_decks_show');
                 }
 
             }
@@ -71,7 +99,7 @@ class UserDecksController extends Controller {
                 ($card3 === $card4) || ($card3 === $card5) ||
                 ($card4 === $card5)) {
                 $this->addFlash('error', 'Cannot have the same card twice in the same deck');
-                throw new HttpException(403, $this->redirect($request->getUri()));
+                return $this->redirectToRoute('user_decks_show');
             }
 
             $entityManager->persist($deck);
@@ -84,7 +112,7 @@ class UserDecksController extends Controller {
         }
 
         return $this->render('user_decks/newCharDeck.html.twig', [
-            'charDeck' => $form->createView()
+            'charDeck' => $form->createView(), 'userNetWorth' => $userNetWorth
         ]);
     }
 
@@ -114,7 +142,7 @@ class UserDecksController extends Controller {
             for ($i = 0; $i < sizeof($userUtilDeckRepo); $i++) {
                 if ($name === ($userUtilDeckRepo[$i]->getName())) {
                     $this->addFlash('error', 'Util deck name in use');
-                    throw new HttpException(403, $this->redirect($request->getUri()));
+                    return $this->redirectToRoute('user_decks_show');
                 }
 
             }
@@ -122,7 +150,7 @@ class UserDecksController extends Controller {
             if (($card1 === $card2) || ($card1 === $card3) ||
                 ($card2 === $card3)) {
                 $this->addFlash('error', 'Cannot have the same card twice in the same deck');
-                throw new HttpException(403, $this->redirect($request->getUri()));
+                return $this->redirectToRoute('user_decks_show');
             }
 
             $entityManager->persist($deck);
