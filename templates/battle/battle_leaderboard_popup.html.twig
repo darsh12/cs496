@@ -1,7 +1,7 @@
 <div style="width: 45%; float: left">
     <div class="profile_info">
         <div class="profile_name">{{ user_stat.user }}</div>
-        <img src="{{ profile_img }}" class="profile_img">
+        <img src="{{ asset(profile_img) }}" class="profile_img">
         <div class="profile_level">
             <span>{{ user_stat.getUserLevel }}</span>
             LVL
