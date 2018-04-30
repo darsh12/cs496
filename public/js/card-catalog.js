@@ -68,34 +68,34 @@ $(document).ready(function() {
             var prevSort = elementSortBar.className;
 
             switch(prevSort) {
-                case 'name':
+                case 'sortName':
                     sortByNameDesc(cards);
                     break;
-                case 'rating':
+                case 'sortRating':
                     sortByRatingDesc(cards);
                     break;
-                case 'type':
+                case 'sortType':
                     sortByTypeDesc(cards);
                     break;
-                case 'class':
+                case 'sortClass':
                     sortByClassDesc(cards);
                     break;
-                case 'hitpoints':
+                case 'sortHitpoints':
                     sortByHitPointsDesc(cards);
                     break;
-                case 'attack':
+                case 'sortAttack':
                     sortByAttackDesc(cards);
                     break;
-                case 'defense':
+                case 'sortDefense':
                     sortByDefenseDesc(cards);
                     break;
-                case 'speed':
+                case 'sortSpeed':
                     sortBySpeedDesc(cards);
                     break;
-                case 'luck':
+                case 'sortLuck':
                     sortByLuckDesc(cards);
                     break;
-                case 'agility':
+                case 'sortAgility':
                     sortByAgilityDesc(cards);
             }
 
