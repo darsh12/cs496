@@ -386,11 +386,11 @@ class CustomCardController extends Controller
     private function setCustomCardTier($rating) {
         $charTier = "";
 
-        if($rating >= 50 && $rating <= 68) {
+        if($rating > 49 && $rating < 69) {
             $charTier = "Amateur";
-        } elseif ($rating >= 69 && $rating <= 81) {
+        } elseif ($rating > 68 && $rating < 82) {
             $charTier = "Professional";
-        } elseif ($rating >= 82 && $rating <= 99) {
+        } elseif ($rating > 81 && $rating < 100) {
             $charTier = "World Star";
         }
 
