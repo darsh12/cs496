@@ -154,7 +154,10 @@ class CustomCardController extends Controller
         $charCard->setAgility($customCard->getAgility());
         $charCard->setSpeed($customCard->getSpeed());
 
+
         $charCard->setPrice($this->setCustomCardPricing($customCard->getRating()));
+
+        $charCard->setNetWorth($charCard->getPrice() * 0.65);
 
         $charCardImg->setImagePath($customCard->getImageFile());
         $charCard->setAvatar($charCardImg);
