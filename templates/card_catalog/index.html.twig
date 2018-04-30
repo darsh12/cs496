@@ -109,13 +109,6 @@
 
     <script>
         $(document).ready(function () {
-            var tier = $('.character');
-            console.log(tier);
-
-            for(var i = 0; i < tier.length; i++) {
-                console.log(tier[i].classList);
-            }
-
             $('.js-card-buy').on('click', function (e) {
 
                 if(confirm_buy()) {
@@ -131,11 +124,9 @@
                         success: function () {
                             location.reload();
                         }
-
                     });
                 }
             });
-
         });
 
         function confirm_buy() {
