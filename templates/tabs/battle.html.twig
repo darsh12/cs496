@@ -38,15 +38,16 @@
 
         <div class="requests">
 
-                <h3 style="float: left; text-align: center; ">Requests</h3>
+            <h3 style="float: left; text-align: center; ">Requests</h3>
             <div class="request_tab">
 
-            <ul>
-                <li class="request_tab_current request_tab_color" onclick="requestTabs('Received'); requestTabCurrent(this)">Received</li>
-                <li class="request_tab_color" onclick="requestTabs('Sent'); requestTabCurrent(this)">Sent</li>
+                <ul>
+                    <li class="request_tab_current request_tab_color"
+                        onclick="requestTabs('Received'); requestTabCurrent(this)">Received
+                    </li>
+                    <li class="request_tab_color" onclick="requestTabs('Sent'); requestTabCurrent(this)">Sent</li>
                 </ul>
             </div>
-
 
             <div id="Received" class="request_tab_content">
                 {% for received in receivedBattles %}
@@ -56,7 +57,9 @@
                             <div>Rank: {{ rankNames[received[0].attacker.getUsername ] }}</div>
                             <div> Level: {{ received.user_level }}</div>
                             <div>{{ received[0].attacker }}</div>
-                            {#<div>Request ID: {{ received[0].id }}</div>#}
+                                <span >{{ received[0].time | date('d-m-y') }}</span >
+
+                                {#<div>Request ID: {{ received[0].id }}</div>#}
                         </li>
                     </ul>
                 {% endfor %}
@@ -71,6 +74,8 @@
                             <div>Rank: {{ rankNames[sent[0].defender.getUsername] }}</div>
                             <div>Level: {{ sent.user_level }}</div>
                             <div>{{ sent[0].defender }}</div>
+                            <span >{{ sent[0].time | date('d-m-y') }}</span >
+
                         </li>
                     </ul>
                 {% endfor %}

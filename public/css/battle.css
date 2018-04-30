@@ -152,8 +152,7 @@
 
 .request_list li div {
 display: inline-block;
-   width: 30%;
-
+margin-right: 3%;
 }
 
 .request_list:nth-child(odd)

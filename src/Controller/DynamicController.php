@@ -203,15 +203,13 @@ class DynamicController extends Controller
         $sentBattles = $manager->getRepository(BattleRequest::class)->getDefenderStat($user);
         $receivedBattles = $manager->getRepository(BattleRequest::class)->getAttackerStat($user);
 
-        date_default_timezone_set('America/Chicago');
-
 
         $rankNames = [];
         foreach ($otherUserStats as $stat){
             $rankNames[$stat->getUsername()] = ProfileController::getRankName($stat->getUserRank());
         }
 
-        return $this->render('tabs/battle.html.twig', ["otherUserStats" => $otherUserStats, 'sentBattles' => $sentBattles, 'receivedBattles' => $receivedBattles, 'userStats' => $userRepo, "rankNames" =>$rankNames, ]);
+        return $this->render('tabs/battle.html.twig', ["otherUserStats" => $otherUserStats, 'sentBattles' => $sentBattles, 'receivedBattles' => $receivedBattles, 'userStats' => $userRepo, "rankNames" =>$rankNames]);
     }
 
     /**

@@ -190,6 +190,7 @@ class BattleController extends AbstractController
 
 
 
+
         // Create Battle Request Record
         $battleRequest = new BattleRequest();
         $battleRequest->setAttacker($attacker);
