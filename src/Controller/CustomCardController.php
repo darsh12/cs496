@@ -7,6 +7,7 @@ use App\Entity\CharCard;
 use App\Entity\CustomCard;
 use App\Entity\CustomCardVote;
 use App\Form\CustomCardType;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -79,6 +80,8 @@ class CustomCardController extends Controller
 
         $ccName = $customCard->getCharName();
         $ccDateTime = $customCard->getDateCreated();
+
+        $this->removeImage($customCard->getImageFile());
 
         $em->remove($customCard);
         $em->flush();
@@ -180,6 +183,8 @@ class CustomCardController extends Controller
             throw new NotFoundHttpException("Card not found");
         }
 
+        $this->removeImage($customCard->getImageFile());
+
         $em->remove($customCard);
         $em->flush();
 
@@ -213,7 +218,6 @@ class CustomCardController extends Controller
 
         $customCard->setVotePerc($this->getCustomCardVotePerc($cardId));
 
-//        $em->persist($customCardVote);
         $em->persist($customCard);
         $em->flush();
 
@@ -242,9 +246,11 @@ class CustomCardController extends Controller
         $customCardVote->setCustomCard($customCard);
         $customCardVote->setVote('Down');
 
+        $em->persist($customCardVote);
+        $em->flush();
+
         $customCard->setVotePerc($this->getCustomCardVotePerc($cardId));
 
-        $em->persist($customCardVote);
         $em->persist($customCard);
         $em->flush();
 
@@ -343,7 +349,6 @@ class CustomCardController extends Controller
         $repository = $this->getDoctrine()->getRepository(CustomCard::class);
         $user=$this->getUser();
 
-//        $card = $repository->findOneCardByLastEntry();
         $card = $repository->findOneCardByLastEntry($dateCreated);
 
         return $this->render('custom_card/success.html.twig', ['card' => $card, 'user' => $user]);
@@ -420,5 +425,11 @@ class CustomCardController extends Controller
         }
 
         return $raiseBonus + ($raiseMult * $raiseMultBase) + $raiseBase;
+    }
+
+    private function removeImage($image) {
+        $fileSystem = new Filesystem();
+        $path = $this->getParameter('custom_char_card_dir').'/'.$image;
+        $fileSystem->remove($path);
     }
 }
