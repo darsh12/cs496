@@ -1,8 +1,19 @@
 $margin20: 20px;
 $margin30: 30px;
+$darkGray: #505050;
 
 #sort-bar .row {
     margin-bottom: $margin20;
+}
+#sort-bar .btn {
+    width: 90px;
+}
+#sort-bar .btn-primary {
+    background-color: $darkGray;
+    border-color: $darkGray;
+}
+#sort-bar .fa-arrow-alt-circle-up, #sort-bar .fa-arrow-alt-circle-down {
+    color: $darkGray;
 }
 .icon-button {
     appearance: none;
@@ -12,16 +23,8 @@ $margin30: 30px;
     border: 0;
     background: transparent;
 }
-#sort-bar .glyphicon {
-    color: #337ab7;
-    font-size: 26px;
-}
 .card-grid {
     margin-top: $margin20;
-}
-.img-thumbnail {
-    width: 100px;
-    height: 120px;
 }
 .row-margin {
     margin-bottom: $margin30;

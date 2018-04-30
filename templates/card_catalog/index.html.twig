@@ -1,5 +1,7 @@
 {% extends 'homepage.html.twig' %}
 
+{% import "macros/card.html.twig" as macros %}
+
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" href="{{ asset('build/js/card-catalog.css') }}">
@@ -18,49 +20,49 @@
 
 {% block dynamic_container %}
     <div class="container">
-        <div id="sort-bar" class="rating">
+        <div id="sort-bar" class="sortRating">
             <div class="row">
                 <div class="col-12">
                     <div class="row">
                         <div class="col-2">
-                            <button type="button" id="nameBtn" class="btn btn-primary btn-block">Name</button>
+                            <button type="button" id="nameBtn" class="btn btn-primary">Name</button>
                         </div>
                         <div class="col-2">
-                            <button type="button" id="ratingBtn" class="btn btn-primary btn-block">Rating</button>
+                            <button type="button" id="typeBtn" class="btn btn-primary">Type</button>
                         </div>
                         <div class="col-2">
-                            <button type="button" id="typeBtn" class="btn btn-primary btn-block">Type</button>
+                            <button type="button" id="classBtn" class="btn btn-primary">Class</button>
                         </div>
                         <div class="col-2">
-                            <button type="button" id="classBtn" class="btn btn-primary btn-block">Class</button>
+                            <button type="button" id="ratingBtn" class="btn btn-primary">Rating</button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-2">
-                            <button type="button" id="hpBtn" class="btn btn-primary btn-block">HitPoints</button>
+                            <button type="button" id="hpBtn" class="btn btn-primary">HitPoints</button>
                         </div>
                         <div class="col-2">
-                            <button type="button" id="attBtn" class="btn btn-primary btn-block">Attack</button>
+                            <button type="button" id="attBtn" class="btn btn-primary">Attack</button>
                         </div>
                         <div class="col-2">
-                            <button type="button" id="defBtn" class="btn btn-primary btn-block">Defense</button>
+                            <button type="button" id="defBtn" class="btn btn-primary">Defense</button>
                         </div>
-                        <div class="col-2 col-offset-1 text-right">
-                            <button type="button" id="ascBtn" class="icon-button"><span><i class="fas fa-arrow-up"></i></span></button>
+                        <div class="col-2 col-offset-1 text-left">
+                            <button type="button" id="ascBtn" class="icon-button"><span><i class="fas fa-arrow-alt-circle-up fa-2x"></i></span></button>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-2">
-                            <button type="button" id="spdBtn" class="btn btn-primary btn-block">Speed</button>
+                            <button type="button" id="lckBtn" class="btn btn-primary">Luck</button>
                         </div>
                         <div class="col-2">
-                            <button type="button" id="lckBtn" class="btn btn-primary btn-block">Luck</button>
+                            <button type="button" id="agiBtn" class="btn btn-primary">Agility</button>
                         </div>
                         <div class="col-2">
-                            <button type="button" id="agiBtn" class="btn btn-primary btn-block">Agility</button>
+                            <button type="button" id="spdBtn" class="btn btn-primary">Speed</button>
                         </div>
-                        <div class="col-2 col-offset-1 text-right">
-                            <button type="button" id="descBtn" class="icon-button"><span><i class="fas fa-arrow-down"></i></span></button>
+                        <div class="col-2 col-offset-1 text-left">
+                            <button type="button" id="descBtn" class="icon-button"><span><i class="fas fa-arrow-alt-circle-down fa-2x"></i></span></button>
                         </div>
                     </div>
                 </div>
@@ -70,92 +72,24 @@
             <div class="col-12 card-grid">
                 {% if cards is defined %}
                     {% for card in cards %}
-                {% set imagePath = char_card_dir~'/'~card.image_path %}
+                        {% set imagePath = char_card_dir~'/'~card.avatar.imagePath %}
                         {% if loop.index0 is divisible by (3) %}
                             {% if loop.index0 != 0 %}
                                 </div>
                             {% endif %}
                             <div class="row row-margin">
                         {% endif %}
-                        <div class="col-4 cardTier" id="{{ card.char_tier|replace({' ':''})|lower }}">
-                            <div class="row">
-                                <div class="col">
-                                    <h5 class="cardName">{{ card.char_name }}</h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <img src="{{ imagePath }}" class="img-thumbnail cardImage"
-                                         alt="{{ card.char_name }} character image" title="{{ card.char_name }}">
-                                </div>
-                                <div class="col-4">
-                                    <div class="row">
-                                        <div class="col-2">
-                                            <span class="cardRating">{{ card.rating }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-2">
-                                            <span class="cardType">{{ card.char_type }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-2">
-                                            <span class="cardClass">{{ card.char_class }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-2">
-                                    <span>HP</span>
-                                </div>
-                                <div class="col-2">
-                                    <span class="cardHitPoints">{{ card.hit_points }}</span>
-                                </div>
-                                <div class="col-2">
-                                    <span>SPD</span>
-                                </div>
-                                <div class="col-2">
-                                    <span class="cardSpeed">{{ card.speed }}</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-2">
-                                    <span>ATT</span>
-                                </div>
-                                <div class="col-2">
-                                    <span class="cardAttack">{{ card.attack }}</span>
-                                </div>
-                                <div class="col-2">
-                                    <span>LCK</span>
-                                </div>
-                                <div class="col-2">
-                                    <span class="cardLuck">{{ card.luck }}</span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-2">
-                                    <span>DEF</span>
-                                </div>
-                                <div class="col-2">
-                                    <span class="cardDefense">{{ card.defense }}</span>
-                                </div>
-                                <div class="col-2">
-                                    <span>AGI</span>
-                                </div>
-                                <div class="col-2">
-                                    <span class="cardAgility">{{ card.agility }}</span>
-                                </div>
-                            </div>
-                            <div>
-                                <i class="fas fa-money-bill-alt"> <span>{{ card.price }}</span></i>
+                        <div class="col-4">
+                            {{ macros.charCard(card, imagePath) }}
+                            {{ card.id }}
+                            <div class="text-center buy-options">
+                                <i class="fas fa-money-bill-alt">
+                                <span class="price">{{ card.price }}</span></i>
                                 {% if is_granted('ROLE_USER') %}
-                                <a class="btn btn-link btn-normal js-card-buy"
-                                data-url="{{ path('inventory_buy_char', {
-                                    card: card.id
-                                }) }}"
-                                >Buy</a>
+                                    <a class="btn btn-link btn-normal js-card-buy"
+                                       data-url="{{ path('inventory_buy_char', {
+                                           card: card.id
+                                       }) }}">Buy</a>
                                 {% endif %}
                             </div>
                         </div>
@@ -175,8 +109,14 @@
     <script src="{{ asset('build/js/card-catalog.js') }}" ></script>
 
     <script>
-
         $(document).ready(function () {
+            var tier = $('.character');
+            console.log(tier);
+
+            for(var i = 0; i < tier.length; i++) {
+                console.log(tier[i].classList);
+            }
+
             $('.js-card-buy').on('click', function (e) {
 
                 if(confirm_buy()) {
