@@ -60,8 +60,11 @@ class DynamicController extends Controller
         $profilePicturePath = $avatarDirectory.'/'.$userAvatar->getImagePath();
 
         // Calculate User's progress based on their current level and XP held
-        $xpNeeded = ProfileController::GetUserNextLevelXP($userStatObj);
-        $xpHeld = $userStatObj->getExperience();
+        $const = 1.3; // Exponential Modifier for Level Scale
+        $xpNeededNxt = (pow($userStatObj->getUserLevel() + 1, $const)) * 100;
+        $xpNeededCurr = (pow($userStatObj->getUserLevel(), $const)) * 100;
+        $xpNeeded = $xpNeededNxt - $xpNeededCurr;
+        $xpHeld = $xpNeededNxt - $userStatObj->getExperience();
         $userProgressionExperience = ($xpHeld / $xpNeeded) * 100;
 
         // Get User's Rank display
@@ -308,6 +311,7 @@ class DynamicController extends Controller
             $userStatObj = new UserStat();
             $userStatObj->setUser($user);
             $userStatObj->setUserLevel(1);
+            $userStatObj->setExperience(101);
             $userStatObj->setUserRank(1);
 
             $entityManager->persist($userStatObj);

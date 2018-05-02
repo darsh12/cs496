@@ -550,8 +550,7 @@ class BattleController extends AbstractController
         $firstHP = 0;
         $secondHP = 0;
         while($defIndex < 5 and $attIndex < 5) {
-            if($defIndex >= 5 || $attIndex >= 5)
-                return new Response("$defIndex , $attIndex");
+
             // Apply SPEED attribute modifier
             $defSpeed = $defChars[$defIndex]->getSpeed() + (($defAttrMod["spd"]/100) * $defChars[$defIndex]->getSpeed());
             $attSpeed = $attChars[$attIndex]->getSpeed() + (($attAttrMod["spd"]/100) * $attChars[$attIndex]->getSpeed());
@@ -633,7 +632,7 @@ class BattleController extends AbstractController
             if($firstHP <= 0) {
                 $firstHP = $firstChar->getHitPoints() + (($firstAttribute["hp"] / 100) * $firstChar->getHitPoints());
                 $baseFirstHP = $firstHP;
-                $battleReport .= $firstChar->getCharName()." takes the first turn against ".$secondChar->getCharName()."<\n";
+                $battleReport .= $firstChar->getCharName()." takes the first turn against ".$secondChar->getCharName()."\n";
                 $dont = false;
             }
             if($secondHP <= 0) {
@@ -760,9 +759,9 @@ class BattleController extends AbstractController
         }
 
         if($defIndex >= 5)
-            $winner = $defender;
-        elseif($attIndex >= 5)
             $winner = $attacker;
+        elseif($attIndex >= 5)
+            $winner = $defender;
 
         $userStat = $manager->getRepository(UserStat::class)->findOneBy(["user" => $user]);
 
@@ -831,15 +830,18 @@ class BattleController extends AbstractController
         $manager->flush();
 
         // Check for level up
-        $level = $userStat->getUserLevel() + 1;
-        $const = 0.6;
-        $xpNeeded = (pow($level, $const) * 100 );
+        $lvlsGained = ProfileController::GetUserNextLevelXP($userStat);
         $levelUpText = "";
-        if($userStat->getExperience() >= $xpNeeded) {
-            $userStat->setUserLevel($level+1);
+        if($lvlsGained !== 0) {
+            $userStat->setUserLevel($userStat->getUserLevel() + $lvlsGained);
             $manager->flush();
             $levelUpText = "You gained a level! You are now level ".$userStat->getUserLevel();
         }
+//        if($userStat->getExperience() >= $xpNeeded) {
+//            $userStat->setUserLevel($userStat->getUserLevel() + 1);
+//            $manager->flush();
+//            $levelUpText = "You gained a level! You are now level ".$userStat->getUserLevel();
+//        }
 
 
         // Stretch
@@ -995,12 +997,10 @@ class BattleController extends AbstractController
         $manager->flush();
 
         // Check for level up
-        $level = $userStat->getUserLevel() + 1;
-        $const = 0.6;
-        $xpNeeded = (pow($level, $const) * 100 );
+        $lvlsGained = ProfileController::GetUserNextLevelXP($userStat);
         $levelUpText = "";
-        if($userStat->getExperience() >= $xpNeeded) {
-            $userStat->setUserLevel($level+1);
+        if($lvlsGained !== 0) {
+            $userStat->setUserLevel($userStat->getUserLevel() + $lvlsGained);
             $manager->flush();
             $levelUpText = "You gained a level! You are now level ".$userStat->getUserLevel();
         }

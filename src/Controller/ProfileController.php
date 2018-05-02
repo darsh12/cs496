@@ -248,18 +248,30 @@ class ProfileController extends Controller
     //////////////////////////////
 
     ////////////////////////
-    // Returns the number of experience points needed to gain the user's next level
+    // Returns number to be added to user's current level to represent a level up
     // Use this function to check if User can level up after receiving new XP
     // Usage: 'ProfileController::GetUserNextLevelXP($obj)'
     ////////////////////////
     public static function GetUserNextLevelXP(UserStat $userStatObj) {
 
-        $approachingLvl = $userStatObj->getUserLevel() + 1;
-        $const = 0.6; // Exponential Modifier for Level Scale
-        $xpNeeded = (pow($approachingLvl, $const)) * 100;
+        $userLevel = $userStatObj->getUserLevel();
+        $userXP = $userStatObj->getExperience();
 
-        return $xpNeeded;
+        $const = 1.3; // Exponential Modifier for Level Scale
 
+        $xpNeededLvl = 0;
+        $i = $xpNeededLvl;
+        while(true) {
+            $xpNeeded = (pow($userLevel + $i, $const)) * 100;
+            if($userXP < $xpNeeded) {
+                return $xpNeededLvl;
+            } else {
+                $xpNeededLvl = $i;
+                $i++;
+            }
+        }
+
+        return $xpNeededLvl;
     }
 
     // Returns string giving player's rank - e.g. 'Bronze II'
@@ -300,7 +312,7 @@ class ProfileController extends Controller
         $xpArray = [];
         for($i = 0; $i < 150; $i++) {
             $level = $i;
-            $const = 0.6;
+            $const = 1.3;
             $xpNeeded = (pow($level, $const) * 100 ) . " points needed";
             array_push($xpArray, "$level : $xpNeeded");
         }
