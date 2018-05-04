@@ -24,6 +24,8 @@
             <li onclick="location.href='{{ path('app_history-ajax', {'type':'worst'}) }}'">WORST BATTLE</li>
         {% endif %}
 
+        <li onclick="getDynamicHistoryContent(this, 'history_container', '{{ path("app_history-ajax", {"type":"all"}) }}')">ALL BATTLES</li>
+
     </ul>
 {% endblock %}
 

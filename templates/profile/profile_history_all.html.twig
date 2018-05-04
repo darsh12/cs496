@@ -1,13 +1,20 @@
-{#{% macro battleHistoryAll(battle, opponent, result, ) %}#}
-    {#<div data-value="{{ battle.id }}" class="history_item">#}
-        {#<label>{{ opponent }}</label>#}
-        {#<label>{{ battle.time|date('m/d/Y') }}</label>#}
-        {#<label>{{ result }}</label>#}
-    <div data-value="1" class="history_item" onclick="getBattleHistory(this)">
-        <label>SnoopDog420</label>
-        <label>4/20/18</label>
-        <label>WIN</label>
-        &nbsp;&nbsp;<i class="fa fa-caret-right"></i>
-    </div>
-    <div class="history_item_content" ></div>
-{#{% endmacro %}#}
+{% import "macros/battle_history_all.html.twig" as macros %}
+
+{% for battle in battles %}
+
+     {#Get Winner#}
+    {% if battle.winner == app.user %}
+        {% set result = 'WIN' %}
+    {% else %}
+        {% set result = 'LOSE' %}
+    {% endif %}
+
+     {#Get Opponent #}
+    {% if battle.request.attacker == app.user %}
+        {% set opponent = battle.request.defender %}
+    {% else %}
+        {% set opponent = battle.request.attacker %}
+    {% endif %}
+
+    {{ macros.battleHistoryAll(battle, opponent, result) }}
+{% endfor %}

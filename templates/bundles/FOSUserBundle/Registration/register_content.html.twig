@@ -1,6 +1,6 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-<h1 align="center">Registration Page</h1>
+<h1 align="center">Registration</h1>
 
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
     {{ form_widget(form) }}
@@ -9,7 +9,7 @@
         <input class="btn btn-primary" type="submit" value="{{ 'registration.submit'|trans }}"/>
     </div>
 
-    <div class="col">
+    <div class="col text-right">
         <a href="{{ path('app_homepage') }}">
             <button class="btn btn-danger" type="button">Cancel</button>
         </a>
@@ -20,7 +20,7 @@
 
 <div class="col" align="center">
     <a href="{{ path('fos_user_security_login') }}">
-        <button align="center" class="btn btn-dark" type="button">Login here</button>
+        <button align="center" class="btn btn-dark" type="button">Login</button>
     </a>
 </div>
 

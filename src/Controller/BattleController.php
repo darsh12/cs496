@@ -429,7 +429,6 @@ class BattleController extends AbstractController
         // END VALIDATION /////////////////////////////
         ///////////////////////////////////////////////
 
-        // TODO: Logic to determine winner and build report will go here
 
         // Calculate average of Utility Card Attribute Modifiers
 
@@ -837,14 +836,12 @@ class BattleController extends AbstractController
             $manager->flush();
             $levelUpText = "You gained a level! You are now level ".$userStat->getUserLevel();
         }
-//        if($userStat->getExperience() >= $xpNeeded) {
-//            $userStat->setUserLevel($userStat->getUserLevel() + 1);
-//            $manager->flush();
-//            $levelUpText = "You gained a level! You are now level ".$userStat->getUserLevel();
-//        }
 
 
         // Stretch
+        // TODO: update battle report look
+        // TODO: player ranking
+        // TODO: update card defeats and kills
         // TODO: set fav/worst cards if initial battle
         // TODO: check for updates to fav/worst battles/cards
 

@@ -64,6 +64,14 @@ class CustomCardRepository extends ServiceEntityRepository
             ->getSingleResult();
     }
 
+    public function findOneCardByUser($userId) {
+        return $this->createQueryBuilder('cc')
+            ->where('cc.user = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getSingleResult();
+    }
+
     public function findAllCardsSortByVotePercDesc() {
         return $this->createQueryBuilder('cc')
             ->addOrderBy('cc.vote_perc', 'DESC')

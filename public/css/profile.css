@@ -216,7 +216,7 @@
     box-shadow: 0 1px 5px 1px black;
     border-radius: 0 0 10px 10px;
     background-color: #FFFFFF;
-    width: 37%;
+    width: 40%;
     margin: 0 auto 2% auto;
     text-align: center;
 }
@@ -268,15 +268,43 @@
 }
 
 .battle_report {
+    font-size: .7em;
+    overflow-y: auto;
     max-width: 15%;
     position: fixed;
     padding: 1%;
     border-radius: 10px;
-     margin-top: 4%;
+    /*margin-top: 4%;*/
     height: 380px;
     background-color: #FFFFFF;
     text-align: center;
     width: inherit;
+}
+
+.battle_report.history {
+    position: unset;
+    max-width: 100%;
+}
+
+.history_header.history {
+    position: unset;
+    max-width: 100%;
+}
+
+.battle_report.report_expand {
+    font-size: 1em;
+    right: 30%;
+    top: 28%;
+    position: fixed;
+    max-width: 40%;
+    z-index: 1;
+}
+
+.expand_label {
+    text-align: center;
+    margin: 0;
+    width: 100%;
+    font-size: .9em;
 }
 
 /* Collapsible Card CSS*/
