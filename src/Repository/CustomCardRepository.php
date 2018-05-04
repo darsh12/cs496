@@ -61,7 +61,7 @@ class CustomCardRepository extends ServiceEntityRepository
             ->where('cc.dateCreated = :cardDateTime')
             ->setParameter('cardDateTime', $cardDateTime)
             ->getQuery()
-            ->getSingleResult();
+            ->getOneOrNullResult();
     }
 
     public function findOneCardByUser($userId) {
@@ -69,7 +69,7 @@ class CustomCardRepository extends ServiceEntityRepository
             ->where('cc.user = :userId')
             ->setParameter('userId', $userId)
             ->getQuery()
-            ->getSingleResult();
+            ->getOneOrNullResult();
     }
 
     public function findAllCardsSortByVotePercDesc() {
