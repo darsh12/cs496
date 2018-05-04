@@ -291,6 +291,15 @@ class CustomCardController extends Controller
      */
     public function createCustomCard(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
+        $user=$this->getUser();
+        $customCardUser = $em->getRepository(CustomCard::class)->findOneCardByUser($user->getId());
+
+        if($customCardUser) {
+            $this->addFlash('error', 'You can only create one custom card at a time');
+            return $this->redirectToRoute('show_user_cards');
+        }
+
         $user = $this->getUser();
         date_default_timezone_set('America/Chicago');
         $currDateTime = new \DateTime();
@@ -308,7 +317,7 @@ class CustomCardController extends Controller
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+//            $entityManager = $this->getDoctrine()->getManager();
 
             $customCard = $form->getData();
 
@@ -332,8 +341,8 @@ class CustomCardController extends Controller
             $customCard->setCharTier($this->setCustomCardTier($cardRating));
             $customCard->setDateCreated($currDateTime);
 
-            $entityManager->persist($customCard);
-            $entityManager->flush();
+            $em->persist($customCard);
+            $em->flush();
 
             return $this->showCustomCardSuccess($customCard->getDateCreated());
         }
