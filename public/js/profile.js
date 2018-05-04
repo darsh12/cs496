@@ -55,15 +55,26 @@ function getBattleHistory(item) {
 
     $.ajax({
         // Using dynamic urls for now, may change if not secure enough
-        url: 'history/'+battleID,
+        url: '../history/'+battleID,
         // Successful Retrieval
         success:function(data)
         {
-            $(item).siblings(".history_item_content").html(data);
+            $(".history_item_content").html("");
+            $(item).next(".history_item_content").html(data);
+            $(".battle_report").addClass("history");
+            $(".battle_report").prev(".history_header").addClass("history");
+            $(".col-3").attr("class", "col-2");
         },
         // Failed Retrieval
         error: function(data)
         {
         }
     });
+}
+
+function toggleReportExpand(report) {
+    if($(report).hasClass("report_expand"))
+        $(report).removeClass("report_expand")
+    else
+        $(report).addClass("report_expand")
 }
