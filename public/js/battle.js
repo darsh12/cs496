@@ -90,6 +90,12 @@ function beginRequest(element) {
         {
             $(".modal-body").html(data);
             // Fill dynamic Modal content
+
+            if(!$('#charDeck .js-deck-item').is(':visible') || !$('#utilDeck .js-deck-item').is(':visible')) {
+                alert('Must have at least one character deck and one utility deck built before attempting a battle');
+                window.location.href = "/user/decks";
+            }
+
             requestButton.attr("onclick", "sendRequest(this);");
             // requestButton.attr("data-dismiss", "modal");
             requestButton.html("Confirm Decks and Send Battle Request");
