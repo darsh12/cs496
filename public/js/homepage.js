@@ -6,25 +6,6 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
 
-// Appends rendered twig to container with given ID
-function getDynamicTwigContent(button, containerId, url) {
-
-    $.ajax({
-        // Using dynamic urls for now, may change if not secure enough
-        url: url,
-        // Successful Retrieval
-        success:function(data)
-        {
-            $("#"+containerId).append(data);
-        },
-        // Failed Retrieval
-        error: function(data)
-        {
-        }
-    });
-}
-
-
 // AJAX function for tabs
 function getDynamicTabContent(button) {
     

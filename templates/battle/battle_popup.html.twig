@@ -16,7 +16,7 @@
 <div style="width: 55%; float: right;">
 <h4 class="header-center">BATTLE STATISTICS</h4>
 <ul style="font-size: 1em;" class="stat_list">
-    <li style="margin-top: 17%;" ><label>WIN/LOSS</label>&nbsp&nbsp&nbsp&nbsp{{ user_stat.winLossRatio }}</li>
+    <li style="margin-top: 17%;" ><label>WIN/LOSS</label>&nbsp&nbsp&nbsp&nbsp{{ user_stat.matchesWon / user_stat.matchesLost }}</li>
     <li style="margin-top: 17%;" ><label>WINS</label>&nbsp&nbsp&nbsp&nbsp{{ user_stat.matchesWon }}</li>
     <li style="margin-top: 17%;" ><label>LOSSES</label>&nbsp&nbsp&nbsp&nbsp{{ user_stat.matchesLost }}</li>
     <li style="margin-top: 17%;" ><label>TOTAL</label>&nbsp&nbsp&nbsp&nbsp{{ total_matches }}</li>
