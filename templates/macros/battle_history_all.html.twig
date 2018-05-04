@@ -1,0 +1,14 @@
+{% macro battleHistoryAll(battle, opponent, result) %}
+    <div data-value="{{ battle.id }}" class="history_item" onclick="getBattleHistory(this)">
+        <label>{{ opponent }}</label>
+        <label>{{ battle.time|date('m/d/Y') }}</label>
+        {% if result == 'WIN' %}
+            {% set color = 'lightgreen' %}
+        {% else %}
+            {% set color = 'red' %}
+        {% endif %}
+        <label style="background-color: {{ color }}">{{ result }}</label>
+        <i class="fa fa-caret-right"></i>
+    </div>
+    <div class="history_item_content" ></div>
+{% endmacro %}

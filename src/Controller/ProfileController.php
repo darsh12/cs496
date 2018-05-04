@@ -7,6 +7,7 @@ use App\Entity\Battle;
 use App\Entity\BattleRequest;
 use App\Entity\UserStat;
 use App\Form\UserAvatarType;
+use App\Repository\BattleRequestRepository;
 use App\Service\FileUploader;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\UserBundle\Form\Type\ChangePasswordFormType;
@@ -134,6 +135,19 @@ class ProfileController extends Controller
             $defUtilDeck->getCard3()->getUtilCard()
         ];
 
+        if($type === "custom") {
+            // Return Call
+            return $this->render('profile/profile_history_one.html.twig', [
+                "battle" => $battle,
+                "battle_request" => $battleRequest,
+                "att_chars" => $attChars,
+                "att_utils" => $attUtils,
+                "def_chars" => $defChars,
+                "def_utils" => $defUtils,
+                "type" => $type
+            ]);
+        }
+
         // Return Call
         return $this->render('profile/profile_history.html.twig', [
             "battleRecordExists" => true,
@@ -199,11 +213,40 @@ class ProfileController extends Controller
         }
 
         // Render All battle history items
-        elseif($type !== "all") {
+        elseif($type === "all") {
             // TODO: Get all of user's battle records and sort based on date
 
+            $userBattles = [];
+
+            $userAttRequests = $manager
+                ->getRepository(BattleRequest::class)
+                ->findBy(["attacker" => $user ]);
+
+            $userDefRequests = $manager
+                ->getRepository(BattleRequest::class)
+                ->findBy(["defender" => $user ]);
+
+            $i = 0;
+            foreach ($userDefRequests as $defRequest) {
+                $prevDefBattle = $manager
+                    ->getRepository(Battle::class)
+                    ->findOneBy(["request" => $defRequest]);
+                $userBattles[$i] = $prevDefBattle;
+                $i++;
+            }
+
+            foreach ($userAttRequests as $attRequest) {
+                $prevAttBattle = $manager
+                    ->getRepository(Battle::class)
+                    ->findOneBy(["request" => $attRequest]);
+                $userBattles[$i] = $prevDefBattle;
+                $i++;
+            }
+
             // Return Call
-            return $this->render('profile/profile_history_all.html.twig');
+            return $this->render('profile/profile_history_all.html.twig', [
+                "battles" => $userBattles
+            ]);
         }
 
         // Render specific Battle History with slug ID
@@ -220,7 +263,13 @@ class ProfileController extends Controller
                     "type" => $type
                 ]);
             }
-            // TODO: validate that battle history viewed is one in which User was a part of
+
+            if($battle->getRequest()->getAttacker() !== $user and $battle->getRequest()->getDefender() !== $user) {
+                return $this->render('profile/profile_history.html.twig', [
+                    "battleRecordExists" => false,
+                    "type" => $type
+                ]);
+            }
 
             $battleRequest = $battle->getRequest();
 

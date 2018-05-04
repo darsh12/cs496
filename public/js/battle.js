@@ -17,8 +17,6 @@ function showCardPopup(element, type) {
         // Successful Retrieval
         success:function(data)
         {
-            //TODO: append card popup to proper position
-            // TODO: change styling of deck items for onclick (add dialog icon)
             $("#load_msg").remove();
             $("body").append(data);
             $(".card_popup").slideDown(600);

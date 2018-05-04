@@ -15,7 +15,6 @@
                  {#Chars#}
                 <div class="col">
                     {% for attChar in att_chars %}
-                        {# TODO: need to download card images or always retrieve them with only imagePath #}
                         {#{% set image = "images/avatars/" ~ attChar.avatar.imagePath %}#}
                         {% set imagePath = char_card_dir~'/'~ attChar.avatar.imagePath %}
                         {{ macros.charCard(attChar, imagePath) }}
@@ -34,15 +33,14 @@
 
          {#Battle Report#}
         <div class="col-3">
-            <div class="history_header" style="
-            max-width: 15%;
-            width: inherit;
-            position: fixed;
-        ">
+            <div style="width: 100%;" class="history_header">
                 <div>REPORT</div>
                 <div>{{ battle.time|date('m/d/Y') }}</div>
             </div>
-            <div class="battle_report">{{ battle.report }}</div>
+            <label class="expand_label">Click to Expand &nbsp;&nbsp;<i class="fas fa-external-link-alt"></i></label>
+            <div onclick="toggleReportExpand(this)" class="battle_report">
+                {{ battle.report|nl2br }}
+            </div>
         </div>
 
          {#Defender Info#}
@@ -73,4 +71,10 @@
             </div>
         </div>
     </div>
+    <script id="click_handler_script">
+        $(".character").click(collapseCard);
+        $(".utility").click(collapseCard);
+        decollapseAllCards();
+        $('#click_handler_script').remove();
+    </script>
 {% endmacro %}
