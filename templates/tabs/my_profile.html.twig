@@ -108,7 +108,11 @@
     <div class="profile_column">
         <h4 class="header-center">BATTLE STATISTICS</h4>
         <ul class="stat_list">
-            <li><label>WIN/LOSS</label>&nbsp&nbsp&nbsp&nbsp{{ user_stat.matchesWon / user_stat.matchesLost }}</li>
+            {% if user_stat.matchesLost != 0 %}
+            <li><label>WIN/LOSS</label>&nbsp&nbsp&nbsp&nbsp{{ ((user_stat.matchesWon / user_stat.matchesLost) * 100)|number_format(0) ~ '%' }}</li>
+            {% else %}
+            <li><label>WIN/LOSS</label>&nbsp&nbsp&nbsp&nbsp{{ '0%' }}</li>
+            {% endif %}
             <li><label>WINS</label>&nbsp&nbsp&nbsp&nbsp{{ user_stat.matchesWon }}</li>
             <li><label>LOSSES</label>&nbsp&nbsp&nbsp&nbsp{{ user_stat.matchesLost }}</li>
             <li><label>TOTAL</label>&nbsp&nbsp&nbsp&nbsp{{ total_matches }}</li>

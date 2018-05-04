@@ -184,16 +184,6 @@ class DynamicController extends Controller
 
     }
 
-
-    /**
-     * @Route("/inven",name="app_intory")
-     * @Security("has_role('ROLE_USER')")
-     */
-    public function inventory()
-    {
-        return $this->render('tabs/inventory.html.twig');
-    }
-
     /**
      * @Route("/battle",name="app_battle")
      * @Security("has_role('ROLE_USER')")
@@ -214,16 +204,6 @@ class DynamicController extends Controller
 
         return $this->render('tabs/battle.html.twig', ["otherUserStats" => $otherUserStats, 'sentBattles' => $sentBattles, 'receivedBattles' => $receivedBattles, 'userStats' => $userRepo, "rankNames" =>$rankNames]);
     }
-
-    /**
-     * @Route("/market",name="app_market")
-     * @Security("has_role('ROLE_USER')")
-     */
-    public function market()
-    {
-        return $this->render('tabs/market.html.twig');
-    }
-
 
     //////////////////////////////
     ///// HELPER METHODS /////////
