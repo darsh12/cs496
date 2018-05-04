@@ -103,6 +103,7 @@ class ProfileController extends Controller
     // Player's Battle History Page
     function battleHistory(ObjectManager $manager, Battle $battle, BattleRequest $battleRequest, String $type) {
 
+        //TODO: Handle custom type condition and render individual macro
         $defCharDeck = $battle->getDefendCharDeck();
         $defUtilDeck = $battle->getDefendUtilDeck();
         $attCharDeck = $battleRequest->getAttackerCharDeck();
@@ -196,11 +197,35 @@ class ProfileController extends Controller
             // Return default Battle History view
             return $this->battleHistory($manager, $worstBattle, $worstBattleRequest, "worst");
         }
-        // Render All battles
-        else {
+
+        // Render All battle history items
+        elseif($type !== "all") {
+            // TODO: Get all of user's battle records and sort based on date
 
             // Return Call
             return $this->render('profile/profile_history_all.html.twig');
+        }
+
+        // Render specific Battle History with slug ID
+        else {
+
+            $battle = $manager
+                ->getRepository(Battle::class)
+                ->find($type);
+
+            if(!$battle) {
+                // Return Call
+                return $this->render('profile/profile_history.html.twig', [
+                    "battleRecordExists" => false,
+                    "type" => $type
+                ]);
+            }
+            // TODO: validate that battle history viewed is one in which User was a part of
+
+            $battleRequest = $battle->getRequest();
+
+            // Return Call
+            return $this->battleHistory($manager, $battle, $battleRequest, "custom");
         }
 
 
@@ -223,18 +248,30 @@ class ProfileController extends Controller
     //////////////////////////////
 
     ////////////////////////
-    // Returns the number of experience points needed to gain the user's next level
+    // Returns number to be added to user's current level to represent a level up
     // Use this function to check if User can level up after receiving new XP
     // Usage: 'ProfileController::GetUserNextLevelXP($obj)'
     ////////////////////////
     public static function GetUserNextLevelXP(UserStat $userStatObj) {
 
-        $approachingLvl = $userStatObj->getUserLevel() + 1;
-        $const = 0.6; // Exponential Modifier for Level Scale
-        $xpNeeded = (pow($approachingLvl, $const)) * 100;
+        $userLevel = $userStatObj->getUserLevel();
+        $userXP = $userStatObj->getExperience();
 
-        return $xpNeeded;
+        $const = 1.3; // Exponential Modifier for Level Scale
 
+        $xpNeededLvl = 0;
+        $i = $xpNeededLvl;
+        while(true) {
+            $xpNeeded = (pow($userLevel + $i, $const)) * 100;
+            if($userXP < $xpNeeded) {
+                return $xpNeededLvl;
+            } else {
+                $xpNeededLvl = $i;
+                $i++;
+            }
+        }
+
+        return $xpNeededLvl;
     }
 
     // Returns string giving player's rank - e.g. 'Bronze II'
@@ -275,7 +312,7 @@ class ProfileController extends Controller
         $xpArray = [];
         for($i = 0; $i < 150; $i++) {
             $level = $i;
-            $const = 0.6;
+            $const = 1.3;
             $xpNeeded = (pow($level, $const) * 100 ) . " points needed";
             array_push($xpArray, "$level : $xpNeeded");
         }

@@ -48,3 +48,22 @@ function getDynamicHistoryContent(button, containerId, url) {
         }
     });
 }
+
+// Return battle history macro for history item
+function getBattleHistory(item) {
+    var battleID = $(item).attr("data-value");
+
+    $.ajax({
+        // Using dynamic urls for now, may change if not secure enough
+        url: 'history/'+battleID,
+        // Successful Retrieval
+        success:function(data)
+        {
+            $(item).siblings(".history_item_content").html(data);
+        },
+        // Failed Retrieval
+        error: function(data)
+        {
+        }
+    });
+}

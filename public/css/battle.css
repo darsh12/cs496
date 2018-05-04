@@ -1,10 +1,33 @@
-.card.js-deck-item.char_deck_current
-{
-   border: 2px solid red;
+.result_header {
+   margin: auto;
+   width: fit-content;
+   padding: 5%;
 }
 
-.card.js-deck-item.util_deck_current {
-   border: 2px solid orange;
+.rewards_list {
+   font-size: 1.5em;
+   background-color: #FFFFFF;
+   list-style: none;
+   border-radius: 10px;
+   padding: 2%;
+   width: fit-content;
+}
+
+
+.divider {
+   width: 100%;
+   background-color: black;
+   height: 0.5em;
+   border-radius: 10px;
+}
+
+.card.js-deck-item.char_deck_current, .card.js-deck-item:hover
+{
+   border: 5px solid red;
+}
+
+.card.js-deck-item.util_deck_current, .card.js-deck-item:hover {
+   border: 5px solid red;
 }
 
 .search_player
@@ -109,9 +132,9 @@
 .request_tab li {
    display: inline-block;
    vertical-align:top;
-   width: 30%;
+   width: fit-content;
    margin:0;
-   padding:0;
+   padding:1.1%;
 }
 
 .request_tab li:hover {

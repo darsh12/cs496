@@ -54,7 +54,7 @@ class BattleRequestRepository extends ServiceEntityRepository
             ->leftJoin('a.userStats', 's')
             ->leftJoin('u.battles', 'b')
             ->andWhere('u.attacker = :user')
-//            ->andWhere('b.request IS NULL')
+            ->andWhere('b.viewed = 0')
             ->setParameter('user', $user)
             ->addSelect('s.user_rank')
             ->addSelect('s.user_level')
